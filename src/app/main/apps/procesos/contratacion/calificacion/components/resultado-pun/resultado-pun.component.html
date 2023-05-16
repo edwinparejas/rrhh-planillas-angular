@@ -1,0 +1,37 @@
+<div class="content" mineduPerfectScrollbar>
+    <div class="content-table">
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                <ng-container matColumnDef="descripcion">
+                    <mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">DESCRIPCIÓN:</span> {{row?.descripcionCriterioCompleto}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="puntaje">
+                    <mat-header-cell *matHeaderCellDef>PUNTAJE</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">PUNTAJE:</span> {{row?.puntajeFinalCadena}}
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+                </mat-row>
+            </mat-table>
+        </div>
+        <br>
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="75%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="25%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+                <label class="label">PUNTAJE TOTAL: {{puntajeTotal}}</label>
+            </div>
+        </div>
+    </div>
+</div>

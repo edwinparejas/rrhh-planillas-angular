@@ -1,0 +1,283 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Postulantes</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/contratacion-directa/bandeja-postulantes/',idEtapaProceso]">Postulantes</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <div class="panel">
+                <minedu-informacion-proceso-etapa [idProcesoEtapa]="idEtapaProceso" [codSede]="codigoSede"></minedu-informacion-proceso-etapa>
+            </div>
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de Búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('tipoDocumento')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('tipoDocumento')">Tipo Documento</mat-label>
+                                        <mat-select formControlName="tipoDocumento" (selectionChange)="activarCampoNroDocumento()">
+					    <mat-option value="-1">--TODOS--</mat-option>
+                                            <mat-option *ngFor="let item of tipoDocumentos" [value]="item.id">
+                                                {{item.descripcion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('tipoDocumento')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento</mat-label>
+                                        <input 
+				         matInput 
+					 formControlName="numeroDocumentoIdentidad" 
+					 (keypress)="maxLengthnumeroDocumentoIdentidad == 8 ? validaNumericos($event):true"
+					 (keydown.enter)="handleBuscarPaginator()" 
+					 uppercase
+					 [maxlength]="maxLengthnumeroDocumentoIdentidad"/>
+					<button type="button" 
+						[disabled]="form.get('tipoDocumento').value==-1"
+						*ngIf="!form.get('numeroDocumentoIdentidad').invalid"
+						matSuffix mat-button mat-icon-button
+                                            (click)="busquedaPersonalizada($event)">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('numeroExpediente')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroExpediente')">Número de expediente</mat-label>
+                                        <input matInput formControlName="numeroExpediente" uppercase>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroExpediente')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('estado')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('estado')">Estado</mat-label>
+                                        <mat-select formControlName="estado">
+					    <mat-option value="-1">--TODOS--</mat-option>
+                                            <mat-option *ngFor="let item of estados" [value]="item.id">
+                                                {{item.descripcion | uppercase}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('estado')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="p-0" fxLayout="row">
+                        <button mat-raised-button (click)="handleLimpiar()">
+                            <span class="material-icons">clear</span>Limpiar</button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscarPaginator()">
+                            <span class="material-icons">search</span>Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="content" mineduPerfectScrollbar>
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                            <div mat-dialog-actions class="p-0" fxLayout="row" 
+				 *ngIf="controlesActivos.btnNuevoPostulante && modalPostulante.verBotones()">
+                                <button mat-raised-button color="primary" class="ml-4" (click)="handleNuevoPostulante()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons mr-4">add_circle</span>NUEVO
+                                </button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="controlesActivos.btnAprobarPostulantes && modalPostulante.verBotones()">
+                                <button mat-raised-button color="primary" class="ml-4" (click)="handleAprobarPostulantes()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons">check</span>APROBAR POSTULANTES
+                                </button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-stroked-button color="primary" class="ml-4" (click)="handleExportarPostulantes()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons">get_app</span>EXPORTAR
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="content-table">
+                                <mat-table 
+			             class="minedu-table" 
+				     #table 
+				     [dataSource]="dataSourcePostulantes" 
+				     [class.isMobile]="isMobile"
+                                     [@animateStagger]="{ value: '50' }">
+                                    <ng-container matColumnDef="registro">
+                                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <!-- <p>{{ i + 1 }}</p> -->
+                                            <p>{{ (i + 1)+((paginatorPostulantes.pageIndex)*paginatorPostulantes.pageSize) }}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="documento">
+                                        <mat-header-cell *matHeaderCellDef>Documento</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.numeroDocumentoCompleto }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="apellidos_nombres">
+                                        <mat-header-cell *matHeaderCellDef>Apellidos y Nombres</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.nombreCompleto }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="numero_expediente">
+                                        <mat-header-cell *matHeaderCellDef>Número de Expediente</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.numeroExpediente }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="codigo_plaza">
+                                        <mat-header-cell *matHeaderCellDef>Código Plaza</mat-header-cell>
+                                        <mat-cell class="mat-column-center" *matCellDef="let row; let i = index">
+                                            {{ row.codigoPlaza }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="centro_trabajo">
+                                        <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.centroTrabajo }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="modalidad_educativa">
+                                        <mat-header-cell *matHeaderCellDef>Modalidad Educativa</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.modalidad }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="nivel_educativo">
+                                        <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.nivelEducativo }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="tipo_plaza">
+                                        <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.tipoPlaza }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="estado">
+                                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+					    <p class="text-truncate badge" style="margin-bottom:0px;"[ngClass]="{
+						      'green-500':row.estadoPostulacion == 'REGISTRADO' , 
+						      'red-600':row.estadoPostulacion == 'ELIMINADO',
+						      'blue-600':row.estadoPostulacion == 'APROBADO'}">
+					    {{ row.estadoPostulacion | uppercase }}
+					    </p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fecha_aprobacion">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Aprobación</mat-header-cell>
+                                        <mat-cell class="mat-column-center" *matCellDef="let row; let i = index">
+                                            {{ row.fechaAprobacion }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <!-- row.codigoEstado != estado.ELIMINADO && -->
+                                            <div fxLayout="row" fxLayoutAlign="space-between center"
+						*ngIf="controlesActivos.btnEditarPostulante && row.codigoEstado==estado.REGISTRADO && row.idIteracion == this.modalPostulante.getIdFlujoEstado()">
+                                                <!-- <div style="padding-left: 10px;"></div> -->
+                                                <div class="mat-icon-table">
+                                                    <button 
+						     mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                            aria-label="Modificar" matTooltip="Modificar"
+                                                            (click)="editarPostulanteView(row)">
+                                                        <mat-icon class="">edit</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!-- row.codigoEstado != estado.ELIMINADO &&  -->
+                                            <div fxLayout="row" fxLayoutAlign="space-between center" 
+			     *ngIf="controlesActivos.btnEliminarPostulante && (row.codigoEstado != estado.ELIMINADO && row.codigoEstado != estado.APROBADO) && row.idIteracion == this.modalPostulante.getIdFlujoEstado()">
+                                                <!-- <div style="padding-left: 10px;"></div> -->
+                                                <div class="mat-icon-table">
+                                                    <button 
+						     mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                            aria-label="Eliminar postulante" matTooltip="Eliminar postulante"
+                                                            (click)="eliminarPlazaIncorporada(row, i)">
+                                                        <mat-icon style="color: red;" class="">delete</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!-- -->
+                                            <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="  row.codigoEstado == estado.ELIMINADO || row.codigoEstado == estado.APROBADO">
+                                                <!-- <div style="padding-left: 10px;"></div> -->
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                            aria-label="Ver información completa" matTooltip="Ver información completa"
+                                                            (click)="informacionPostulanteView(row)">
+                                                        <mat-icon class="">info</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumnsPostulantes; sticky: true"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumnsPostulantes" (mouseover)="row.hovered = true"
+                                        (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                                    </mat-row>
+                                </mat-table>
+                            <div class="no-results" *ngIf="!(dataSourcePostulantes.loading | async)" [style.display]="dataSourcePostulantes.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourcePostulantes.loading | async">
+                                pageSize
+                                <mat-spinner diameter="50"></mat-spinner>
+                            </div>
+                        </div>
+                            <mat-paginator #paginatorPostulantes class="mat-paginator-sticky" [length]="dataSourcePostulantes.dataTotal" fxLayoutAlign="center center"
+                                [pageIndex]="paginatorPostulantesPageIndex" [pageSize]="paginatorPostulantesPageSize"
+                                [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                            </mat-paginator>
+                            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" style="width: 100%" *ngIf=" dataSourcePostulantes?.dataTotal > 0">
+                                <div mat-dialog-actions class="p-10" fxLayout="row" style="margin-right: 12px; width: 98%">
+                                    <span style="font-weight: bold">Total postulantes:
+                                        {{ dataSourcePostulantes?.dataTotal }}</span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

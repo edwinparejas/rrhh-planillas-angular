@@ -1,0 +1,150 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Vinculaciones vigentes</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-24 pb-0 m-0">
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <div class="content">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <span class="label">{{descripcion}}</span>
+                </div>
+            </div>
+            <br>
+            <div ngClass.lt-lg="scroll-grid-lt-lg">
+                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>Sel.</th>
+                        <td mat-cell *matCellDef="let row;">
+                            <mat-radio-button (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                            </mat-radio-button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="instancia">
+                        <th mat-header-cell *matHeaderCellDef>Instancia</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.instancia}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="subinstancia">
+                        <th mat-header-cell *matHeaderCellDef>Subinstancia</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.subinstancia}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="centroTrabajo">
+                        <th mat-header-cell *matHeaderCellDef>Centro de trabajo</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.centroTrabajo}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="modalidadEducativa">
+                        <th mat-header-cell *matHeaderCellDef>Modalidad Educativa</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.modalidadEducativa}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="nivelEducativo">
+                        <th mat-header-cell *matHeaderCellDef>Nivel Educativo</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.nivelEducativo}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="codigoPlaza">
+                        <th mat-header-cell *matHeaderCellDef>Código de plaza</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.codigoPlaza}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="tipoPlaza">
+                        <th mat-header-cell *matHeaderCellDef>Tipo de plaza</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.tipoPlaza}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="regimenLaboral">
+                        <th mat-header-cell *matHeaderCellDef>Régimen Laboral</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.regimenLaboral}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="condicionLaboral">
+                        <th mat-header-cell *matHeaderCellDef>Condición Laboral</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.condicionLaboral}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="situacionLaboral">
+                        <th mat-header-cell *matHeaderCellDef>Situación Laboral</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.situacionLaboral}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="cargo">
+                        <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.cargo}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="areaCurricular">
+                        <th mat-header-cell *matHeaderCellDef>Área Curricular</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.areaCurricular}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="especialidad">
+                        <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.especialidad}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="jornadaLaboral">
+                        <th mat-header-cell *matHeaderCellDef>Jornada Laboral</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.jornadaLaboral}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaInicio">
+                        <th mat-header-cell *matHeaderCellDef>Fecha Inicio</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.vigenciaInicio}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaFin">
+                        <th mat-header-cell *matHeaderCellDef>Fecha Fin</th>
+                        <td mat-cell *matCellDef="let row;">
+                            {{row.vigenciaFin}}
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+            </div>
+            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                No se encontraron registros
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center"
+        fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleSeleccionar()"><span
+                class="material-icons">check_circle</span> SELECCIONAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </mat-dialog-actions>
+</div>

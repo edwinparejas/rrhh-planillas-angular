@@ -1,0 +1,338 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <form [formGroup]="form" *ngIf="!working">
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos personales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+    
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Documento de identidad</label><br>
+                                <span class="label-normal">{{falta?.numeroDocumentoIdentidad}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Primer apellido</label><br>
+                                <span class="label-normal">{{falta?.primerApellido}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Segundo apellido</label><br>
+                                <span class="label-normal">{{falta?.segundoApellido}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Nombres</label><br>
+                                <span class="label-normal">{{falta?.nombres}}</span>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+              
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Estado civil</label><br>
+                                <span class="label-normal">{{falta?.estadoCivil}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Sexo</label><br>
+                                <span class="label-normal">{{falta?.genero}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Fecha nacimiento</label><br>
+                                <span class="label-normal">{{falta?.fechaNacimiento | date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label"> </label><br>
+                                <span class="label-normal"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </fieldset>
+    
+    
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos laborales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+    
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Código de plaza</label><br>
+                                <span class="label-normal">{{falta?.codigoPlaza}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Centro de trabajo</label><br>
+                                <span class="label-normal">{{falta?.descripcionInstitucionEducativa}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Modalidad</label><br>
+                                <span class="label-normal">{{falta?.descripcionModalidadEducativa}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Nivel de educación</label><br>
+                                <span class="label-normal">{{falta?.descripcionNivelEducativo}}</span>
+                            </div>
+                        </div>
+                         
+                    </div>
+                </div> 
+    
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+    
+                       
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Régimen laboral</label><br>
+                                <span class="label-normal">{{falta?.abreviaturaRegimenLaboral}}</span>
+                            </div>
+                        </div>
+                         
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Categoría renumerativa</label><br>
+                                <span class="label-normal">{{falta?.descripcionCategoriaRemunerativa}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Cargo</label><br>
+                                <span class="label-normal">{{falta?.descripcionCargo}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Jornada laboral</label><br>
+                                <span class="label-normal">{{falta?.jornadaLaboral}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> 
+     
+            </fieldset>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Detalle de la falta</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+    
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Tipo de falta</label><br>
+                                <span class="label-normal">{{falta?.descripcionTipoFalta}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Detalle de falta</label><br>
+                                <span class="label-normal">{{falta?.descripcionDetalleFalta}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Fecha de aviso</label><br>
+                                <span class="label-normal">{{falta?.fechaAviso | date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+                       
+    
+                    </div>
+                </div> 
+    
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Plazo de descargo</label><br>
+                                <span class="label-normal">{{falta?.idPlazoDescargo}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Observaciones</label><br>
+                                <span class="label-normal">{{falta?.observaciones}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </fieldset>
+
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Registrar sanción</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('codigoResolucion')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('codigoResolucion')">N° resolución
+                            </mat-label>
+                            <input matInput formControlName="codigoResolucion" placeholder="Número de documento"
+                                maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                (keyup.enter)="buscarResolucion()">
+                            <mat-icon matSuffix class="icon-cursor" (click)="buscarResolucion()">search
+                            </mat-icon>
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('codigoResolucion')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Tipo resolución</label><br>
+                                <span class="label-normal">{{resolucion?.tipoResolucion}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Fecha resolución</label><br>
+                                <span class="label-normal">{{resolucion?.fechaResolucion | date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Documento adjunto</label><br>
+                                <button  *ngIf="existePDFResolucion" mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                aria-label="Descargar resolución" matTooltip="Descargar resolución" (click) ="descargarResolucion()">
+                                <mat-icon class="">picture_as_pdf</mat-icon>
+                            </button>
+                               
+                            </div>
+                        </div>
+
+                    </div>
+                </div> 
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Acción</label><br>
+                                <span class="label-normal">{{resolucion?.motivoAccion}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Motivo de sanción</label><br>
+                                <span class="label-normal">{{resolucion?.motivoSancion}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Fecha inicio</label><br>
+                                <span class="label-normal">{{resolucion?.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Fecha término</label><br>
+                                <span class="label-normal">{{resolucion?.fechaFin | date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                </div> 
+                
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Año(s)</label><br>
+                                <span class="label-normal">{{resolucion?.anio}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Mes(es)
+                                </label><br>
+                                <span class="label-normal">{{resolucion?.meses}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">  Día(s)</label><br>
+                                <span class="label-normal">{{resolucion?.dias}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('observaciones')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('observaciones')">Observaciones
+                            </mat-label>
+                            <textarea matInput formControlName="observaciones" placeholder="observaciones" rows="2"
+                                maxlength="400">
+                    </textarea>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('observaciones')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+
+             
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="handleSave(form)"><span class="material-icons">save</span>
+            GUARDAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

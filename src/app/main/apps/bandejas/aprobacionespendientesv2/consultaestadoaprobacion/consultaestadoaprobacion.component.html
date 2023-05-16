@@ -1,0 +1,334 @@
+
+<div class="content">
+    <div fxLayout="column" class="pl-2 pr-2">
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxFlex="50%">
+                    <h3 class="titulo">Histórico de aprobación</h3>
+                </div>
+                <div fxFlex="50%">
+                    <ol class="breadcrumb pull-right">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/plazas/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active">Histórico de aprobación</li>
+                        </ol>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-body">
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Solicitante</legend>
+                    <form >
+                      
+                        <div fxLayout="row" fxLayout.lt-md="column" class="marginDiv">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Módulo</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcionModulo">
+                                        {{aprobacion.descripcionModulo }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcionModulo">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Régimen Laboral</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcionRegimenLaboral">
+                                        {{aprobacion.descripcionRegimenLaboral }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcionRegimenLaboral">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Tipo Proceso</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcioTipoProceso">
+                                        {{aprobacion.descripcioTipoProceso }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcioTipoProceso">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Etapa</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.nivelAprobacion">
+                                        {{aprobacion.nivelAprobacion }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.nivelAprobacion">--NINGUNO--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" class="marginDiv">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Funcionalidad</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcionFuncionalidad">
+                                        {{aprobacion.descripcionFuncionalidad }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcionFuncionalidad">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Instancia</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.instanciaSolicitante">
+                                        {{aprobacion.instanciaSolicitante }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.instanciaSolicitante">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Sub Instancia</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.subinstanciaSolicitante">
+                                        {{aprobacion.subinstanciaSolicitante }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.subinstanciaSolicitante">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Nivel Educativo</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcionNivelEducativo">
+                                        {{aprobacion.descripcionNivelEducativo }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcionNivelEducativo">--NINGUNO--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" class="marginDiv">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Rol que solicita</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcionRolPassport">
+                                        {{aprobacion.descripcionRolPassport }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcionRolPassport">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+                                    <label><strong>Tipo de centro de Trabajo que solicita</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.descripcionTipoSede">
+                                        {{aprobacion.descripcionTipoSede }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.descripcionTipoSede">--NINGUNO--</p>
+                                </div>
+                                
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Centro de Trabajo</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.institucionEducativa">
+                                        {{aprobacion.institucionEducativa }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.institucionEducativa">--NINGUNO--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" class="marginDiv">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Documento Solicitante</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.documentoSolictante">
+                                        {{aprobacion.documentoSolictante }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.documentoSolictante">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+                                    <label><strong>Apellidos y Nombres</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.nombreApellidosSolictante">
+                                        {{aprobacion.nombreApellidosSolictante }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.nombreApellidosSolictante">--NINGUNO--</p>
+                                </div>
+                                
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Fecha y hora solicitud</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.fechaSolicitud">
+                                        {{aprobacion.fechaSolicitud | date:'d-MM-yyyy  HH:mm:ss'}}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.fechaSolicitud">--NINGUNO--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" class="marginDiv">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Estado</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.estadoAprobacion">
+                                        {{aprobacion.estadoAprobacion }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.estadoAprobacion">--NINGUNO--</p>
+                                </div>
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+                                    <label><strong>Fecha y hora aprobación / rechazo</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.fechaRechazo">
+                                        {{aprobacion.fechaRechazo  | date:'dd-MM-yyyy  HH:mm:ss'}}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.fechaRechazo">--NINGUNO--</p>
+                                </div>
+                                
+
+                                <div class="div-labelTexto" appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <label><strong>Motivo rechazo</strong></label>
+                                    <p class="form-control-static parrafo" *ngIf="aprobacion.motivoRechazo">
+                                        {{aprobacion.motivoRechazo }}
+                                    </p>
+                                    <p class="form-control-static parrafo" *ngIf="!aprobacion.motivoRechazo">--NINGUNO--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </fieldset>
+
+           
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Aprobación</legend>
+                    <form >
+                      
+                     
+                            <div class="content-table" ngClass.lt-lg="scroll-grid">
+                                <table mat-table class="minedu-table" [dataSource]="dataSource">
+    
+                                    <ng-container matColumnDef="nivel">
+                                        <th mat-header-cell *matHeaderCellDef>Nivel
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.nivel}}</p>
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="descripcionAlcance">
+                                        <th mat-header-cell *matHeaderCellDef>Alcance aprobación
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.descripcionAlcance}}</p>
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="descripcionRolPassport">
+                                        <th mat-header-cell *matHeaderCellDef>Rol Aprobación
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.descripcionRolPassport}}</p>
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="instanciaSolicitante">
+                                        <th mat-header-cell *matHeaderCellDef> Instancia
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.instanciaSolicitante}}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="subinstanciaSolicitante">
+                                        <th mat-header-cell *matHeaderCellDef>Sub Instancia
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.subinstanciaSolicitante}}</p>
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="institucionEducativa">
+                                        <th mat-header-cell *matHeaderCellDef>Centro de trabajo
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.institucionEducativa}}</p>
+                                        </td>
+                                    </ng-container>
+    
+                                    <ng-container matColumnDef="descripcionTipoSede">
+                                        <th mat-header-cell *matHeaderCellDef>Tipo Centro Trabajo
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.descripcionTipoSede}}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="estadoAprobacion">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Estado</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.estadoAprobacion" class="text-truncate badge" [ngClass]="{
+                                                'orange-500':row.estadoAprobacion == 'PENDIENTE' , 
+                                                'green-600':row.estadoAprobacion == 'APROBADO',
+                                                'red-500':row.estadoAprobacion == 'RECHAZADO'}">
+                                                {{row.estadoAprobacion}}
+                                            </p>
+                                            <p *ngIf="!row.estadoAprobacion" class="text-truncate badge" [ngClass]="'orange-500'">PENDIENTE</p>
+                                            
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="documentoAprobador">
+                                        <th mat-header-cell *matHeaderCellDef>Documento
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.documentoAprobador}}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="nombresApellidosAprobador">
+                                        <th mat-header-cell *matHeaderCellDef>Apellidos y Nombres
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.nombresApellidosAprobador}}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="fecha">
+                                        <th mat-header-cell *matHeaderCellDef>Fecha y Hora
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.fecha | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="motivoRechazo">
+                                        <th mat-header-cell *matHeaderCellDef>Motivo de rechazo
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{row.motivoRechazo}}</p>
+                                        </td>
+                                    </ng-container>
+    
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                        [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </tr>
+                                </table>
+    
+                                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                                    <div class="no-results" *ngIf="aprobacionNiveles.length === 0" [style.display]="aprobacionNiveles.length === 0 ? '' : 'none'">
+                                        No se encontraron aprobadores
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+
+                    </form>
+                </fieldset>
+
+                
+            </div>
+
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-0">
+                  
+                    <button mat-raised-button class="ml-4"  (click)="retornar()" >
+                        <span class="material-icons fa-lg">arrow_back</span>
+                        Retornar
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

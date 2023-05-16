@@ -1,0 +1,25 @@
+<div class="content">
+    <table mat-table class="minedu-table" [dataSource]="source.items">
+        <ng-container [matColumnDef]="item['field']" *ngFor="let item of definition.columns">
+            <th mat-header-cell *matHeaderCellDef> {{item.label}} </th>
+            <td mat-cell *matCellDef="let element; let rowIndex = dataIndex;">
+                <minedu-grilla-columna [rowIndex]="rowIndex" [colDef]="item" [element]="element"
+                    [template]="customTemplates[item['template']]">
+                </minedu-grilla-columna>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div class="no-results" *ngIf="!loading" [style.display]="source.items.length === 0 ? '' : 'none'">
+        No se encontraron registros
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+    <div>
+        <mat-paginator #paginator class="mat-paginator-sticky" [length]="source.total" fxLayoutAlign="center center"
+            [pageSize]="source.tamanioPagina" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

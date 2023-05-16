@@ -1,0 +1,9 @@
+<div *ngFor="let data of dataTable;let i = index" fxLayout="row" fxLayout.lt-md="column">
+    <div *ngFor="let detalle of data.dataObject;let a = index" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" style="padding-bottom: 5px;">
+        <div appearance="fill" fxFlex="100%" fxFlex.xs="100%">
+            <label><strong>{{detalle.etiquetaCampo}}</strong></label>
+            <br>
+            <span>{{detalle.valorCampoFormateado}}</span>            
+        </div>
+    </div>
+</div>

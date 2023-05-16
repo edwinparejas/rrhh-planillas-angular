@@ -1,0 +1,459 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="form">
+
+            <fieldset class="fieldset-border">
+                <legend>Datos personales y laborales</legend>
+                <div fxLayout="column" fxFlexAlign="flex-start">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0"
+                        *ngIf="divBusquedaPersona">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">Tipo de
+                                        documento
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoDocumentoIdentidad">
+                                        <mat-option *ngFor="let item of combo.tiposDocumentoIdentidad"
+                                            [value]="item.idCatalogoItem">
+                                            {{item.descripcionCatalogoItem}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="45%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="70%"
+                                    [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                        Número de documento
+                                    </mat-label>
+                                    <input matInput formControlName="numeroDocumentoIdentidad" [readonly] = "!form.get('idTipoDocumentoIdentidad').value"
+                                        (keydown.enter)="btnBuscarPersona($event)" [maxlength]="maxLenghtDocumento" uppercase>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <button type="button" mat-raised-button color="accent" [disabled]="form.get('numeroDocumentoIdentidad').invalid"
+                                    (click)="btnBuscarPersona($event)" fxFlex="30%" style="margin: 0.4em;">
+                                    <span class="material-icons">search</span> Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="mostrarDatos" fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0" >
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Documento</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.tipoDocumento">
+                                        {{miembroComite.tipoDocumento}} : {{miembroComite.numeroDocumentoIdentidad}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.tipoDocumento">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Primer apellido</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.primerApellido">
+                                        {{miembroComite.primerApellido}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.primerApellido">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Segundo apellido</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.segundoApellido">
+                                        {{miembroComite.segundoApellido}}</p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.segundoApellido">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Nombres</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.nombres">
+                                        {{miembroComite.nombres}}</p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.nombres">No registrado</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Fecha de nacimiento</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.fechaNacimiento">
+                                        {{miembroComite.fechaNacimiento | date: 'dd/MM/yyyy'}}</p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.fechaNacimiento">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Sexo</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.sexo">
+                                        {{miembroComite.sexo}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.sexo">No registrado</p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Cargo</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.cargo">
+                                        {{miembroComite.cargo}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.cargo">No registrado</p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            *ngIf="modal.action !=='info'">
+                            <div fxLayout.lt-sm="column" fxFlex="24%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('telefonoMovil')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('telefonoMovil')">Celular
+                                    </mat-label>
+                                    <input matInput formControlName="telefonoMovil" numbersOnly maxlength="9">
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('telefonoMovil')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout.lt-sm="column" fxFlex="24%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('email')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('email')">Correo electrónico
+                                    </mat-label>
+                                    <input matInput formControlName="email">
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('email')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" *ngIf="modal.action ==='info'">
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Celular</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.telefonoMovil">
+                                        {{miembroComite.telefonoMovil}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.telefonoMovil">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Correo Electrónico</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.email">
+                                        {{miembroComite.email}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.email">No registrado</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" *ngIf="modal.action !=='info'">
+                            <div fxFlex="100%" fxFlex.xs="100%">
+                                <input type="checkbox" formControlName="noTieneImpedimento">
+                                <mat-label [mineduFormRequiredLabel]="form.get('noTieneImpedimento')"> Se ha verificado que
+                                    la persona no cuenta con impedimento vigente para ser parte del comité según norma técnica
+                                </mat-label>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" style="padding-bottom: 10px;"
+                            *ngIf="modal.action ==='info'">
+                            <div fxFlex="100%" fxFlex.xs="100%">
+                                <input type="checkbox" [checked]="!miembroComite.tieneImpedimentoVigente" disabled>
+                                <mat-label> Se ha verificado que la persona no cuenta con
+                                    impedimento vigente para ser parte del comité según norma técnica
+                                </mat-label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+
+            <div *ngIf="mostrarDatos">
+                <fieldset class="fieldset-border">
+                    <legend>Datos del comité</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0" *ngIf="modal.action!=='info'">
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idNombreComite')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idNombreComite')">
+                                        Nombre de comité
+                                    </mat-label>
+                                    <mat-select formControlName="idNombreComite">
+                                        <mat-option [value]="" selected>--SELECCIONE--</mat-option>
+                                        <mat-option *ngFor="let item of combo.nombresComite"
+                                            [value]="item.idNombreComite">
+                                            {{item.descripcionNombreComite}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idNombreComite')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idTipoMiembroComite')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoMiembroComite')">
+                                        Tipo de miembro
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoMiembroComite">
+                                        <mat-option [value]="" selected>--SELECCIONE--</mat-option>
+                                        <mat-option *ngFor="let item of combo.tipoMiembroComite"
+                                            [value]="item.idTipoMiembroComite">
+                                            {{item.descripcionTipoMiembroComite}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idTipoMiembroComite')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0" *ngIf="modal.action==='info'">
+                            <div fxFlex="50%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Nombre Comité</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.nombreComite">
+                                        {{miembroComite.nombreComite}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.nombreComite">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="50%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Tipo de Miembro</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.tipoMiembroComite">
+                                        {{miembroComite.tipoMiembroComite}}</p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.tipoMiembroComite">No
+                                        registrado
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px"
+                            *ngIf="modal.action!=='info'">
+
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idCargoNombreComite')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idCargoNombreComite')">Cargo en el
+                                        comité
+                                    </mat-label>
+                                    <mat-select formControlName="idCargoNombreComite">
+                                        <mat-option [value]="" selected>--SELECCIONE--</mat-option>
+                                        <mat-option *ngFor="let item of combo.cargosComite"
+                                            [value]="item.idCargoNombreComite">
+                                            {{item.descripcionCargoNombreComite}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idCargoNombreComite')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idRepresentanteCargo')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idRepresentanteCargo')">
+                                        Representante
+                                    </mat-label>
+                                    <mat-select formControlName="idRepresentanteCargo">
+                                        <mat-option [value]="" selected>--SELECCIONE--</mat-option>
+                                        <mat-option *ngFor="let item of combo.representantesMiembroComite"
+                                            [value]="item.idRepresentanteCargo">
+                                            {{item.descripcionRepresentanteCargo}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idRepresentanteCargo')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0" *ngIf="modal.action==='info'">
+                            <div fxFlex="50%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Cargo en el comité</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.cargoNombreComite">
+                                        {{miembroComite.cargoNombreComite}}
+                                    </p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.cargoNombreComite">No
+                                        registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="50%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Representante Cargo</label>
+                                    <p class="form-control-static" *ngIf="miembroComite.representanteCargo">
+                                        {{miembroComite.representanteCargo}}</p>
+                                    <p class="form-control-static" *ngIf="!miembroComite.representanteCargo">No
+                                        registrado
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+                <div *ngIf="divSustento && modal.action !== 'info'">
+                    <fieldset class="fieldset-border">
+                        <legend>Motivo de Modificación</legend>
+                        <div fxLayout="column" fxFlexAlign="flex-start">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('motivoModificacion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('motivoModificacion')">
+                                            Motivo de la Modificación
+                                        </mat-label>
+                                        <textarea matInput formControlName="motivoModificacion"
+                                            placeholder="Motivo de la modificación" maxlength="400" matTextareaAutosize
+                                            [matAutosizeMinRows]="7" [matAutosizeMaxRows]="20"></textarea>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('motivoModificacion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <fieldset class="fieldset-border mt-0 mb-2">
+                                <legend>Documento de Sustento</legend>
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlexAlign="start start" fxLayoutGap="12px">
+                                    <div fxFlex="33%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('idTipoDocumento')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumento')">Tipo de
+                                                documento
+                                            </mat-label>
+                                            <mat-select formControlName="idTipoDocumento">
+                                                <mat-option *ngFor="let item of combo.tiposDocumento"
+                                                    [value]="item.idCatalogoItem">
+                                                    {{item.descripcionCatalogoItem}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('idTipoDocumento')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div fxFlex="33%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('numeroDocumento')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumento')">Número de
+                                                Documento
+                                            </mat-label>
+
+                                            <input matInput formControlName="numeroDocumento">
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('numeroDocumento')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div fxFlex="33%" fxFlex.xs="100%">
+                                        <minedu-single-file-input [mineduFormControl]="form.get('adjuntarDocumento')"
+                                            inputText="Adjuntar documento o arrastre aquí"
+                                            removeButtonLabel="Eliminar documento adjunto"
+                                            noFileText="Sin documento adjunto" (mineduUpload)="handleAdjunto($event)">
+                                        </minedu-single-file-input>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </fieldset>
+
+                </div>
+            </div>
+        </form>
+
+        <div *ngIf="mostrarDatos">
+            <p class="text-danger" *ngIf="modal.action !== 'info'">(*) Datos obligatorios</p>
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <div *ngIf="mostrarDatos">
+            <div *ngIf="modal.action === 'create'">
+                <minedu-button-save [mineduForm]="form" (mineduOnClick)="btnGuardar()" [working]="working">
+                </minedu-button-save>
+            </div>
+            <div *ngIf="modal.action === 'edit'">
+                <minedu-button-update [mineduForm]="form" (mineduOnClick)="btnModificar()" [working]="working">
+                </minedu-button-update>
+            </div>
+
+        </div>
+
+        <minedu-button-cancel *ngIf="modal.action !== 'info'" (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+        <button mat-raised-button *ngIf="modal.action === 'info'" (click)="handleCancelar()"><span class="material-icons">cancel</span> Cerrar</button>
+
+    </div>
+</div>

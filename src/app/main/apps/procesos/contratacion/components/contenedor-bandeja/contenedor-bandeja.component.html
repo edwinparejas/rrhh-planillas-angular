@@ -1,0 +1,43 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="minedu-contenedor-bandeja" mineduPerfectScrollbar>
+             <!-- Inicio Breadcrumb -->
+             <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">{{tituloBandeja}}</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li>
+				<a [routerLink]="['/ayni/personal/inicio']">
+				    <mat-icon color="accent" class="s-18">home</mat-icon>
+				    Inicio
+				</a>
+			    </li>
+                            <li class="active" *ngFor="let r of routerLinks">
+				<a [routerLink]="r.routerLink">
+				    {{r.text}}
+				</a>
+			    </li>
+			    <!--
+                            <li class="active">
+				<a [routerLink]="urlPrueba">
+				    Contratación
+				</a>
+			    </li>
+                            <li class="active">
+				<a [routerLink]="urlPrueba1">
+				Prepublicación
+				</a>
+			    </li>
+			    -->
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+	    <ng-content></ng-content>
+        </div>
+    </div>
+</div>

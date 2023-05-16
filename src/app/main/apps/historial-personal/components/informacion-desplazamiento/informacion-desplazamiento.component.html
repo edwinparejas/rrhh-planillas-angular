@@ -1,0 +1,429 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Ver Información Desplazamiento</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                <fieldset class="fieldset-border">
+                    <legend>Acción de Personal</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            
+                           
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Grupo de Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.grupoAccion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.accion}}</p>                                    
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.motivoAccion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+                <div class="nexus">
+                    <span class="h6 p-4 historialnexus">
+                        HISTORIAL NEXUS
+                    </span>
+                </div>
+
+                <br>
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos del Desplazamiento</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Número Resolución</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.numeroResolucion">
+                                        {{historial.detalleCabecera.numeroResolucion}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.numeroResolucion"> </p>            
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha Resolución</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.fechaResolucion">
+                                        {{historial.detalleCabecera.fechaResolucion}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.fechaResolucion"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha Inicio</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.fechaInicio">
+                                        {{historial.detalleCabecera.fechaInicio}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.fechaInicio"> </p>
+                                    
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">    
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha Fin</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.fechaFin">
+                                        {{historial.detalleCabecera.fechaFin}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.fechaFin"> </p>                                    
+                                </div>                            
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                            <div fxFlex="50%" >      
+                                <fieldset class="fieldset-border ng-tns-c382-17">
+                                    <legend>Datos de la plaza Origen</legend>
+                                    <div fxLayout="column">
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Codigo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.codigoPlazaOrigen">
+                                                        {{historial.detalleDesplazamiento.codigoPlazaOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.codigoPlazaOrigen"> </p>      
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Regimen Lboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.regimenLaboralOrigen">
+                                                        {{historial.detalleDesplazamiento.regimenLaboralOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.regimenLaboralOrigen"> </p>                                                    
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Centro de trabajo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.centroTrabajoOrigen">
+                                                        {{historial.detalleDesplazamiento.centroTrabajoOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.centroTrabajoOrigen"> </p>                                                       
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Modalidad educativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.modalidadEducativaOrigen">
+                                                        {{historial.detalleDesplazamiento.modalidadEducativaOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.modalidadEducativaOrigen"> </p>  
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Nivel Educativo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.nivelEducativaOrigen">
+                                                        {{historial.detalleDesplazamiento.nivelEducativaOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.nivelEducativaOrigen"> </p>  
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Area Curricular</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.areaCurricularOrigen">
+                                                        {{historial.detalleDesplazamiento.areaCurricularOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.areaCurricularOrigen"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.cargoOrigen">
+                                                        {{historial.detalleDesplazamiento.cargoOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.cargoOrigen"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Jornada Laboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.jornadaLaboralOrigen">
+                                                        {{historial.detalleDesplazamiento.jornadaLaboralOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.jornadaLaboralOrigen"> </p>                                                     
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.tipoCargoOrigen">
+                                                        {{historial.detalleDesplazamiento.tipoCargoOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.tipoCargoOrigen"> </p>  
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Categoria Remunerativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.categoriaRemunerativaOrigen">
+                                                        {{historial.detalleDesplazamiento.categoriaRemunerativaOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.categoriaRemunerativaOrigen"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.tipoPlazaOrigen">
+                                                        {{historial.detalleDesplazamiento.tipoPlazaOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.tipoPlazaOrigen"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Condición de plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.condicionPlazaOrigen">
+                                                        {{historial.detalleDesplazamiento.condicionPlazaOrigen}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.condicionPlazaOrigen"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </fieldset>
+                                
+                            </div>
+
+                            <div fxFlex="50%" >    
+                                <fieldset class="fieldset-border ng-tns-c382-17">
+                                    <legend>Datos de la plaza destino</legend>
+                                    <div fxLayout="column">
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Codigo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.codigoPlazaDestino">
+                                                        {{historial.detalleDesplazamiento.codigoPlazaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.codigoPlazaDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Regimen Lboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.regimenLaboralDestino">
+                                                        {{historial.detalleDesplazamiento.regimenLaboralDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.regimenLaboralDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Centro de trabajo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.centroTrabajoDestino">
+                                                        {{historial.detalleDesplazamiento.centroTrabajoDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.centroTrabajoDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Modalidad educativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.modalidadEducativaDestino">
+                                                        {{historial.detalleDesplazamiento.modalidadEducativaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.modalidadEducativaDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Nivel Educativo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.nivelEducativaDestino">
+                                                        {{historial.detalleDesplazamiento.nivelEducativaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.nivelEducativaDestino"> </p>                                                    
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Area Curricular</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.areaCurricularDestino">
+                                                        {{historial.detalleDesplazamiento.areaCurricularDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.areaCurricularDestino"> </p>    
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.cargoDestino">
+                                                        {{historial.detalleDesplazamiento.cargoDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.cargoDestino"> </p>                                                      
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Jornada Laboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.jornadaLaboralDestino">
+                                                        {{historial.detalleDesplazamiento.jornadaLaboralDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.jornadaLaboralDestino"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.tipoCargoDestino">
+                                                        {{historial.detalleDesplazamiento.tipoCargoDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.tipoCargoDestino"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Categoria Remunerativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.categoriaRemunerativaDestino">
+                                                        {{historial.detalleDesplazamiento.categoriaRemunerativaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.categoriaRemunerativaDestino"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.tipoPlazaDestino">
+                                                        {{historial.detalleDesplazamiento.tipoPlazaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.tipoPlazaDestino"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Condición de plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleDesplazamiento.condicionPlazaDestino">
+                                                        {{historial.detalleDesplazamiento.condicionPlazaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesplazamiento.condicionPlazaDestino"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </fieldset>                            
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+            </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+

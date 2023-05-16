@@ -1,0 +1,263 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos personales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de identidad</span><br>
+                            <span class="label-normal">{{sancion?.numeroDocumentoIdentidad}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer apellido</span><br>
+                            <span class="label-normal">{{sancion?.primerApellido}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo apellido</span><br>
+                            <span class="label-normal">{{sancion?.segundoApellido}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span><br>
+                            <span class="label-normal">{{sancion?.nombres}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Estado civil</span><br>
+                            <span class="label-normal">{{sancion?.estadoCivil}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span><br>
+                            <span>{{sancion?.genero}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha nacimiento</span><br>
+                            <span class="label-normal">{{sancion.fechaNacimiento | date: 'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label"> </span><br>
+                            <span class="label-normal"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos laborales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código de plaza</span><br>
+                            <span class="label-normal">{{sancion?.codigoPlaza}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Centro de trabajo</span><br>
+                            <span class="label-normal">{{sancion?.descripcionInstitucionEducativa}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Modalidad</span><br>
+                            <span class="label-normal">{{sancion?.descripcionModalidadEducativa}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nivel educativo</span><br>
+                            <span class="label-normal">{{sancion?.descripcionNivelEducativo}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                  
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Régimen laboral</span><br>
+                            <span class="label-normal">{{sancion?.abreviaturaRegimenLaboral}}</span>
+                        </div>
+                    </div>
+               
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label"> Categoría renumerativa</span><br>
+                            <span class="label-normal">{{sancion?.descripcionCategoriaRemunerativa}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cargo</span><br>
+                            <span class="label-normal">{{sancion?.descripcionCargo}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Jornada laboral</span><br>
+                            <span class="label-normal">{{sancion?.jornadaLaboral}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+  
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Detalle de sanción</legend>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de resolución</span><br>
+                            <span class="label-normal">{{sancion.fechaResolucion | date: 'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">N&deg; de resolución</span><br>
+                            <span class="label-normal">{{sancion?.codigoResolucion}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Acción</span><br>
+                            <span class="label-normal">{{sancion?.descripcionAccion}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Motivo sanción</span><br>
+                            <span class="label-normal">{{sancion?.desacripcionMotivoSancion}}</span>
+                        </div>
+                    </div>
+
+                  
+
+                </div>
+            </div> 
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de inicio</span><br>
+                            <span class="label-normal">{{sancion.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de término</span><br>
+                            <span  class="label-normal">{{sancion.fechaFin | date: 'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="16.5%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Año(s)</span><br>
+                            <span class="label-normal">{{sancion?.anios}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="16.5%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Mes(es)</span><br>
+                            <span class="label-normal">{{sancion?.meses}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="16.5%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Dia(s)</span><br>
+                            <span class="label-normal">{{sancion?.dias}}</span>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <!-- <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Origen</span><br>
+                            <span class="label-normal">{{sancion?.descripcionOrigen}}</span>
+                        </div>
+                    </div> -->
+                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Motivo de sanción</span><br>
+                            <span class="label-normal">{{sancion?.observaciones}}</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </fieldset>
+
+      
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button *ngIf="eliminado" color="warn" (click)="handleDelete()"><span
+                class="material-icons">delete_forever</span> ELIMINAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

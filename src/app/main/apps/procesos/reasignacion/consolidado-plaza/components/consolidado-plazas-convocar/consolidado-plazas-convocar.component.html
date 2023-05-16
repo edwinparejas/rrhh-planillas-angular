@@ -1,0 +1,131 @@
+<div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-0">
+        <div mat-dialog-actions class="p-0" fxLayout="row">
+            <button mat-stroked-button color="primary" (click)="handleExportar()" class="mt-4 mb-4"
+                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                <span class="material-icons">get_app</span>EXPORTAR
+            </button>
+        </div>
+    </div>
+    <div class="content" mineduPerfectScrollbar>
+        <div class="content-table">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                    [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                    <ng-container matColumnDef="registro">
+                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">N°:</span> {{row.numero_registro}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="codigoModular">
+                        <mat-header-cell *matHeaderCellDef>CÓDIGO MODULAR</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">CÓDIGO MODULAR:</span> {{row.codigo_modular}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="centroTrabajo">
+                        <mat-header-cell *matHeaderCellDef>CENTRO TRABAJO</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">CENTRO TRABAJO:</span> {{row.centro_trabajo}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="modalidad">
+                        <mat-header-cell *matHeaderCellDef>MODALIDAD</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">MODALIDAD:</span> {{row.modalidad}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="nivelEducativo">
+                        <mat-header-cell *matHeaderCellDef>NIVEL EDUCATIVO</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">NIVEL EDUCATIVO:</span> {{row.nivel_educativo}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="tipoGestion">
+                        <mat-header-cell *matHeaderCellDef>TIPO GESTIÓN</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">TIPO GESTIÓN:</span> {{row.tipo_gestion}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="codigoPlaza">
+                        <mat-header-cell *matHeaderCellDef>CÓDIGO PLAZA</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">CÓDIGO PLAZA:</span> {{row.codigo_plaza}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="cargo">
+                        <mat-header-cell *matHeaderCellDef>CARGO</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">CARGO:</span> {{row.cargo}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="areaCurricular">
+                        <mat-header-cell *matHeaderCellDef>ÁREA CURRICULAR</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">ÁREA CURRICULAR:</span> {{row.area_curricular}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="tipoPlaza">
+                        <mat-header-cell *matHeaderCellDef>TIPO PLAZA</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">TIPO PLAZA:</span> {{row.tipo_plaza}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="vigenciaInicio">
+                        <mat-header-cell *matHeaderCellDef>VIGENCIA INICIO</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">VIGENCIA INICIO:</span> {{row.vigencia_inicio}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="vigenciaFin">
+                        <mat-header-cell *matHeaderCellDef>VIGENCIA FIN</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">VIGENCIA FIN:</span> {{row.vigencia_fin}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="acciones">
+                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let  i = index;">
+                            <span class="mobile-label">ACCIONES:</span>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div style="padding-left: 10px;"></div>
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" aria-label="Ver información completa"
+                                        matTooltip="Ver información completa" (click)="handleViewInfo(row.id_plaza)">
+                                        <mat-icon class="">info</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                    </mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                        matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                    </mat-row>
+                </mat-table>
+            </div>
+            <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                No se encontraron registros
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">pageSize
+                <mat-spinner diameter="50"></mat-spinner>
+            </div>
+            <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex" fxLayoutAlign="center center"
+                [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div>
+                    <span class="label">Total de plazas a publicar: </span>
+                    <span class="label-normal">{{dataSource.totalregistro}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

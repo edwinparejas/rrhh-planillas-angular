@@ -1,0 +1,77 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0 mt-8">
+        <div fxLayout="column" fxFlexAlign="flex-start" *ngIf="modal.action==='info'">
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                fxLayoutGap.lt-md="0">
+                <div fxFlex="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Motivo en la modificación</label>
+                        <p class="form-control-static" *ngIf="miembroComite.motivoModificacion">
+                            {{miembroComite.motivoModificacion}}
+                        </p>
+                        <p class="form-control-static" *ngIf="!miembroComite.motivoModificacion">
+                            No registrado
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset class="fieldset-border mt-4 mb-2" *ngIf="miembroComite.tipoDocumentoSustento || miembroComite.numeroDocumento || miembroComite.codigoDocumentoSustento">
+                <legend>Documento de sustento</legend>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlexAlign="start start" fxLayoutGap="12px">
+
+                    <div fxFlex="33%" fxFlex.xs="100%" *ngIf="miembroComite.tipoDocumentoSustento">
+                        <div class="form-group">
+                            <label class="label" for="">Tipo de documento</label>
+                            <p class="form-control-static">
+                                {{miembroComite.tipoDocumentoSustento}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div fxFlex="33%" fxFlex.xs="100%" *ngIf="miembroComite.numeroDocumento">
+                        <div class="form-group">
+                            <label class="label" for="">Número de Documento</label>
+                            <p class="form-control-static">
+                                {{miembroComite.numeroDocumento}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div fxFlex="33%" fxFlex.xs="100%" *ngIf="miembroComite.codigoDocumentoSustento">
+                        <div class="form-group">
+                            <label class="label" for="">Documento adjunto</label>
+                            <p class="form-control-static">
+                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                    (click)="handleVerDocumentoSustento(miembroComite.codigoDocumentoSustento)"
+                                    aria-label="Ver sustento de modificación"
+                                    matTooltip="Ver sustento de modificación">
+                                    <mat-icon class="">picture_as_pdf</mat-icon>
+                                </button>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <p class="text-danger" *ngIf="modal.action !== 'info'">(*) Datos obligatorios</p>
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button *ngIf="modal.action === 'info'" (click)="handleCancelar()"><span class="material-icons">cancel</span> Cerrar</button>
+    </div>
+</div>

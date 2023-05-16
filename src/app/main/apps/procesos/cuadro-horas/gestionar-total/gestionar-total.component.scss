@@ -1,0 +1,95 @@
+
+
+.totalesFooter{
+    font-size: 15px; 
+    font-weight: bold; 
+}
+.form-group {
+    margin-bottom: 5px;
+}
+
+
+label {
+    font-weight: bold;
+}
+
+p {
+    margin: 6px 0;
+    color: rgba(0, 0, 0, .6);
+}
+
+servidorpublico-gestionar-total {
+    width: 100%!important;
+    .content {
+        width: 100%;
+        .label{
+            font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            padding-top: 0px!important; 
+            display: inline-block;
+            margin: 0px;
+        }
+        .label-normal{
+            font-family: "Roboto-regular", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            padding-bottom: 10px!important; 
+            display: inline-block;
+            margin: 0px;
+        }
+        .minedu-table {
+            .direccion {
+                position: relative;
+                cursor: pointer;               
+            }       
+            .mat-column-registro {
+                flex: 0 1 20px;
+                width: 20px;                
+            } 
+            
+            .mat-column-detail-button {
+                flex: 0 1 50px;
+                width: 50px;                
+            }      
+            .mat-column-entidad {
+                flex: 0 1 500px; 
+                max-width: 500px;               
+            }
+            .mat-column-numeroCertificado {
+                flex: 0 1 240px;  
+                max-width: 240px;              
+            }
+            .mat-column-fechaCertificado {
+                flex: 0 1 100px;      
+                width: 100px;          
+                text-align: center;
+            }
+            .mat-column-tipoDiscapacidad {
+                flex: 0 1 250px;    
+                max-width: 250px;            
+            }
+            .mat-column-gradoDiscapacidad {
+                flex: 0 1 250px;    
+                max-width: 250px;            
+            }
+        }
+    }
+    .profile-outer {
+        border-radius: 0.4em;
+        width: 112px;
+        height:115px;
+        .profile-inner { 
+            border-radius: 0.4em;
+            display:table-cell;
+            width: 112px;
+            height:115px;
+            vertical-align: middle;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                display: block;
+                margin: auto auto;
+                border-radius: 0.4em;
+              }
+          }
+      }
+}

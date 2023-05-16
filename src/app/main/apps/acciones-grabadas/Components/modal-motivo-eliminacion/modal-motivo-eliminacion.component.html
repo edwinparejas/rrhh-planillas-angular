@@ -1,0 +1,19 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Motivo de Eliminación</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <legend><strong> Detalle motivo de Eliminación</strong></legend>
+        <p>{{ detalleMotivo }}</p>
+    </mat-dialog-content>
+    <div mat-dialog-actions class="panel-footer m-0 pr-12" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">cancel</span> CERRAR
+        </button>
+    </div>
+</div>

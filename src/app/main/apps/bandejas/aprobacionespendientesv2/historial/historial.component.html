@@ -1,0 +1,98 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" class="titulo-dialog">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Histórico de Aprobaciones</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div class="panel">
+            <div class="panel-body">
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Histórico nivel - Instancia Aprobaciones</legend>
+                    <div class="content">
+
+                        <div class="content-table" ngClass.lt-lg="scroll-grid">
+                            <table mat-table class="minedu-table" [dataSource]="dataSource">
+
+                                <ng-container matColumnDef="registro">
+                                    <th mat-header-cell *matHeaderCellDef>Nro
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <p>{{row.registro}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="tipoUsuario">
+                                    <th mat-header-cell *matHeaderCellDef>Tipo Usuario
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <p>{{row.tipoUsuario}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="instancia">
+                                    <th mat-header-cell *matHeaderCellDef>Instancia
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <p>{{row.instancia || row.otraEntidad}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="subInstancia">
+                                    <th mat-header-cell *matHeaderCellDef>Sub Instancia
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <p>{{row.subInstancia || 'SIN REGISTRO'}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="usuario">
+                                    <th mat-header-cell *matHeaderCellDef>Usuario
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <p>{{row.numeroUsuario}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="rol">
+                                    <th mat-header-cell *matHeaderCellDef>Rol
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <p>{{row.rol}}</p>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                    [@animate]="{value:'*',params:{y:'100%'}}">
+                                </tr>
+                            </table>
+
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                                <div class="no-results" *ngIf="historial.length === 0"
+                                    [style.display]="historial.length === 0 ? '' : 'none'">
+                                    No se encontraron aprobadores
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="cancelar()"><span class="material-icons">block</span> Cerrar</button>
+
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <form [formGroup]="form" *ngIf="!working">
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos del solicitante</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+    
+                        <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Nombre instancia solicitante</span><br>
+                                <!-- <span class="label-normal">{{dataSolicitud?.descripcionCento}}</span> -->
+                                <span class="label-normal">{{nombreSede}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Usuario solicitante</span><br>
+                                <span class="label-normal">{{usuarioSolicitante}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Fecha de solicitud</span><br>
+                                <span class="label-normal">{{fechaSolicitud}}</span>
+                            </div>
+                        </div>             
+    
+                    </div>
+                </div>
+            </fieldset>
+    
+    
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos del aprobador</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+    
+                        <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Nombre instancia aprobador</span><br>
+                                <span class="label-normal">{{nombreSede}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Usuario aprobador</span><br>
+                                <span class="label-normal">{{numeroDocumento}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Fecha de aprobación/ Rechazo</span><br>
+                                <span class="label-normal">{{fechaAprobacion}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+       
+      
+            </fieldset>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Detalle del motivo de rechazo</legend>
+          
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('detalleMotivoRechazo')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('detalleMotivoRechazo')">
+                                    Detalle del motivo de rechazo
+                                </mat-label>
+                                <textarea name="detalleMotivoRechazo" formControlName="detalleMotivoRechazo" matInput
+                                    type="text" matTextareaAutosize [matAutosizeMinRows]="3"
+                                    [matAutosizeMaxRows]="10" uppercase></textarea>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('detalleMotivoRechazo')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div> 
+            </fieldset>
+        </form>
+
+       
+
+      
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="warn" (click)="handleSave(form)"><span
+                class="material-icons">delete_forever</span> RECHAZAR</button>
+        <button mat-raised-button (click)="handleCancelar()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">touch_app</mat-icon>
+                <span class="title dialog-title"> Roles / Sedes del usuario</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-8 m-0">
+        <div fxLayout="row wrap" fxFlexAlign="flex-start" fxLayoutAlign="start center" fxLayout.xs="column" fxFlexFill>
+            <mat-card class="tp-card w-360" *ngFor="let item of items" (click)="setRol(item,true)"
+                [ngClass]="{selected: selectedRolId===item.ID_ROL && selectedSedeId===item.ID_SEDE}">
+                <mat-card-content>
+                    <div fxLayout="column" fxLayoutAlign="start">
+                        <div class="mt-2" fxLayout="column" fxLayoutAlign="start">
+                            <label>Rol:</label>
+                            <p *ngIf="item.CODIGO_ROL">{{item.CODIGO_ROL}} - {{item.NOMBRE_ROL}}</p>
+                            <p *ngIf="!item.CODIGO_ROL">No registrado</p>
+                        </div>
+                        <div class="mt-2" fxLayout="column" fxLayoutAlign="start">
+                            <label>Tipo sede:</label>
+                            <p *ngIf="item.CODIGO_TIPO_SEDE">{{item.CODIGO_TIPO_SEDE}} - {{item.DESCRIPCION_TIPO_SEDE}}
+                            </p>
+                            <p *ngIf="!item.CODIGO_TIPO_SEDE">No registrado</p>
+                        </div>
+                        <div class="mt-2" fxLayout="column" fxLayoutAlign="start">
+                            <label>Sede:</label>
+                            <p *ngIf="item.CODIGO_SEDE">{{item.CODIGO_SEDE}} - {{item.NOMBRE_SEDE}}</p>
+                            <p *ngIf="!item.CODIGO_SEDE">No registrado</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

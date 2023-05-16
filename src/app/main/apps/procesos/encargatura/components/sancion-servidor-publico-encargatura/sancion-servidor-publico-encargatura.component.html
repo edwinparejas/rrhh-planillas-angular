@@ -1,0 +1,83 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Sanciones Administrativas</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <p>La persona {{ servidorPublico?.primerApellido }} {{ servidorPublico?.segundoApellido }} {{
+            servidorPublico?.nombres }}, no puede ser registrado como postulante, ya que cuenta con las siguientes
+            sanciones administrativas :</p>
+        <div class="content-table">
+            <div fxLayout="row">
+                <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                    [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                    <ng-container matColumnDef="rowNum">
+                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">N°:</span>
+                            {{i + 1}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="tipoSancion">
+                        <mat-header-cell *matHeaderCellDef>Tipo de sanción</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Tipo de sancion:</span>
+                            {{ row.tipoSancion }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="resolucion">
+                        <mat-header-cell *matHeaderCellDef>Resolución</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Resolucion:</span>
+                            {{ row.numeroResolucion }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaInicio">
+                        <mat-header-cell *matHeaderCellDef>Fecha inicio</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Fecha inicio:</span>
+                            {{ row.fechaInicio | date: 'dd/MM/yyyy' }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaFin">
+                        <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Fecha Fin:</span>
+                            {{ row.fechaFin | date: 'dd/MM/yyyy' }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="dias">
+                        <mat-header-cell *matHeaderCellDef>Días</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Días:</span>
+                            {{ row.diasSancion }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Estado:</span>
+                            {{ row.estado ? 'Vigente' : 'No Vigente' }}
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                </mat-table>
+            </div>
+            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                No se encontraron registros
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center"
+        fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleCancel()"><span class="material-icons">check_circle</span> Aceptar</button>
+    </mat-dialog-actions>
+</div>

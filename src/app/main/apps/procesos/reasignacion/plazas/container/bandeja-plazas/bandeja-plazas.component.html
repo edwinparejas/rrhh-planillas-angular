@@ -1,0 +1,228 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="content" mineduPerfectScrollbar>
+        <!-- Inicio Breadcrumb -->
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+                <div fxFlex="50%">
+                    <h3 class="titulo">Plazas</h3>
+                </div>
+                <div fxFlex="50%">
+                    <ol class="breadcrumb pull-right">
+                        <li><a [routerLink]="['/ayni/personal/inicio']">
+                                <mat-icon color="accent" class="s-18">home</mat-icon> Inicio
+                            </a></li>
+                        <li><a [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion']">Reasignación</a>
+                        </li>
+                        <li class="active"><a
+                                [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion/plazas-reasignacion/',idEtapaProceso]">Validación
+                                de Plazas</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Breadcrumb -->
+
+        <minedu-cabecera-proceso-etapa [proceso]="proceso"></minedu-cabecera-proceso-etapa>
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Criterios de búsqueda </h3>
+            </div>
+            <div class="panel-body">
+                <form [formGroup]="form">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                            fxLayoutGap.xs="0">
+
+                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoModular')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')"> Código modular</mat-label>
+                                <input matInput formControlName="codigoModular"
+                                numbersOnly maxlength="7" minlength="6" placeholder="Código modular"/>
+                                <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">
+                                    search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoModular')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">Codigo de Plaza</mat-label>
+                                <input matInput formControlName="codigoPlaza" placeholder="Código de plaza"
+                                maxlength="12" minlength="12" alphaNumeric uppercase />
+                                <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                    search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoPlaza')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div class="p-0" fxLayout="row">
+                        <button mat-raised-button (click)="handleLimpiar()">
+                            <span class="material-icons">clear</span> LIMPIAR </button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                            <span class="material-icons">search</span> BUSCAR </button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+
+        <div fxLayoutAlign="center" class="panel-libre">
+            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                <span *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">
+                    <label class="label-estado">Validación de Plazas:
+                        <p class="badge badge-width" [ngClass]="claseSegunEstado(proceso?.codigoEstadoValidacionPlaza)" >{{ proceso?.estadoValidacionPlaza }}</p>
+                    </label>
+                    <mat-icon class="mat-icon-mod" style="position: relative; top: 5px; color: red;" 
+                    *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Rechazado" 
+                    (click)="handleVerMotivoRechazo()">visibility
+                    </mat-icon>
+                </span>
+            </div>
+
+            <div fxLayoutAlign="end center" fxFlex="50%" fxFlex.xs="100%">
+                <div *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Pendiente && etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">
+                    <button mat-raised-button color="primary" (click)="handleValidarPublicarPlazas()" class="ml-4"> 
+                        <span class="material-icons">check_circle_outline</span> FINALIZAR VALIDACIÓN DE PLAZAS
+                    </button>
+                </div>
+                <div *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Rechazado && etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">
+                    <button mat-raised-button color="primary" (click)="handleValidarPublicarPlazas()" class="ml-4"> 
+                        <span class="material-icons">check_circle_outline</span> FINALIZAR VALIDACIÓN DE PLAZAS
+                    </button>
+                </div>
+
+                <div *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Validado && etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">
+                    <label
+                        [style.visibility]="(this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Validado) ? 'visible' : 'hidden'">
+                        <strong>PLAZAS PENDIENTE DE APROBACIÓN</strong>
+                    </label>
+                </div>
+  <!-- Etapa Regional General -->
+                <div mat-dialog-actions class="p-0" fxLayout="row"
+                    *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Aprobado && etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">
+                    <button mat-raised-button color="primary" (click)="handlePublicarPlazasNew()" class="ml-4">
+                        <span class="material-icons">public</span> PUBLICAR PLAZAS </button>
+                </div>
+  <!-- Fin Etapa Regional General -->
+                <div mat-dialog-actions class="p-0" fxLayout="row"
+                    *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Publicado">
+                    <button mat-raised-button color="primary" (click)="handleGenerarVerPlazasPublicadas()" class="ml-4">
+                        <span class="material-icons">picture_as_pdf</span> VER PLAZAS PUBLICADAS </button>
+                </div>
+
+  <!-- Etapa Regional Fase 2, Etapa Interregional -->
+                <div mat-dialog-actions class="p-0" fxLayout="row"
+                *ngIf="this.proceso?.codigoEstadoValidacionPlaza == this.CodigoEstadoValidacionPlaza.Aprobado && (etapaFase.ETAPA_REGIONAL_FASE_2 == proceso?.codigoEtapaFase || etapaFase.ETAPA_INTERREGIONAL == proceso?.codigoEtapaFase)">
+                    <button mat-stroked-button color="primary" (click)="handlePublicarPlazas()" class="ml-4">
+                        <span class="material-icons">public</span> PUBLICAR PLAZAS 
+                    </button>
+                </div>
+  <!-- Fin Etapa Regional Fase 2, Etapa Interregional -->
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-body">
+                <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+                    <mat-tab label="Plazas Prepublicadas" *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase || etapaFase.ETAPA_REGIONAL_FASE_1 == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-prepublicadas [form]="form" [btnBuscar]="btnBuscar.asObservable()" 
+                                    [idEtapaProceso]="idEtapaProceso" [procesoOrigen]="proceso"
+                                    [reasignacion]="detalleReasignacion" (onBuscar)="handleRefrescar($event)"
+                                    [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-prepublicadas>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Plazas a Convocar" *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase || etapaFase.ETAPA_REGIONAL_FASE_1 == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-convocadas [form]="form" [btnBuscar]="btnBuscar.asObservable()"
+                                    [idEtapaProceso]="idEtapaProceso" [proceso]="proceso" 
+                                    [reasignacion]="detalleReasignacion" (onBuscar)="handleRefrescar($event)" 
+                                    [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-convocadas>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Plazas Observadas" *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase || etapaFase.ETAPA_REGIONAL_FASE_1 == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-observadas [form]="form" [btnBuscar]="btnBuscar.asObservable()"
+                                    [idEtapaProceso]="idEtapaProceso" [procesoOrigen]="proceso"
+                                    [reasignacion]="detalleReasignacion" (onBuscar)="handleRefrescar($event)" 
+                                    [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-observadas>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Resultado Final" *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase || etapaFase.ETAPA_REGIONAL_FASE_1 == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-resultadosfinales [form]="form"
+                                    [btnBuscar]="btnBuscar.asObservable()" [idEtapaProceso]="idEtapaProceso"
+                                    (onBuscar)="handleRefrescar($event)" [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-resultadosfinales>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Plazas Reasignación" *ngIf="etapaFase.ETAPA_REGIONAL_FASE_2 == proceso?.codigoEtapaFase || etapaFase.ETAPA_INTERREGIONAL == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-reasignacion [form]="form"
+                                    [btnBuscar]="btnBuscar.asObservable()" [idEtapaProceso]="idEtapaProceso" [procesoOrigen]="proceso"
+                                    (onBuscar)="handleRefrescar($event)" [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-reasignacion>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Plazas Publicadas" *ngIf="etapaFase.ETAPA_REGIONAL_FASE_2 == proceso?.codigoEtapaFase || etapaFase.ETAPA_INTERREGIONAL == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-publicadas [form]="form"
+                                    [btnBuscar]="btnBuscar.asObservable()" [idEtapaProceso]="idEtapaProceso"
+                                    (onBuscar)="handleRefrescar($event)" [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-publicadas>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Resultado Final" *ngIf="etapaFase.ETAPA_REGIONAL_FASE_2 == proceso?.codigoEtapaFase || etapaFase.ETAPA_INTERREGIONAL == proceso?.codigoEtapaFase">
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-bandeja-plazas-resultadosfinales-fase2 [form]="form"
+                                    [btnBuscar]="btnBuscar.asObservable()" [idEtapaProceso]="idEtapaProceso"
+                                    (onBuscar)="handleRefrescar($event)" [selectedTabIndex]="selectedTabIndex">
+                                </minedu-bandeja-plazas-resultadosfinales-fase2>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+
+            <div class="panel-libre">
+                <div class="panel-footer">
+                    <div fxLayoutAlign="end center" fxFlex="100%" fxFlex.xs="100%">
+                        <button mat-stroked-button color="primary" class="ml-4" (click)="handleRetornar()">
+                            <mat-icon class="">keyboard_backspace</mat-icon>
+                            RETORNAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,324 @@
+<div class="page-layout carded fullwidth  p-0" >
+    <div class="page-layout carded left-sidebar ">
+        <div class="content" >
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Adjudicación</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/contratacion-directa/bandeja-adjudicaciones/',idEtapaProceso]">Adjudicaciones</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <div class="panel">
+                <minedu-informacion-proceso-etapa 
+		    [idProcesoEtapa]="idEtapaProceso" 
+		    [codSede]="codigoSede"
+		    (eventDataInfo)="onEventDataInfor($event)">
+		</minedu-informacion-proceso-etapa>
+            </div>
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de Búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-form-field appearance="fill" fxFlex="20%" [mineduFormFieldValidationState]="form.get('tipoDocumento')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('tipoDocumento')">Tipo Documento</mat-label>
+                                        <mat-select formControlName="tipoDocumento" (selectionChange)="activarCampoNroDocumento()">
+                                         <mat-option value="-1">--TODOS--</mat-option> 
+                                            <mat-option *ngFor="let item of tipoDocumentos" [value]="item.id">
+                                                {{item.descripcion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('tipoDocumento')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="20%" [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento</mat-label>
+                                        <input 
+					      matInput formControlName="numeroDocumentoIdentidad" 
+					      [maxlength]="maxLengthnumeroDocumentoIdentidad"
+					      (keypress)="maxLengthnumeroDocumentoIdentidad == 8 ? validaNumericos($event):true"
+					      (keydown.enter)="handleBuscar()" uppercase>
+                                        <button type="button" 
+						[disabled]="!form.get('tipoDocumento').value"
+						*ngIf="!form.get('numeroDocumentoIdentidad').invalid" matSuffix mat-button mat-icon-button
+                                            (click)="busquedaPersonalizada($event)">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="20%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                            Código de Plaza
+                                        </mat-label>
+                                        <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12" 
+                                            (keyup.enter)="handleBuscar()" onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (charCode >= 65 && charCode <= 90)" />
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                            search
+                                        </mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="20%">
+                                        <mat-label>Código Modular</mat-label>
+                                        <input matInput formControlName="codigoCentroTrabajo" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                            placeholder="Código modular" maxlength="7" (keyup.enter)="handleBuscar()" />
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">
+                                            search
+                                        </mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="20%" [mineduFormFieldValidationState]="form.get('estado')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('estado')">Estado</mat-label>
+                                        <mat-select formControlName="estado">
+                                         <mat-option value="-1">--TODOS--</mat-option> 
+                                            <mat-option *ngFor="let item of estados" [value]="item.id">
+                                                {{item.descripcion | uppercase}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('estado')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="p-0" fxLayout="row">
+                        <button mat-raised-button (click)="handleLimpiar()">
+                            <span class="material-icons">clear</span>Limpiar</button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                            <span class="material-icons">search</span>Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="content">
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                            <div mat-dialog-actions class="p-0" fxLayout="row" fxFlex="90%" fxLayoutAlign="start center">
+                                <div style="font-weight: bold;">
+                                    Resultados Finales de Postulantes Aptos:
+                                </div>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row" 
+								*ngIf="controlesActivos.btnFinalizarAdjudicacion && bandejaAdjudicacion.verFinalizarAdjudicacion()">
+                                <button mat-raised-button color="primary" class="ml-4 mb-8" (click)="handleFinalizarAdjudicacion()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons mr-4">check</span>FINALIZAR ADJUDICACIÓN
+                                </button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row" 
+			    *ngIf="controlesActivos.btnFinalizarEtapa && bandejaAdjudicacion.verFinalizarEtapa()">
+                                <button mat-raised-button color="primary" class="ml-4 mb-8" (click)="handleFinalizarEtapa()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons mr-4">done_all</span>FINALIZAR ETAPA
+                                </button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-stroked-button color="primary" class="ml-4 mb-8" (click)="handleExportarAdjudicaciones()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons">get_app</span>EXPORTAR
+                                </button>
+                            </div>
+                        </div>
+                        <div class="content-table">
+                                <mat-table class="minedu-table" #table [dataSource]="dataSourceAdjudicaciones" [class.isMobile]="isMobile"
+                                    [@animateStagger]="{ value: '50' }">
+                                    <ng-container matColumnDef="registro">
+                                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <p>{{ row.numero_registro }}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="documento">
+                                        <mat-header-cell *matHeaderCellDef>Documento</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.documento }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="apellidos_nombres">
+                                        <mat-header-cell *matHeaderCellDef>Apellidos y Nombres</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.apellidos_nombres }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="codigo_plaza">
+                                        <mat-header-cell *matHeaderCellDef>Código Plaza</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.codigo_plaza }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="cargo">
+                                        <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.descripcion_cargo }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="centro_trabajo">
+                                        <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.centro_trabajo }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="modalidad_educativa">
+                                        <mat-header-cell *matHeaderCellDef>Modalidad Educativa</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.modalidad }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="nivel_educativo">
+                                        <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.nivel_educativo }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="estado">
+                                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+					    <p class="text-truncate badge" style="margin-bottom:0px;"[ngClass]="{
+						      'green-500':row.estado_adjudicacion == 'PENDIENTE' , 
+						      'red-600':row.estado_adjudicacion == 'NO ADJUDICADO',
+						      'blue-600':row.estado_adjudicacion == 'ADJUDICADO',
+						      'color-black':row.estado_adjudicacion == 'OBSERVADO'}">
+                                            {{ row.estado_adjudicacion | uppercase }}
+					    </p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                        *ngIf="bandejaAdjudicacion.mostrarVerInformacion(row.codigo_estado_adjudicacion)">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Ver información completa" matTooltip="Ver información completa"
+                                                        (click)="handleVerInformacion(row)">
+                                                        <mat-icon>info</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <!-- <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                        *ngIf="row.codigo_estado_adjudicacion == estadoAjudicacion.ADJUDICADO ">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Acta de Adjudicación" matTooltip="Acta de adjudicacion"
+                                                        (click)="handleActasAdjudicacion(row)">
+                                                        <mat-icon>picture_as_pdf</mat-icon>
+                                                    </button>
+                                                </div> -->
+                                                <!-- <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                        *ngIf="row.codigo_estado_adjudicacion == estadoAjudicacion.ADJUDICADO ">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Contrato de Adjudicación" matTooltip="Ver información completa"
+                                                        (click)="handleContratosAdjudicacion(row)">
+                                                        <mat-icon>picture_as_pdf</mat-icon>
+                                                    </button>
+                                                </div> -->
+                                                <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                *ngIf="bandejaAdjudicacion.mostrarAdjudicar(
+						                                           row.codigo_estado_adjudicacion,
+						                                           row.idIteracion
+											   )">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                            aria-label="Adjudicar plaza" matTooltip="Adjudicar plaza" 
+                                                            (click)="handleAdjudicarPlaza(row)">
+                                                        <mat-icon>person_outline</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                    *ngIf="bandejaAdjudicacion.mostrarNoAdjudicar(
+						                                                 row.codigo_estado_adjudicacion,
+						                                                 row.idIteracion
+												 )">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                            aria-label="No adjudicar plaza" matTooltip="No adjudicar plaza" 
+                                                            (click)="handleNoAdjudicarPlaza(row)">
+                                                            <mat-icon>person_add_alt_1</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                    *ngIf="bandejaAdjudicacion.mostrarVerObservacion(row.codigo_estado_adjudicacion)">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Ver observación" matTooltip="Ver observación"
+                                                        (click)="handleVerObservacion(row)">
+                                                        <mat-icon>visibility</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table" style="margin-left: 2px;" 
+                                *ngIf="bandejaAdjudicacion.mostrarVerSubsanacion(row.codigo_estado_adjudicacion,row.detalle_subsanacion)">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Ver subsanación" matTooltip="Ver subsanación"
+                                                        (click)="handleVerSubsanacionObservacion(row)">
+                                                        <mat-icon>visibility</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table" style="margin-left: 2px;" 
+                                                 *ngIf="bandejaAdjudicacion.mostrarSubsanarObservacion(
+						                                                   row.codigo_estado_adjudicacion,
+						                                                   row.idIteracion
+												   )">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Subsanar observación" matTooltip="Subsanar observación"
+                                                        (click)="handleSubsanarObservacion(row)">
+                                                        <mat-icon>reply</mat-icon>
+                                                    </button>
+                                                </div>
+
+                                                
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumnsAdjudicaciones; sticky: true"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumnsAdjudicaciones" (mouseover)="row.hovered = true"
+                                        (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                                    </mat-row>
+                                </mat-table>
+                            <div class="no-results" *ngIf="!(dataSourceAdjudicaciones.loading | async)" [style.display]="dataSourceAdjudicaciones.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourceAdjudicaciones.loading | async">
+                                pageSize
+                                <mat-spinner diameter="50"></mat-spinner>
+                            </div>
+                        </div>                       
+                            <mat-paginator #paginatorAdjudicaciones class="mat-paginator-sticky" [length]="dataSourceAdjudicaciones.dataTotal" fxLayoutAlign="center center"
+                                [pageIndex]="paginatorAdjudicacionesPageIndex" [pageSize]="paginatorAdjudicacionesPageSize"
+                                [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                            </mat-paginator>
+                            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" style="width: 100%" *ngIf=" dataSourceAdjudicaciones?.dataTotal > 0">
+                                <div mat-dialog-actions class="p-10" fxLayout="row" style="margin-right: 12px; width: 98%">
+                                    <span style="font-weight: bold">Total :
+                                        {{ dataSourceAdjudicaciones?.dataTotal }}</span>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

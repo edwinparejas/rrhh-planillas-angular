@@ -1,0 +1,19 @@
+<div class="panel-body">
+    <br>
+    <form [formGroup]="form">
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos del Expediente</legend>
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="6px">
+                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                    <mat-label [mineduFormRequiredLabel]="form.get('numeroExpediente')">Número de Expediente</mat-label>
+                    <input matInput formControlName="numeroExpediente" uppercase>
+                </mat-form-field>
+                <minedu-datepicker appearance="fill" fxFlex="25%" fxFlex.xs="100%" label="Fecha del expediente"
+                    [mineduFormControl]="form.get('fechaExpediente')" 
+                    [max]="now" 
+                    [formControl]="form.get('fechaExpediente')">
+                </minedu-datepicker>
+            </div>
+        </fieldset>
+    </form>
+</div>

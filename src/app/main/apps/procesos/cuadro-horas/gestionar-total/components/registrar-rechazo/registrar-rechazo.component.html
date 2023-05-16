@@ -1,0 +1,89 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{ dialogTitle }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos del Solicitante</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="33%">
+                        <div class="form-group">
+                            <label for="">Nombre Instancia Solicitante</label>
+                            <p class="form-control-static"> {{instanciaSolicitante}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="33%">
+                        <div class="form-group">
+                            <label for="">Usuario Solicitante</label>
+                            <p class="form-control-static"> {{dniSolicitante}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="33%">
+                        <div class="form-group">
+                            <label for="">Fecha de Solicitud</label>
+                            <p class="form-control-static"> {{fechaSolicitante}} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos del Aprobador</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="33%">
+                        <div class="form-group">
+                            <label for="">Nombre Instancia Aprobador</label>
+                            <p class="form-control-static"> {{instanciaAprobador}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="33%">
+                        <div class="form-group">
+                            <label for="">Usuario Aprobador</label>
+                            <p class="form-control-static"> {{dniAprobador}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="33%">
+                        <div class="form-group">
+                            <label for="">Fecha de Rechazo</label>
+                            <p class="form-control-static"> {{fechaAprobador | date: 'dd/MM/yyyy'}} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        
+        <form [formGroup]="form" *ngIf="!working">
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Detalle motivo de rechazo</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('observaciones')">
+                        <mat-label [mineduFormRequiredLabel]="form.get('observaciones')">Descripción</mat-label>
+                        <textarea matInput formControlName="observaciones" rows="4" maxlength="400"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </fieldset>
+        </form> 
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button color="warn" (click)="handleRechazarPlz()"><span class="material-icons">close</span>
+                RECHAZAR
+            </button>
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>
+                CANCELAR
+            </button>
+        </div>
+    </div>

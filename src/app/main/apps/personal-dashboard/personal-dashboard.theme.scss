@@ -1,0 +1,18 @@
+@mixin personal-dashboard-theme($theme) {
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $accent: map-get($theme, accent);
+    $is-dark: map-get($theme, is-dark);
+
+    minedu-personal-dashboard {
+        .center {         
+            .content-card {
+                .toolbar {
+                    .toolbar-separator {
+                        background: map-get($foreground, divider);
+                    }
+                }
+            }
+        }
+    }
+}

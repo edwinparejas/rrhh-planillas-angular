@@ -1,0 +1,30 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+
+
+            <div class="row">
+                
+                <!-- Inicio Breadcrumb -->
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxFlex="50%">
+                            <h2>Gestionar Licencia por Salud y Maternidad</h2>
+                        </div>
+                        <div fxFlex="50%">
+                            <ol class="breadcrumb pull-right">
+                                <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon>Inicio</a></li>
+                                <li><a [routerLink]="['/ayni/personal/inicio']">Personal</a></li>
+                                <li class="active"><a>Licencias</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Breadcrumb -->
+
+            </div>
+
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

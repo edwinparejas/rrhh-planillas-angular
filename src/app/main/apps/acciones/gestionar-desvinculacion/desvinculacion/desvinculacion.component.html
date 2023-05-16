@@ -1,0 +1,971 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+
+
+        <!-- Inicio Breadcrumb -->
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxFlex="50%">
+                    <h3 class="titulo c1">Acciones de Personal: Desvinculación</h3>
+                </div>
+                <div fxFlex="50%" >
+                    <ol class="breadcrumb pull-right">
+                        <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                        <li><a [routerLink]="['/ayni/personal/acciones/desvinculacion']">Accion Desvinculación</a></li>
+                        <li class="active"><a style="cursor: pointer;">Desvinculación</a></li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+        <!-- Fin Breadcrumb --> 
+
+        <div class="panel mt-12"> 
+            <form autocomplete="off" novalidate [formGroup]="form">
+                <div class="panel-body" fxLayout="column" class="mb-10 mr-20 ml-20">
+                    <fieldset class="fieldset-border">
+                        <legend>Acción de personal</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="14%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px" fxLayoutGap.xs="0" class="ml-2">
+
+                                <div fxLayoutAlign="start start" fxFlex="80%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <div fxLayout="column">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('esMandatoJudicial')">
+                                            Por mandato judicial
+                                        </mat-label>
+                                        <div>
+                                            <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                                            <mat-slide-toggle formControlName="esMandatoJudicial"
+                                            (change)="validarMandatoJudicial()" >SI
+                                            </mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="80%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Por mandato judicial</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionMandatoJudicial}}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                            </div>                            
+                            </div>
+
+                        </div>
+                        <br>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                           
+                            <div fxLayout="row"  fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px" fxLayoutGap.xs="0" >
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">
+                                            Régimen laboral
+                                        </mat-label>
+                                        <mat-select formControlName="idRegimenLaboral" (selectionChange)="loadComboAcciones($event.value)" >
+                                            <mat-option>--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.regimenesLaborales"
+                                                [value]="item.idRegimenLaboral">
+                                                {{item.descripcionRegimenLaboral}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idRegimenLaboral')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Régimen laboral</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.DescripcionRegimenLaboral}}
+                                        </p>
+                                    </div>
+                                </div>    
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idGrupoAccion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idGrupoAccion')">
+                                            Grupo Acción
+                                        </mat-label>
+                                        <mat-select formControlName="idGrupoAccion" >
+                                            <mat-option value="-1">--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.grupoAcciones" [value]="item.id_grupo_accion">
+                                                {{item.descripcion_grupo_accion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idGrupoAccion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div> 
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Grupo Acción</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionGrupoAccion}}
+                                        </p>
+                                    </div>
+                                </div> 
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idAccion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idAccion')">
+                                            Acción
+                                        </mat-label>
+                                        <mat-select formControlName="idAccion" (selectionChange)="loadComboMotivoAccion($event.value)" 
+                                        [disabled]="form.get('idRegimenLaboral').value < 1">
+                                            <mat-option value="-1">--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.acciones" [value]="item.id_accion">
+                                                {{item.descripcion_accion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idAccion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>   
+                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Acción</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionAccion}}
+                                        </p>
+                                    </div>
+                                </div> 
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idMotivoAccion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idMotivoAccion')">
+                                            Motivo acción
+                                        </mat-label>
+                                        <mat-select formControlName="idMotivoAccion" (selectionChange)="esMotivoAccionProceso($event.value)"                                                    
+                                                    [disabled]="form.get('idAccion').value < 1">
+                                            <mat-option>--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.motivosAccion"
+                                                [value]="item.id_motivo_accion">
+                                                {{item.descripcion_motivo_accion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idMotivoAccion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Motivo Acción</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionMotivoAccion}}
+                                        </p>
+                                    </div>
+                                </div>                                
+
+                            </div>
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                        
+
+                    <!-- </fieldset> -->
+
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0" 
+                             *ngIf="seBuscoPersona">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"
+                                     *ngIf="tieneVinculacionesVigente">
+                                    <!-- <div class="pl-6" fxLayout="row"> -->
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleVerVinculacionVigente()"><span class="material-icons">description</span>
+                                            Ver vinculacion vigente</button>
+                                    <!-- </div> -->
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"
+                                     *ngIf="tieneSancionesAdministrativas">
+                                    <!-- <div class="pl-6" fxLayout="row"> -->
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleSancionesAdministrativas()"><span class="material-icons">description</span>
+                                            Ver sanción adm.</button>
+                                    <!-- </div> -->
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+
+                    <fieldset class="fieldset-border" >
+                        <legend>Datos personales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px" *ngIf="!isInformacion && !isEdit"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                            Tipo de documento
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoDocumentoIdentidad" [disabled]="isEdit || isInformacion" (selectionChange)="onChangeTipoDocumento()">
+                                            <mat-option value="-1">-SELECCIONE-</mat-option>
+                                            <mat-option *ngFor="let item of combo.tiposDocumentoIdentidad"
+                                                [value]="item.id_catalogo_item">
+                                                {{item.descripcion_catalogo_item}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                            Número de documento
+                                        </mat-label>
+                                        <input matInput formControlName="numeroDocumentoIdentidad" 
+                                            [readonly]="isEdit || isInformacion || (form.get('idTipoDocumentoIdentidad').value == -1 || form.get('idTipoDocumentoIdentidad').value == 0)" 
+                                            (keyup.enter)="buscarPersona($event)" 
+                                            (blur) = "buscarPersona($event)" 
+                                            (keypress)="onKeyPressNumeroDocumento($event)"
+                                            [maxLength]="form.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                                            uppercase>   
+                                        <button type="button" 
+                                                        *ngIf="!form.get('numeroDocumentoIdentidad').invalid" matSuffix mat-button
+                                                        mat-icon-button (click)="busquedaServidorPublicoPersonalizada()">
+                                                        <mat-icon class="s-24">search</mat-icon>
+                                                    </button>                                                                       
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                        
+                                    </mat-form-field>
+
+                                </div>
+                               
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                                    
+                                </div>   
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                                    
+                                </div>                             
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPersona">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Documento de Identidad</label>
+                                        <p class="form-control-static" *ngIf="persona.numeroDocumentoIdentidad">
+                                            {{persona.descripcionTipoDocumentoIdentidad}} - {{persona.numeroDocumentoIdentidad}}
+                                        </p>
+                                        <p class="form-control-static" *ngIf="!persona.numeroDocumentoIdentidad">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Primer apellido</label>
+                                        <p class="form-control-static" *ngIf="persona.primerApellido">
+                                            {{persona.primerApellido}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.primerApellido">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Segundo apellido</label>
+                                        <p class="form-control-static" *ngIf="persona.segundoApellido">
+                                            {{persona.segundoApellido}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.segundoApellido">No
+                                            registrado
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Nombres</label>
+                                        <p class="form-control-static" *ngIf="persona.nombres">
+                                            {{persona.nombres}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.nombres">No
+                                            registrado
+                                        </p>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPersona">                            
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Estado civil</label>
+                                        <p class="form-control-static" *ngIf="persona.estadoCivil">
+                                            {{persona.estadoCivil}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.estadoCivil">No
+                                            registrado
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                        <label for="">Sexo</label>
+                                        <p class="form-control-static" *ngIf="persona.sexo">
+                                            {{persona.sexo}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.sexo">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fecha de Nacimiento</label>
+                                        <p class="form-control-static" *ngIf="persona.fechaNacimiento">
+                                            {{persona.fechaNacimiento}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.fechaNacimiento">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+
+                    <fieldset class="fieldset-border" *ngIf="seBuscoLaboral">
+                        <legend>Datos Laborales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column" >                            
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                        <label for="">Código de Plaza</label>
+                                        <p class="form-control-static" *ngIf="laboral.codigoPlaza">
+                                            {{laboral.codigoPlaza}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.codigoPlaza">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Tipo de Plaza</label>
+                                        <p class="form-control-static" *ngIf="laboral.descripcionTipoPlaza">
+                                            {{laboral.descripcionTipoPlaza}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.descripcionTipoPlaza">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Instancia de Gestión Educativa Descentralizada</label>
+                                        <p class="form-control-static" *ngIf="laboral.subInstancia">
+                                            {{laboral.subInstancia}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.subInstancia">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Centro Laboral</label>
+                                        <p class="form-control-static" *ngIf="laboral.centroTrabajo">
+                                            {{laboral.centroTrabajo}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.centroTrabajo">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" >                            
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Jornada Laboral</label>
+                                        <p class="form-control-static" *ngIf="laboral.jornadaLaboral">
+                                            {{laboral.jornadaLaboral}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.jornadaLaboral">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                        <label for="">Modalidad</label>
+                                        <p class="form-control-static" *ngIf="laboral.descripcionModalidadEducativa">
+                                            {{laboral.descripcionModalidadEducativa}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.descripcionModalidadEducativa">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Nivel Educativo</label>
+                                        <p class="form-control-static" *ngIf="laboral.nivelEducativo">
+                                            {{laboral.nivelEducativo}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.nivelEducativo">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Cargo</label>
+                                        <p class="form-control-static" *ngIf="laboral.descripcionCargo">
+                                            {{laboral.descripcionCargo}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.descripcionCargo">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" >                            
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Escala Magisterial</label>
+                                        <p class="form-control-static" *ngIf="laboral.escalaMagisterial">
+                                            {{laboral.escalaMagisterial}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.escalaMagisterial">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Motivo de Vacancia</label>
+                                        <p class="form-control-static" *ngIf="laboral.motivoVacancia">
+                                            {{laboral.motivoVacancia}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.motivoVacancia">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="ley276">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Grupo Ocupacional</label>
+                                        <p class="form-control-static" *ngIf="laboral.grupoOcupacional">
+                                            {{laboral.grupoOcupacional}}</p>
+                                        <p class="form-control-static" *ngIf="!laboral.grupoOcupacional">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!ley276">                                    
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset class="fieldset-border" *ngIf="seBuscoPersona">
+                        <legend>Datos de la acción - Desvinculación</legend>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="tipoFiltro != 4">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px" *ngIf="isNew || isEdit"
+                                fxLayoutGap.xs="0">
+                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroInformeEscalafonario')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroInformeEscalafonario')">
+                                            Número Informe Escalafonario
+                                        </mat-label>
+                                        <input matInput formControlName="numeroInformeEscalafonario"                                              
+                                            (keydown.enter)="handleBuscar()" 
+                                            uppercase>                                                                          
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroInformeEscalafonario')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                        
+                                    </mat-form-field>
+                                    
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                                    <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()" >
+                                        <span class="material-icons">search</span>
+                                        Buscar
+                                    </button>                                    
+                                </div>   
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                                </div>  
+                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >                                 
+                                </div>  
+                            </div>
+                        </div>
+
+
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="informe">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Número informe escalafonario</label>
+                                        <p class="form-control-static" *ngIf="informe?.numeroInformeEscalafonario">
+                                            {{informe?.numeroInformeEscalafonario}}</p>
+                                        <p class="form-control-static" *ngIf="!informe?.numeroInformeEscalafonario">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fecha del Inf. Escalafonario</label>
+                                        <p class="form-control-static" *ngIf="informe?.fechaInformeEscalafonario">
+                                            {{informe?.fechaInformeEscalafonario | date:'dd/MM/yyyy h:mm:ss a'}}</p>
+                                        <p class="form-control-static" *ngIf="!informe?.fechaInformeEscalafonario">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                               
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Tiempo de Servicios</label>
+                                        <p class="form-control-static" *ngIf="informe?.aniosTiempoServicio">
+                                            {{informe?.aniosTiempoServicio}}</p>
+                                        <p class="form-control-static" *ngIf="!informe?.aniosTiempoServicio">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <span class="label">Documento Informe Escalafonario</span>
+                                        <br>
+                                        <button mat-stroked-button color="primary" 
+                                        (click)="handleVerDocumentoSustento()"
+                                            class="ml-4" style="margin-top: 8px;"
+                                            [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons">picture_as_pdf</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" *ngIf="tipoFiltro == 1">
+                                <div fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew || isEdit">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <minedu-datepicker 
+                                        label="Fecha de inicio"
+                                        [mineduFormControl]="form.get('fechaInicio')"
+                                        [formControl]="form.get('fechaInicio')" 
+                                        [min]="minDate" [max]="untilDate" 
+                                        >
+                                    </minedu-datepicker>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Inicio</label>
+                                        <p class="form-control-static">
+                                            {{persona.fechaInicioStr}}
+                                        </p>
+                                    </div>
+                                </div>
+                                                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fallecido</label>
+                                        <p class="form-control-static" *ngIf="persona.fallecido">
+                                            {{persona.fallecido}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.fallecido">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fecha de Fallecimiento</label>
+                                        <p class="form-control-static" *ngIf="persona.fechaFallecimientoStr">
+                                            {{persona.fechaFallecimientoStr}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.fechaFallecimientoStr">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Regimen Pensionario</label>
+                                        <p class="form-control-static" *ngIf="persona.datosLaborales.regimenPensionario">
+                                            {{persona.datosLaborales.regimenPensionario}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.datosLaborales.regimenPensionario">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" *ngIf="tipoFiltro == 2">
+                                <div fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew || isEdit">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <minedu-datepicker 
+                                        label="Fecha de inicio"
+                                        [mineduFormControl]="form.get('fechaInicio')"
+                                        [formControl]="form.get('fechaInicio')" 
+                                        [min]="minDate" [max]="untilDate" 
+                                        >
+                                    </minedu-datepicker>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Inicio</label>
+                                        <p class="form-control-static">
+                                            {{persona.fechaInicioStr}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Regimen Pensionario</label>
+                                        <p class="form-control-static" *ngIf="persona.datosLaborales.regimenPensionario">
+                                            {{persona.datosLaborales.regimenPensionario}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.datosLaborales.regimenPensionario">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Edad del Servidor</label>
+                                        <p class="form-control-static" *ngIf="persona.edad">
+                                            {{persona.edad}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.edad">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fecha de Cumplimiento</label>
+                                        <p class="form-control-static" *ngIf="persona.datosLaborales.fechaCumplimiento">
+                                            {{persona.datosLaborales.fechaCumplimiento}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.datosLaborales.fechaCumplimiento">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" *ngIf="tipoFiltro == 3">
+                                <div fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew || isEdit">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <minedu-datepicker 
+                                        label="Fecha de inicio"
+                                        [mineduFormControl]="form.get('fechaInicio')"
+                                        [formControl]="form.get('fechaInicio')" 
+                                        [min]="minDate" [max]="untilDate" 
+                                        >
+                                    </minedu-datepicker>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Inicio</label>
+                                        <p class="form-control-static">
+                                            {{persona.fechaInicioStr}}
+                                        </p>
+                                    </div>
+                                </div>
+                                                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Edad del Servidor</label>
+                                        <p class="form-control-static" *ngIf="persona.edad">
+                                            {{persona.edad}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.edad">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" *ngIf="tipoFiltro == 0">
+                                <div fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew || isEdit">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <minedu-datepicker 
+                                        label="Fecha de inicio"
+                                        [mineduFormControl]="form.get('fechaInicio')"
+                                        [formControl]="form.get('fechaInicio')" 
+                                        [min]="minDate" [max]="untilDate" 
+                                        >
+                                    </minedu-datepicker>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Inicio</label>
+                                        <p class="form-control-static">
+                                            {{persona.fechaInicioStr}}
+                                        </p>
+                                    </div>
+                                </div>
+                                                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" *ngIf="tipoFiltro == 4">
+                                <div fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew || isEdit">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <minedu-datepicker 
+                                        label="Fecha de inicio"
+                                        [mineduFormControl]="form.get('fechaInicio')"
+                                        [formControl]="form.get('fechaInicio')" 
+                                        [min]="minDate" [max]="untilDate" 
+                                        >
+                                    </minedu-datepicker>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Inicio</label>
+                                        <p class="form-control-static">
+                                            {{persona.fechaInicioStr}}
+                                        </p>
+                                    </div>
+                                </div>
+                                                                
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroContrato')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroContrato')">
+                                            Número Contrato
+                                        </mat-label>
+                                        <input matInput formControlName="numeroContrato"                                              
+                                            (keydown.enter)="handleBuscarContrato()" 
+                                            uppercase>                                                                          
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroContrato')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                        
+                                    </mat-form-field>
+                                    
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isNew">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Número Contrato</label>
+                                        <p class="form-control-static">
+                                            {{persona.numeroContrato}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isNew">
+                                    <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscarContrato()" >
+                                        <span class="material-icons">search</span>
+                                        Buscar
+                                    </button>                                    
+                                </div>   
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Contrato</label>
+                                        <p class="form-control-static">
+                                            {{contrato.fechaContratoStr}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            
+                        </div> 
+                        
+                        <div fxLayout="row" fxLayout.lt-md="column">
+
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" *ngIf="tipoFiltro == 2 && informe">
+                                <br>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Proceso Administrativo</label>
+                                        <p class="form-control-static" *ngIf="informe.DescrSancionAdministrativa">
+                                            {{informe.DescrSancionAdministrativa}}</p>
+                                        <p class="form-control-static" *ngIf="!informe.DescrSancionAdministrativa">NO REGISTRADO</p>
+                                    </div>
+                                </div>     
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>   
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>   
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div> 
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                </div>                               
+                            </div>
+                            
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                
+                                <div fxLayoutAlign="start start" fxFlex="80%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('anotaciones')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('anotaciones')">
+                                            Anotaciones
+                                        </mat-label>
+                                        <textarea name="anotaciones" formControlName="anotaciones" matInput
+                                            type="text" matTextareaAutosize [matAutosizeMinRows]="3"
+                                            [matAutosizeMaxRows]="10" uppercase  [readonly]="isInformacion" ></textarea>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('anotaciones')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                        
+                                    </mat-form-field>
+                                    
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Anotaciones</label>
+                                        <p class="form-control-static">
+                                            {{persona.anotaciones}}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>   
+
+                      
+                        
+                        
+
+                    </fieldset>
+
+
+                    
+                </div>
+
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+                        <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" >
+                            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="!isMandatoJudicial && !isInformacion && form.get('idMotivoAccion').value > 0 && isMotivoGenerarProyecto ">
+                        
+                                <div class="pl-6" fxLayout="row">
+                                    <minedu-button-customized 
+                                        [mineduForm]="form" 
+                                        (mineduOnClick)="handleEnviarAccionesGrabadas()"
+                                        [working]="working" 
+                                        [text]="'Enviar Acciones Grabadas'" 
+                                        [textWorking]="'Enviando...'" 
+                                        [icon]="'send'">
+                                    </minedu-button-customized>
+                                </div>
+                                <div class="pl-6" fxLayout="row" >
+                                    <minedu-button-customized 
+                                        [mineduForm]="form" 
+                                        (mineduOnClick)="handleGenerarProyecto()"
+                                        [working]="working" 
+                                        [text]="'Generar proyecto'" 
+                                        [textWorking]="'Generando...'" 
+                                        [icon]="'description'">
+                                    </minedu-button-customized>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%">
+                            <div fxLayout="row" fxLayoutAlign="end center" *ngIf="!isAprobacion">
+        
+                                <div class="pl-6" fxLayout="row" *ngIf="tipoFiltro == 4">
+                                    <minedu-button-customized 
+                                        [mineduForm]="form" 
+                                        (mineduOnClick)="handleCartaCese()"
+                                        [working]="working" 
+                                        [text]="'Carta Cese'" 
+                                        [textWorking]="'Generando...'" 
+                                        [icon]="'description'">
+                                    </minedu-button-customized>
+                                </div>                         
+
+                                <div class="pl-6" fxLayout="row" *ngIf=" isInformacion === false && isEdit === false">
+                                    <minedu-button-save [mineduForm]="form" (mineduOnClick)="handleGuardarDesvinculacion()"
+                                        [working]="working">
+                                    </minedu-button-save>
+                                </div>  
+
+                                <div class="pl-6" fxLayout="row" *ngIf=" isInformacion === false && isEdit!">
+                                    <minedu-button-update [mineduForm]="form" (mineduOnClick)="handleGuardarDesvinculacion()"
+                                        [working]="working">
+                                    </minedu-button-update>
+                                </div>  
+
+                                <div class="pl-6" fxLayout="row" *ngIf="isNew">
+                                    <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                        [working]="working">
+                                    </minedu-button-clear>
+                                </div>
+                                
+                                <div class="pl-6" fxLayout="row">
+                                    <button mat-stroked-button color="primary"  class="pl-7"                                     
+                                        (click)="handleCancelar()"><span class="material-icons">undo</span>
+                                        Retornar</button>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="end center" *ngIf="isAprobacion">
+        
+                                <div class="pl-6" fxLayout="row" *ngIf="codigo_estado_desvinculacion == 7">
+                                    <button mat-stroked-button color="primary"  class="ml-4"                                    
+                                        (click)="handleAutorizar()"><span class="material-icons">check_circle_outline</span>
+                                        Autorizar</button>
+                                </div>
+
+                                <div class="pl-6" fxLayout="row" *ngIf="codigo_estado_desvinculacion == 7">
+                                    <button mat-stroked-button color="warn"   (click)="handleNoAutorizar()"
+                                        class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                        <span class="material-icons">remove_circle_outline</span>
+                                        Rechazar</button>
+                                </div>
+
+                                <div class="pl-6" fxLayout="row">
+                                    <button mat-stroked-button color="primary"  class="ml-4"   
+                                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"                                  
+                                        (click)="handleCancelar()"><span class="material-icons">undo</span>
+                                        Retornar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<fieldset class="fieldset-border mb-2" fxFlex="100%">
+    <legend>Detalle Desplazamiento</legend>
+    <div fxLayout="column" fxFlex="100%">
+        <div *ngFor="let columns of sectionRows;let x = index" fxLayout="row wrap" >
+            <div *ngFor="let row of columns;let y = index" [fxFlex]="y==1?'1%':'32.5%'"
+                [ngStyle]="{'padding-top':row.esCabecera?'10px':'0px'}" fxLayoutGap=".5%">
+               
+                <span [ngStyle]="{'font-weight': row.style}">
+                    {{row.value}}
+                </span>
+            </div>
+        </div>
+    </div>
+</fieldset>

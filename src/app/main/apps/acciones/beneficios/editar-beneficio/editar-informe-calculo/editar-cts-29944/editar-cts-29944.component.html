@@ -1,0 +1,101 @@
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap"  fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" [formGroup]="form">
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('numeroInformeCalculo')" >
+                <mat-label [mineduFormRequiredLabel]="form.get('numeroInformeCalculo')">Número Informe Cálculo</mat-label>
+                    <input matInput 
+                        [disabled]="true"
+                        disabled
+                        formControlName="numeroInformeCalculo" 
+                        placeholder="Número Informe Escalafonario" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressnumeroInformeCalculo($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroInformeCalculo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <button type="button" mat-stroked-button color="primary"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    (click)="handleBuscarInformeCalculo()" 
+                    color="accent"
+                    [disabled]="true">
+                    <span class="material-icons">description</span>
+                        BUSCAR
+                    </button>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <minedu-datepicker label="Fecha de inicio"
+                    [mineduFormControl]="form.get('fechaBeneficio')"
+                    [formControl]="form.get('fechaBeneficio')"
+                    >
+                </minedu-datepicker>
+            </div>  
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo"
+                        (change)="selectConInformeCalculo()" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>                  
+                </div>
+            </div>   
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('baseCalculo')">
+                <mat-label [mineduFormRequiredLabel]="form.get('baseCalculo')">Base de Cálculo</mat-label>
+                    <input matInput 
+                        formControlName="baseCalculo" 
+                        placeholder="Base de cálculo" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressBaseCalculo($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('baseCalculo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>                         
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Factor de Cálculo</label>
+                    <p class="form-control-static" *ngIf="form.get('factorCalculo').value">
+                        {{form.get('factorCalculo').value + " %"}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('factorCalculo').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Tiempo de Servicio del Cálculo</label>
+                    <p class="form-control-static" *ngIf="form.get('tiempoServicioCalculo').value">
+                        {{form.get('tiempoServicioCalculo').value}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('tiempoServicioCalculo').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Importe del beneficio</label>
+                    <p class="form-control-static" *ngIf="form.get('importeBeneficio').value!=null">
+                        {{form.get('importeBeneficio').value | currency:'S/.':'symbol'}}</p>
+                    <p class="form-control-static" *ngIf="form.get('importeBeneficio').value==null">No registrado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>

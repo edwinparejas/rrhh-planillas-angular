@@ -1,0 +1,148 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-20 pb-0 m-0">
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <fieldset style="border-color:rgb(40, 103, 155) !important; border-style:none !important">
+            <legend></legend>
+        <div style = "margin-bottom: 5px;" 
+             fxLayout="row" 
+             fxLayoutAlign="end center" 
+             class="mb-10">
+          <div  fxLayoutAlign="start center" class="p-0" fxLayout="row" fxFlex="40%" >
+	    <button mat-raised-button 
+                    *ngIf="VerificarIteracionActual()"
+		    (click)="handleBuscar()"
+		    color="primary" 
+		    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+		<span class="material-icons">refresh</span>REFRESCAR
+	    </button>
+          </div>
+          <div fxLayoutAlign="end center" class="p-0" fxLayout="row" fxFlex="60%">
+	    <button mat-raised-button 
+                    *ngIf="VerificarIteracionActual()"
+		    (click)="handleIniciarGeneracionPdf()"
+		    color="primary" 
+		    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+		<span class="material-icons">settings</span>GENERAR PLAZAS EN PDF
+	    </button>
+          </div>
+	</div>
+            <div class="content-table">
+                <div fxLayout="row">
+                    <mat-table class="minedu-table" #table [dataSource]="dataSourceDocumentosPublicados" [class.isMobile]="isMobile"
+                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+                        <ng-container matColumnDef="registro">
+			<mat-header-cell *matHeaderCellDef>
+			    <mat-checkbox 
+				(change)="$event ? masterTogglePlazasPrepublicadas($event) : null"
+				[checked]="(selectionPlazasPrepublicadas.hasValue() && isAllSelectedPlazasPrepublicadas()) || isSeleccionadoTodosPrepublicadas"
+				[indeterminate]="selectionPlazasPrepublicadas.hasValue() && !isAllSelectedPlazasPrepublicadas()"
+                                *ngIf="VerificarIteracionActual()"
+				[aria-label]="checkboxAllPlazasPrePublicadas()">
+			    </mat-checkbox>
+			</mat-header-cell>
+			<mat-cell *matCellDef="let row; let i = index">
+			    <mat-checkbox 
+				      (click)="$event.stopPropagation()" 
+				      *ngIf="
+				            row.codigoEstado == estadoDocumentoEnum.PENDIENTE
+                                            && VerificarIteracionActual()
+					    "
+				      (change)="$event ? selectedRowPrepublicadas(row): null" 
+				      [checked]="
+				                 verificaSeleccionPrePublicadas(row) 
+				                 || row.codigoEstado == estadoDocumentoEnum.EN_PROGRESO
+				                 || row.codigoEstado == estadoDocumentoEnum.PDF_GENERADO
+				                 || row.codigoEstado == estadoDocumentoEnum.GENERANDO_PDF
+				                 || row.codigoEstado == estadoDocumentoEnum.PROCESO_CON_ERROR
+						 " 
+				      [disabled]="
+				                  row.codigoEstado == estadoDocumentoEnum.EN_PROGRESO
+				                  || row.codigoEstado == estadoDocumentoEnum.PDF_GENERADO
+				                  || row.codigoEstado == estadoDocumentoEnum.GENERANDO_PDF
+				                  || row.codigoEstado == estadoDocumentoEnum.PROCESO_CON_ERROR
+						 "
+				      [aria-label]="checkboxLabelPlazasPrepublicadas(row)">
+			    </mat-checkbox>
+			</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="fecha">
+                            <mat-header-cell *matHeaderCellDef>Dirección Regional de Educación - DRE</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{ row.nombreDre}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="estado">
+                            <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+				<p 
+                                class="text-truncate badge" 
+                                style="margin-bottom:-1px;padding-left:5px;" 
+                                [ngClass]="{
+				    'orange-500':row.estado == 'PENDIENTE' , 
+				    'color-black':row.estado == 'EN PROCESO',
+				    'blue-600':row.estado == 'PDF GENERADO',
+				    'green-600':row.estado == 'GENERANDO PDF',
+				    'red-600':row.estado == 'PROCESO CON ERROR'}">
+				    {{row.estado}}
+				</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="acciones">
+                            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div style="padding-left: 10px;"></div>
+                                    <div class="mat-icon-table">
+                                        <button mat-stroked-button 
+						color="primary" 
+						class="sidebar-toggle btn-sm ml-2"
+                                                aria-label="Ver Listado de plazas por DRE" 
+						matTooltip="Ver Listado de plazas por DRE"
+						*ngIf="row.codigoDocumentoPublicacion"
+                                                (click)="handleVerPlazasPublicadas(row.codigoDocumentoPublicacion, false, row.nombreDre)">
+                                            <mat-icon style="color: red;">picture_as_pdf</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumnsDocumentosPublicados; sticky: true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsDocumentosPublicados"
+                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                            [@animate]="{ value: '*', params: { y: '100%' } }">
+                        </mat-row>
+                    </mat-table>
+                </div>
+                <div class="no-results" *ngIf="!(dataSourceDocumentosPublicados.loading | async)" [style.display]="dataSourceDocumentosPublicados.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourceDocumentosPublicados.loading | async">
+                    pageSize
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <mat-paginator #paginatorDocumentos class="mat-paginator-sticky" [length]="dataSourceDocumentosPublicados.dataTotal" fxLayoutAlign="center center"
+                    [pageIndex]="paginatorDocumentosPageIndex" [pageSize]="paginatorDocumentosPageSize"
+                    [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </fieldset>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>CERRAR</button>
+    </div>
+</div>

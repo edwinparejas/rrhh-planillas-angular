@@ -1,0 +1,28 @@
+<mat-form-field class="year-picker" appearance="fill" fxFlex [mineduFormFieldValidationState]="mineduFormControl">
+        <mat-label [mineduFormRequiredLabel]="mineduFormControl">{{label}}</mat-label>
+        <input matInput
+               [matDatepicker]="datepicker"
+               [max]="_max"
+               [min]="_min"
+               [formControl]="_inputCtrl"
+               (click)="_openDatepickerOnClick(datepicker)"
+               (focus)="_openDatepickerOnFocus(datepicker)"
+               readonly>
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <!-- <button type="button" *ngIf="cleaning" matSuffix class="clear-buttton" mat-icon-button type="button" (click)="clear()" color="warn">
+                <mat-icon>close</mat-icon>
+        </button>        -->
+       <mat-datepicker #datepicker
+                        [touchUi]="touchUi"
+                        startView="multi-year"
+                        (yearSelected)="_yearSelectedHandler($event,datepicker)"
+                        panelClass="year-picker">
+      </mat-datepicker>
+      <mat-error>
+        <minedu-form-field-validation-messages
+            [mineduFormControl]="mineduFormControl">
+        </minedu-form-field-validation-messages>
+      </mat-error>
+    </mat-form-field>
+      
+      

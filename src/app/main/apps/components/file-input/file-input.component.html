@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="container__real">
+        <label #mineduLabel hidden aria-hidden="true">
+      <input #mineduInput type="file" [id]="id" [attr.accept]="accept ? accept : null"
+        (change)="adjuntarDocumento($event)"/>
+    </label>
+    </div>
+    <div class="container__minedu input">
+        <div class="input__left minedu" *ngIf="!hasFiles">
+            <ng-container>
+                <ng-container *ngIf="buttonType === 'basic'; then basicBtn"></ng-container>
+                <ng-container *ngIf="buttonType === 'raised'; then raisedBtn"></ng-container>
+                <ng-container *ngIf="buttonType === 'stroked'; then strokedBtn"></ng-container>
+                <ng-container *ngIf="buttonType === 'flat'; then flatBtn"></ng-container>
+            </ng-container>
+        </div>
+        <div class="input__center" *ngIf="hasFiles">
+            <mat-form-field appearance="fill" fxFlex="100%">
+                <mat-label>{{labelText}}</mat-label>
+                <input matInput [(ngModel)]="name" disabled>
+                <button #clearBtn matSuffix class="clear-buttton" mat-icon-button type="button" [attr.aria-label]="removeButtonLabel" (click)="eliminarDocumento($event)" [matTooltip]="removeButtonLabel" color="warn">
+          <mat-icon>close</mat-icon>
+        </button>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPLATES -->
+<ng-container>
+    <ng-template #basicBtn>
+        <button #mineduBtn fxFlex="100%" class="minedu__button text-truncate" mat-button [color]="buttonTheme" type="button" (click)="mineduInput.click()"><mat-icon class="s-16">attach_file</mat-icon> {{buttonText}}</button>
+    </ng-template>
+    <ng-template #raisedBtn>
+        <button #mineduBtn fxFlex="100%" class="minedu__button text-truncate" mat-raised-button [color]="buttonTheme" type="button" (click)="mineduInput.click()"><mat-icon class="s-16">attach_file</mat-icon> {{buttonText}}</button>
+    </ng-template>
+    <ng-template #strokedBtn>
+        <button #mineduBtn fxFlex="100%" class="minedu__button text-truncate" mat-stroked-button [color]="buttonTheme" type="button" (click)="mineduInput.click()"><mat-icon class="s-16">attach_file</mat-icon> {{buttonText}}</button>
+    </ng-template>
+    <ng-template #flatBtn>
+        <button #mineduBtn fxFlex="100%" class="minedu__button text-truncate" mat-flat-button [color]="buttonTheme" type="button" (click)="mineduInput.click()"><mat-icon class="s-16">attach_file</mat-icon> {{buttonText}}</button>
+    </ng-template>
+</ng-container>

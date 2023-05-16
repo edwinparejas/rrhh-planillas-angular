@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    // border: 2px dashed transparent;
+    // border-radius: 4px;  
+    &__dropzone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    &.drag {
+      border-color: #757575;
+    }
+  }

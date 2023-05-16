@@ -1,0 +1,355 @@
+<!-- Inicio Breadcrumb -->
+<div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="50%">
+            <h3 class="titulo">Adjudicación</h3>
+        </div>
+        <div fxFlex="50%">
+            <ol class="breadcrumb pull-right">
+                <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Personal</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Desarrollo de procesos</a></li>
+                <li><a [routerLink]="['/ayni/personal/procesospersonal/procesos/encargatura']"> Encargatura</a></li>
+                <li><a (click)="irAdjudicacion()">Adjudicación</a></li>
+
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- Fin Breadcrumb -->
+<div class="page-layout carded fullwidth inner-scroll p-0">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <minedu-cabecera-desarrollo-proceso-encargatura #CabeceraDesarrolloProcesoEncargatura [idDesarrolloProceso]="idDesarrolloProceso">
+            </minedu-cabecera-desarrollo-proceso-encargatura>
+            <div class="panel">           
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row wrap">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumento')">Tipo Documento
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoDocumento"
+                                    (selectionChange)="selectTipoDocumento($event.value)">
+                                        <mat-option value="-1">--TODOS--</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listTipoDocumento"
+                                            [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idTipoDocumento')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label>Número de Documento</mat-label>
+                                    <input matInput formControlName="numDocumento" 
+                                    (keyup.enter)="handleBuscar()"
+                                    (keyup)="validatexto()"
+                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    (keypress)="maxLengthnumeroDocumentoIdentidad==8? validaNumericos($event):true"
+                                    [maxlength]="maxLengthnumeroDocumentoIdentidad">
+                                    <mat-icon matSuffix class="cursor-pointer"
+                                    (click)="busquedaPersonalizada()">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numDocumento')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">
+                                        Código Modular
+                                    </mat-label>
+                                    <input matInput formControlName="codigoModular" 
+                                    minlength="6" maxlength="7" (keyup.enter)="handleBuscar()"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                    <mat-icon matSuffix class="cursor-pointer" (click)="busquedaCentroTrabajoPersonalizada()">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoModular')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                        Código de Plaza
+                                    </mat-label>
+                                    <input matInput formControlName="codigoPlaza"
+                                    minlength="12" maxlength="12" (keyup.enter)="handleBuscar()"
+                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" />
+                                    <mat-icon matSuffix class="cursor-pointer" (click)="busquedaPlazaPersonalizada()">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoPlaza')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select formControlName="idEstadoAdjudicacion">
+                                        <mat-option value="-1">--TODOS--</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listEstado" [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div appearance="fill" fxFlex="25%" fxFlex.xs="100%"></div>
+                                <div appearance="fill" fxFlex="25%" fxFlex.xs="100%"></div>
+                                <div appearance="fill" fxFlex="25%" fxFlex.xs="100%"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleLimpiar()"><span
+                                class="material-icons">clear</span> LIMPIAR</button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span
+                                class="material-icons">search</span> BUSCAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutGap="5px">
+                    <div class="pl-6" fxLayout="row">
+                        <span><strong>{{ titulo }}</strong></span>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="5px">
+                    <div class="pl-6" fxLayout="row">
+                        <button *ngIf="controlesActivos.btnFinalizarAdjudicacion && !showFinalizarAdjudicacion && documentoPublicado != null" mat-raised-button color="primary" (click)="handleFinalizarAdjudicacion()">
+                            <span class="material-icons">add_circle</span> FINALIZAR ADJUDICACIÓN
+                        </button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button *ngIf="controlesActivos.btnFinalizarEtapa && !showFinalizarEtapa" mat-raised-button color="primary" (click)="handleFinalizarEtapa()">
+                            <span class="material-icons">check</span> FINALIZAR ETAPA
+                        </button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button *ngIf="controlesActivos.btnExportar" mat-stroked-button color="primary" (click)="handleExportar()">
+                            <span class="material-icons">get_app</span> EXPORTAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">   
+                    <div class="content-table" style="overflow: auto;">
+                        <div fxLayout="row">
+                            <mat-table class="minedu-table" #table [dataSource]="dataSource"
+                                [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" style="width: 100%"
+                                mineduPerfectScrollbar>
+                                <ng-container matColumnDef="rowNum">
+                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">N°:</span>
+                                        {{ row.rowNum }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="codigoModular">
+                                    <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Código Modular:</span>
+                                        {{ row.codigoModular }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="centroTrabajo">
+                                    <mat-header-cell *matHeaderCellDef>Centro Trabajo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Centro Trabajo:</span>
+                                        {{ row.institucionEducativa }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="ordenMerito">
+                                    <mat-header-cell *matHeaderCellDef>Orden de Merito</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Orden de Merito:</span>
+                                        {{ row.ordenMerito }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="documento">
+                                    <mat-header-cell *matHeaderCellDef>Documento</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Documento:</span>
+                                        {{ row.numeroDocumentoIdentidad }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="nombreCompleto">
+                                    <mat-header-cell *matHeaderCellDef>Apellidos y Nombres</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Apellidos y Nombres:</span>
+                                        {{ row.nombreCompleto }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="puntajeFinal">
+                                    <mat-header-cell *matHeaderCellDef>Puntaje Final</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Puntaje Final:</span>
+                                        {{ row.puntajeFinal }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="codigoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Código Plaza{{ codigoPlazaTituloApoyo }}</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Código Plaza:</span>
+                                        <div *ngIf="(row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.Pendiente &&
+                                                    row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.NoAdjudicado)">
+                                                    {{ row.codigoPlaza }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="cargo">
+                                    <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Cargo:</span>
+                                        <div *ngIf="(row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.Pendiente &&
+                                                    row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.NoAdjudicado)">
+                                        {{ row.descripcionCargo }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Tipo de Plaza:</span>
+                                        <div *ngIf="(row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.Pendiente &&
+                                                    row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.NoAdjudicado)">
+                                        {{ row.descripcionTipoPlaza }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="estado">
+                                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Estado:</span>
+                                        <ng-container [ngSwitch]="true">
+                                            <ng-container *ngSwitchCase="row.codigoEstadoAdjudicacion === estadoAdjudicacionEnum.NoAdjudicado">
+                                                <div class="campo-estado p-4 red-600 whiteText">
+                                                    {{row.descripcionEstadoAdjudicacion}}
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="row.codigoEstadoAdjudicacion === estadoAdjudicacionEnum.Pendiente">
+                                                <div class="campo-estado p-4 green-600 whiteText"> 
+                                                    {{row.descripcionEstadoAdjudicacion}}
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="row.codigoEstadoAdjudicacion === estadoAdjudicacionEnum.Observado">
+                                                <div class="campo-estado p-4 black-600 whiteText">
+                                                    {{row.descripcionEstadoAdjudicacion}}
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngSwitchCase="row.codigoEstadoAdjudicacion === estadoAdjudicacionEnum.Adjudicado">
+                                                <div class="campo-estado p-4 blue-600 whiteText">
+                                                    {{row.descripcionEstadoAdjudicacion}}
+                                                </div>
+                                            </ng-container>
+                                            <ng-container *ngSwitchDefault>
+                                                <div class="campo-estado p-4">
+                                                    {{row.descripcionEstadoAdjudicacion}}
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="acciones">
+                                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Acciones:</span>
+                                        <div fxLayout="row" fxFlex="100%" fxLayoutGap="6px">
+                                            <button 
+                                                *ngIf="row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.Pendiente"
+                                                mat-stroked-button class="btn-sm" color="primary"
+                                                matTooltip="Ver información completa" (click)="handleViewInfo(row)">
+                                                <mat-icon>error</mat-icon>
+                                            </button>
+                                            <button
+                                                *ngIf="row.adjudicacionFinalizada==0 && controlesActivos.btnAdjudicarPlaza && 
+                                                (row.codigoEstadoAdjudicacion == estadoAdjudicacionEnum.Pendiente ||
+                                                row.codigoEstadoAdjudicacion == estadoAdjudicacionEnum.NoAdjudicado)"
+                                                mat-stroked-button class="btn-sm" color="primary"
+                                                matTooltip="Adjudicar Plaza"
+                                                (click)="handleViewAdjudicarPlaza(row)">
+                                                <mat-icon>how_to_reg</mat-icon>
+                                            </button>
+                                            <button
+                                                *ngIf="row.adjudicacionFinalizada==0 && controlesActivos.btnNoAdjudicarPlaza && 
+                                                (row.codigoEstadoAdjudicacion == estadoAdjudicacionEnum.Pendiente)"
+                                                mat-stroked-button class="btn-sm" color="warn"
+                                                matTooltip="No Adjudicar Plaza"
+                                                (click)="handleViewNoAdjudicarPlaza(row)">
+                                                <mat-icon>person_outline</mat-icon>
+                                            </button>
+                                            <button mat-stroked-button class="btn-sm" color="primary" 
+                                                *ngIf="(row.adjudicacionFinalizada==1 || row.adjudicacionFinalizada==0) && row.codigoEstadoAdjudicacion == estadoAdjudicacionEnum.Observado"
+                                                matTooltip="Ver Observación" 
+                                                (click)="handleVerObservacion(row)">
+                                                <mat-icon>remove_red_eye</mat-icon>
+                                            </button>
+                                            <button 
+                                                *ngIf="(row.adjudicacionFinalizada==1 || row.adjudicacionFinalizada==0) && controlesActivos.btnSubsanarObservacion && 
+                                                row.codigoEstadoAdjudicacion == estadoAdjudicacionEnum.Observado"
+                                                mat-stroked-button class="btn-sm" color="primary"
+                                                matTooltip="Subsanar Observación"
+                                                (click)="handleSubsanarObservacion(row)">
+                                                <mat-icon>subdirectory_arrow_left</mat-icon>
+                                            </button>
+                                            <button mat-stroked-button class="btn-sm" color="primary"
+                                                *ngIf="(row.adjudicacionFinalizada==1 || row.adjudicacionFinalizada==0) && row.detalleSubsanacion!='' && 
+                                                (row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.Observado && 
+                                                 row.codigoEstadoAdjudicacion != estadoAdjudicacionEnum.Pendiente)"
+                                                matTooltip="Ver detalle de la subsanación"
+                                                (click)="handleVerDetalleObservacion(row)">
+                                                <mat-icon>camera</mat-icon>
+                                            </button>
+                                            <button mat-stroked-button class="btn-sm" color="primary"
+                                                *ngIf="row.codigoEstadoAdjudicacion == estadoAdjudicacionEnum.Adjudicado"
+                                                matTooltip="Ver Acta de Adjudicación"
+                                                (click)="handleVerDocumentoAdjudicacion(row)">
+                                                <mat-icon>picture_as_pdf</mat-icon>
+                                            </button>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                                </mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                            </mat-table>
+                        </div>
+                        <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                            [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                    </div>
+                    <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal"
+                        style=" display: flex;justify-content: center;" 
+                        [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+                        [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+                    <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+                        <div fxLayout="row" fxLayoutAlign="start" fxLayout.xs="column" fxLayoutGap="3px">
+                            <span style="padding-right: 25px;"><strong>Total postulantes :</strong> {{ dataSource?.dataTotal }}</span>
+                            <span style="padding-right: 25px;"><strong>Total adjudicados :</strong> {{ totalAdjudicados }}</span>
+                            <span style="padding-right: 25px;"><strong>Total no adjudicados :</strong> {{ totalNoAdjudicados }}</span>
+                            <span style="padding-right: 25px;"><strong>Total observados :</strong> {{ totalObservados }}</span>
+                        </div>
+                    </div>     
+                </div>  
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="6px" fxLayoutAlign="end center"
+                        fxLayoutAlign.xs="stretch">
+                        <button mat-stroked-button (click)="handleGoAscenso()"><span
+                                class="material-icons">arrow_back</span> RETORNAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{ dialogTitle }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <form [formGroup]="form" *ngIf="!working">
+            <fieldset class="fieldset-border" *ngIf="currentSession">
+                <legend>Datos del aprobador</legend>
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                fxLayoutGap="12px">
+                <div fxLayoutAlign="start start" class="ml-4" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span style="font-weight: bold">Nombre instancia aprobador</span>&nbsp;
+                        <br />
+                        <span>{{ currentSession.nombreCompleto }} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <div>
+                        <span style="font-weight: bold">Usuario aprobador</span>
+                        <br />
+                        <span>{{ currentSession.numeroDocumento}}
+                        </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <div>
+                        <span style="font-weight: bold">Fecha de aprobación/rechazo</span>
+                        <br />
+                        <span>{{ fecha | date:'dd-MM-yyyy'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Detalle motivo de rechazo</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('observaciones')">
+                        <mat-label [mineduFormRequiredLabel]="form.get('observaciones')">Descripción</mat-label>
+                        <textarea matInput formControlName="observaciones" rows="4" maxlength="400"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </fieldset>
+        </form> 
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button color="warn" (click)="handleRechazarPlazas()"><span class="material-icons">close</span>
+                RECHAZAR
+            </button>
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>
+                CANCELAR
+            </button>
+        </div>
+    </div>

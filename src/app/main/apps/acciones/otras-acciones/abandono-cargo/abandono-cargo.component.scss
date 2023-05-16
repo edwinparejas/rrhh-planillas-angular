@@ -1,0 +1,31 @@
+@import "src/@minedu/scss/minedu";
+@import "src/@minedu/scss/comun";
+:host {
+    width: 100%;
+}
+
+minedu-abandono-cargo {
+    width: 100%;
+    padding: 2px;
+    .mat-expansion-panel-header{
+        border-bottom: 0 !important;
+    }
+
+    .mb-1{
+        padding-bottom: 5px;
+    }
+    
+    .panel-body {
+        padding: 15px !important;
+    }
+    
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336 !important;
+        background-color: #fff !important;
+    }
+    
+    .mat-stroked-button:not([disabled]).mat-warn:hover {
+        color: #fff !important;
+        background-color: #f44336 !important;
+    }
+}

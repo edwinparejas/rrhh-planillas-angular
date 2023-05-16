@@ -1,0 +1,321 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="Datos personales">
+                <div class="panel-body">
+                    <fieldset class="fieldset-border mt-0 mb-12">
+                        <legend>Datos personales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Documento</span><br>
+                                        <span class="label-normal">{{postulacion?.numeroDocumentoIdentidad}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Fecha nacimiento</span><br>
+                                        <span class="label-normal">{{postulacion?.fechaNacimiento}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Sexo</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionGenero}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Primer apellido</span><br>
+                                        <span class="label-normal">{{postulacion?.primerApellido}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><br>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Segundo apellido</span><br>
+                                        <span class="label-normal">{{postulacion?.segundoApellido}}</span>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nombres</span><br>
+                                        <span class="label-normal">{{postulacion?.nombres}}</span>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nacionalidad</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionNacionalidad}}</span>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+
+                                </div>                                
+                            </div>
+                        </div><br>
+                    </fieldset>
+
+                    <fieldset class="fieldset-border mt-0 mb-12">
+                        <legend>Datos de domicilio</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de vía</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionTipoVia}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nombre de vía</span><br>
+                                        <span class="label-normal">{{postulacion?.nombreVia}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Número</span><br>
+                                        <span class="label-normal">{{postulacion?.numeroVia}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de zona</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionTipoZona}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nombre de zona</span><br>
+                                        <span class="label-normal">{{postulacion?.nombreZona}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Departamento</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionDepartamento}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Provincia</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionProvincia}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Distrito</span><br>
+                                        <span class="label-normal">{{postulacion?.descripcionDistrito}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset-border mt-0 mb-12">
+                        <legend>Datos de contacto</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Celular</span><br>
+                                        <span class="label-normal">{{postulacion?.telefonoMovil}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Télefono fijo</span><br>
+                                        <span class="label-normal">{{postulacion?.telefonoFijo}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    
+                                </div>
+                            </div>
+                        </div><br>
+
+                    </fieldset>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Formación académica">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Formación académica</legend>
+                    <minedu-formacion-academica [data]="formacionesAcademica" [soloLectura]="true">
+                    </minedu-formacion-academica>
+                </fieldset>
+            </mat-tab>
+
+            <mat-tab label="Capacitaciones">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Capacitaciones</legend>
+                    <minedu-capacitaciones [data]="capacitaciones" [soloLectura]="true"></minedu-capacitaciones>
+                </fieldset>
+            </mat-tab>
+
+            <mat-tab label="Experiencias">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Experiencia laboral</legend>
+                    <minedu-experiencia-laboral [data]="experienciasLaborales" [soloLectura]="true">
+                    </minedu-experiencia-laboral>
+                </fieldset>
+            </mat-tab>
+
+            <mat-tab label="Datos de la plaza a postular">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Datos laborales</legend>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                            fxLayoutGap.xs="0">
+
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Cargo</span><br>
+                                    <span class="label-normal">{{postulacion?.datoPlazaPostular?.descripcionCargo}}</span>
+                                </div>
+                            </div>
+
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modalidad</span><br>
+                                    <span class="label-normal">{{postulacion?.datoPlazaPostular?.descripcionModalidadEducativa}}</span>
+                                </div>
+                            </div>
+
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nivel eduactivo</span><br>
+                                    <span class="label-normal">{{postulacion?.datoPlazaPostular?.descripcionNivelEducativo}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Área curricular</span><br>
+                                    <span class="label-normal">{{postulacion?.datoPlazaPostular?.descripcionAreaCurricular}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                </fieldset>
+            </mat-tab>
+
+
+            <mat-tab label="Otros">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Otros datos</legend>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                            fxLayoutGap.xs="0">
+
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">R.U.C. (Solo D.L. 1057)</span><br>
+                                    <span class="label-normal">{{postulacion?.numeroRuc}}</span>
+                                </div>
+                            </div>
+
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Colegio profesional</span><br>
+                                    <span class="label-normal">{{postulacion?.nombreColegioProfesional}}</span>
+                                </div>
+                            </div>
+
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Número colegiatura</span><br>
+                                    <span class="label-normal">{{postulacion?.numeroColegioProfesional}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><br>
+                </fieldset>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Documentos de sustento</legend>
+                    <minedu-documentos-sustento [data]="documentosSustento" [soloLectura]="true">
+
+                    </minedu-documentos-sustento>
+                </fieldset>
+            </mat-tab>
+
+        </mat-tab-group>
+
+
+
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label" style="color: red;">(*) Datos obligatorios </span><br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button *ngIf="eliminado" color="warn" (click)="handleDelete()"><span
+            class="material-icons">delete_forever</span> ELIMINAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>CERRAR</button>
+    </div>
+</div>

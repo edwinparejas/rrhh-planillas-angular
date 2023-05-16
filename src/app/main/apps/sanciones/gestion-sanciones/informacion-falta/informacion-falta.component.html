@@ -1,0 +1,222 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos personales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de identidad</span><br>
+                            <span class="label-normal">{{falta?.numeroDocumentoIdentidad}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer apellido</span><br>
+                            <span class="label-normal">{{falta?.primerApellido}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo apellido</span><br>
+                            <span class="label-normal">{{falta?.segundoApellido}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span><br>
+                            <span class="label-normal">{{falta?.nombres}}</span>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div> 
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Estado civil</span><br>
+                            <span class="label-normal">{{falta?.estadoCivil}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span><br>
+                            <span class="label-normal">{{falta?.genero}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha nacimiento</span><br>
+                            <span class="label-normal">{{falta?.fechaNacimiento | date: 'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label"> </span><br>
+                            <span class="label-normal"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos laborales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código de plaza</span><br>
+                            <span class="label-normal">{{falta?.codigoPlaza}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Centro de trabajo</span><br>
+                            <span class="label-normal">{{falta?.descripcionInstitucionEducativa}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Modalidad</span><br>
+                            <span class="label-normal">{{falta?.descripcionModalidadEducativa}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nivel educativo</span><br>
+                            <span class="label-normal">{{falta?.descripcionNivelEducativo}}</span>
+                        </div>
+                    </div>
+                     
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                 
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Régimen laboral</span><br>
+                            <span class="label-normal">{{falta?.abreviaturaRegimenLaboral}}</span>
+                        </div>
+                    </div>
+                   
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Categoría renumerativa</span><br>
+                            <span class="label-normal">{{falta?.descripcionCategoriaRemunerativa}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cargo</span><br>
+                            <span class="label-normal">{{falta?.descripcionCargo}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Jornada laboral</span><br>
+                            <span class="label-normal">{{falta?.jornadaLaboral}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> 
+
+     
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Detalle de la falta</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo de falta</span><br>
+                            <span class="label-normal">{{falta?.descripcionTipoFalta}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Detalle de falta</span><br>
+                            <span class="label-normal">{{falta?.descripcionDetalleFalta}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de aviso</span><br>
+                            <span class="label-normal">{{falta?.fechaAviso | date: 'dd/MM/yyyy'}}</span>
+                        </div>
+                    </div>
+                   
+
+                </div>
+            </div> 
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Plazo de descargo</span><br>
+                            <span class="label-normal">{{falta?.plazoDescargo}} Días</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Observaciones</span><br>
+                            <span class="label-normal">{{falta?.observaciones}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </fieldset>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Documento de sustento</legend>
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                 <minedu-documentos-sustento [data]="documentosSustento" [soloLectura]="true">
+                </minedu-documentos-sustento>  
+            </div>
+             
+        </fieldset>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button *ngIf="eliminado" color="warn" (click)="handleDelete()"><span
+                class="material-icons">delete_forever</span> ELIMINAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

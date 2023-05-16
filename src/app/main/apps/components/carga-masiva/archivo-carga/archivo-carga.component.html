@@ -1,0 +1,169 @@
+<div class="content">
+    <div fxLayout="column" class="pl-2 pr-2">
+
+        <fieldset class="fieldset-border mt-0 mb-12" *ngIf="!detalleProcesado">
+            <legend>Datos del formato</legend>
+            <form [formGroup]="form">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idFormato')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('idFormato')">Formato</mat-label>
+                            <mat-select formControlName="idFormato">
+                                <mat-option value="-1">--SELECCIONE UNA OPCIÓN--</mat-option>
+                                <mat-option *ngFor="let item of formatos" [value]="item.idFormato">
+                                    {{item.descripcionFormato}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('idFormato')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('nombreArchivo')" *ngIf="ocultarCarga === true">
+                            <mat-label [mineduFormRequiredLabel]="form.get('nombreArchivo')">Adjuntar archivo
+                            </mat-label>
+                            <input matInput formControlName="nombreArchivo" class="icon-cursor" (click)="file.click()" readonly>
+                            <mat-icon matSuffix class="icon-cursor" (click)="file.click()" *ngIf="ocultar === true">
+                                publish</mat-icon>
+                            <input hidden (change)="uploadFile(file.files)" #file type="file" id="file" accept=".xlsx">
+                            <mat-hint>Formato: Excel, Extension: .xlsx, tamaño máximo 2MB</mat-hint>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('nombreArchivo')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('detalleFormato')" *ngIf="ocultarCarga === true">
+                            <mat-label [mineduFormRequiredLabel]="form.get('detalleFormato')">Detalle Formato
+                            </mat-label>
+                            <input matInput formControlName="detalleFormato" placeholder="Detalle Formato">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+
+        <form [formGroup]="form" *ngIf="!detalleProcesado">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxFlex="30%" fxLayoutAlign="start start">
+                    <div mat-dialog-actions fxLayout="row">
+                        <button mat-stroked-button color="primary" [disabled]="!descargar" (click)="descargarFormato()" class="ml-4 mb-10" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"> 
+                            Descargar Formato 
+                            <span class="material-icons">get_app</span>
+                        </button>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="70%" fxLayoutAlign="end end">
+                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                        <button mat-raised-button color="primary" *ngIf="validar" class="mb-10" (click)="validarInformacion()"><span class="material-icons">check_circle_outline</span>
+                            Validar Información</button>
+                    </div>
+                    <div mat-dialog-actions fxLayout="row">
+                        <button mat-raised-button color="primary" *ngIf="procesar" class="ml-4 mb-10" (click)="procesarInformacion()"><span class="material-icons">sync</span> Procesar
+                            Carga</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Detalle carga masiva</legend>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" fxLayoutAlign="start center">
+                    <mat-label class="ml-4"><strong>Fecha:&nbsp;</strong></mat-label> {{ dataSource.fechaCarga | date:'dd/MM/yyyy' }}
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlexfxFlexfxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" fxLayoutAlign="start center">
+                    <mat-label class="ml-4"><strong>Archivo:&nbsp;</strong></mat-label> {{ dataSource.nombreArchivo }}
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-8">
+                <div mat-dialog-actions class="pl-6" fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-stroked-button color="primary" [disabled]="!exportar" (click)="exportarDetalle()" class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                            class="material-icons">get_app</span> Exportar</button>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                    <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                        <ng-container *ngFor="let col of displayedColumns; let i = index; ">
+                            <ng-container *ngIf="col === 'select'">
+                                <ng-container matColumnDef="{{ col }}">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <mat-checkbox disabled>
+                                        </mat-checkbox>
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-checkbox [checked]="row.tieneError === 'False' ? true : false" disabled>
+                                        </mat-checkbox>
+                                    </td>
+                                </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngIf="col !== 'select' && col !== 'detalleError'">
+                                <ng-container matColumnDef="{{ col }}">
+                                    <th mat-header-cell *matHeaderCellDef>{{ this.titulosGrid[i] }} </th>
+                                    <td mat-cell *matCellDef="let row;">
+                                        <p *ngIf="row[col]">{{ row[col] }}</p>
+                                    </td>
+                                </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngIf="col === 'detalleError'">
+                                <ng-container matColumnDef="{{ col }}">
+                                    <th mat-header-cell *matHeaderCellDef>{{ this.titulosGrid[i] }}</th>
+                                    <td mat-cell *matCellDef="let row;" matTooltip="{{row[col]}}">
+                                        <p *ngIf="row[col]">{{ row[col] }}</p>
+                                    </td>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"  [@animate]="{value:'*',params:{y:'100%'}}"></tr> -->
+                    </table>
+
+                        <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">
+                            <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+            </div>
+                            <mat-paginator 
+				#paginatorCargaMasiva 
+				class="mat-paginator-sticky" 
+				[length]="dataSource.totalRegistros" 
+				[pageIndex]="this.globals.paginatorPageIndex"
+				[pageSize]="this.globals.paginatorPageSize" 
+				[pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]"
+				fxLayoutAlign="center center"
+				showFirstLastButtons>
+                            </mat-paginator>
+			    <div style="text-align:right;">
+				<mat-label><strong>Total Registro:&nbsp;</strong> {{ dataSource.totalRegistros }}
+				</mat-label>
+			    </div>
+        </fieldset>
+
+        <fieldset class="fieldset-border mt-0 mb-2" *ngIf="!detalleProcesado">
+            <legend>Resumen</legend>
+            <div fxLayout="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutAlign="star star">
+                <mat-label class="mb-6"><strong>Registros correctos:&nbsp;</strong> {{ dataSource.registrosCorrectos }}
+                </mat-label>
+            </div>
+            <div fxLayout="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutAlign="star star">
+                <mat-label class="mb-8"><strong>Registros con errores:&nbsp;</strong> {{ dataSource.registrosErrados }}
+                </mat-label>
+            </div>
+        </fieldset>
+
+    </div>
+</div>

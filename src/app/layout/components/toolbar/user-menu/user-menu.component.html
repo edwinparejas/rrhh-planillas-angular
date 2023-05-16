@@ -1,0 +1,43 @@
+<div class="dialog-content">
+    <div fxLayout="column" fxLayoutAlign="start center" *ngIf="data">
+        <img *ngIf="!imageurl" src="assets/images/avatars/user-avatar.png" class="avatar contact-avatar huge m-0" />
+        <img *ngIf="imageurl" [src]="imageurl" class="avatar contact-avatar huge m-0" />
+        <div class="mt-8 title">{{data?.NOMBRES_USUARIO}} {{data?.APELLIDO_PATERNO}}
+            {{data?.APELLIDO_MATERNO}}</div>
+        <div class="mb-12 sub-title">
+            <mat-icon class="s-12 success-icon">check_circle</mat-icon><small> {{rolSelected?.NOMBRE_ROL}}</small>
+        </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start stretch" class="pos-fieldset">
+        <fieldset class="fieldset-border mb-2">
+            <p class="small text-left">
+                <strong>Documento:</strong> {{data?.TIPO_DOCUMENTO_ENUM}} - {{data?.NUMERO_DOCUMENTO}}<br>
+                <!-- <strong>Régimen laboral:</strong> LEY 29944<br>
+                <strong>Cargo:</strong> DIRECTOR I.E. (NOMBRADO)<br> -->
+                <strong>Sede:</strong> {{rolSelected?.NOMBRE_SEDE}}<br>
+                <!-- <strong>Código de plaza:</strong> 781831018015 -->
+            </p>
+        </fieldset>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="divider"></div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-list>
+            <mat-divider class="item-divider"></mat-divider>
+            <mat-list-item class="list-item" role="listitem" (click)="CambiarInstancia()"
+                *ngIf="permiteCambiarInstancia()">
+                <mat-icon class="list-icon" mat-list-icon>location_city</mat-icon>Cambiar instancia
+            </mat-list-item>
+            <mat-list-item class="list-item" role="listitem" (click)="CambiarRol()" *ngIf="roles > 1 && data">
+                <mat-icon class="list-icon s-20" mat-list-icon>account_box</mat-icon>Cambiar rol - sede
+            </mat-list-item>
+            <!-- <mat-list-item class="list-item" role="listitem" (click)="IrPanel()">
+                <mat-icon class="list-icon s-20" mat-list-icon>dashboard</mat-icon>Ir al panel
+            </mat-list-item> -->
+            <mat-list-item class="list-item" role="listitem" (click)="Logout()">
+                <mat-icon class="list-icon s-20" mat-list-icon>power_off</mat-icon>Cerrar sesión
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

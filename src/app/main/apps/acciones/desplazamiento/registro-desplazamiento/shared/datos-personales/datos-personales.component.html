@@ -1,0 +1,138 @@
+<div *ngIf="getControlValue(accionPersonalForm, 'idMotivoAccion')!==-1">
+    <fieldset [formGroup]="DatosPersonales" class="fieldset-border">
+        <legend>Datos Personales</legend>
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-md="0">
+                <!-- Inicio Tipo de Documento -->
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="DatosPersonales.get('idTipoDocumentoIdentidad')">
+                    <mat-label [mineduFormRequiredLabel]="DatosPersonales.get('idTipoDocumentoIdentidad')">
+                        Tipo de Documento
+                    </mat-label>
+                    <mat-select (selectionChange)="limpiarDataTipoNumDoc($event)"
+                        formControlName="idTipoDocumentoIdentidad">
+                        <mat-option *ngFor="let item of tipoDocumentoList" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="DatosPersonales.get('idTipoDocumentoIdentidad')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <!-- Fin Tipo de Documento-->
+                <!-- Inicio Numero de Documento-->
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="DatosPersonales.get('numeroDocumentoIdentidad')">
+                    <mat-label [mineduFormRequiredLabel]="DatosPersonales.get('numeroDocumentoIdentidad')">
+                        Número de documento
+                    </mat-label>
+                    <input matInput formControlName="numeroDocumentoIdentidad" placeholder="Número de documento"
+                        [maxLength]="DatosPersonales.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                        (keydown.enter)="busquedaPersonalizadaServidorPublicoEnter(DatosPersonales)" uppercase>
+
+                    <mat-icon matSuffix class="icon-cursor"
+                        (click)="busquedaPersonalizadaServidorPublico(DatosPersonales)">search
+                    </mat-icon>
+                    <mat-error>
+                    </mat-error>
+                </mat-form-field>
+                <!-- Fin Numero de Documento-->
+
+
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-md="0">
+                <div *ngIf="getControlValue(DatosPersonales.get('persona'),'nombreCompleto') as nombreCompleto"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Apellidos y Nombres</label><br />
+                        <p class="label-normal">{{ nombreCompleto }}</p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(DatosPersonales.get('persona'),'estadoCivil') as estadoCivil"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Estado Civil</label><br />
+                        <p class="label-normal">{{ estadoCivil }}</p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(DatosPersonales.get('persona'),'sexo') as sexo" fxLayoutAlign="start start"
+                    fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Sexo</label><br />
+                        <p class="label-normal">{{sexo}}</p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(DatosPersonales.get('persona'),'fechaNacimiento') as fechaNacimiento"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Fecha de Nacimiento</label><br />
+                        <p class="label-normal">{{ fechaNacimiento }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+    <fieldset [formGroup]="DatosPersonales" class="fieldset-border">
+        <legend>Informe Escalafonario</legend>
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-md="0">
+                <!-- Inicio Informe escalafonario-->
+                <div [formGroup]="DatosPersonales.get('informeEscalafonario')" formGroupName="informeEscalafonario"
+                    fxFlex="24.5%" fxFlex.xs="100%">
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="DatosPersonales.get('informeEscalafonario').get('numeroInformeEscalafonario')">
+                        <mat-label
+                            [mineduFormRequiredLabel]="DatosPersonales.get('informeEscalafonario').get('numeroInformeEscalafonario')">
+                            Informe Escalafonario
+                        </mat-label>
+                        <input matInput formControlName="numeroInformeEscalafonario" placeholder="Informe Escalafonario"
+                            maxlength="200" uppercase
+                            (keyup.enter)="handleBuscarInformeEscalafonarioBtn(DatosPersonales)"
+                            [readonly]="esProcesoCheck">
+                        <mat-icon matSuffix class="icon-cursor"
+                            (click)="handleBuscarInformeEscalafonarioBtn(DatosPersonales)">
+                            search
+                        </mat-icon>
+
+                    </mat-form-field>
+                    <div fxFlex="0%" fxFlex.xs="100%"
+                        *ngIf="getControlValue(DatosPersonales.get('informeEscalafonario'),'documentoInformeEscalafonario') as documentoInformeEscalafonario">
+                        <div>
+                            <button type="button" mat-stroked-button color="primary" class="ml-4"
+                                style="margin-top: 8px;"
+                                (click)="handleVerDocumentoSustento(documentoInformeEscalafonario)">
+                                <span class="material-icons">description</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxFlex="24.5%" fxFlex.xs="100%"
+                    *ngIf="getControlValue(DatosPersonales.get('informeEscalafonario'),'fechaInformeEscalafonario') as fechaInformeEscalafonario">
+                    <div class="m-5">
+                        <label class="label" for="">Fecha informe escalafonario</label><br />
+                        <p class="label-normal">
+                            {{fechaInformeEscalafonario | date:'dd/MM/yyyy h:mm:ss a'}}
+                        </p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(DatosPersonales.get('informeEscalafonario'),'aniosTiempoServicio') as aniosTiempoServicio"
+                    fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Tiempo de Servicios</label><br />
+                        <p class="label-normal">
+                            {{aniosTiempoServicio }}
+                        </p>
+                    </div>
+                </div>
+                <!-- Fin Informe escalafonario -->
+            </div>
+        </div>
+
+    </fieldset>
+</div>

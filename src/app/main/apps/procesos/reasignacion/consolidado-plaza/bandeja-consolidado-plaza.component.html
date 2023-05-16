@@ -1,0 +1,248 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Proceso y Etapa</h3>
+                </div>
+                <div class="panel-body">
+                  <minedu-informacion-proceso-etapa [consolidado]="true" [idProcesoEtapa]="idEtapaProceso" [codSede]="currentSession.codigoSede"></minedu-informacion-proceso-etapa>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de Búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idInstancia')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">
+                                        Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idInstancia">
+                                        <mat-option *ngFor="let item of comboLists.listInstancia" [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idInstancia')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idSubInstancia')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idSubInstancia')">
+                                        Sub Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idSubInstancia">
+                                        <mat-option *ngFor="let item of comboLists.listSubInstancia" [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idSubInstancia')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idEstadoConsolizadoPlaza')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idEstadoConsolizadoPlaza')">
+                                        Estado
+                                    </mat-label>
+                                    <mat-select formControlName="idEstadoConsolizadoPlaza">
+                                        <mat-option *ngFor="let item of comboLists.listEstadoConsolidado" [value]="item.value">
+                                            {{item.label | uppercase}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idEstadoConsolizadoPlaza')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span class="material-icons">clear</span>
+                                Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span class="material-icons">search</span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleAprobarPlazas()"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4">done</span>APROBAR MASIVO
+                            </button>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" (click)="handleGenerarPdf()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4">settings</span>GENERAR LISTADO PLAZAS
+                            </button>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleVerConsolidadoPlazas()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4" style="color: red;">picture_as_pdf</span>VER CONSOLIDADO PLAZAS 
+                            </button>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons">get_app</span>EXPORTAR
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="content" mineduPerfectScrollbar>
+                        <div class="content-table">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                                    [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                                    <ng-container matColumnDef="registro">
+                                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">N°:</span>
+                                            {{row?.numero_registro}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="idInstancia">
+                                        <mat-header-cell *matHeaderCellDef>INSTANCIA
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">INSTANCIA:</span>
+                                            {{row?.descripcion_dre}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="idSubInstancia">
+                                        <mat-header-cell *matHeaderCellDef>SUB INSTANCIA
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">SUB INSTANCIA:</span>
+                                            {{row?.descripcion_ugel}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="estadoConsolidado">
+                                        <mat-header-cell *matHeaderCellDef>ESTADO</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <ng-container [ngSwitch]="true">
+                                                <ng-container
+                                                    *ngSwitchCase="row.codigo_estado === estadoConsolidado.APROBADO">
+                                                    <p class="badge badge-success badge-width">
+                                                        {{row.descripcion_estado}}</p>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngSwitchCase="row.codigo_estado === estadoConsolidado.PENDIENTE">
+                                                    <p class="badge badge-warning badge-width">
+                                                        {{row.descripcion_estado}}</p>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngSwitchCase="row.codigo_estado === estadoConsolidado.RECHAZADO">
+                                                    <p class="badge badge-danger badge-width">
+                                                        {{row.descripcion_estado}}</p>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngSwitchCase="row.codigo_estado === estadoConsolidado.VALIDADO">
+                                                    <p class="badge badge-info badge-width">
+                                                        {{row.descripcion_estado}}</p>
+                                                </ng-container>
+                                            </ng-container>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaValidacion">
+                                        <mat-header-cell *matHeaderCellDef>FECHA VALIDACIÓN
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">FECHA VALIDACIÓN:</span>
+                                            {{row?.fecha_validacion}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaAprobacion">
+                                        <mat-header-cell *matHeaderCellDef>FECHA APROBACIÓN
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">FECHA APROBACIÓN:</span>
+                                            {{row?.fecha_aprobacion}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaRechazo">
+                                        <mat-header-cell *matHeaderCellDef>FECHA RECHAZO
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">FECHA RECHAZO:</span>
+                                            {{row?.fecha_rechazo}}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let  i = index;">
+                                            <span class="mobile-label">ACCIONES:</span>
+                                            <div style="padding-left: 10px;"></div>
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                <div *ngIf="row.codigo_estado != estadoConsolidado.PENDIENTE" class="mat-icon-table">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Ver detalle de plazas" matTooltip="Ver detalle de plazas"
+                                                        (click)="handleGoConsolidadoPlazaDetalle(row)">
+                                                        <mat-icon class="">filter_none</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div *ngIf="row.codigo_estado === estadoConsolidado.RECHAZADO" class="mat-icon-table">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Ver motivo de rechazo" matTooltip="Ver motivo de rechazo"
+                                                        (click)="handleMotivoRechazo(row)">
+                                                        <mat-icon class="">remove_red_eye</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                    </mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;" (mouseover)="row.hovered = true"
+                                        (mouseout)="row.hovered = false" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </mat-row>
+                                </mat-table>
+                            </div>
+                            <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">pageSize
+                                <mat-spinner diameter="50"></mat-spinner>
+                            </div>
+                            <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal" fxLayoutAlign="center center"
+                                [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+                                [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

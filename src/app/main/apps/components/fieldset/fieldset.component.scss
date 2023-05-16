@@ -1,0 +1,33 @@
+.fieldset {   
+    position: relative;
+    display: flex;
+    margin: 16px 0 4px;
+    padding: 8px 8px 3px 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+
+    &__legend {
+      margin-left: -4px;
+      padding: 0 4px;
+      font-size: 14px;
+      
+      text-transform: capitalize;
+    }
+    &__content {
+      margin-bottom: 4px;
+    }
+    &__helper {
+      margin: 0 0 0 13px;
+      font-size: 12px;
+    }
+    // &:hover {
+    //   border-width: 2px;
+    //   .fieldset__legend {
+    //     margin: 0 -4px 0;
+    //   }
+    //   .fieldset__content {
+    //     margin: -1px -1px 4px -1px;
+    //   }
+    // }
+  }

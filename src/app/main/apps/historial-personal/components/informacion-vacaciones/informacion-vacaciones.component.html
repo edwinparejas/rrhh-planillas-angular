@@ -1,0 +1,160 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Ver Información Vacaciones</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                <fieldset class="fieldset-border">
+                    <legend>Acción de Personal</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                           
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Grupo de Acción</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.grupoAccion">
+                                        {{historial.detalleCabecera.grupoAccion}}</p>
+                                    <p class="form-control-static p1" *ngIf="!historial.detalleCabecera.grupoAccion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Acción</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.accion">
+                                        {{historial.detalleCabecera.accion}}</p>
+                                    <p class="form-control-static p1" *ngIf="!historial.detalleCabecera.accion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Acción</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.motivoAccion">
+                                        {{historial.detalleCabecera.motivoAccion}}</p>
+                                    <p class="form-control-static p1" *ngIf="!historial.detalleCabecera.motivoAccion">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+                <div class="nexus">
+                    <span class="h6 p-4 historialnexus">
+                        HISTORIAL NEXUS
+                    </span>
+                </div>
+
+                <br>
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos de Vacaciones</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo Resolución</label>                                    
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.numeroResolucion">
+                                        {{historial.detalleCabecera.numeroResolucion}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.numeroResolucion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Número Resolución</label>                                    
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.numeroResolucion">
+                                        {{historial.detalleCabecera.numeroResolucion}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.numeroResolucion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Año Resolución</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.fechaResolucion">
+                                        {{historial.detalleCabecera.fechaResolucion}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.fechaResolucion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha Resolución</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleCabecera.fechaResolucion">
+                                        {{historial.detalleCabecera.fechaResolucion}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleCabecera.fechaResolucion">NO REGISTRADO
+                                </div>
+                            </div>
+                           
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">                                
+                            </div>
+                        </div>
+
+                        <div fxFlex="100%">
+
+                            <div class="form-group">
+                                <label for="" class="label">DETALLE DE VACACIONES</label>                                
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                            <table class="minedu-table" role="grid">
+                                <thead role="rowgroup">
+                                    <tr class="mat-header-row cdk-header-row ng-tns-c388-15 ng-star-inserted">
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 3%">N</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 15%">Periodo Vacacional</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 15%">Fecha Inicio</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 60%">Fecha Termino</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 10%">Cantidad Días</th>
+                                    </tr>
+                                </thead>
+                                <tbody role="rowgroup">
+                                    <tr *ngFor="let item of VACACIONES_DATAGRID; index as i"
+                                    class="mat-row cdk-row ng-tns-c386-4 ng-trigger ng-trigger-animate ng-star-inserted">
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{i+1}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted" >{{item.periodoVacacional}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted" >{{item.fechaInicio}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.fechaTermino}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.cantidadDias}}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="(this.VACACIONES_DATAGRID.length==0)">
+                                <div class="no-results">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                </fieldset>
+
+            </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+

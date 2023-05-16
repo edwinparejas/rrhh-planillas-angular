@@ -1,0 +1,119 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+        <div class="panel mt-12">
+            <minedu-designacion-header [mineduForm]="proceso"></minedu-designacion-header>
+            <fieldset class="fieldset-border mr-20 ml-20">
+                <legend>Criterios de búsqueda</legend>
+                <form autocomplete="off" novalidate [formGroup]="form">
+                    <div class="panel-body" fxLayout="row">
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">Código de plaza
+                                        </mat-label>
+                                        <input matInput formControlName="codigoPlaza"
+                                            (keydown.enter)="buscarPlaza($event)" uppercase>
+                                        <button type="button" *ngIf="!form.get('codigoPlaza').invalid" matSuffix
+                                            mat-button mat-icon-button (click)="buscarPlaza($event)">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoPlaza')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('codigoModular')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">Código modular
+                                        </mat-label>
+                                        <input matInput formControlName="codigoModular"
+                                            (keydown.enter)="buscarCentroTrabajo($event)" uppercase>
+                                        <button type="button" *ngIf="!form.get('codigoModular').invalid" matSuffix
+                                            mat-button mat-icon-button (click)="buscarCentroTrabajo($event)">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoModular')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <div class="p-0" fxLayout="row">
+                                <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                    [working]="working">
+                                </minedu-button-clear>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <minedu-button-search [mineduForm]="form" (mineduOnClick)="handleBuscar(form)"
+                                    [working]="working">
+                                </minedu-button-search>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-12 mb-10 mr-20 ml-20">
+                <div class="pl-6" fxLayout="row">
+                    <label for="">Cargos convocados :</label>
+                    <label *ngIf="proceso?.cargoConvocado">{{proceso.cargoConvocado}}</label>
+                    <label *ngIf="!proceso?.cargoConvocado">No registrado</label>
+                </div>
+                <div class="pl-6" fxLayout="row">
+                    <button mat-raised-button color="primary" class="" (click)="handleEnviarConsolidado()"
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">send</span> Enviar a consolidado
+                    </button>
+                </div>
+            </div>
+            <div class="mr-20 ml-20">
+                <mat-tab-group mat-align-tabs="start" [selectedIndex]="0" animationDuration="0ms" dynamicHeight>
+                    <mat-tab label="Plazas prepublicadas">
+                        <div fxLayout="column" class="pl-2 pr-2 mt-16">
+                            <minedu-designacion-plaza-prepublicada></minedu-designacion-plaza-prepublicada>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Plazas a convocar">
+                        <div fxLayout="column" class="pl-2 pr-2 mt-16">
+                            <minedu-designacion-plaza-a-convocar></minedu-designacion-plaza-a-convocar>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Plazas observadas">
+                        <div fxLayout="column" class="pl-2 pr-2 mt-16">
+                            <minedu-designacion-plaza-observada></minedu-designacion-plaza-observada>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Resultado final">
+                        <div fxLayout="column" class="pl-2 pr-2 mt-16">
+                            <minedu-designacion-plaza-resultado></minedu-designacion-plaza-resultado>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button class="mr-8" (click)="handleRegresar()"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                            <span class="material-icons">arrow_back</span> Retornar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

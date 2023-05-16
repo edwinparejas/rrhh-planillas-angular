@@ -1,0 +1,387 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" >
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" >
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Revisar requisitos e impedimentos</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/contratacion-directa/bandeja-calificaciones/',idEtapaProceso]">Calificaciones</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <minedu-informacion-postulante-calificacion 
+		    [idPersona]="idPersona"
+		    [tipo]="'postulanteContratacionDirecta'">
+		</minedu-informacion-postulante-calificacion>
+            </div>
+            <div class="panel">
+                <div class="p-20">
+                    <fieldset class="fieldset-border m-auto">
+                        <legend>Datos de la plaza a postular</legend>
+                        <div fxLayout="column" fxFlexAlign="flex-start">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Código de Plaza</span><br>
+                                            <span class="label-normal">{{plaza?.codigoPlaza | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Régimen laboral</span><br>
+                                            <span class="label-normal">{{plaza?.regimenLaboral | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Cargo</span><br>
+                                            <span class="label-normal">{{plaza?.cargo | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Jornada Laboral</span><br>
+                                            <span class="label-normal">{{plaza?.jornadaLaboral | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Área Curricular</span><br>
+                                            <span class="label-normal">{{plaza?.areaCurricular | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Especialidad</span><br>
+                                            <span class="label-normal">{{plaza?.especialidad | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo de plaza</span><br>
+                                            <span class="label-normal">{{plaza?.tipoPlaza | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Vigencia Inicio</span><br>
+                                            <span class="label-normal">{{plaza?.vigenciaInicio | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Vigencia Fin</span><br>
+                                            <span class="label-normal">{{plaza?.vigenciaFin | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Motivo de vacante</span><br>
+                                            <span class="label-normal">{{plaza?.motivoVacancia | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Código modular</span><br>
+                                            <span class="label-normal">{{plaza?.codigoCentroTrabajo | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Centro de trabajo</span><br>
+                                            <span class="label-normal">{{plaza?.institucionEducativa | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Instancia</span><br>
+                                            <span class="label-normal">{{plaza?.instancia | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Sub Instancia</span><br>
+                                            <span class="label-normal">{{plaza?.subInstancia | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Modalidad</span><br>
+                                            <span class="label-normal">{{plaza?.modalidad | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Nivel Educativo</span><br>
+                                            <span class="label-normal">{{plaza?.nivelEducativo | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo de IE</span><br>
+                                            <span class="label-normal">{{plaza?.tipoInstitucionEducativa | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo de Gestiòn</span><br>
+                                            <span class="label-normal">{{plaza?.tipoGestion | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Dependencia</span><br>
+                                            <span class="label-normal">{{plaza?.dependencia | noRegistrado}} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Modelo de Servicio</span><br>
+                                            <span class="label-normal">{{plaza?.modeloServicio | noRegistrado}} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo de Ruralidad</span><br>
+                                            <span class="label-normal">{{plaza?.tipoRuralidad | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">EIB</span><br>
+                                            <span class="label-normal">{{plaza?.ieb ? 'SI' : 'NO'}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Forma de Atención</span><br>
+                                            <span class="label-normal">{{plaza?.formaAtencion | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Lengua Originaria</span><br>
+                                            <span class="label-normal">{{plaza?.lenguaOriginaria | noRegistrado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Frontera</span><br>
+                                            <span class="label-normal">{{plaza?.frontera ? 'SI' : 'NO'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="p-20">
+                    <fieldset class="fieldset-border m-auto">
+                        <legend>Evaluación</legend>
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-tab-group *ngIf="info != null">
+                                        <mat-tab *ngFor="let r of rubro; let i = index;" label="{{ (i+1) }} - {{ r.descripcionRubro }}">
+                                            <div class="p-20">
+                                                <div class="content-table">
+                                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                                        <mat-table class="minedu-table" #table [dataSource]="dtSource[i]" [class.isMobile]="isMobile"
+                                                            [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                                            <ng-container matColumnDef="codigoCriterio">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Nro</mat-header-cell>
+                                                                <mat-cell 
+								    *matCellDef="let row; let i = index;" 
+								    [ngClass]="{'mat-cell-center':true,'mat-cell-hidden':row.noEsParteDeCalificacion}">
+                                                                    <p [ngClass]="{ 'span-subtitulo': row.tieneSubCriterio }">
+								    {{ row.codigoCriterio }}
+								    </p>
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="descripcionCriterio">
+                                                                <mat-header-cell *matHeaderCellDef>{{  r.descripcionRubro }}</mat-header-cell>
+                                                                <mat-cell 
+								    *matCellDef="let row; let i = index"
+									  [ngClass]="{'mat-cell-hidden':row.noEsParteDeCalificacion}">
+                                                                    <span [ngClass]="{ 'span-subtitulo': row.tieneSubCriterio }">
+                                                                        {{ row.descripcionCriterio }}
+                                                                    </span>
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef>
+                                                                    <span *ngIf="r.idTipoPuntaje == this.TipoPuntajeEnum.PUNTAJE || r.idTipoPuntaje == this.TipoPuntajeEnum.NO_APLICA" class="span-subtitulo" style="text-transform: uppercase;">PUNTAJE TOTAL DE {{ r.descripcionRubro }}</span>
+                                                                </mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="puntaje">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje</mat-header-cell>
+                                                                <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                    {{ row.puntajeObtenido == null ? row.puntajeTexto : row.puntajeObtenido }}
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="cumpleDocumento">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Cumple</mat-header-cell>
+                                                                <mat-cell 
+								    *matCellDef="let row; let j = index" 
+							            [ngClass]="{'mat-cell-center':true,'mat-cell-hidden':row.noEsParteDeCalificacion}">
+                                                                    <mat-checkbox style="margin-left: 0px;"
+                                                                        (change)="changeCumpleCheck($event, (i), j)"
+                                                                        [checked]="row.cumpleDocumento">
+                                                                    </mat-checkbox>
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="puntajeMaximo">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje Máximo</mat-header-cell>
+                                                                <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                    <span class="span-subtitulo">{{ row.puntajeMaximo }}</span>
+                                                                    <!-- <span class="span-subtitulo">{{ obtenerPuntajeMaximoGrilla(row) }}</span> -->
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef class="mat-cell-center">
+                                                                    <span *ngIf="r.idTipoPuntaje == this.TipoPuntajeEnum.PUNTAJE || r.idTipoPuntaje == this.TipoPuntajeEnum.NO_APLICA" class="span-subtitulo">{{ r.puntajeMaximoRubro }}</span>
+                                                                </mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="descripcionUnidadMedida">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje Unidad</mat-header-cell>
+                                                                <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                    <span *ngIf="row.descripcionUnidadMedida != null">
+                                                                        {{ row.puntajeMaximoUnidad }} {{ row.descripcionUnidadMedida }}
+                                                                    </span>
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="acreditaDocumento">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Acredita Documento</mat-header-cell>
+                                                                <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                    <mat-checkbox style="margin-left: 0px;" *ngIf="(row.puntajeMaximo != null && row.puntajeMaximo != 0)"
+                                                                        (change)="changeAcreditaDocumento($event, row, (i), j)"
+                                                                        [checked]="row.cumpleDocumento">
+                                                                    </mat-checkbox>
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="cantidad">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Cantidad</mat-header-cell>
+                                                                <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                    <mat-form-field style="min-width:60px;max-width:60px;" *ngIf="row.tieneCantidad">
+                                                                        <input matInput type="number" class="input_number" min="0" id="cantidad{{(i)}}{{j}}"
+                                                                        [value]="(row.cantidad == null ? 0 : row.cantidad)" (change)="changeCantidad($event, row, (i), j)"
+                                                                        [disabled]="!row.cumpleDocumento">
+                                                                    </mat-form-field>
+                                                                </mat-cell>
+                                                                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="puntajeObtenido">
+                                                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje Obtenido</mat-header-cell>
+                                                                <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                    <input matInput type="number" style="text-align: center;" [value]="(row.puntajeObtenido == null ? 0 : row.puntajeObtenido)" [readonly]="true"
+                                                                    *ngIf="(row.puntajeMaximo != null && row.puntajeMaximo != 0)"
+                                                                    [ngClass]="{ 'span-subtitulo': row.puntajeObtenido > 0 }">
+                                                                </mat-cell>
+                                                                <mat-footer-cell class="mat-cell-center" *matFooterCellDef><span class="span-subtitulo">{{ CalcularPuntajeObtenido(r, i) }}</span></mat-footer-cell>
+                                                            </ng-container>
+                                                            <mat-header-row *matHeaderRowDef="displayedColumns[i]; sticky: true"></mat-header-row>
+                                                            <mat-row *matRowDef="let row; columns: displayedColumns[i]"
+                                                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                                                [@animate]="{ value: '*', params: { y: '100%' } }">
+                                                            </mat-row>
+                                                            <mat-footer-row *matFooterRowDef="displayedColumns[i]"></mat-footer-row>
+                                                        </mat-table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p-20" *ngIf="r.idTipoPuntaje == this.TipoPuntajeEnum.PUNTAJE || r.idTipoPuntaje == this.TipoPuntajeEnum.NO_APLICA">
+                                                <div fxLayout="row" fxLayout.lt-sm="column" fxLayout.lt-md="column"
+                                                fxLayoutAlign="center" class="mb-10">
+                                                    <div xLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                                        <div fxLayoutAlign="center" fxFlex="100%" fxFlex.xs="100%">
+                                                            <span style="font-weight:bold;">
+                                                                PUNTAJE FINAL : {{ this.info.puntajeFinal == null ? 0 : this.info.puntajeFinal }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
+                            </div>
+                            <!-- <div class="p-20">
+                                <div fxLayout="row" fxLayout.lt-md="column">
+                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.xs="0">
+                                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                            <mat-form-field appearance="fill" fxFlex>
+                                                <mat-label>Anotaciones</mat-label>
+                                                <textarea name="anotaciones" formControlName="anotaciones" matInput type="text" matTextareaAutosize
+                                                    [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <br>
+                                    <div class="p-20">
+                                        <div fxLayout="row" fxLayout.lt-md="column" style="margin-left:240px">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                                fxLayoutGap.xs="0">
+                                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                                    <mat-form-field appearance="fill" fxFlex>
+                                                        <mat-label>Anotaciones</mat-label>
+                                                        <textarea name="anotaciones" formControlName="anotaciones" matInput type="text" matTextareaAutosize
+                                                            [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                        </form>
+                    </fieldset>
+                </div>
+                
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" (click)="handleGuardar()"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons">save</span>GUARDAR
+                            </button>
+                            <button mat-stroked-button class="ml-4" (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

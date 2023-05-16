@@ -1,0 +1,266 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div class="panel-body">                   
+            <div class="content" mineduPerfectScrollbar>
+                <fieldset class="fieldset-border">
+                    <legend>Datos del postulante</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                        <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Documento de identidad</span><br>
+                                            <span class="label-normal" >{{calificacion?.abreviaturaTipoDocumentoIdentidad}}: {{calificacion?.numeroDocumentoIdentidad}}</span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Primer Apellido</span><br>
+                                            <span class="label-normal" >{{calificacion?.primerApellido}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Segundo Apellido</span><br>
+                                            <span class="label-normal" >{{calificacion?.segundoApellido}} </span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Nombres</span><br>
+                                            <span class="label-normal" >{{calificacion?.nombres}}</span>
+                                        </div>
+                                    </div>                          
+                                </div>
+                            </div>
+                            
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Fecha Nacimiento</span><br>
+                                            <span class="label-normal" >{{calificacion?.fechaNacimiento | date:'dd/MM/yyyy'}} </span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Genero</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionGenero}} </span>
+                                        </div>
+                                    </div>                           
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset-border">
+                    <legend>Datos de la Plaza a postular</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                        <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Codigo de Plaza</span><br>
+                                            <span class="label-normal" >{{calificacion?.codigoPlaza}}</span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Cargo</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionCargo}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Jornada Laboral</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionJornadaLaboral}} </span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Area Curricular</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionAreaCurricular}} </span>
+                                        </div>
+                                    </div>  
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Especialidad</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionEspecialidad}} </span>
+                                        </div>
+                                    </div>    
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo Plaza</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionTipoPlaza}} </span>
+                                        </div>
+                                    </div>                          
+                                </div>
+                            </div>
+                            
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Regimen Laboral</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionRegimenLaboral}} </span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">codigo Modular</span><br>
+                                            <span class="label-normal" >{{calificacion?.codigoModular}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">institucion Educativa</span><br>
+                                            <span class="label-normal" >{{calificacion?.institucionEducativa}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Instancia</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionInstancia}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Sub Instancia</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionSubInstancia}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Grupo Inscripcion</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionGrupoInscripcion}} </span>
+                                        </div>
+                                    </div>                   
+                                </div>
+                            </div>
+                                                       
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo de IE</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionTipoIEPadron}} </span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo de Gestion IE</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionTipoGestionIE}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Dependencia IE</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionDependenciaIE}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo Ruralidad</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionTipoRuralidad}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Bilingue</span><br>
+                                            <span class="label-normal" >{{calificacion?.esBilingue ? 'SI' : 'NO'}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Lenguaje IE</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionLenguajeIE}} </span>
+                                        </div>
+                                    </div>                   
+                                </div>
+                            </div>
+                            
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Forma Atencion</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionFormaAtencion}} </span>
+                                        </div>
+                                    </div> 
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Frontera</span><br>
+                                            <span class="label-normal" >{{calificacion?.esFrontera ? 'SI' : 'NO'}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">VraemIE</span><br>
+                                            <span class="label-normal" >{{calificacion?.descripcionVraemIE}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">vigencia Inicio</span><br>
+                                            <span class="label-normal" >{{calificacion?.vigenciaInicio | date:'dd/MM/yyyy'}} </span>
+                                        </div>
+                                    </div>   
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">motivo Vacancia</span><br>
+                                            <span class="label-normal" >{{calificacion?.motivoVacancia}} </span>
+                                        </div>
+                                    </div>                  
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset-border">
+                    <legend>Ver puntuación</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                        <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                                <ng-container matColumnDef="codigoCriterio">
+                                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                                  <td mat-cell *matCellDef="let row"> {{row.codigoCriterio}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="descripcionCriterio">
+                                  <th mat-header-cell *matHeaderCellDef> descripcionCriterio </th>
+                                  <td mat-cell *matCellDef="let row"> {{row.descripcionCriterio}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="puntajeObtenido">
+                                  <th mat-header-cell *matHeaderCellDef> puntajeObtenido </th>
+                                  <td mat-cell *matCellDef="let row"> {{row.puntajeObtenido}} </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                              </table>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancelar()"><span class="material-icons">close</span> Cerrar</button>
+    </div>
+</div>

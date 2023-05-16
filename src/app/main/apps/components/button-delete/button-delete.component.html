@@ -1,0 +1,12 @@
+<button type="button" mat-raised-button color="warn" *ngIf="!mineduForm.valid" [disabled]="!mineduForm.valid"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span class="material-icons">restore_from_trash</span>
+    Eliminar
+</button>
+<button type="button" mat-raised-button color="warn" *ngIf="mineduForm.valid && working" [disabled]="working"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">restore_from_trash</span> Eliminando...
+</button>
+<button type="button" mat-raised-button color="warn" (click)="onClickChild($event)" *ngIf="mineduForm.valid && !working"
+    [disabled]="working" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">restore_from_trash</span> ELIMINAR
+</button>

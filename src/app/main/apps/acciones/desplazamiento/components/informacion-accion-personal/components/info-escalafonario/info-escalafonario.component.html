@@ -1,0 +1,36 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>{{titulo}}Informe Escalafonario</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Informe Escalafonario</span>
+                <br>
+                <span class="label-normal">
+                    {{servidorPublico?.numeroIe | noRegistrado}}
+                </span>&nbsp;
+                <button *ngIf="!servidorPublico?.numeroIe" type="button" mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                    aria-label="Informe Escalafonario" matTooltip="Informe Escalafonario"
+                    (click)="verInformeEscalafonario(servidorPublico?.documentoIe)">
+                    <span class="material-icons">description</span>
+                </button>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Fecha del Inf. Escalafonario</span>
+                <br>
+                <!-- <span class="label-normal">{{servidorPublico?.fechaIe| date:"dd/MM/yyyy" | noRegistrado}} </span> -->
+                <span class="label-normal">{{null| date:"dd/MM/yyyy" | noRegistrado}} </span>
+
+            </div>
+        </div>
+        <div fxFlex="49%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Tiempo de Servicios</span>
+                <br>
+                <span class="label-normal">{{servidorPublico?.tiempoServicio| noRegistrado}} </span>
+            </div>
+        </div>
+
+    </div>
+</fieldset>

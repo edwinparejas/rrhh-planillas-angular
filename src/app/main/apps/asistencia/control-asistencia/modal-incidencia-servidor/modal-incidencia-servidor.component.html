@@ -1,0 +1,139 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">edit</mat-icon>
+                <span class="title dialog-title"> {{ modal.title }}</span>
+            </div>
+            <button mat-icon-button (click)="handleClose()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+      
+        <form autocomplete="off" novalidate [formGroup]="form">
+            <div fxLayout="column">
+                <div fxLayout="row" fxLayoutAlign="start start" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <minedu-datepicker label="Fecha de incidencia"
+                            [mineduFormControl]="form.get('fechaTardanza')"
+                            [formControl]="form.get('fechaTardanza')" [max]="max"></minedu-datepicker>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%"   >
+                        <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('horas')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('horas')">Horas incidencia</mat-label>
+                            <input type="number" min="0" max="23"  matInput formControlName="horas" type="number">
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('horas')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%"  >
+                        <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('minutos')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('minutos')">Minutos incidencia</mat-label>
+                            <input type="number" min="0" max="59" matInput formControlName="minutos" type="number">
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('minutos')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                    
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary"
+                                    (click)="handleCrear()" class="ml-4" 
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">                                  
+                                    <span class="material-icons">check_circle_outline</span>
+                                    Agregar
+                        </button>
+                    </div>
+                    <!-- <div class="pl-6" fxLayout="row" style="display: flex;" >
+                        <minedu-button-add [mineduForm]="form"  (mineduOnClick)="handleCrear()" ></minedu-button-add>
+                    </div> -->
+                </div>
+            </div>
+        </form>
+        <br>
+
+        <div fxLayout="row" fxLayoutAlign="start start" class="mb-20 mt-14">
+            <table mat-table class="minedu-table" #table [dataSource]="dataSource"
+                [@animateStagger]="{ value: '50' }"
+                style="width: 100%" mineduPerfectScrollbar>
+                <ng-container matColumnDef="registro">
+                    <th mat-header-cell *matHeaderCellDef>Nro</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p>{{ row.registro }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fechaIncidencia">
+                    <th mat-header-cell *matHeaderCellDef>FECHA</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p>{{ row.fechaIncidencia  | date:'shortDate'}}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="horas"  >
+                    <th mat-header-cell *matHeaderCellDef>HORA</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p>{{ row.horas }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="minutos" >
+                    <th mat-header-cell *matHeaderCellDef>MINUTOS</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p>{{ row.minutos }}</p>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipoRegistro" >
+                    <th mat-header-cell *matHeaderCellDef>Tipo de registro</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p>{{ row.tipoRegistro }}</p>
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let row; let i = index">
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <button mat-flat-button color="warn" class="sidebar-toggle btn-sm"
+                                (click)="handleDeleteIncidencia(row)" aria-label="Eliminar"
+                                matTooltip="Eliminar"> 
+                                <mat-icon class>restore_from_trash</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                    (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <div>
+            <button mat-raised-button color="primary" (click)="handleSave()">
+                <span class="material-icons">save</span> Guardar
+            </button>
+        </div>
+        <div>
+            <minedu-button-cancel (mineduOnCancel)="handleClose()" ></minedu-button-cancel>
+        </div>
+    </div>
+</div>

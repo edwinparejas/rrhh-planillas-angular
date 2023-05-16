@@ -1,0 +1,24 @@
+<ng-container
+  [formGroup]="formGroupParent"
+  >
+    <mat-form-field 
+     *ngIf="variant==VARIANT_TYPE.select"
+     appearance="fill" 
+     fxFlex="100%" 
+     fxFlex.xs="100%" 
+     [mineduFormFieldValidationState]="formGroupParent.get(controlName)"
+     >
+	<mat-label [mineduFormRequiredLabel]="formGroupParent.get(controlName)">
+	    {{label}}
+	</mat-label>
+	<mat-select formControlName="{{controlName}}">
+	    <mat-option *ngFor="let item of options" [value]="item[bindValue]">
+		{{ item[bindLabel] }}
+	    </mat-option>
+	</mat-select>
+	<mat-error>
+	    <minedu-form-field-validation-messages [mineduFormControl]="formGroupParent.get(controlName)">
+	    </minedu-form-field-validation-messages>
+	</mat-error>
+    </mat-form-field>
+</ng-container>

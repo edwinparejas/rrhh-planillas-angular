@@ -1,0 +1,34 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2015",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2018",
+            "dom"
+        ],
+        "paths": {
+            "@minedu": [
+                "@minedu/*"
+            ]
+        }
+    },
+    "angularCompilerOptions": {
+        "enableIvy": true,
+        "fullTemplateTypeCheck": false,
+        "strictInjectionParameters": false
+    },
+    "exclude": ["**/*.scss"]
+}

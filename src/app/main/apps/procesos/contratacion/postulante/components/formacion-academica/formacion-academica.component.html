@@ -1,0 +1,236 @@
+<form *ngIf="!soloLectura" [formGroup]="form">
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idNivelEducativo')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idNivelEducativo')">
+                    Nivel educativo
+                </mat-label>
+                <mat-select formControlName="idNivelEducativo">
+                    <mat-option *ngFor="let item of comboLists.listNivelEducativo" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idNivelEducativo')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idGradoEstudio')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idGradoEstudio')">
+                    Grado
+                </mat-label>
+                <mat-select formControlName="idGradoEstudio">
+                    <mat-option *ngFor="let item of comboLists.listGrado" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idGradoEstudio')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idAreaCurricular')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idAreaCurricular')">
+                    Área curricular
+                </mat-label>
+                <mat-select formControlName="idAreaCurricular">
+                    <mat-option *ngFor="let item of comboLists.listAreaCurricular" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idAreaCurricular')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idCentroEstudio')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idCentroEstudio')">
+                    Centro de estudios
+                </mat-label>
+                <mat-select formControlName="idCentroEstudio">
+                    <mat-option *ngFor="let item of comboLists.listCentroEstudio" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idCentroEstudio')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('anioInicioEstudios')">
+                <mat-label [mineduFormRequiredLabel]="form.get('anioInicioEstudios')">Año inicio</mat-label>
+                <input matInput formControlName="anioInicioEstudios" placeholder="Año inicio" maxlength="4"
+                    type="number">
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('anioInicioEstudios')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('anioFinEstudios')">
+                <mat-label [mineduFormRequiredLabel]="form.get('anioFinEstudios')">Año fin</mat-label>
+                <input matInput formControlName="anioFinEstudios" placeholder="Año fin" maxlength="4" type="number">
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('anioFinEstudios')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <minedu-datepicker label="Fecha de expedición de grado"
+                [mineduFormControl]="form.get('fechaExpedicionGradoEstudios')"
+                [formControl]="form.get('fechaExpedicionGradoEstudios')">
+            </minedu-datepicker>
+            <mat-error>
+                <minedu-form-field-validation-messages [mineduFormControl]="form.get('fechaExpedicionGradoEstudios')">
+                </minedu-form-field-validation-messages>
+            </mat-error>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idEstudiosCompletos')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idEstudiosCompletos')">
+                    Estudios completos
+                </mat-label>
+                <mat-select formControlName="idEstudiosCompletos">
+                    <mat-option *ngFor="let item of comboLists.listEstudiosCompletados" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idEstudiosCompletos')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('codigoAdjuntoSustento')">
+                <mat-label [mineduFormRequiredLabel]="form.get('codigoAdjuntoSustento')">
+                    Adjuntar sustento</mat-label>
+                <input matInput formControlName="codigoAdjuntoSustento" class="icon-cursor" (click)="file.click()"
+                    readonly>
+                <mat-icon matSuffix class="icon-cursor" (click)="file.click()">publish
+                </mat-icon>
+                <input hidden (change)="uploadFile(file.files)" #file type="file" id="file" accept="application/pdf">
+                <mat-hint>Formato: PDF, tamaño máximo 2MB</mat-hint>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoAdjuntoSustento')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+        <div mat-dialog-actions class="p-0" fxLayout="row">
+            <button mat-stroked-button color="primary" (click)="handleAdd(form)"><span class="material-icons">add</span>
+                AGREGAR</button>
+        </div>
+    </div>
+</form>
+<br *ngIf="!soloLectura">
+<div class="content" mineduPerfectScrollbar>
+    <div class="content-table">
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                <ng-container matColumnDef="fechaRegistro">
+                    <mat-header-cell *matHeaderCellDef>FECHA DE REGISTRO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">FECHA DE REGISTRO:</span> {{row?.fechaRegistro | date: 'dd/MM/yyyy'}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcionNivelEducativo">
+                    <mat-header-cell *matHeaderCellDef>NIVEL EDUCATIVO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">NIVEL EDUCATIVO:</span> {{row?.descripcionNivelEducativo}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcionGrado">
+                    <mat-header-cell *matHeaderCellDef>GRADO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">GRADO:</span> {{row?.descripcionGradoEstudio}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcionAreaCurricular">
+                    <mat-header-cell *matHeaderCellDef>ÁREA CURRÍCULAR</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">ÁREA CURRÍCULAR:</span> {{row?.descripcionAreaCurricular}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcionCentroEstudio">
+                    <mat-header-cell *matHeaderCellDef>CENTRO DE ESTUDIOS</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;" maxlength="">
+                        <span class="mobile-label">CENTRO DE ESTUDIOS:</span> {{row?.descripcionCentroEstudio}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="anioInicioEstudios">
+                    <mat-header-cell *matHeaderCellDef>AÑO INICIO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">AÑO INICIO:</span> {{row?.anioInicioEstudios}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="anioFinEstudios">
+                    <mat-header-cell *matHeaderCellDef>AÑO FIN</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">AÑO FIN:</span> {{row?.anioFinEstudios}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="estudioCompleto">
+                    <mat-header-cell *matHeaderCellDef>ESTUDIOS COMPLETOS</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">ESTUDIOS COMPLETOS:</span> {{row?.descripcionEstudiosCompletos}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="sustento">
+                    <mat-header-cell *matHeaderCellDef>SUSTENTO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">SUSTENTO:</span>
+                        <div style="padding-left: 10px;"></div>
+                        <div class="mat-icon-table">
+                            <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                matTooltip="Ver documento sustento" (click)="descargarAdjunto(row)">
+                                <mat-icon class="">picture_as_pdf</mat-icon>
+                            </button>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">ACCIONES:</span>
+                        <div style="padding-left: 10px;"></div>
+                        <!--
+                        <div class="mat-icon-table" style="padding-right: 2px;">
+                            <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                matTooltip="Ver información" (click)="handleInfo(row, i)">
+                                <mat-icon class="">info</mat-icon>
+                            </button>
+                        </div>
+                        -->
+                        <div class="mat-icon-table" style="padding-right: 2px;">
+                            <button *ngIf="!soloLectura" mat-stroked-button color="warn"
+                                class="sidebar-toggle btn-sm ml-2" matTooltip="Eliminar"
+                                (click)="hadleEliminarRow(row,i)">
+                                <mat-icon class="">restore_from_trash</mat-icon>
+                            </button>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+                </mat-row>
+            </mat-table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+<div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="50%">
+            <h3 class="titulo">Adjudicar Plaza</h3>
+        </div>
+        <div fxFlex="50%">
+            <ol class="breadcrumb pull-right">
+                <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Personal</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Desarrollo de procesos</a></li>
+                <li><a [routerLink]="['/ayni/personal/procesospersonal/procesos/encargatura']"> Encargatura</a></li>
+                <li><a (click)="irAdjudicacion()"> Adjudicación</a></li>
+                <li class="active"><a (click)="irRegistroAdjudicarPlaza()"> Adjudicar plaza</a></li>
+
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- Fin Breadcrumb -->
+<div class="page-layout carded fullwidth inner-scroll p-0"> 
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <div class="panel">
+                <div class="panel-body">
+                    <fieldset class="fieldset-border mb-2">
+                        <legend>Datos del postulante</legend>
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Documento de identidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.numeroDocumentoIdentidad }}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Primer Apellido</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.primerApellido }}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Segundo Apellido</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.segundoApellido }}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nombres</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.nombres }}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Sexo</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionGenero }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <minedu-cabecera-plaza-postulacion-encargatura [idPostulacion]="idPostulacion"></minedu-cabecera-plaza-postulacion-encargatura>
+                    <div class="content-table" style="overflow: auto;">
+                        <h2><strong> PLAZA ADJUDICAR:</strong></h2>
+                        <div fxLayout="row">
+                            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                                [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                <ng-container matColumnDef="eleccion">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label"></span>
+                                        <mat-radio-button (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                                        </mat-radio-button>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="rowNum">
+                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">N°</span>                           
+                                        {{ row.rowNum }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="codigoModular">
+                                    <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Código Modular:</span>
+                                        {{ row.codigoModular }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="centroTrabajo">
+                                    <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Centro de Trabajo:</span>
+                                        {{ row.institucionEducativa }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="modalidad">
+                                    <mat-header-cell *matHeaderCellDef>Modalidad educativa</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Modalidad educativa:</span>
+                                        {{ row.descripcionModalidadEducativa }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="nivelEducativo">
+                                    <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Nivel Educativo:</span>
+                                        {{ row.descripcionNivelEducativo }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="codigoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Código de plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Código de plaza:</span>
+                                        {{ row.codigoPlaza }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="cargo">
+                                    <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Cargo:</span>
+                                        {{ row.descripcionCargo }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="jornadaLaboral">
+                                    <mat-header-cell *matHeaderCellDef>Jornada Laboral</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Jornada Laboral:</span>
+                                        {{ row.descripcionJornadaLaboral }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Tipo de plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Tipo de plaza:</span>
+                                        {{ row.descripcionTipoPlaza }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigenciaInicio">
+                                    <mat-header-cell *matHeaderCellDef>Vigencia Inicio</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Vigencia Inicio:</span>
+                                        <input matInput [matDatepicker]="pickerInicio" 
+                                        [(ngModel)]="row.vigenciaInicio" [value]="row.vigenciaInicio"
+                                        [min]="definirFechaValorMin(fechaInicioMin,row.vigenciaInicio)"
+                                        [max]="fechaInicioMax"
+                                        [disabled]="!selection.isSelected(row)">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerInicio></mat-datepicker>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigenciaFin">
+                                    <mat-header-cell *matHeaderCellDef>Vigencia Fin</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <span class="mobile-label">Vigencia Fin:</span>
+                                        <input matInput [matDatepicker]="pickerFin" 
+                                        [(ngModel)]="row.vigenciaFin" [value]="definirFechaFin(row.vigenciaInicio,row.vigenciaFin)"
+                                        [min]="row.vigenciaInicio"
+                                        [max]="definirFechaValorMax(row.vigenciaInicio,row.vigenciaFin)"
+                                        [disabled]="!selection.isSelected(row)">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerFin></mat-datepicker>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                            </mat-table>
+                        </div>
+                        <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                            [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                    </div>
+                    <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal"
+                        style=" display: flex;justify-content: center;" 
+                        [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+                        [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+                </div>
+                <div class="panel-footer">
+                    <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutGap="3px">
+                            
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="3px">
+                            <button mat-raised-button color="primary" (click)="handleSave()"><span class="material-icons">check_circle</span>
+                                ADJUDICAR PLAZA</button>
+                            <button mat-raised-button (click)="irAdjudicacion()"><span class="material-icons">arrow_back</span> RETORNAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

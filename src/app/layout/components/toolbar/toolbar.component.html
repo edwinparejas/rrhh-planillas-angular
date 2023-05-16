@@ -1,0 +1,47 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+            <button mat-icon-button class="navbar-toggle-button" *ngIf="!hiddenNavbar && !rightNavbar"
+                (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+            <div class="px-8 px-md-8">
+                <span class="titulo-modulo">PERSONAL</span>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="horizontalNavbar">
+                <div class="logo ml-16">
+                    <img class="logo-icon" src="assets/images/logos/minedu.svg">
+                </div>
+            </div>          
+        </div>
+        <div class="pr-12" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+            <div fxLayout="row" fxHide fxShow.gt-xs>
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="0 1 auto">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div class="shortcuts-mobile-close">
+                            <img class="mr-0 mr-sm-10" src="assets/images/logos/logo-minedu.png">
+                        </div>
+                    </div>
+                </div>
+            </div>         
+
+            <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <mat-icon class="s-26">account_circle</mat-icon>
+                    <mat-icon class="s-20" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>           
+
+            <mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="w-280 mr-20 mat-menu-toolbar">
+                <minedu-user-menu [roles]="roles"></minedu-user-menu>
+            </mat-menu>
+            
+            <div class="toolbar-separator" *ngIf="!hiddenNavbar && rightNavbar" fxHide fxShow.gt-xs></div>
+            <button mat-icon-button class="navbar-toggle-button" *ngIf="!hiddenNavbar && rightNavbar"
+                (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+        </div>
+    </div>
+</mat-toolbar>

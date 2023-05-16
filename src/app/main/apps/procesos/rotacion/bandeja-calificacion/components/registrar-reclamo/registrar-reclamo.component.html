@@ -1,0 +1,46 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" class="titulo-dialog">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Registrar reclamo </span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="form">
+            <div fxLayout="column">   
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex>
+                    <div class="ml-4" fxLayoutAlign="start start" fxFlex="100%"
+                        fxFlex.lt-md="100%">
+                        <mat-form-field appearance="fill" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('detalleReclamo')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('detalleReclamo')">Detalle reclamo
+                            </mat-label>
+                            <textarea matInput
+                            formControlName="detalleReclamo"
+                            maxlength="400" alphaNumeric uppercase></textarea>                          
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('detalleReclamo')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>          
+                </div>         
+                <br />
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <div class="ml-4">
+            <minedu-button-save [mineduForm]="form" [working]="working" (mineduOnClick)="handleRegistrar()">
+            </minedu-button-save>
+        </div>
+        <div class="pl-6">
+            <minedu-button-cancel (mineduOnCancel)="handleCancel()"></minedu-button-cancel>
+        </div>
+    </div>
+</div>

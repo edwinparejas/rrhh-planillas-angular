@@ -1,0 +1,36 @@
+<div
+    class="page-layout carded fullwidth inner-scroll p-16"
+    mineduPerfectScrollbar
+>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+            <div class="row">
+               
+                  <div class="col-md-6 breadCrumbBandeja" fxLayoutAlign="end center" >
+                        <mat-icon color="accent" class="s-18">home</mat-icon>
+                        Inicio /  Personal /  Gestión de faltas y sanciones
+                </div>
+                <div class="col-md-6">
+                    <h4 class="panel-title tituloBandeja ">Gestión de faltas y sanciones</h4>
+                </div>
+                
+            </div>  
+            <div class="content" mineduPerfectScrollbar>
+                <div class="panel">
+                    <div class="panel-body">
+                        <mat-tab-group>
+                            <mat-tab label="Faltas">
+                                <minedu-bandeja-faltas></minedu-bandeja-faltas>
+                            </mat-tab>
+                            <mat-tab label="Sanciones">
+                                <minedu-bandeja-sanciones></minedu-bandeja-sanciones>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

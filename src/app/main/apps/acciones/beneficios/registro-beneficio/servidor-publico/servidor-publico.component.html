@@ -1,0 +1,264 @@
+<fieldset class="fieldset-border">
+    <legend>Servidor Público</legend>
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" >
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" [formGroup]="form">
+
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" >
+                    <mat-label
+                        [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                        Tipo de
+                        documento
+                    </mat-label>
+                    <mat-select formControlName="idTipoDocumentoIdentidad"
+                        (selectionChange)="selectTipoDocumento($event.value)">
+                        <mat-option
+                            *ngFor="let item of comboLists.listTipoDocumentoIdentidad"
+                            [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('numeroDocumentoIdentidad')">
+                <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento</mat-label>
+                    <input matInput 
+                        formControlName="numeroDocumentoIdentidad" 
+                        placeholder="Número de documento" 
+                        [maxLength]="form.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                        [readonly]="form.get('idTipoDocumentoIdentidad').value == -1"
+                        (keypress)="onKeyPressNumeroDocumento($event)"
+                        (focusout)="focusOutFunction()"
+                        uppercase />
+                    <button type="button" 
+                        matSuffix mat-button
+                        mat-icon-button (click)="buscarPersona($event)">
+                        <mat-icon class="s-24">search</mat-icon>
+                    </button>
+                
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>                
+                
+            </div>                                    
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <fieldset class="fieldset-border" fxFlex="100%">
+                <legend>Datos Personales</legend>
+                <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0" >
+                    <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Documento de Identidad</label>
+                                <p class="form-control-static" *ngIf="form.get('tipoDocumentoIdentidad').value">
+                                    {{form.get('tipoDocumentoIdentidad').value}} : {{form.get('numeroDocumentoIdentidad').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('tipoDocumentoIdentidad').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Apellidos y Nombres</label>
+                                <p class="form-control-static" *ngIf="form.get('nombres').value">
+                                    {{form.get('primerApellido').value+" "+form.get('segundoApellido').value+" "+form.get('nombres').value}}</p>
+                                <p class="form-control-static" *ngIf="!form.get('nombres').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                            <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                <label for="">Estado civil</label>
+                                <p class="form-control-static" *ngIf="form.get('estadoCivil').value">
+                                    {{form.get('estadoCivil').value}}</p>
+                                <p class="form-control-static" *ngIf="!form.get('estadoCivil').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%" >
+                                <label for="">Sexo</label>
+                                <p class="form-control-static" *ngIf="form.get('sexo').value">
+                                    {{form.get('sexo').value}}</p>
+                                <p class="form-control-static" *ngIf="!form.get('sexo').value">No registrado</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%" >
+                                <label for="">Fecha de Nacimiento</label>
+                                <p class="form-control-static" *ngIf="form.get('fechaNacimiento').value">
+                                    {{form.get('fechaNacimiento').value | date:"dd-MM-yyyy"}}</p>
+                                <p class="form-control-static" *ngIf="!form.get('fechaNacimiento').value">No registrado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <fieldset class="fieldset-border" fxFlex="100%">
+                <legend>Datos Laborales</legend>
+                <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0" >
+                    <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Código Plaza</label>
+                                <p class="form-control-static" *ngIf="form.get('codigoPlaza').value">
+                                    {{form.get('codigoPlaza').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('codigoPlaza').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Inicio de Vigencia</label>
+                                <p class="form-control-static" *ngIf="form.get('fechaInicioVinculacion').value">
+                                    {{form.get('fechaInicioVinculacion').value | date:"dd-MM-yyyy" }}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('fechaInicioVinculacion').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Fin de Vigencia</label>
+                                <p class="form-control-static" *ngIf="form.get('fechaFinVinculacion').value">
+                                    {{form.get('fechaFinVinculacion').value | date:"dd-MM-yyyy" }}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('fechaFinVinculacion').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Condición Laboral</label>
+                                <p class="form-control-static" *ngIf="form.get('condicionLaboral').value">
+                                    {{form.get('condicionLaboral').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('condicionLaboral').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Código Modular</label>
+                                <p class="form-control-static" *ngIf="form.get('codigoModular').value">
+                                    {{form.get('codigoModular').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('codigoModular').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Centro de Trabajo</label>
+                                <p class="form-control-static" *ngIf="form.get('institucionEducativa').value">
+                                    {{form.get('institucionEducativa').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('institucionEducativa').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Nivel Educativo</label>
+                                <p class="form-control-static" *ngIf="form.get('descripcionNivelEducativo').value">
+                                    {{form.get('descripcionNivelEducativo').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('descripcionNivelEducativo').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Situación Laboral</label>
+                                <p class="form-control-static" *ngIf="form.get('situacionLaboral').value">
+                                    {{form.get('situacionLaboral').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('situacionLaboral').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Jornada Laboral</label>
+                                <p class="form-control-static" *ngIf="form.get('descripcionJornadaLaboral').value">
+                                    {{form.get('descripcionJornadaLaboral').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('descripcionJornadaLaboral').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Cargo</label>
+                                <p class="form-control-static" *ngIf="form.get('descripcionCargo').value">
+                                    {{form.get('descripcionCargo').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('descripcionCargo').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Grupo Ocupacional</label>
+                                <p class="form-control-static" *ngIf="form.get('grupoOcupacional').value">
+                                    {{form.get('grupoOcupacional').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('grupoOcupacional').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <label for="">Categoria Remunerativa</label>
+                                <p class="form-control-static" *ngIf="form.get('categoriaRemunerativa').value">
+                                    {{form.get('categoriaRemunerativa').value}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!form.get('categoriaRemunerativa').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                       
+                       
+                    </div>
+                    <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</fieldset>

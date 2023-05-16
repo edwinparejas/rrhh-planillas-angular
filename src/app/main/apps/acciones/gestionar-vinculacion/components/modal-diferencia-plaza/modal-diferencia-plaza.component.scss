@@ -1,0 +1,148 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+.Minedu-modal-diferencia-plaza-dialog {
+    width: 100%;
+    padding: 2px;
+    @include media-breakpoint('gt-xs') {       
+        width: 1200px;
+    }
+
+    .remove {
+        color: #dd3333;
+    }
+    .minedu-note {
+        font-style: italic;
+        font-weight: 700;
+        color: #0073b7;
+    }
+    
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+
+    .content {
+        width: 100%;       
+        .ml-2 {
+            margin-left: 2px;
+        }
+        .pl-2 {
+            padding-left: 2px;
+        }
+        .pl-6 {
+            padding-left: 6px;
+        }
+        .pr-2 {
+            padding-right: 2px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+        .mb-15 {
+            margin-bottom: 15px;
+        }
+        .mat-raised-button {
+            border: 1px solid #ccc;
+            line-height: 34px;
+        }
+        .mat-raised-button.mat-primary {
+            background-color: #0073b7;
+            border-color: #0073b7;
+        }
+        .mat-stroked-button.mat-primary {
+            color: #0073b7;
+        }
+        .mat-flat-button.mat-primary {
+            background-color: #0073b7;
+        }
+        .mat-stroked-button:not([disabled]).mat-primary {
+            border-color: #0073b7;
+            background-color: #fff;
+        }
+        .mat-stroked-button:not([disabled]).mat-warn {
+            border-color: #f44336;
+            background-color: #fff;
+        }
+        button .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm {
+            line-height: 24px;
+            min-width: 27px;
+            padding: 0;
+        }
+        button.btn-sm .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm .mat-icon {
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+        .btn-icon .mat-button-wrapper .material-icons {
+            font-size: 22px!important;
+        }
+        .minedu-table {
+            flex: 1 1 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, .12);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+
+            .mat-icon-table {
+                margin-right: 5px;
+            }
+            .mat-column-nro {
+                flex: 0 1 50px;
+                width: 50px;   
+            } 
+            .mat-column-campo {
+                flex: 0 1 150px;
+                flex-shrink: 0;
+                flex-grow: 1;   
+            }        
+            .mat-column-original {
+                flex: 0 1 150px;
+                flex-shrink: 0;
+                flex-grow: 1;   
+            } 
+            .mat-column-actualizado {
+                flex: 0 1 150px;
+                flex-shrink: 0;
+                flex-grow: 1;   
+            }  
+            .mat-cell, 
+            .mat-footer-cell {
+                padding: 0 10px;
+            } 
+            .mat-header-cell, 
+            .mat-footer-cell {
+                padding: 0 10px;
+            } 
+            .mat-header-cell:not(:last-child){
+                border-right : 1px solid #ddd
+            }
+            .mat-cell:not(:last-child){
+                border-right : 1px solid #ddd
+            }
+
+        }
+        
+    }      
+}

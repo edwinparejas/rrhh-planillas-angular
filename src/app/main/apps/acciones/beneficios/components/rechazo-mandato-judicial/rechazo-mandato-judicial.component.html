@@ -1,0 +1,46 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Registrar motivo de rechazo</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="formPopup">
+            <fieldset class="fieldset-border">
+                <legend>Registrar motivo de rechazo</legend>
+                <div fxLayout="column">
+                    
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="formPopup.get('motivoRechazo')">
+                                <mat-label [mineduFormRequiredLabel]="formPopup.get('motivoRechazo')"   >
+                                    Antaciones
+                                </mat-label>
+                                <textarea name="motivoRechazo" formControlName="motivoRechazo" matInput
+                                    type="text" matTextareaAutosize [matAutosizeMinRows]="3"
+                                    [matAutosizeMaxRows]="10" uppercase></textarea>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="formPopup.get('motivoRechazo')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    
+                </div>
+                </div>
+            </fieldset>
+        </form>
+        <br>
+        
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleGuardar()"><span class="material-icons">save</span> GUARDAR</button>
+        <button mat-raised-button (click)="cancelar()"><span class="material-icons">cancel</span> CANCELAR</button>
+    </mat-dialog-actions>
+</div>

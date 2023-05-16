@@ -1,0 +1,196 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+
+.buscar-centro-trabajo-form-dialog {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    @include media-breakpoint("gt-xs") {
+        width: 900px;
+    }
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            > h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+
+            .mat-toolbar-row {
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .minedu-note {
+        font-style: italic;
+        font-weight: 700;
+        color: #0073b7;
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+
+        line-height: 34px;
+    }
+    .mat-tree-node {
+        //border: 1px solid #ddd !important;
+        user-select: none;
+        cursor: pointer;
+    }
+    .mat-tree {
+        border: 1px solid #ddd !important;
+        min-height: 300px;
+        overflow-y: visible !important;
+    }
+    .label {
+        font-weight: bold;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    p {
+        margin: 6px 0;
+        color: rgba(0, 0, 0, 0.6);
+    }
+    .mobile-label {
+        display: none;
+    }
+    .mat-table {
+        overflow: auto;
+        max-height: 800px;
+    }
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .mat-icon-table {
+            width: 30px;
+        }
+        
+        .mat-column-numeroDocumentoIdentidadCompleto {
+            flex: 0 1 100px;
+            text-align: left;
+            width: 100px;
+        }
+        .mat-column-nombreCompleto {
+            flex: 0 1 170px;
+            text-align: left;
+            width: 170px;
+        }
+        .mat-column-centroTrabajo {
+            flex: 0 1 170px;
+            text-align: left;
+            width: 170px;
+        }
+        .mat-column-fechaNacimiento {
+            flex: 0 1 100px;
+            text-align: left;
+            width: 100px;
+        }
+        .mat-column-descripcionUgel {
+            flex: 0 1 150px;
+            text-align: left;
+            width: 150px;
+        }
+        .mat-column-centroTrabajo {
+            flex: 0 1 150px;
+            text-align: left;
+            width: 150px;
+        }
+        .mat-column-abreviaturaRegimenLaboral {
+            flex: 0 1 150px;
+            text-align: left;
+            width: 150px;
+        }
+    }
+    @media(max-width: 700px) {
+        .mobile-label {
+            width: 100px;
+            display: inline-block;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .mat-header-row {
+            display: none;
+        }
+        .mat-cell {
+            width: 100%;
+        }
+        .mat-row {
+            flex-direction: column;
+            align-items: start;
+            text-align: left;
+            max-height: 480px;
+        }
+    }
+         /*begin personalizacion*/
+         .badge {
+            width: 90px !important;
+            display: flex;                
+            flex: 0 1 100px;
+            text-align: center !important;                
+        }
+        .mat-cell, .mat-footer-cell {
+            font-size: 11px !important;
+        }
+        .mat-header-cell{
+            font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #fff !important;
+            background-color: #0073B7 !important;
+            padding: 5px 5px 5px 10px; 
+        }
+        .mat-row:nth-of-type(odd) {
+           background:  #F8F9FA;
+        }
+        /*end personalizacion*/
+}

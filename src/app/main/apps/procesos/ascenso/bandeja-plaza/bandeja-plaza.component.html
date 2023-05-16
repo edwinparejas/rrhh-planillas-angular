@@ -1,0 +1,110 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <informacion-proceso-plaza></informacion-proceso-plaza>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+                                    <mat-label>Código Modular</mat-label>
+                                    <input matInput formControlName="codigoCentroTrabajo" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                        placeholder="Código modular" maxlength="7" (keyup.enter)="handleBuscar()" />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                        Código de Plaza
+                                    </mat-label>
+                                    <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12" 
+                                        (keyup.enter)="handleBuscar()" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                </mat-form-field>
+                                <!-- <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('plazasPara')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('plazasPara')">
+                                        Plazas Para: 
+                                    </mat-label>
+                                    <mat-select formControlName="plazasPara" [(value)]="becario">
+                                        <mat-option value="-1">-SELECCIONAR-</mat-option>
+                                        <mat-option value="1">BECARIO</mat-option>
+                                        <mat-option value="0">CONTRATACIÓN DOCENTE</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleLimpiar()">
+                                <span class="material-icons">clear</span> Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                                <span class="material-icons">search</span> Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div *ngIf="this.consolidadoPlaza?.codigo_estado === estadoConsolidadoPlaza.VALIDADO"
+                            mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleAprobarPlazas()"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4">done</span>APROBAR PLAZAS
+                            </button>
+                        </div>
+                        <div *ngIf="this.consolidadoPlaza?.codigo_estado === estadoConsolidadoPlaza.VALIDADO"
+                            mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleRechazarPlazas()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4" style="color: red;">close</span>RECHAZAR PLAZAS
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <mat-tab-group (selectedTabChange)="handleSelectTab($event)">
+                            <mat-tab label="Plazas pre publicadas">
+                                <minedu-plazas-pre-publicadas></minedu-plazas-pre-publicadas>
+                            </mat-tab>
+                            <mat-tab label="Plazas a convocar">
+                                <!-- <minedu-plazas-pre-publicadas></minedu-plazas-pre-publicadas> -->
+                                <minedu-bandeja-plaza-convocar></minedu-bandeja-plaza-convocar>
+                            </mat-tab>
+                            <mat-tab label="Plazas observadas">
+                                <minedu-bandeja-plazas-observadas></minedu-bandeja-plazas-observadas>
+                            </mat-tab>
+                            <mat-tab label="Resultado final">
+                                <minedu-bandeja-plaza-resultado-final></minedu-bandeja-plaza-resultado-final> 
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                    <div class="panel-footer">
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-stroked-button (click)="handleGoAscenso()">
+                                    <span class="material-icons">keyboard_backspace</span>
+                                    RETORNAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

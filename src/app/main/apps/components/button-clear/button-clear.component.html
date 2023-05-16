@@ -1,0 +1,6 @@
+<button  type="button" mat-raised-button class="mr-8" *ngIf="mineduForm.valid && working" [disabled]="working">
+    <span class="material-icons">clear</span> Limpiar
+</button>
+<button type="button" mat-raised-button class="mr-8" (click)="onClickChild($event)" *ngIf="!working">
+    <span class="material-icons">clear</span> Limpiar
+</button>

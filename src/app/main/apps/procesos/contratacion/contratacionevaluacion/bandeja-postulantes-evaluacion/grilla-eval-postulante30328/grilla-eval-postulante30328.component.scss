@@ -1,0 +1,131 @@
+
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+:host {
+    width: 100%;
+}
+
+minedu-grilla-eval-postulante30328 {
+    width: 100%;
+    padding: 2px;
+    .remove {
+        color: #dd3333;
+    }
+    .content-table{
+	overflow-x: auto;
+	.minedu-table {
+	    flex: 1 1 auto;
+	    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	    width:120%;
+	    .mat-icon-table{
+		width: 30px;
+	    }                 
+	    .mat-column-registro {
+		flex: 0 1 50px;
+	    }
+	    .mat-column-documento {
+		flex: 0 1 150px;
+	    }
+	    .mat-column-apellidos_nombres {
+		flex: 0 1 300px;
+	    }
+	    .mat-column-numero_expediente {
+		flex: 0 1 150px;
+	    }
+	    .mat-column-modalidad_educativa {
+		flex: 0 1 250px;
+	    }
+	    .mat-column-nivel_educativo {
+		flex: 0 1 200px;
+	    }
+	    .mat-column-area_curricular {
+		flex: 0 1 250px;
+	    }
+	    .mat-column-especialidad {
+		flex: 0 1 200px;
+	    }
+	    .mat-column-estado {
+		flex: 0 1 120px;
+		margin-left: 5px;
+	    }                                               
+	    .mat-column-tipo_registro {
+		flex: 0 1 120px;
+	    }
+	    .mat-column-acciones {
+		flex: 0 1 80px;
+	    }
+
+	    .mat-cell-center {
+		display:flex !important;
+		justify-content:center!important;
+	    }
+
+	    ::ng-deep .mat-cell-center {
+		display:flex !important;
+		justify-content:center!important;
+	    }
+
+	    /*begin personalizacion*/
+	    .badge {
+		width: 90px !important;
+		display: flex;                
+		flex: 0 1 100px;
+		text-align: center !important;                
+	    }
+	    .mat-cell, .mat-footer-cell {
+		font-size: 11px !important;
+		padding: 0 10px;
+	    }
+	    .mat-header-cell{
+		font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+		font-size: 11px;
+		text-transform: uppercase;
+		color: #fff !important;
+		background-color: #0073B7 !important;
+		padding: 5px 5px 5px 10px; 
+	    }
+	    .mat-row:nth-of-type(odd) {
+		background:  #F8F9FA;
+	    }
+	    /*end personalizacion*/
+
+	    .mat-cell:first-of-type,
+	    .mat-header-cell:first-of-type,
+	    .mat-footer-cell:first-of-type {
+		padding-left: 15px;
+	    }
+	    .mat-cell:last-of-type,
+	    .mat-header-cell:last-of-type,
+	    .mat-footer-cell:last-of-type {
+		padding-right: 15px;
+	    }
+	    .mobile-label {
+		display: none;
+	    }
+	    .mat-table {
+		overflow: auto;
+		max-height: 800px;
+	    }
+	    @media(max-width: 700px) {
+		.mobile-label {
+		    width: 100px;
+		    display: inline-block;
+		    font-weight: bold;
+		    margin-right: 10px;
+		}
+		.mat-header-row {
+		    display: none;
+		}
+		.mat-cell {
+		    width: 100%;
+		}
+		.mat-row {
+		    flex-direction: column;
+		    align-items: start;
+		    text-align: left;
+		    max-height: 480px;
+		}
+	    }
+	}
+    }
+}

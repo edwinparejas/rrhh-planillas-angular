@@ -1,0 +1,484 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" >
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Desarrollo de Procesos de Contratación</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    
+                                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                        <minedu-datepicker formControlName="anio" mode="YEAR" label="Año" [mineduFormControl]="form.get('anio')" [formControl]="form.get('anio')" [max]="now" [mineduFormFieldValidationState]="form.get('anio')"></minedu-datepicker>
+                                    </div>
+                                    <!-- <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('anio')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('anio')">Año</mat-label>
+                                        <mat-select formControlName="anio"><mat-option *ngFor="let item of comboLists.listAnio" [value]="item.value">{{ item.label }}</mat-option></mat-select>
+                                        <mat-error><minedu-form-field-validation-messages [mineduFormControl]="form.get('anio')"></minedu-form-field-validation-messages></mat-error>
+                                    </mat-form-field> -->
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                                            form.get('idRegimenLaboral')
+                                        ">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">Régimen laboral</mat-label>
+					<mat-select  formControlName="idRegimenLaboral" (selectionChange)="loadTipoProceso()">
+                                            <mat-option *ngFor="let item of comboLists.listRegimenlaboral" [value]="item.value">
+                                                {{ item.label }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idRegimenLaboral')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idTipoProceso')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoProceso')">Proceso</mat-label>
+                                        <mat-select [disabled]="desactivarComboProceso" formControlName="idTipoProceso">
+                                            <mat-option *ngFor="let item of comboLists.listTipoProceso" [value]="item.value">
+                                                {{ item.label | uppercase }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoProceso')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                                            form.get('idEstadoProceso')
+                                        ">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idEstadoProceso')">Estado</mat-label>
+                                        <mat-select formControlName="idEstadoProceso">
+                                            <mat-option *ngFor="let item of comboLists.listEstadoProceso" [value]="item.value">
+                                                {{ item.label | uppercase }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idEstadoProceso')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()">
+                                <span class="material-icons">clear</span>
+                                Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                                <span class="material-icons">search</span>
+                                Buscar
+                            </button>
+                        </div>
+                        <!-- <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleModalInstancia()">
+                                <span class="material-icons">search</span>
+                                PruebaModalInstancia
+                            </button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group>
+                        <mat-tab label="Procesos y etapas"><br />
+                            <div class="content">
+                                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                                        <button 
+					    mat-stroked-button 
+					    color="primary" 
+					    (click)="handleExportar()" 
+					    class="ml-4" 
+					    [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' }}">
+                                            <span class="material-icons">get_app</span>
+                                            EXPORTAR
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="content-table">
+                                        <mat-table
+					    class="minedu-table" 
+					    #table 
+					    [dataSource]="dataSource"
+					    [class.isMobile]="isMobile" 
+					    [@animateStagger]="{ value: '50' }">
+                                            <ng-container matColumnDef="numero_registro">
+                                                <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index">
+                                                    <span class="mobile-label">N°:</span>
+                                                    <!-- {{ row.numero_registro }} -->
+                                                    {{ i + 1 }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="codigo">
+                                                <mat-header-cell *matHeaderCellDef>CÓDIGO</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index">
+                                                    <span class="mobile-label">CÓDIGO:</span>
+                                                    {{ row.codigo }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="regimen_laboral">
+                                                <mat-header-cell *matHeaderCellDef>RÉGIMEN LABORAL</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                    <span class="mobile-label">RÉGIMEN LABORAL:</span>
+                                                    {{ row.regimen_laboral }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="proceso">
+                                                <mat-header-cell *matHeaderCellDef>PROCESO</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                    <span class="mobile-label">PROCESO:</span>
+                                                    {{ row.proceso }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="numero_convocatoria">
+                                                <mat-header-cell *matHeaderCellDef>N° DE CONVOCATORIA</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                    <span class="mobile-label">N° DE CONVOCATORIA:</span>
+                                                    {{ row.numero_convocatoria }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="etapa">
+                                                <mat-header-cell *matHeaderCellDef>ETAPA</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                    <span class="mobile-label">ETAPA:</span>
+                                                    {{ row.etapa }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="fecha_creacion">
+                                                <mat-header-cell *matHeaderCellDef>FECHA DE CREACIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                    <span class="mobile-label">FECHA DE CREACIÓN:</span>
+                                                    {{ row.fecha_creacion }}
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="estado">
+                                                <mat-header-cell *matHeaderCellDef>ESTADO</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                <p class="text-truncate badge" [ngClass]="{
+                                                    'orange-500':row.estado == 'PENDIENTE' , 
+                                                    'green-600':row.estado == 'INICIADO',
+                                                    'blue-600':row.estado == 'FINALIZADO',
+                                                    'white-500':row.estado == 'CANCELADO'}">
+                                                    {{row.estado}}
+                                                </p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="acciones">
+                                                <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                                <mat-cell *matCellDef="let row;let i = index">
+                                                    <span class="mobile-label">ACCIONES:</span>
+                                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div >
+                                                          <div fxLayout="row">
+                                                            <button mat-stroked-button 
+                                                                    color="primary" 
+                                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                                    aria-label="Pre Publicar Plazas" 
+                                                                    matTooltip="Pre Publicar Plazas" 
+                                                                    *ngIf="row.prepublicarPlazas"
+                                                                    (click)="handleGoPrePublicaciones(row)">
+                                                              <mat-icon class="">storage</mat-icon>
+                                                            </button>
+                                                            <button mat-stroked-button 
+                                                                    color="primary" 
+                                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                                    aria-label="Publicar Plazas" 
+                                                                    matTooltip="Validar y Publicar Plazas" 
+                                                                    *ngIf="row.validarPublicarPlazas"
+                                                                    (click)="handleGoValidarPublicar(row)">
+                                                              <mat-icon class="">grid_on</mat-icon>
+                                                            </button>
+                                                            <button mat-stroked-button 
+                                                                    color="primary" 
+                                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                                    aria-label="Plazas" 
+                                                                    matTooltip="Plazas" 
+                                                                    *ngIf="row.plazas"
+                                                                    (click)="handleVerPlaza(row)">
+                                                              <mat-icon class="">grid_on</mat-icon>
+                                                            </button>
+                                                            <button mat-stroked-button 
+                                                                    color="primary" 
+                                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                                    aria-label="Postulantes" 
+                                                                    matTooltip="Postulantes" 
+                                                                    *ngIf="row.postulantes"
+                                                                    (click)="handleVerPostulante(row)">
+                                                              <mat-icon class="">groups</mat-icon>
+                                                            </button>
+                                                            <button mat-stroked-button 
+                                                                    color="primary" 
+                                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                                    aria-label="Calificaciones" 
+                                                                    matTooltip="Calificaciones" 
+                                                                    *ngIf="row.calificaciones"
+                                                                    (click)="handleVerCalificacion(row)">
+                                                              <mat-icon class="">check_box</mat-icon>
+                                                            </button>
+                                                            <button mat-stroked-button 
+                                                                    color="primary" 
+                                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                                    aria-label="Adjudicación" 
+                                                                    matTooltip="Adjudicación" 
+                                                                    *ngIf="row.adjudicacion"
+                                                                    (click)="handleVerAdjudicacion(row)">
+                                                              <mat-icon class="">thumb_up</mat-icon>
+                                                            </button>
+                                                          </div>
+                                                          <!--
+                                                            <ng-container *ngIf="row.codigo_estado_desarrollo !== estadoDesarrolloEnum.Cancelado;
+                                                                    else cancelado">
+                                                                <ng-container [ngSwitch]="true">
+                                                                       <ng-container *ngSwitchCase="
+                                                                                    row.codigo_regimen_laboral == regimenLaboralEnum.LEY_30328
+                                                                                    || row.codigo_regimen_laboral == regimenLaboralEnum.LEY_30493
+                                                                                    ">
+                                                                        <ng-container [ngSwitch]="true">
+                                                                            <ng-container 
+                                                                        *ngSwitchCase="row.codigo_etapa == etapaProcesoCodigoEnum.UNICA 
+                                                                                       && (
+                                                                               row.codigo_proceso == descripcionMaestroProcesoEnum.PRE_PUBLICACION_DE_PLAZAS
+                                                                               || row.codigo_proceso == descripcionMaestroProcesoEnum.PRE_PUBLICACION_DE_PLAZAS_AUXILIARES
+                                                                               )">
+                                                                                <div class="mat-icon-table">
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Pre Publicar Plazas" 
+											    *ngIf="this.tablaBotonesActivos[0][0]"
+                                                                                            matTooltip="Pre Publicar Plazas" 
+											    (click)="handleGoPrePublicaciones(row)">
+                                                                                        <mat-icon class="">storage</mat-icon>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container *ngSwitchCase="row.codigo_etapa === etapaProcesoCodigoEnum.PUBLICACION_PLAZAS 
+                                                                            && row.codigo_proceso == descripcionMaestroProcesoEnum.CONTRATACION_DOCENTE">
+                                                                                <div class="mat-icon-table">
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Publicar Plazas" 
+											    *ngIf="this.tablaBotonesActivos[1][1]"
+                                                                                            matTooltip="Validar y Publicar Plazas" 
+											    (click)="handleGoValidarPublicar(row)">
+                                                                                        <mat-icon class="">grid_on</mat-icon>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container *ngSwitchCase="row.codigo_etapa == etapaProcesoCodigoEnum.CONTRATACION_DIRECTA
+                                                                            && row.codigo_proceso == descripcionMaestroProcesoEnum.CONTRATACION_DOCENTE">
+                                                                                <div fxLayout="row">
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Plazas" 
+											    *ngIf="this.tablaBotonesActivos[2][1]"
+                                                                                        matTooltip="Plazas" 
+											(click)="handleGoContratacionDirectaPlazas(row)">
+                                                                                        <mat-icon class="">grid_on</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Postulantes" 
+											    *ngIf="this.tablaBotonesActivos[2][2]"
+                                                                                            matTooltip="Postulantes" 
+											    (click)="handleGoContratacionDirectaPostulantes(row)">
+                                                                                        <mat-icon class="">groups</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Calificaciones" 
+											    *ngIf="this.tablaBotonesActivos[2][3]"
+                                                                                            matTooltip="Calificaciones" 
+											    (click)="handleGoContratacionDirectaCalificaciones(row)">
+                                                                                        <mat-icon class="">check_box</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Adjudicación" 
+											    *ngIf="this.tablaBotonesActivos[2][4]"
+                                                                                            matTooltip="Adjudicación" 
+											    (click)="handleGoContratacionDirectaAdjudicaciones(row)">
+                                                                                        <mat-icon class="">thumb_up</mat-icon>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container *ngSwitchCase="
+			row.codigo_etapa == etapaProcesoCodigoEnum.CONTRATACION_RESULTADOS_PUN
+			&& row.codigo_proceso == descripcionMaestroProcesoEnum.CONTRATACION_DOCENTE">
+                                                                                <div fxLayout="row" class="mat-icon-table">
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Plazas" 
+											    *ngIf="this.tablaBotonesActivos[3][1]"
+                                                                                            matTooltip="Plazas" 
+											    (click)="handleGoContratacionResultadosPUNPlazas(row)" >
+                                                                                        <mat-icon class="">grid_on</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Calificaciones" 
+											    *ngIf="this.tablaBotonesActivos[3][3]"
+                                                                                            matTooltip="Calificaciones" 
+											    (click)="handleGoContratacionResultadosPUNCalificaciones(row)" >
+                                                                                        <mat-icon class="">check_box</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Adjudicación" 
+											    *ngIf="this.tablaBotonesActivos[3][4]"
+                                                                                            matTooltip="Adjudicación" 
+											    (click)="handleGoContratacionResultadosPUNAdjudicaciones(row)" >
+                                                                                        <mat-icon class="">thumb_up</mat-icon>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container *ngSwitchCase="row.codigo_etapa == etapaProcesoCodigoEnum.CONTRATACION_EVALUACION_EXPEDIENTES
+                                                                            && row.codigo_proceso == descripcionMaestroProcesoEnum.CONTRATACION_DOCENTE">
+                                                                                <div fxLayout="row" class="mat-icon-table">
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Plazas" 
+											    *ngIf="this.tablaBotonesActivos[4][1]"
+                                                                                            matTooltip="Plazas" 
+											    (click)="handleGoContratacionEvaluacionPlazas(row)" >
+                                                                                        <mat-icon class="">grid_on</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Postulantes" 
+											    *ngIf="this.tablaBotonesActivos[4][2]"
+                                                                                            matTooltip="Postulantes" 
+											    (click)="handleGoContratacionEvaluacionPostulantes(row)" >
+                                                                                        <mat-icon class="">groups</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Calificaciones" 
+											    *ngIf="this.tablaBotonesActivos[4][3]"
+                                                                                            matTooltip="Calificaciones" 
+											    (click)="handleGoContratacionEvaluacionCalificaciones(row)" >
+                                                                                        <mat-icon class="">check_box</mat-icon>
+                                                                                    </button>
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Adjudicación" 
+											    *ngIf="this.tablaBotonesActivos[4][4]"
+                                                                                            matTooltip="Adjudicación" 
+											    (click)="handleGoContratacionEvaluacionAdjudicaciones(row)" >
+                                                                                        <mat-icon class="">thumb_up</mat-icon>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container *ngSwitchCase="row.codigo_etapa == etapaProcesoCodigoEnum.UNICA
+                                                                            && row.codigo_proceso == descripcionMaestroProcesoEnum.CONTRATACION_DOCENTE_AUXILIARES">
+                                                                                <div fxLayout="row" class="mat-icon-table">
+                                                                                    <button mat-stroked-button 
+											    color="primary" 
+											    class="sidebar-toggle btn-sm ml-2" 
+											    aria-label="Plazas" 
+											    *ngIf="this.tablaBotonesActivos[4][1]"
+                                                                                            matTooltip="Plazas" 
+											    (click)="handleGoContratacionPlazas_30943(row)" >
+                                                                                        <mat-icon class="">grid_on</mat-icon>
+                                                                                    </button>
+<button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" aria-label="Postulantes" *ngIf="this.tablaBotonesActivos[4][2]"
+                                                                                        matTooltip="Postulantes" (click)="handleGoContratacionEvaluacionPostulantes(row)" >
+                                                                                        <mat-icon class="">groups</mat-icon>
+                                                                                    </button>
+                                                                                    
+                                                                                </div>
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </ng-container>
+                                                            </ng-container>
+                                                            <ng-template #cancelado>
+                                                                <div class="mat-icon-table">
+                                                                    <button mat-stroked-button 
+									    color="primary" 
+									    class="sidebar-toggle btn-sm ml-2" 
+									    aria-label="Publicación de plazas"
+                                                                            matTooltip="Publicación de plazas" 
+									    (click)="handleGoPublicaciones(row)">
+                                                                        <mat-icon class="">delete</mat-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </ng-template>
+                                                            -->
+                                                        </div>
+                                                    </div>
+                                                </mat-cell>
+                                            </ng-container>
+
+                                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)" [ngClass]="{ hovered: row.hovered,
+                                                    selected: selection.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                                    matRipple [@animate]="{ value: '*', params: { y: '100%' }}">
+                                            </mat-row>
+                                        </mat-table>
+                                    <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+					No se encontraron registros
+                                    </div>
+                                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">
+                                        pageSize
+                                        <mat-spinner diameter="50"></mat-spinner>
+                                    </div>
+                                </div>
+                                    <mat-paginator 
+                                          fxLayoutAlign="center center" 
+                                          #paginator 
+                                          class="mat-paginator-sticky" 
+                                          [length]="dataSource.dataTotal" 
+                                          [pageIndex]="paginatorPageIndex"
+                                          [pageSize]="bandejaPrincipal.getConfiguracionPaginacion().selectPageSize" 
+                                          [pageSizeOptions]="bandejaPrincipal.getConfiguracionPaginacion().pageSize" 
+                                          showFirstLastButtons>
+                                    </mat-paginator>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

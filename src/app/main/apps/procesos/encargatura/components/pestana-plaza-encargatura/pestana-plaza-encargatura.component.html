@@ -1,0 +1,180 @@
+<div class="content">
+    <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutGap="3px">
+            <button *ngIf="visibleIncorporarPlazas" mat-raised-button color="primary" (click)="handleIncorporarPlazas()">
+                <mat-icon>add_circle</mat-icon> Incorporar plazas
+            </button>
+            <span *ngIf="visibleFechaCorte"><strong>Fecha corte: </strong>{{ plazaEncargatura?.FechaInicioNacional | date: 'dd/MM/yyyy' }}</span>
+            <button *ngIf="visibleMigrarPlaza" mat-raised-button color="primary" (click)="handleMigrarPlazasDesiertas()">
+                <mat-icon>add_circle</mat-icon> Migrar plazas desiertas - ETAPA I</button>
+            <button *ngIf="false" mat-raised-button color="primary" (click)="handleMigrarPlazasDesiertasEtapaIyII()">
+                    <mat-icon>add_circle</mat-icon> Migrar plazas desiertas - ETAPA I y II</button>
+            <button *ngIf="false" mat-raised-button color="primary" (click)="handleMigrarPlazasDesiertasEtapaIII()">
+                        <mat-icon>add_circle</mat-icon> Migrar plazas desiertas - ETAPA III</button>
+            <span *ngIf="visibleFechaMigrada">Fecha migrada: {{ fechaMigrada | date: 'dd/MM/yyyy' }}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="3px">
+            <button *ngIf="visiblePlazasConvocar && dataSource?.dataTotal>0" mat-raised-button color="primary" (click)="handleConvocarPlazas()">
+                <mat-icon>check_circle_outline</mat-icon> Plazas a Convocar
+            </button>
+            <button *ngIf="visiblePlazasObservadas && dataSource?.dataTotal>0" mat-stroked-button color="primary" (click)="handleObservar()">
+                <mat-icon>visibility</mat-icon> Plazas Observadas
+            </button>
+            <button *ngIf="visibleExportar && dataSource?.dataTotal>0" mat-stroked-button color="primary" (click)="handleExportar()">
+                <mat-icon>get_app</mat-icon> Exportar
+            </button>
+        </div>
+    </div>
+    <div class="content-table" style="overflow: auto;">
+        <div fxLayout="row">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" style="width: 100%">
+                <ng-container matColumnDef="rowNum">
+                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">N°</span> {{ row.rowNum }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="idPlazaEncargaturaDetalle">
+                    <mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox (change)="$event ? masterToggle($event) : null" [checked]="selectionTotalChecked()" [indeterminate]="selectionIndeterminate()">
+                        </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectionToggle(row) : null" [checked]="selectionChecked(row)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="codigoModular">
+                    <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Código Modular:</span> {{ row.codigoModular }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="centroTrabajo">
+                    <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Centro de Trabajo:</span> {{ row.institucionEducativa }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="modalidad">
+                    <mat-header-cell *matHeaderCellDef>Modalidad Educativa</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Modalidad Educativa:</span> {{ row.descripcionModalidadEducativa }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nivelEducativo">
+                    <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Nivel Educativo:</span> {{ row.descripcionNivelEducativo }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tipoGestion">
+                    <mat-header-cell *matHeaderCellDef>Tipo Gestión</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Tipo Gestión:</span> {{ row.descripcionTipoGestionInstitucionEducativa }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="codigoPlaza">
+                    <mat-header-cell *matHeaderCellDef>Código de Plaza</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Código de Plaza:</span> {{ row.codigoPlaza }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cargo">
+                    <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Cargo:</span> {{ row.descripcionCargo }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="especialidad">
+                    <mat-header-cell *matHeaderCellDef>Especialidad</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Especialidad:</span> {{ row.descripcionEspecialidad }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tipoPlaza">
+                    <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Tipo de Plaza:</span> {{ row.descripcionTipoPlaza }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="vigenciaInicio">
+                    <mat-header-cell *matHeaderCellDef>Vigencia inicio</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Vigencia inicio:</span> {{ row.vigenciaInicio }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="vigenciaFin">
+                    <mat-header-cell *matHeaderCellDef>Vigencia fin</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Vigencia fin:</span> {{ row.vigenciaFin }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="motivo">
+                    <mat-header-cell *matHeaderCellDef>Motivo de observación</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Motivo de observación:</span> {{ row.detalleNoPublicacion }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="estado" [style.display]="'none'">
+                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Estado:</span>
+                        <ng-container [ngSwitch]="true">
+                            <ng-container *ngSwitchCase="row.codigoResultadoFinal === EstadoResultadoFinalEnum.Pendiente">
+                                <div class="campo-estado p-4 orange-600 whiteText">
+                                    {{row.descripcionResultadoFinal}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="row.codigoResultadoFinal === EstadoResultadoFinalEnum.Adjudicado">
+                                <div class="campo-estado p-4 green-600 whiteText">
+                                    {{row.descripcionResultadoFinal}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="row.codigoResultadoFinal === EstadoResultadoFinalEnum.Desierto">
+                                <div class="campo-estado p-4 red-600 whiteText">
+                                    {{row.descripcionResultadoFinal}}
+                                </div>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                <div class="campo-estado p-4">
+                                    {{row.descripcionResultadoFinal}}
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Acciones:</span>
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="3px">
+                            <button mat-stroked-button color="primary" class="btn-sm" matTooltip="Ver información completa" (click)="handleViewInfo(row)">
+                                <mat-icon>error</mat-icon>
+                            </button>
+                            <button *ngIf="row.codigoSituacionValidacion == situacionValidacionEnum.Incorporacion" mat-stroked-button color="warn" class="btn-sm" matTooltip="Eliminar" (click)="handleEliminar(row)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button *ngIf="visibleVerObservacion" mat-stroked-button color="primary" class="btn-sm" matTooltip="Ver Observación" (click)="handleViewMotivoNoPublicacion(row)">
+                                <mat-icon>remove_red_eye</mat-icon>
+                            </button>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
+        <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+            No se encontraron registros
+        </div>
+    </div>
+    <mat-paginator #paginator class="mat-paginator-sticky" style=" display: flex;justify-content: center;" [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+    <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+        <div fxLayout="row" fxLayoutAlign="start" fxLayout.xs="column" fxLayoutGap="3px">
+            <span style="padding-right: 25px;"><strong>{{tituloTotalPlazas}} :</strong> {{ dataSource?.dataTotal }}</span>
+            <span *ngIf="totalSelected"><strong>{{tituloTotalPlazasSeleccionadas}} :</strong> {{ ((this.dataSource?.dataTotal||0)-(this.desSelection?.selected.length||0)) }}</span>
+            <span *ngIf="!totalSelected"><strong>{{tituloTotalPlazasSeleccionadas}} :</strong> {{ (this.selection?.selected.length) }}</span>
+        </div>
+    </div>
+</div>

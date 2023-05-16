@@ -1,0 +1,177 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Motivo de observación</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-10 pb-0 m-0">
+        <fieldset class="fieldset-border">
+            <legend>Datos del servidor Público</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-md="0">
+                    <div fxFlex="24.5%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Tipo de Documento </label>
+                            <p class="form-control-static">
+                                {{actividad?.tipoDocumentoIdentidad}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="24.5%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Número de Documento</label>
+                            <p class="form-control-static">
+                                {{actividad?.numeroDocumentoIdentidad}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="24.5%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Primer Apellido </label>
+                            <p class="form-control-static">
+                                {{actividad?.primerApellido}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="24.5%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">
+                                Segundo Apellido
+                            </label>
+                            <p class="form-control-static">
+                                {{actividad?.segundoApellido}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="24.5%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">
+                                Nombres
+                            </label>
+                            <p class="form-control-static">
+                                {{actividad?.nombres}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-border">
+            <legend>Datos de la Resolución</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Tipo Resolución </label>
+                            <p class="form-control-static">
+                                {{actividad?.tipoResolucion}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Número de Resolución</label>
+                            <p class="form-control-static">
+                                {{actividad?.numeroResolucion}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Fecha de Resolución</label>
+                            <p class="form-control-static">
+                                {{actividad?.fechaResolucion| date: 'dd/MM/yyyy'}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-border">
+            <legend>Acción a realizar</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Régimen Laboral: </label>
+                            <p class="form-control-static">
+                                {{actividad?.regimenLaboral}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">
+                                Grupo Acción
+                            </label>
+                            <p class="form-control-static">
+                                {{actividad?.grupoAccion}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">
+                                Acción
+                            </label>
+                            <p class="form-control-static">
+                                {{actividad?.accion}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">
+                                Motivo Acción
+                            </label>
+                            <p class="form-control-static">
+                                {{actividad?.motivoAccion}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-border">
+            <legend>Datos de observación</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="30%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Estado</label>
+                            <p class="form-control-static">
+                                Observado
+                            </p>
+                        </div>
+                    </div>
+
+                    <div fxFlex="70%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">
+                                Motivo de observación
+                            </label>
+                            <textarea matInput placeholder="Motivo de observación" [readonly]="true" rows="4" uppercase
+                                maxlength="400">{{actividad?.motivoObservacion}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

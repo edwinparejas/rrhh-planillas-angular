@@ -1,0 +1,56 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title">{{ modal.title }}</span>
+            </div>
+            <button mat-icon-button  (click)="matDialogRef.close()"  aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+  
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form autocomplete="off" novalidate [formGroup]="form">
+            <fieldset class="fieldset-border">
+                <!-- <legend>Motivo de devolución</legend> -->
+  
+             
+
+                <div class="mb-10" fxLayout="row" fxFlexAlign="flex-start" fxLayoutAlign="start start">                    
+                    <div class="ml-4"  *ngIf="modal.info" fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <span class="label" >Devuelto por:</span>
+                        <span class="label-normal"  *ngIf="this.tipo ==1">{{this.modal.info?.usuarioDevuelto}} - {{this.modal.info?.usuarioRolDevolucionAsistencia}}</span>
+                        <span class="label-normal"  *ngIf="this.tipo ==2">{{this.modal.info?.usuarioDevuelto}} - {{this.modal.info?.usuarioRolDevolucionCompensaciones}}</span>
+                        <span class="label-normal"  *ngIf="this.tipo ==3">{{this.modal.info?.usuarioDevuelto}} - {{this.modal.info?.usuarioRolRechazado}}</span>
+
+                    </div>
+                </div>
+                <div  class="mb-10" fxLayout="row" fxFlexAlign="flex-start" fxLayoutAlign="start start">               
+                    <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">                      
+                        <span class="label">Detalle del motivo de devolución:</span>
+                        <span class="label-normal"  *ngIf=" this.tipo === 1" >{{this.modal.info?.detalleDevolucion}}</span>
+                        <span class="label-normal" *ngIf=" tipo == 2">{{this.modal.info?.detalleDevolucionCompensaciones}}</span>
+                        <span class="label-normal" *ngIf=" tipo == 3">{{this.modal.info?.detalleRechazo}}</span>
+                    </div>
+                </div> 
+            </fieldset>
+        </form>
+       
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <mat-divider></mat-divider>
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">                
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <minedu-button-cancel
+                    (mineduOnCancel)="handleCancelar()" > Cerrar
+                </minedu-button-cancel>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,222 @@
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Criterios de búsqueda</h3>
+    </div>
+    <div class="panel-body">
+        <form [formGroup]="form">
+            <div fxLayout="row wrap" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap=".5%"
+                fxLayoutGap.xs="0">
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idTipoActividad')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoActividad')">
+                        Tipo de Actividad
+                    </mat-label>
+                    <mat-select formControlName="idTipoActividad" (selectionChange)="tipoActividadesChangeEvent()">
+                        <mat-option *ngFor="let item of model.comboLists.tipoActividades" [value]="item.id">
+                            {{ item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoActividad')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                
+                <minedu-from-control fxFlex="24.5%" fxFlex.xs="100%" label="Tipo de Documento" variant="select"
+                    placeholder controlName="idTipoDocumento" [formGroupParent]="form" [bindLabel]="'descripcion'"
+                    [bindValue]="'id'" [options]="model.comboLists.tipoDocumentos">
+                </minedu-from-control>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('numeroDocumento')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumento')">
+                        Número de documento</mat-label>
+                    <input matInput formControlName="numeroDocumento" placeholder="Número de documento"
+                        (keydown.enter)="busquedaServidorPublicoPersonalizada()"
+                        [maxLength]="form.get('idTipoDocumento').value == 1 ? 8 : 12"
+                        [readonly]="form.get('idTipoDocumento').value == -1" uppercase />
+                    <button (click)="busquedaServidorPublicoPersonalizada()" type="button"
+                        *ngIf="!form.get('numeroDocumento').invalid" matSuffix mat-button mat-icon-button>
+                        <mat-icon class="s-24">search</mat-icon>
+                    </button>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumento')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idTipoResolucion')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoResolucion')">
+                        Tipo de Resolución
+                    </mat-label>
+                    <mat-select formControlName="idTipoResolucion">
+                        <mat-option *ngFor="let item of model.comboLists.tipoResoluciones" [value]="item.id">
+                            {{ item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoResolucion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">
+                        Regimen Laboral
+                    </mat-label>
+                    <mat-select formControlName="idRegimenLaboral" (selectionChange)="obtenerDataGrupoAccion($event)">
+                        <mat-option *ngFor="let item of model.comboLists.regimenLaborales" [value]="item.id">
+                            {{ item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idRegimenLaboral')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idGrupoAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idGrupoAccion')">
+                        Grupo Acción
+                    </mat-label>
+                    <mat-select formControlName="idGrupoAccion" (selectionChange)="obtenerDataAccion($event)">
+                        <mat-option *ngFor="let item of model.comboLists.grugoAcciones" [value]="item.id">
+                            {{ item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idGrupoAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idAccion')">
+                        Acción
+                    </mat-label>
+                    <mat-select formControlName="idAccion" (selectionChange)="obtenerDataMotivoAccion($event)">
+                        <mat-option *ngFor="let item of model.comboLists.acciones" [value]="item.id">
+                            {{ item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idMotivoAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idMotivoAccion')">
+                        Motivo Acción
+                    </mat-label>
+                    <mat-select formControlName="idMotivoAccion">
+                        <mat-option *ngFor="let item of model.comboLists.motivoAcciones" [value]="item.id">
+                            {{ item.descripcion }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idMotivoAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-accordion fxFlex="100%">
+                    <mat-expansion-panel [expanded]="false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Búsqueda avanzada
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                fxLayoutGap=".5%" fxLayoutGap.xs="0">
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                                    <minedu-datepicker label="Fecha de Vigencia Inicio"
+                                        [mineduFormControl]="form.get('fechaVigenciaInicio')"
+                                        [formControl]="form.get('fechaVigenciaInicio')">
+                                    </minedu-datepicker>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                                    <minedu-datepicker label="Fecha de Vigencia Fin"
+                                        [mineduFormControl]="form.get('fechaVigenciaFin')"
+                                        [formControl]="form.get('fechaVigenciaFin')"
+                                        [min]="form.get('fechaVigenciaInicio').value">
+                                    </minedu-datepicker>
+                                </div>
+
+                                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                        Código de Plaza</mat-label>
+                                    <!-- <input matInput formControlName="codigoPlaza" placeholder="Código de Plaza" />
+                                    <button type="button" *ngIf="!form.get('codigoPlaza').invalid" matSuffix mat-button
+                                        mat-icon-button>
+                                        <mat-icon class="s-24">search</mat-icon>
+                                    </button> -->
+
+
+                                    <input matInput formControlName="codigoPlaza"
+                                        (keydown.enter)="buscarPlazaDialogo($event)" uppercase />
+                                    <button type="button" *ngIf="!form.get('codigoPlaza').invalid" matSuffix mat-button
+                                        mat-icon-button (click)="buscarPlazaDialogo($event)">
+                                        <mat-icon class="s-24">search</mat-icon>
+                                    </button>
+
+
+
+
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoPlaza')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('codigoModular')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">
+                                        Código Modular</mat-label>
+                                    <input matInput formControlName="codigoModular" placeholder="Código Modular" />
+                                    <!-- *ngIf="!form.get('codigoModular').invalid" -->
+                                    <button (click)="buscarCentroTrabajoDialogo()" type="button" matSuffix mat-button
+                                        mat-icon-button>
+                                        <mat-icon class="s-24">search</mat-icon>
+                                    </button>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoModular')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <div class="p-0" fxLayout="row">
+                <button mat-raised-button (click)="handleLimpiar()">
+                    <span class="material-icons">clear</span>
+                    Limpiar
+                </button>
+            </div>
+            <div class="pl-6" fxLayout="row">
+                <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                    <span class="material-icons">search</span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

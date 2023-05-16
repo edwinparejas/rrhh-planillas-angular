@@ -1,0 +1,185 @@
+
+@import "@minedu/scss/minedu";
+
+minedu-personal-dashboard {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    overflow: hidden;
+
+    mat-vertical-stepper {
+        padding: 0;
+    }
+    
+    h3,
+    .h3 {
+        font-size: 16px;
+    }
+
+    .sidebar {
+
+        &:not(.locked-open) {
+            background: white;
+        }
+    }
+
+    .center {
+        .content-card {                
+
+            @include media-breakpoint(xs) {               
+                &.current-selected {
+                    .toolbar {
+                        padding-left: 16px !important;                       
+                    }
+                    .content {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }   
+
+    .item-divider{
+        border-top: 1px solid #e9ecef;
+    }
+
+    #main {
+        position: relative;
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        min-width: 0;
+
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+
+            @include media-breakpoint('gt-md') {
+                width: 1500px;
+            }
+        }
+    
+        .header {    
+            h1 {
+                font-size: 40px;
+                font-weight: 300;
+            }
+            .title {
+                font-family: "Gotham-Bold", Helvetica, Arial, sans-serif;
+                font-size: 20px;
+                letter-spacing: 2px;
+                margin-bottom: 0;
+                font-weight: 700;
+            }
+            .sub-title{
+                font-family: "GothamBook", Helvetica, Arial, sans-serif;
+                font-size: 10px;
+                text-align: center;
+                margin-top: 0;
+                margin-bottom: 15px;
+            }
+        }
+
+        .board-list {
+            max-height: none !important;
+
+            .tp-card {     
+                min-width: 300px;
+                width: 300px;
+                margin: 16px;      
+                transition: box-shadow 150ms ease-in;
+
+                .header{
+                    color: #0073b7;
+                }
+                .card-footer {
+                    padding: 0.75rem 1.25rem;
+                    background-color:transparent;
+                    border-top: 1px solid rgba(0, 0, 0, 0.125);
+                    font-size: 12px;
+                    border-top-color: currentcolor;
+                    border-top-style: none;
+                    border-top-width: 0px;
+                    border-top: 1px solid #d5d5d5;  
+                    height: 30px;
+                    .footer-button{
+                        color:#0073b7 ;
+                    }
+                }       
+
+                h2 {
+                    color: #0073b7;
+                    font-size: 20px;
+                }
+                
+                h6{                    
+                    line-height: 1.4
+                }
+
+                &:hover{
+                    cursor: pointer;
+                    background:#0073b7;
+                    border-color:#0073b7;
+                    color:#ffffff;
+                    box-shadow: 0 14px 26px -12px rgba(23, 105, 255, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(23, 105, 255, 0.2);
+                    .header{
+                        color: #ffffff;
+                    }
+                    .card-footer {                   
+                        .footer-button{
+                            color:#ffffff ;
+                        }
+                    }   
+                    h2{
+                        color:#ffffff
+                    }
+                    h6 {
+                        color:#ffffff;
+                    }  
+                }
+            }  
+            
+            .tp-card-disabled{
+                min-width: 166px;
+                width: 166px;
+                margin: 16px;      
+                .header{
+                    color: #d5d5d5;
+                }
+                .card-footer {
+                    padding: 0.75rem 1.25rem;
+                    background-color:transparent;
+                    border-top: 1px solid rgba(0, 0, 0, 0.125);
+                    font-size: 12px;
+                    border-top-color: currentcolor;
+                    border-top-style: none;
+                    border-top-width: 0px;
+                    border-top: 1px solid #d5d5d5;  
+                    height: 30px;   
+                    .footer-button{
+                        color:#d5d5d5 ;
+                    }                     
+                }       
+
+                h2 {
+                    color: #d5d5d5;
+                    font-size: 20px;
+                }
+                
+                h6{                    
+                    line-height: 1.4;
+                    color: #d5d5d5;                        
+                }
+            }
+                
+        }         
+        
+    }
+}

@@ -1,0 +1,251 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+        <div class="panel mt-12">
+            <form autocomplete="off" novalidate [formGroup]="form">
+                <fieldset class="fieldset-border m-20">
+                    <legend>Criterios de búsqueda</legend>
+                    <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                        fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                            fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%" >
+                                <minedu-datepicker mode="YEAR" label="Año"
+                                    [mineduFormControl]="form.get('anio')" [formControl]="form.get('anio')" [max]="maxDate"  [min]="now">
+                                </minedu-datepicker>
+                            </div>
+                            <div fxLayoutAlign="start start"  fxFlex="20%"  fxFlex.xs="100%" >
+                                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                [mineduFormFieldValidationState]="form.get('idMes')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idMes')">Mes
+                                    </mat-label>
+                                    <mat-select formControlName="idMes">
+                                        <mat-option value="-1">-- TODOS -- </mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listMeses" [value]="item.idCatalogoItem">
+                                            {{item.descripcionCatalogoItem}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idMes')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>                                    
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <mat-form-field appearance="fill"  fxFlex="50%" fxFlex.xs="100%"
+                                [mineduFormFieldValidationState]="form.get('idEstado')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idEstado')">Estado
+                                    </mat-label>
+                                    <mat-select formControlName="idEstado">
+                                        <mat-option value="-1">--TODOS --</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listEstadosControlConsolidado" [value]="item.idCatalogoItem">
+                                            {{item.descripcionCatalogoItem}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idEstado')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>                                   
+                            </div>                        
+                        </div>
+
+                        <div class="panel-footer" fxLayout="row" fxLayoutAlign="center center" *ngIf="permisoPassport.hasPermissionBuscar">
+                            <div class="p-0" fxLayout="row">
+                                <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                    [working]="working">
+                                </minedu-button-clear>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <minedu-button-search [mineduForm]="form" (mineduOnClick)="handleBuscar(form)"
+                                    [working]="working">
+                                </minedu-button-search>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10 mr-20 ml-20">
+                <div class="pl-6" fxLayout="row" *ngIf="permisoPassport.hasPermissionEnviarCompensaciones">
+                    <button mat-raised-button color="primary"
+                                (click)="handleEnviarCompensaciones()" class="ml-4" 
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">                                  
+                                <span class="material-icons">check_circle_outline</span>
+                                Enviar a compensaciones
+                    </button>
+                </div>
+                <div class="pl-6" fxLayout="row" *ngIf="permisoPassport.hasPermisionAprobarMasivo">                    
+                    <button mat-stroked-button color="primary"
+                    (click)="handleAprobarMasivo()" class="ml-4" 
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">   
+                    <span class="material-icons">check_circle_outline</span>
+                    Aprobar Masivo</button>
+                </div>
+                <div class="pl-6" fxLayout="row" *ngIf="permisoPassport.hasPermissionRechazarMasivo">
+                    <button mat-stroked-button color="warn"
+                        (click)="handleRechazarMasivo()" class="ml-4" 
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">                                
+                        <span class="material-icons">highlight_off</span>
+                        Rechazar Masivo
+                    </button>                    
+                </div>
+                <div class="pl-6" fxLayout="row" *ngIf="permisoPassport.hasPermisionExportar">
+                    <button mat-stroked-button color="primary"
+                        (click)="handleExportar()" class="ml-4" 
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">get_app</span>Exportar
+                    </button>               
+                </div>
+            </div>
+            <br>
+            <div class="mr-20 ml-20">
+                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selectedGrid(row) : null" [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>                                      
+                  
+
+                    <ng-container matColumnDef="centroTrabajo">
+                        <th mat-header-cell  *matHeaderCellDef>CENTRO DE TRABAJO</th  >
+                        <td mat-cell *matCellDef="
+                                let row;
+                              
+                            ">
+                            <p>{{ row.centroTrabajo }}</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="codigoCentroTrabajo">
+                        <th mat-header-cell  *matHeaderCellDef>CÓDIGO MODULAR</th  >
+                        <td mat-cell *matCellDef="let row;">
+                            <p>{{ row.codigoCentroTrabajo }}</p>
+                        </td>
+                    </ng-container>
+
+                   
+                    <ng-container matColumnDef="nivelEducativo">
+                        <th mat-header-cell  *matHeaderCellDef>NIVEL EDUCATIVO</th  >
+                        <td mat-cell *matCellDef="
+                                let row;
+                             
+                            ">
+                            <p>{{ row.nivelEducativo }}</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="modalidadEducativa">
+                        <th mat-header-cell  *matHeaderCellDef>MODALIDAD</th  >
+                        <td mat-cell *matCellDef="
+                                let row;
+                     
+                            ">
+                            <p>
+                                {{ row.modalidadEducativa }}
+                            </p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcionEstadoConsolidado">
+                        <th mat-header-cell  *matHeaderCellDef>ESTADO</th>
+                        <td mat-cell *matCellDef="let row;">
+                            <span class="text-truncate badge h6 pr-4 pl-4" [ngClass]="{
+                                'orange-500':row.idEstado === estadoPendienteEnum, 
+                                'green-500':row.idEstado === estadoAprobadoEnum}">
+                                {{ row.descripcionEstadoConsolidado }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaSolicitada">
+                        <th mat-header-cell  *matHeaderCellDef>FECHA SOLICITADA</th  >
+                        <td mat-cell *matCellDef="let row;">
+                            <p class="ml-5">
+                                {{ row.fechaSolicitada }}
+                            </p>
+                        </td>
+                    </ng-container>                               
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell  *matHeaderCellDef>Acciones</th  >
+                        <td mat-cell *matCellDef="let row">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="handleVerReporteDetallado(row)"
+                                        aria-label="Ver reporte detallado" matTooltip="Ver reporte detallado">
+                                        <mat-icon class="">view_headline</mat-icon>
+                                    </button>
+                                </div>
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="handleVerReporteConsolidado(row)"
+                                        aria-label="Ver reporte consolidado" matTooltip="Ver reporte consolidado">
+                                        <mat-icon class="">view_stream</mat-icon>
+                                    </button>
+                                </div>
+
+                                <div class="mat-icon-table"   *ngIf="(row.idEstado !== estadoAprobadoEnum) && permisoPassport.hasPermisionAprobar">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="handleAprobar(row)"
+                                        aria-label="Aprobar" matTooltip="Aprobar">
+                                        <mat-icon class="">check_circle_outline</mat-icon>
+                                    </button>
+                                </div>
+                                <div class="mat-icon-table"
+                                    *ngIf="(row.idEstado !== estadoAprobadoEnum) && permisoPassport.hasPermissionRechazar">
+                                    <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm"
+                                        (click)="handleRechazar(row)"
+                                        aria-label="Rechazar" matTooltip="Rechazar">
+                                        <mat-icon class="">highlight_off</mat-icon>
+                                    </button>
+                                </div>
+                              
+                            </div>
+                        </td>
+                    </ng-container>                                        
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                    (click)="selectedGrid(row)"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" 
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+                <div class="no-results" *ngIf="!(loading | async)"
+                    [style.display]="totalRegistros === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                    *ngIf="loading | async">
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <mat-paginator #paginator class="mat-paginator-sticky" [length]="totalRegistros"
+                    [pageIndex]="0" [pageSize]="10"
+                    [pageSizeOptions]="[10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+                   
+                       

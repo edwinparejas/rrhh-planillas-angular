@@ -1,0 +1,102 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" class="titulo-dialog">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Motivos de Rechazo</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div class="panel">
+            <div class="panel-body">
+                <form [formGroup]="form">
+                    
+                    <fieldset class="fieldset-border mt-0 mb-12">
+                        <legend>Datos del Servidor</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <mat-form-field appearance="none" fxFlex="20%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('primerApellido')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('primerApellido')">Primer Apellido
+                                    </mat-label>
+                                    <input formControlName="primerApellido" matInput class="ml-24" type="text"
+                                        placeholder="Primer Apellido" fxFlex>
+                                </mat-form-field>
+                                <mat-form-field appearance="none" fxFlex="20%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('segundoApellido')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('segundoApellido')">Segundo Apellido
+                                    </mat-label>
+                                    <input formControlName="segundoApellido" matInput class="ml-24" type="text"
+                                        placeholder="Segundo Apellido" fxFlex>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="none" fxFlex="20%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('nombres')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('nombres')">Nombres
+                                    </mat-label>
+                                    <input formControlName="nombres" matInput class="ml-24" type="text"
+                                        placeholder="Nombres" fxFlex>
+                                </mat-form-field>
+
+                            </div>
+
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <mat-form-field appearance="none" fxFlex="20%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('tipoDocumento')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('tipoDocumento')">Tipo Documento
+                                    </mat-label>
+                                    <input formControlName="tipoDocumento" matInput class="ml-24" type="text"
+                                        placeholder="Tipo Documento" fxFlex>
+                                </mat-form-field>
+                                <mat-form-field appearance="none" fxFlex="20%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('numeroDocumento')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumento')">Numero Documento
+                                    </mat-label>
+                                    <input formControlName="numeroDocumento" matInput class="ml-24" type="text"
+                                        placeholder="Numero Documento" fxFlex>
+                                </mat-form-field>
+
+
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset-border mt-0 mb-12">
+                        <legend>Datos de Observaci&oacute;n</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('motivoRechazo')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('motivoRechazo')">Motivos de Rechazo
+                                    </mat-label>
+                                    <textarea matInput formControlName="motivoRechazo" maxlength="400" matTextareaAutosize [matAutosizeMinRows]="9" [matAutosizeMaxRows]="20"></textarea>
+                                    
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="cancelar()">
+            <span class="material-icons">block</span>
+            Cancelar
+        </button>
+
+    </div>
+</div>

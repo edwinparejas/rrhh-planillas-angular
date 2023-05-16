@@ -1,0 +1,156 @@
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap"  fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" >
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" [formGroup]="form">
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">N° Informe de Calculo</label>
+                    <p class="form-control-static" *ngIf="form.get('numeroInformeCalculo').value">
+                        {{form.get('numeroInformeCalculo').value}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('numeroInformeCalculo').value">No registrado</p>
+                </div>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Fecha de inicio</label>
+                    <p class="form-control-static" *ngIf="form.get('fechaBeneficio').value">
+                        {{form.get('fechaBeneficio').value  | date: 'dd/MM/yyyy' }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('fechaBeneficio').value">No registrado</p>
+                </div>
+            </div>  
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%">
+                    <label for="">Periocidad</label>
+                    <p class="form-control-static" *ngIf="form.get('periocidad').value">
+                        {{form.get('periocidad').value }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('periocidad').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>        
+                </div>
+            </div>    
+                                      
+        </div>
+        <div class="panel panel-primary" style="width: 100%;" >
+            
+            <div class="panel-body">
+                <div class="content" mineduPerfectScrollbar>
+                    <div class="content-table" style="overflow-x: auto;">
+                        <div fxLayout="row" fxLayout.lt-md="column" >
+                            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" 
+                                style="width: 130%">
+                                <ng-container matColumnDef="numero">
+                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" fxFlex.xs="100%">
+                                        <span class="mobile-label">N°:</span>
+                                        {{ row.registro }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="parentesco">
+                                    <mat-header-cell *matHeaderCellDef>Parentesco</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="mobile-label">Parentesco:</span> 
+                                            {{ row.parentesco }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoDocumento">
+                                <mat-header-cell *matHeaderCellDef>Tipo de Documento</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" >
+                                        <div >
+                                            <span class="mobile-label">Tipo de Documento:</span> 
+                                            {{ row.tipoDocumentoIdentidad }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="documento">
+                                    <mat-header-cell *matHeaderCellDef>Nro Documento</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" fxFlex.xs="100%">
+                                        <div >
+                                            <span class="mobile-label">Nro Documento:</span> 
+                                            {{ row.numeroDocumentoIdentidad }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="estadoRENIEC">
+                                    <mat-header-cell *matHeaderCellDef>Estado RENIEC</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div>
+                                            <span class="mobile-label">Estado RENIEC:</span> 
+                                            {{ (row.estadoReniec==1)?"ACTIVO":"INACTIVO" }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="nombres">
+                                    <mat-header-cell *matHeaderCellDef>Apellidos y Nombre</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div >
+                                            <span class="mobile-label">Apellidos y Nombre:</span> 
+                                            {{ row.nombres }}
+                                        </div>
+                                       
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="fechaNacimiento">
+                                    <mat-header-cell *matHeaderCellDef>Fecha de Nacimiento</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div >
+                                            <span class="mobile-label">Fecha de Nacimiento:</span> 
+                                            {{ row.fechaNacimiento | date:"dd-MM-yyyy"}}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="fechaVigenciaBonificacion">
+                                    <mat-header-cell *matHeaderCellDef>Vigencia de Bonificación Familiar</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div >
+                                            <span class="mobile-label">Vigencia de Bonificación Familiar:</span> 
+                                            {{ row.fechaBonificacion | date:"dd-MM-yyyy"}}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="importeBeneficio">
+                                    <mat-header-cell *matHeaderCellDef>Monto único S/.</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div >
+                                            <span class="mobile-label">Monto único S/.:</span> 
+                                            {{ row.importeBeneficio  | currency:'':'' }}
+                                          
+                                        </div>
+                                       
+                                    </mat-cell>
+                                </ng-container>                                
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                                </mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                            </mat-table>
+                        </div> 
+                        <div >
+                            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                        </div>
+                        <div #divpaginator>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                     
+    </div>
+</fieldset>

@@ -1,0 +1,71 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Contratos Generados</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <br>
+        <div class="panel">
+            <minedu-informacion-postulante-calificacion [idPersona]="idPersona"></minedu-informacion-postulante-calificacion>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <div class="content-table">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <mat-table class="minedu-table" #table [dataSource]="dataSourceContratosAdjudicadas" [class.isMobile]="isMobile"
+                            [@animateStagger]="{ value: '50' }" style="width: 100%">
+                            <ng-container matColumnDef="registro">
+                                <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index">
+                                    {{ row.numero_registro }}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="codigo_plaza">
+                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">Código Plaza Adjudicada</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index" class="mat-cell-center">
+                                    {{ row.codigoPlaza }}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="acciones">
+                                <mat-header-cell *matHeaderCellDef class="mat-cell-center">ACCIONES</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index" class="mat-cell-center">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div style="padding-left: 10px;"></div>
+                                        <div class="mat-icon-table">
+                                            <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                    aria-label="Ver contrato adjudicación" matTooltip="Ver contrato adjudicación"
+                                                    (click)="handleGenerarPDF(row)">
+                                                    <span class="material-icons" style="color: red; margin-right: 2px;">picture_as_pdf</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumnsContratosAdjudicadas; sticky: true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumnsContratosAdjudicadas"
+                                [ngClass]="{ hovered: row.hovered }"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                [@animate]="{ value: '*', params: { y: '100%' } }">
+                            </mat-row>
+                        </mat-table>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

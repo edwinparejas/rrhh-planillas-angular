@@ -1,0 +1,351 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll animated fadeIn">
+        <div class="center">
+            <span fxLayout="row" fxLayoutAlign="end center">
+                <mat-icon color="accent" class="s-18">home</mat-icon> Personal / Bandeja de Actividades
+            </span>
+            <div class="panel mt-12">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bandeja de Actividades
+                    </h3>
+                </div>
+                <div class="panel-body" fxLayout="row">
+                    <div class="content" mineduPerfectScrollbar>
+                        <div fxLayout="column" class="pl-2 pr-2">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form [formGroup]="form">
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idEstadoActividad')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idEstadoActividad')">Estado actividad</mat-label>
+                                                    <mat-select formControlName="idEstadoActividad">
+                                                        <mat-option *ngFor="let item of comboLists.listEstadoActividad" [value]="item.value">
+                                                            {{item.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idEstadoActividad')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idTipoActividad')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoActividad')">Tipo actividad
+                                                    </mat-label>
+                                                    <mat-select formControlName="idTipoActividad">
+                                                        <mat-option *ngFor="let item of comboLists.listTipoActividad" [value]="item.value">
+                                                            {{item.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoActividad')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">Tipo de documento
+                                                    </mat-label>
+                                                    <mat-select formControlName="idTipoDocumentoIdentidad">
+                                                        <mat-option *ngFor="let item of comboLists.listTipoDocumentoIdentidad" [value]="item.value">
+                                                            {{item.label}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento</mat-label>
+                                                    <input matInput formControlName="numeroDocumentoIdentidad" placeholder="Número de documento" maxlength="10">
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('primerApellido')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('primerApellido')">Primer apellido
+                                                    </mat-label>
+                                                    <input matInput formControlName="primerApellido" placeholder="Primero apellido" maxlength="30">
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('primerApellido')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('segundoApellido')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('segundoApellido')">Segundo apellido
+                                                    </mat-label>
+                                                    <input matInput formControlName="segundoApellido" placeholder="Segundo de documento" maxlength="30">
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('segundoApellido')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('nombres')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('nombres')">Nombres</mat-label>
+                                                    <input matInput formControlName="nombres" placeholder="Nombres" maxlength="30">
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('nombres')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+
+                                                <div fxLayoutAlign="start start" fxFlex="33%" fxFlex.xs="100%">
+                                                    <minedu-datepicker label="Fecha inicio" [mineduFormControl]="form.get('fechaVigenciaInicio')" [formControl]="form.get('fechaVigenciaInicio')" [max]="untilDate">
+                                                    </minedu-datepicker>
+                                                </div>
+
+                                                <div fxLayoutAlign="start start" fxFlex="33%" fxFlex.xs="100%">
+                                                    <minedu-datepicker label="Fecha de término" [mineduFormControl]="form.get('fechaVigenciaFin')" [formControl]="form.get('fechaVigenciaFin')" [min]="minDate">
+                                                    </minedu-datepicker>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                <mat-expansion-panel fxFlex="100%" fxFlex.xs="100%">
+                                                    <mat-expansion-panel-header>
+                                                        Búsqueda avanzada
+                                                    </mat-expansion-panel-header>
+                                                    <ng-template matExpansionPanelContent>
+                                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idTipoResolucion')">
+                                                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoResolucion')">Tipo Resolución</mat-label>
+                                                                    <mat-select formControlName="idTipoResolucion">
+                                                                        <mat-option *ngFor="let item of comboLists.listTipoResolucion" [value]="item.value">
+                                                                            {{item.label}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-error>
+                                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoResolucion')">
+                                                                        </minedu-form-field-validation-messages>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                                                                    <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">Regimen Laboral
+                                                                    </mat-label>
+                                                                    <mat-select formControlName="idRegimenLaboral">
+                                                                        <mat-option *ngFor="let item of comboLists.listRegimenLaboral" [value]="item.value">
+                                                                            {{item.label}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-error>
+                                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idRegimenLaboral')">
+                                                                        </minedu-form-field-validation-messages>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idGrupoAccion')">
+                                                                    <mat-label [mineduFormRequiredLabel]="form.get('idGrupoAccion')">Grupo Acción
+                                                                    </mat-label>
+                                                                    <mat-select formControlName="idGrupoAccion">
+                                                                        <mat-option *ngFor="let item of comboLists.listGrupoAccion" [value]="item.value">
+                                                                            {{item.label}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-error>
+                                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idGrupoAccion')">
+                                                                        </minedu-form-field-validation-messages>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idAccion')">
+                                                                    <mat-label [mineduFormRequiredLabel]="form.get('idAccion')">Acción
+                                                                    </mat-label>
+                                                                    <mat-select formControlName="idAccion">
+                                                                        <mat-option *ngFor="let item of comboLists.listAccion" [value]="item.value">
+                                                                            {{item.label}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-error>
+                                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idAccion')">
+                                                                        </minedu-form-field-validation-messages>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                                <mat-form-field appearance="fill" fxFlex="33%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idMotivoAccion')">
+                                                                    <mat-label [mineduFormRequiredLabel]="form.get('idMotivoAccion')">Motivo Acción
+                                                                    </mat-label>
+                                                                    <mat-select formControlName="idMotivoAccion">
+                                                                        <mat-option *ngFor="let item of comboLists.listMotivoAccion" [value]="item.value">
+                                                                            {{item.label}}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                    <mat-error>
+                                                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idMotivoAccion')">
+                                                                        </minedu-form-field-validation-messages>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                </mat-expansion-panel>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="panel-footer">
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                                            <button mat-raised-button (click)="handleLimpiar()"><span class="material-icons">clear</span>
+                            Limpiar</button>
+                                        </div>
+                                        <div mat-dialog-actions fxLayout="row">
+                                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span
+                                class="material-icons">search</span> Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="content" mineduPerfectScrollbar>
+                                <div class="content-table">
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                                            <ng-container matColumnDef="registro">
+                                                <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.registro}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="tipoResolucion">
+                                                <mat-header-cell *matHeaderCellDef>TIPO RESOLUCIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.tipoResolucion}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="numeroResolucion">
+                                                <mat-header-cell *matHeaderCellDef>Nº RESOLUCIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.numeroResolucion}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="fechaResolucion">
+                                                <mat-header-cell *matHeaderCellDef>FECHA RESOLUCIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.fechaResolucion}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="regimenLaboral">
+                                                <mat-header-cell *matHeaderCellDef>RÉGIMEN LABORAL</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.regimenLaboral}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="grupoAccion">
+                                                <mat-header-cell *matHeaderCellDef>GRUPO ACCIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.grupoAccion}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="accion">
+                                                <mat-header-cell *matHeaderCellDef>ACCIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.accion}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="motivoAccion">
+                                                <mat-header-cell *matHeaderCellDef>MOTIVO ACCIÓN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.motivoAccion}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="documentoIdentidad">
+                                                <mat-header-cell *matHeaderCellDef>DOCUMENTO</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.documentoIdentidad}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="nombreRazon">
+                                                <mat-header-cell *matHeaderCellDef>APELLIDOS Y NOMBRES / RAZÓN SOCIAL / TIPO SEDE</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.nombreRazon}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="fechaInicio">
+                                                <mat-header-cell *matHeaderCellDef>F. VIGENCIA INICIO</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.fechaInicio}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="fechaFin">
+                                                <mat-header-cell *matHeaderCellDef>F. VIGENCIA FIN</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p class="text-truncate">{{row.fechaFin}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="estadoActividad">
+                                                <mat-header-cell *matHeaderCellDef>ESTADO</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" fxHide>
+                                                    <p *ngIf="row.idEstadoActividad == 14 || row.idEstadoActividad == 16" class="text-truncate pendiente">{{row.estadoActividad}}</p>
+                                                    <p *ngIf="row.idEstadoActividad == 15" class="text-truncate realizado">{{row.estadoActividad}}</p>
+                                                </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="acciones">
+                                                <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                                <mat-cell *matCellDef="let row; let i = index;" style="text-align: left;">
+                                                    <!-- class="sidebar-toggle btn-sm ml-2" -->
+                                                    <button *ngIf="row.flagAprobarObservar == true && row.idEstadoActividad == 14" mat-stroked-button color="primary" class="btn-sm ml-2" matTooltip="Aprobar" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleAprobar(row)">
+                                                            <mat-icon class="">check_circle_outline</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="row.flagAprobarObservar == true && row.idEstadoActividad == 14" mat-stroked-button color="primary" class="btn-sm ml-2" matTooltip="Observar" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleObservar(row)">
+                                                            <mat-icon class="">visibility</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="row.idEstadoActividad == 16" mat-stroked-button color="primary" class="btn-sm ml-2" matTooltip="Ver detalle" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleDetalleObservacion(row)">
+                                                        <mat-icon class="">visibility</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="row.flagInformativo == true" mat-stroked-button color="primary" class="btn-sm ml-2" matTooltip="Informativo" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleInformativo(row)">
+                                                            <mat-icon class="">info</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="row.flagLinkRedireccion == true" mat-stroked-button color="primary" class="btn-sm ml-2" matTooltip="Redirección" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleLink(row)">
+                                                            <mat-icon class="">launch</mat-icon>
+                                                    </button>
+                                                    <button *ngIf="row.flagDescargaDocumento == true" mat-stroked-button color="warn" class="btn-sm ml-2" matTooltip="Informe" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleDescargarDocumento(row)">
+                                                            <mat-icon class="">cloud_download</mat-icon>
+                                                    </button>
+                                                </mat-cell>
+                                            </ng-container>
+
+
+                                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                                            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)" [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                            </mat-row>
+                                        </mat-table>
+                                    </div>
+                                    <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                        No se encontraron registros
+                                    </div>
+                                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">pageSize
+                                        <mat-spinner diameter="50"></mat-spinner>
+                                    </div>
+                                    <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource?.totalregistro" [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

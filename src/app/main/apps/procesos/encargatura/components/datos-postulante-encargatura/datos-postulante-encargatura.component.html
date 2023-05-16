@@ -1,0 +1,147 @@
+<fieldset class="fieldset-border">
+    <legend>{{TituloSeccion}}</legend>
+    <div fxLayout="column">
+        <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+            <legend>Datos Personales</legend>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Documento de Identidad</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.numeroDocumentoIdentidad }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Primer Apellido</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.primerApellido }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Segundo Apellido</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.segundoApellido }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Nombres</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.nombres }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Sexo</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionGenero }}</span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+            <legend>Datos Laborales</legend>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Código de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.codigoPlaza }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Régimen Laboral</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionRegimenLaboral }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Cargo</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionCargo }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Condición Laboral</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionCondicionLaboral }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Situación Laboral</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionSituacionLaboral }}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Escala Remunerativa</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionCategoriaRemunerativa }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Código Modular</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.codigoModular }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Centro de Trabajo</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.institucionEducativa }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Instancia</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionDre }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Sub Instancia</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionUgel }}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.descripcionTipoPlaza }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Vigencia Inicio</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.fechaInicioVinculacion }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Vigencia Fin</span>
+                        <br>
+                        <span class="label-normal">{{ datosPostulanteEncargatura?.fechaFinVinculacion }}</span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <br>
+</fieldset>
+<br>

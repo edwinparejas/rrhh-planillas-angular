@@ -1,0 +1,159 @@
+<div class="page-layout carded fullwidth inner-scroll p-16">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <minedu-form-buscar-plan-detalle [state]="state.detalleFiltro" (buscarEvent)="handleBuscar($event.form)">
+            </minedu-form-buscar-plan-detalle>
+            <div class="page-layout carded fullwidth inner-scroll p-10" mineduPerfectScrollbar>
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" fxLayoutGap="5px"
+                    style="padding-bottom: 10px;">
+                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                        <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="!state.planEstudio.codigoCargamasiva">
+                            <button mat-stroked-button color="primary" (click)="handleCargaMasiva()"
+                                [disabled]="state.isLoading">
+                                <mat-icon class="">attachment</mat-icon>
+                                CARGA MASIVA
+                            </button>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="state.planEstudio.codigoCargamasiva">
+                            <button mat-stroked-button color="warn" class="ml-4" (click)="handleEliminarCargaMasiva()"
+                                [disabled]="state.isLoading">
+                                <mat-icon class="">restore_from_trash</mat-icon>
+                                ELIMINAR CARGA MASIVA
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-stroked-button color="primary"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleExportar()"
+                            [disabled]="state.isLoading"><span class="material-icons">get_app</span>
+                            Exportar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <table mat-table class="minedu-table box-shadow" [dataSource]="dataSource"
+                        [@animateStagger]="{value:'50'}">
+                        <ng-container matColumnDef="rowNum">
+                            <th mat-header-cell *matHeaderCellDef>N°</th>
+                            <td mat-cell *matCellDef="let row;">{{row.rowNum}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nombrePlanEstudio">
+                            <th mat-header-cell *matHeaderCellDef>Plan de Estudio</th>
+                            <td mat-cell *matCellDef="let row">{{row.nombrePlanEstudio}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="descripcionAreaComponente">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Componente curricular / Etapa /
+                                Área</th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p>{{row.descripcionAreaComponente}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dsCarreraProgramaEstudios">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Carrera / Programa de estudios
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p>{{row.dsCarreraProgramaEstudios}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dsCiclo">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Ciclo
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p>{{row.dsCiclo}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dsAreaCursoModulo">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Nombre del Área / Curso / Módulo
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p>{{row.dsAreaCursoModulo}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="cantidadCreditos">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Créditos
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p>{{row.cantidadCreditos}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="competenciaNivelGrupo">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Competencia / Nivel
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <div class="aParent">
+                                    <div class="mat-icon-table"
+                                        *ngIf="row.competenciaNivelGrupo!=null &&row.competenciaNivelGrupo!=''">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                            (click)="handleVerCompotencia(row)" aria-label="Ver Competencia Nivel"
+                                            matTooltip="Ver detalle">
+                                            <mat-icon class="">remove_red_eye</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div>&nbsp;&nbsp;</div>
+                                    <div>
+                                        <p>{{row.competenciaNivelGrupo}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="cantidadHorasSemanales">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Horas semanales por curso o módulo
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p>{{row.cantidadHorasSemanales}}</p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="formacionProfesionalGrupo">
+                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Formación Académica
+                            </th>
+                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <div class="aParent">
+                                    <div class="mat-icon-table"
+                                        *ngIf="row.formacionProfesionalGrupo!=null &&row.formacionProfesionalGrupo!=''">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                            (click)="handleVerFormacion(row)" aria-label="Ver Formación Procesional"
+                                            matTooltip="Ver detalle">
+                                            <mat-icon class="">remove_red_eye</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div>&nbsp;&nbsp;</div>
+                                    <div>
+                                        <p>{{row.formacionProfesionalGrupo}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="state.detalleGrilla.displayedColumns; sticky:true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: state.detalleGrilla.displayedColumns;"
+                            (click)="selection.toggle(row)"
+                            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                            [@animate]="{value:'*',params:{y:'100%'}}">
+                        </tr>
+                    </table>
+                    <div class="no-results" *ngIf="!(dataSource?.loading | async)"
+                        [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                        No se encontraron registros
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                        *ngIf="dataSource?.loading | async">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
+                    <mat-paginator #paginator [length]="dataSource?.dataTotal" [pageIndex]="0" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end center" class="panel-footer">
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button class="mr-8" (click)="handleRetornar()"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                            <span class="material-icons">arrow_back</span> Retornar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

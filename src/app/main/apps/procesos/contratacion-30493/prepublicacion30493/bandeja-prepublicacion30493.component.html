@@ -1,0 +1,471 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <!-- <minedu-informacion-proceso-etapa [idProcesoEtapa]="idEtapaProceso"></minedu-informacion-proceso-etapa> -->
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idInstancia')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">Instancia</mat-label>
+                                    <mat-select formControlName="idInstancia">
+                                        <mat-option value="-1">--TODOS--</mat-option>
+                                        <mat-option *ngFor="let item of instancias" [value]="item.id_instancia">
+                                            {{ item.descripcion_instancia }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idInstancia')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idSubinstancia')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idSubinstancia')">Sub Instancia</mat-label>
+                                    <mat-select formControlName="idSubinstancia">
+                                        <mat-option value="-1">--TODOS--</mat-option>
+                                        <mat-option *ngFor="let item of subinstancias" [value]="item.id_subinstancia">
+                                            {{ item.descripcion_subinstancia }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idSubinstancia')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+                                    <mat-label> Código modular</mat-label>
+                                    <input matInput formControlName="codigoCentroTrabajo" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                        placeholder="Código modular" maxlength="7" (keyup.enter)="buscarPlazasContratacion()" />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">search</mat-icon>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                        Código de plaza</mat-label>
+                                    <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12"
+                                        (keyup.enter)="buscarPlazasContratacion()" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleLimpiar()">
+                                <span class="material-icons">clear</span>
+                                Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                                <span class="material-icons">search</span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">DETERMINAR PLAZAS PARA BECARIOS</h3>
+                </div>
+                <div class="panel-body">                    
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div fxLayoutAlign="start start" fxFlex="85%" fxFlex.xs="100%">
+                            <div style="font-weight: bold;">
+                                Validación de Plazas: 
+                                <mat-icon style="position: relative; top: 5px; color: red;" >visibility</mat-icon>
+                                <label > {{ validacionPlaza }}</label>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" fxFlex="15%">
+                            <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="!soloLectura && controlesActivos.btnPrePublicarPlazas">
+                                <button mat-stroked-button color="primary" (click)="handlePrePublicar()" class="ml-4"
+                                    [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'hidden' : 'visible'"
+                                    [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                    <span class="material-icons">public</span>
+                                    PRE PUBLICAR PLAZAS
+                                </button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="!soloLectura && controlesActivos.btnFinalizarEtapa ">
+                                <button mat-stroked-button color="primary" [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'visible' : 'hidden'"
+                                    (click)="handleFinalizarEtapa()" class="ml-4"
+                                    [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                    <span class="material-icons">send</span>
+                                    FINALIZAR ETAPA
+                                </button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="!soloLectura && controlesActivos.btnAperturaEtapa ">
+                                <button mat-stroked-button color="primary" class="ml-4" 
+                                [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'visible' : 'hidden'"
+                                (click)="handleAperturarPrePublicar()"
+                                    [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                    <span class="material-icons">refresh</span>
+                                    APERTURAR PRE PUBLICACIÓN
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <mat-tab-group (selectedTabChange)="handleSelectTab($event)">
+                        <mat-tab label="Plazas Contratación Docente">
+                            <div class="panel-body">
+                                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                                    <div mat-dialog-actions class="p-0" fxLayout="row" fxFlex="65%">
+                                        <button mat-stroked-button color="primary" class="mr-4" *ngIf="controlesActivos.btnIncorporarPlazas"
+                                            [style.visibility]="(validacionPlaza == 'PRE PUBLICADO')||(validacionPlaza == 'APERTURADO')||(validacionPlaza == 'PENDIENTE') ? 'visible' : 'hidden'"
+                                            (click)="handleIncorporarPlazas()"
+                                            [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons">add_circle</span>
+                                            INCORPORAR PLAZAS
+                                        </button>
+                                        <div style="font-weight: bold;">
+                                            Fecha de Corte: {{fecha | date: 'dd/MM/yyyy'}}
+                                        </div>
+                                    </div>
+                                    <div mat-dialog-actions fxLayoutAlign="end center" class="p-0" fxLayout="row" fxFlex="35%">
+                                        <button mat-stroked-button color="primary" (click)="handlePlazaBecarios()" class="ml-4" *ngIf="!soloLectura && controlesActivos.btnPlazaBecarios"
+                                            [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'hidden' : 'visible'"
+                                            [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons">done</span>
+                                            PLAZA BECARIOS
+                                        </button>
+                                        <button mat-stroked-button color="primary" [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'visible' : 'hidden'"
+                                            (click)="handleVerPlazasPdf(false)" class="ml-4" *ngIf="!soloLectura && controlesActivos.btnVerPlazasPDF"
+                                            [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons" style="color: red; margin-right: 2px;">picture_as_pdf</span>
+                                            VER PLAZAS 
+                                        </button>
+                                        <button *ngIf="controlesActivos.btnExportar" mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4"
+                                            [@animate]="{ value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons">get_app</span>
+                                            EXPORTAR
+                                        </button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="content" mineduPerfectScrollbar>
+                                    <div class="content-table">
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <mat-table class="minedu-table" #table [dataSource]="dataSourceDocentes" [class.isMobile]="isMobile" 
+                                                [@animateStagger]="{value: '50'}" style="width: 100%" mineduPerfectScrollbar>
+                                                <ng-container matColumnDef="registro">
+                                                    <mat-header-cell *matHeaderCellDef>
+                                                        <mat-checkbox (change)="$event? masterToggleDocentes(): null" [checked]="selectionDocentes.hasValue() &&
+                                                                isAllSelectedDocentes()" [indeterminate]="selectionDocentes.hasValue() && !isAllSelectedDocentes()" 
+                                                                [aria-label]="checkboxLabelDocentes()">
+                                                        </mat-checkbox>
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event? selectionDocentes.toggle(row): null" 
+                                                            [checked]="selectionDocentes.isSelected(row)" [aria-label]="checkboxLabelDocentes(row)">
+                                                        </mat-checkbox>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="instancia">
+                                                    <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.instancia }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="subinstancia">
+                                                    <mat-header-cell *matHeaderCellDef>Subinstancia</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.subinstancia }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="codigo_modular">
+                                                    <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.codigo_modular }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="centro_trabajo">
+                                                    <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.centro_trabajo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="modalidad">
+                                                    <mat-header-cell *matHeaderCellDef>Modalidad</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.modalidad }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="nivel_educativo">
+                                                    <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.nivel_educativo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="tipo_gestion">
+                                                    <mat-header-cell *matHeaderCellDef>Tipo de Gestión</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.tipo_gestion }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="codigo_plaza">
+                                                    <mat-header-cell *matHeaderCellDef>Código de Plaza</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.codigo_plaza }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="cargo">
+                                                    <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.cargo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="area_curricular">
+                                                    <mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.area_curricular }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="tipo_plaza">
+                                                    <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.tipo_plaza }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="vigencia_inicio">
+                                                    <mat-header-cell *matHeaderCellDef>Vigencia Inicio</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.vigencia_inicio }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="vigencia_fin">
+                                                    <mat-header-cell *matHeaderCellDef>Vigencia Fin</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.vigencia_fin }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="acciones">
+                                                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                            <div style="padding-left: 10px;"></div>
+                                                            <div class="mat-icon-table">
+                                                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" aria-label="Ver información"
+                                                                    matTooltip="Ver información" (click)="handleViewInfo(row.id_plaza)">
+                                                                    <mat-icon class="">info</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div fxLayout="row" fxLayoutAlign="space-between center" >
+                                                            <div style="padding-left: 5px;"></div>
+                                                            <div class="mat-icon-table">
+                                                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                                        aria-label="Eliminar postulante" matTooltip="Eliminar plaza incorporada"
+                                                                        (click)="handleEliminarPlazaIncorporada(row, i)">
+                                                                    <mat-icon style="color: red;" class="">delete</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayedColumnsDocentes; sticky: true"></mat-header-row>
+                                                <mat-row *matRowDef="let row;columns: displayedColumnsDocentes" [ngClass]="{hovered: row.hovered,
+                                                        selected: selectionDocentes.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                                        matRipple [@animate]="{value: '*',params: { y: '100%' }}">
+                                                </mat-row>
+                                            </mat-table>
+                                        </div>
+                                        <div class="no-results" *ngIf="!(dataSourceDocentes.loading | async)" [style.display]="dataSourceDocentes.data.length === 0 ? '' : 'none'">
+                                            No se encontraron registros
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourceDocentes.loading | async">
+                                            pageSize
+                                            <mat-spinner diameter="50"></mat-spinner>
+                                        </div>
+                                        <mat-paginator #paginatorDocentes class="mat-paginator-sticky" [length]="dataSourceDocentes.dataTotal" [pageIndex]="paginatorDocentesPageIndex"
+                                            [pageSize]="paginatorDocentesPageSize" [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Plazas para Becarios">
+                            <div class="panel-body">
+                                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                                        <button mat-stroked-button color="primary" (click)="handlePlazaContratacionDocente()" class="ml-4" *ngIf="!soloLectura"
+                                            [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'hidden' : 'visible'"
+                                            [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons">done</span>
+                                            PLAZA CONTRATACIÓN DOCENTE
+                                        </button>
+                                        <button mat-stroked-button color="primary" (click)="handleVerPlazasPdf(true)" class="ml-4" *ngIf="!soloLectura"
+                                        [style.visibility]="(validacionPlaza == 'PRE PUBLICADO') ? 'visible' : 'hidden'" [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons" style="color: red; margin-right: 2px;">picture_as_pdf</span>
+                                            VER PLAZAS 
+                                        </button>
+                                        <button mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4" [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                            <span class="material-icons">get_app</span>
+                                            EXPORTAR
+                                        </button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="content" mineduPerfectScrollbar>
+                                    <div class="content-table">
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <mat-table class="minedu-table" #table [dataSource]="dataSourceBecarios" [class.isMobile]="isMobile" [@animateStagger]="{value: '50'}" style="width: 100%" mineduPerfectScrollbar>
+                                                <ng-container matColumnDef="registro">
+                                                    <mat-header-cell *matHeaderCellDef>
+                                                        <mat-checkbox (change)="$event? masterToggleBecarios() : null" [checked]="selectionBecarios.hasValue() && isAllSelectedBecarios()"
+                                                            [indeterminate]="selectionBecarios.hasValue() && !isAllSelectedBecarios()" [aria-label]="checkboxLabelBecarios()">
+                                                        </mat-checkbox>
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selectionBecarios.toggle(row) : null"
+                                                            [checked]="selectionBecarios.isSelected(row)" [aria-label]="checkboxLabelBecarios(row)">
+                                                        </mat-checkbox>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="instancia">
+                                                    <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.instancia }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="subinstancia">
+                                                    <mat-header-cell *matHeaderCellDef>Subinstancia</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.subinstancia }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="codigo_modular">
+                                                    <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.codigo_modular }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="centro_trabajo">
+                                                    <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.centro_trabajo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="modalidad">
+                                                    <mat-header-cell *matHeaderCellDef>Modalidad</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.modalidad }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="nivel_educativo">
+                                                    <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.nivel_educativo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="tipo_gestion">
+                                                    <mat-header-cell *matHeaderCellDef>Tipo de Gestión</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.tipo_gestion }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="codigo_plaza">
+                                                    <mat-header-cell *matHeaderCellDef>Código de Plaza</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.codigo_plaza }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="cargo">
+                                                    <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.cargo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="area_curricular">
+                                                    <mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+                                                    <mat-cell *matCellDef=" let row;let i = index">
+                                                        {{ row.area_curricular }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="tipo_plaza">
+                                                    <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.tipo_plaza }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="vigencia_inicio">
+                                                    <mat-header-cell *matHeaderCellDef>Vigencia Inicio</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.vigencia_inicio }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="vigencia_fin">
+                                                    <mat-header-cell *matHeaderCellDef>Vigencia Fin</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        {{ row.vigencia_fin }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="acciones">
+                                                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row;let i = index">
+                                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                            <div style="padding-left: 10px;"></div>
+                                                            <div class="mat-icon-table">
+                                                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" aria-label="Ver información"
+                                                                    matTooltip="Ver información" (click)="handleViewInfo(row.id_plaza)">
+                                                                    <mat-icon class="">info</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div fxLayout="row" fxLayoutAlign="space-between center" >
+                                                            <div style="padding-left: 5px;"></div>
+                                                            <div class="mat-icon-table">
+                                                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                                        aria-label="Eliminar postulante" matTooltip="Eliminar plaza incorporada"
+                                                                        (click)="handleEliminarPlazaIncorporada(row, i)">
+                                                                    <mat-icon style="color: red;" class="">delete</mat-icon>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayedColumnsBecarios;sticky: true"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayedColumnsBecarios" [ngClass]="{hovered: row.hovered,selected:selectionBecarios.isSelected(row)}"
+                                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{value: '*',params: { y: '100%' }}">
+                                                </mat-row>
+                                            </mat-table>
+                                        </div>
+                                        <div class="no-results" *ngIf="!(dataSourceBecarios.loading | async)" [style.display]=" dataSourceBecarios.data.length === 0 ? '' : 'none'">
+                                            No se encontraron registros
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"*ngIf="dataSourceBecarios.loading | async">
+                                            pageSize
+                                            <mat-spinner diameter="50"></mat-spinner>
+                                        </div>
+                                        <mat-paginator #paginatorBecarios class="mat-paginator-sticky" [length]="dataSourceBecarios.dataTotal" [pageIndex]="paginatorBecariosPageIndex" 
+                                                [pageSize]="paginatorBecariosPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

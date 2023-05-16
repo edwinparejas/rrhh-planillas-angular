@@ -1,0 +1,49 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>Acción de Personal</legend>
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap.lt-md="0" fxLayoutGap=".5%">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Régimen Laboral</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.abreviaturaRegimenLaboral| noRegistrado}}
+                </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Grupo de Acción</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.grupoAccionDescripcion| noRegistrado}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Acción</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.accionDescripcion| noRegistrado}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Motivo de Acción</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.motivoAccionDescripcion| noRegistrado}}
+                </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">POR MANDATO JUDICIAL</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.esMandatoJudicial?'SI':'NO'}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">POR PROCESO</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.esPorProceso?'SI':'NO'}}</span>
+            </div>
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,274 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <form [formGroup]="form" *ngIf="!working">
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos personales</legend>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                Tipo de
+                                documento
+                            </mat-label>
+                            <mat-select formControlName="idTipoDocumentoIdentidad">
+                                <mat-option *ngFor="let item of comboLists.listaTipoDocumento" [value]="item.value">
+                                    {{item.label}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de
+                                documento</mat-label>
+                            <input matInput formControlName="numeroDocumentoIdentidad" placeholder="Número de documento"
+                                maxlength="8" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                (keyup.enter)="buscarServidorPublico()">
+                            <mat-icon  *ngIf="idOperacion == 1" matSuffix class="icon-cursor" (click)="busquedaPersonalizada()">search
+                            </mat-icon>
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Primer apellido </span><br>
+                                <span class="label-normal">{{falta?.primerApellido}} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Segundo apellido </span><br>
+                                <span class="label-normal">{{falta?.segundoApellido}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Nombres </span><br>
+                                <span class="label-normal">{{falta?.nombres}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Estado civil </span><br>
+                                <span class="label-normal">{{falta?.estadoCivil}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Sexo</span><br>
+                                <span class="label-normal">{{falta?.genero}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Fecha de nacimiento </span><br>
+                                <span class="label-normal">{{falta?.fechaNacimiento | date: 'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </fieldset>
+
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos laborales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Código de plaza</span><br>
+                                <span class="label-normal">{{falta?.codigoPlaza}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Centro trabajo</span><br>
+                                <span class="label-normal">{{falta?.descripcionInstitucionEducativa}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Modalidad</span><br>
+                                <span class="label-normal">{{falta?.descripcionModalidadEducativa}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Nivel de educación</span><br>
+                                <span class="label-normal">{{falta?.descripcionNivelEducativo}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+ 
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Régimen laboral</span><br>
+                                <span class="label-normal">{{falta?.abreviaturaRegimenLaboral}}</span>
+                            </div>
+                        </div>
+                         
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Categoría renumerativa</span><br>
+                                <span class="label-normal">{{falta?.descripcionCategoriaRemunerativa}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Cargo</span><br>
+                                <span class="label-normal">{{falta?.descripcionCargo}}</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Jornada laboral</span><br>
+                                <span class="label-normal">{{falta?.jornadaLaboral}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> 
+
+          
+            </fieldset>
+
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Detalles de la falta</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <mat-form-field appearance="fill" fxFlex="15%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('idTipoFalta')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('idTipoFalta')">Tipo de falta</mat-label>
+                            <mat-select formControlName="idTipoFalta">
+                                <mat-option *ngFor="let item of comboLists.listaTipoFalta" [value]="item.value">
+                                    {{item.label}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoFalta')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="85%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('idDetalleFalta')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('idDetalleFalta')">Detalle de falta
+                            </mat-label>
+                            <mat-select formControlName="idDetalleFalta">
+                                <mat-option *ngFor="let item of comboLists.listaDetalleFalta" [value]="item.value">
+                                    {{item.label}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('idDetalleFalta')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        
+
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <minedu-datepicker label="Fecha de aviso" [mineduFormControl]="form.get('fechaAviso')"
+                                [formControl]="form.get('fechaAviso')">
+                            </minedu-datepicker>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('fechaAviso')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </div>
+                    </div> 
+                    <div fxLayoutAlign="start start" fxFlex="15%" fxFlex.xs="100%">
+                        <div style=" margin-left: 30px;">
+                            <span class="label">Plazo de descargo</span><br>
+                            <span class="label-normal">{{diasDescargo}} Días</span>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="65%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                            [mineduFormFieldValidationState]="form.get('observaciones')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('observaciones')">Observaciones
+                            </mat-label>
+                            <textarea matInput formControlName="observaciones" placeholder="observaciones" rows="2"
+                                maxlength="400">
+                    </textarea>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('observaciones')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Documentos de sustento</legend>
+                <minedu-documentos-sustento [data]="documentosSustento" [soloLectura]="false"
+                    [listTiposSustento]="comboLists.listTiposSustento"
+                    [listTiposTipoFormato]="comboLists.listTiposTipoFormato">
+                </minedu-documentos-sustento>
+            </fieldset>
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="handleSave(form)"><span class="material-icons">save</span>
+            GUARDAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="navbar-top" [ngClass]="mineduConfig.layout.navbar.secondaryBackground">
+    <div class="logo">
+        <img class="logo-icon" src="assets/images/logos/logo-small.png">
+        <span class="logo-text secondary-text">AYNI</span>
+    </div>
+    <div class="buttons">
+        <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" fxHide.lt-lg>
+            <img [ngStyle]="{'transform':'rotate('+ giro + 'deg)'}" src="assets/images/logos/openMenu.png">
+            <!-- <mat-icon class="secondary-text">menu</mat-icon> -->
+        </button>
+        <button mat-icon-button class="toggle-sidebar-opened" (click)="toggleSidebarOpened()" fxHide.gt-md>
+            <!-- <mat-icon class="secondary-text">arrow_back</mat-icon> -->
+            <img src="assets/images/logos/openMenu.png">
+        </button>
+    </div>
+</div>
+
+<div class="navbar-scroll-container" [ngClass]="mineduConfig.layout.navbar.primaryBackground" mineduPerfectScrollbar [mineduPerfectScrollbarOptions]="{suppressScrollX: true}">
+    <div class="user" fxLayout="column" [ngClass]="mineduConfig.layout.navbar.secondaryBackground">
+        <div class="h3 username">{{data?.NOMBRES_USUARIO}} {{data?.APELLIDO_PATERNO}}
+            {{data?.APELLIDO_MATERNO}}</div>
+        <div class="h5 email hint-text mt-8">
+            <span class="material-icons success-icon">check_circle</span> {{rolSelected?.NOMBRE_ROL}}</div>
+        <div class="avatar-container" [ngClass]="mineduConfig.layout.navbar.primaryBackground">
+            <img class="avatar" src="assets/images/avatars/user-avatar.png">
+        </div>
+    </div>
+    <div class="navbar-content">
+        <minedu-navigation class="material2" layout="vertical"></minedu-navigation>
+    </div>
+</div>

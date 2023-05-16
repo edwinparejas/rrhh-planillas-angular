@@ -1,0 +1,87 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Ver Información de Sustento</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="row wrap">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de documento</span>
+                        <br>
+                        <span class="label-normal">{{ info?.descripcionTipoDocumentoSustento }}</span>
+                    </div>
+                </div>
+                <div fxFlex="40%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Número de documento</span>
+                        <br>
+                        <span class="label-normal">{{ info?.numeroDocumentoSustento }}</span>
+                    </div>
+                </div>
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Entidad emisora</span>
+                        <br>
+                        <span class="label-normal">{{ info?.entidadEmisora || 'NO REGISTRADO' }}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de formato</span>
+                        <br>
+                        <span class="label-normal">{{ info?.descripcionTipoFormatoSustento }}</span>
+                    </div>
+                </div>
+                <div fxFlex="40%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Fecha de emisión</span>
+                        <br>
+                        <span class="label-normal">{{ info?.fechaEmision }}</span>
+                    </div>
+                </div>
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Folios</span>
+                        <br>
+                        <span class="label-normal">{{ info?.numeroFolios }}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Sumilla</span>
+                        <br>
+                        <span class="label-normal">{{ info?.sumilla || 'NO REGISTRADO' }}</span>
+                    </div>
+                </div>
+                <div fxFlex="60%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Documento escaneado</span>
+                        <br>
+                        <button mat-stroked-button color="primary" *ngIf="info?.codigoAdjuntoSustento" (click)="handleVerDocumentoSustento()" class="ml-4" style="margin-top: 1px;" [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                <span class="material-icons">picture_as_pdf</span>
+                        </button>
+                        <span class="label-normal" *ngIf="!info?.codigoAdjuntoSustento">{{ 'NO REGISTRADO' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> CERRAR</button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,42 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Modificar Postulante</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <minedu-datos-postulante-encargatura [idPostulacion]="idPostulacion"></minedu-datos-postulante-encargatura>
+        <div fxLayout="row" class="mt-2">
+            <mat-checkbox [checked]="true" [disabled]="true">Según norma técnica vigente, se ha verificado que la persona no cuenta con impedimento para ser postulante.</mat-checkbox>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="1. Datos de Postulación">
+                <minedu-registro-expediente-postulante-encargatura #registroExpedientePostulante>
+                </minedu-registro-expediente-postulante-encargatura>
+            </mat-tab>
+            <mat-tab label="2. Plaza a postular" *ngIf="codigoEtapa != etapaEnum.RatificacionCargo">
+                <minedu-registro-plaza-postulante-encargatura #registroPlazaPostulante [idEtapaProceso]="idEtapaProceso" [idDesarrolloProceso]="idDesarrolloProceso">
+                </minedu-registro-plaza-postulante-encargatura>
+            </mat-tab>
+            <mat-tab label="3. Informe Escalafonario" *ngIf="codigoEtapa != etapaEnum.RatificacionCargo">
+                <minedu-registro-informe-escalafonario-postulante-encargatura #registroInformeEscalafonario (onChangeCambioDatosDocumentos)="loadCambios($event)" [idEtapaProceso]="idEtapaProceso" [idDesarrolloProceso]="idDesarrolloProceso" [idTipoDocumento]="selectedTipoDoc"
+                    [numeroDocumentoIdentidad]="numeroDocumento">
+                </minedu-registro-informe-escalafonario-postulante-encargatura>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxFlex="100%" fxLayoutAlign="space-between center">
+        <span>(*) Dato Obligatorio</span>
+        <div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="end center">
+            <button mat-raised-button color="primary" (click)="handleSave()"><span class="material-icons">save</span>
+                MODIFICAR</button>
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span>
+                CERRAR</button>
+        </div>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,24 @@
+<minedu-contenedor-prepub
+    [idEtapaProceso]="idEtapaProceso"
+    [routerLinks]="routerLinks"
+    >
+    <ng-container>
+	<div  class="panel">
+	    <minedu-informacion-proceso-etapa 
+	     [idProcesoEtapa]="idEtapaProceso" 
+	     [codSede]="codSedeCabecera">
+	    </minedu-informacion-proceso-etapa>
+	</div>
+	<minedu-criterio-busqueda-prepub
+	    (eventSearch) = "handleSearch($event)"
+	    [idRigimenLaboral]="regimenLaboralEnum.LEY_30493"
+	    >
+	</minedu-criterio-busqueda-prepub>
+	<minedu-grilla-prepublicacion30493
+	    (eventPaginator)="handPaginator($event)"
+	    (eventDelete)="handleSearch()"
+	    [dataSourceDocentes]="dataSourceDocentes"
+	    >
+	</minedu-grilla-prepublicacion30493>
+    </ng-container>
+</minedu-contenedor-prepub>

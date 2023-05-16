@@ -1,0 +1,58 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>{{titulo}}Datos Personales</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Documento de Identidad</span>&nbsp;
+                <br>
+                <span class="label-normal">{{accionPersonal?.servidorPublicoOrigen?.documentoIdentidad| noRegistrado}}
+                    <span>:</span>
+                    {{accionPersonal?.servidorPublicoOrigen?.numeroDocumentoIdentidad | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Apellidos y Nombres</span>
+                <br>
+                <span class="label-normal">
+                    {{accionPersonal?.servidorPublicoOrigen?.primerApellido}}
+                    {{accionPersonal?.servidorPublicoOrigen?.segundoApellido}},&nbsp;
+                    {{accionPersonal?.servidorPublicoOrigen?.nombre}}
+                </span>
+
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Situación Laboral</span>
+                <br>
+                <span class="label-normal">
+                    {{accionPersonal?.servidorPublicoOrigen?.descripcionSituacionLaboral | noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+       
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Régimen Laboral</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.datosAccion?.descripcionRegimenLaboral | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Centro Trabajo</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.plazaOrigen?.centroTrabajo | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Cargo</span>
+                <br>
+                <span class="label-normal">{{accionPersonal?.plazaOrigen?.cargo | noRegistrado}}</span>
+            </div>
+        </div>
+    </div>
+</fieldset>

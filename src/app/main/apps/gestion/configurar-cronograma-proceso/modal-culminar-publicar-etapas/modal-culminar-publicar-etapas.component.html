@@ -1,0 +1,89 @@
+<div class="page-layout dialog-content-wrapper" *ngIf="dataSource.length > 0">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlex="100%">
+            <p *ngIf="modal.origin !== 'modificar'">Para {{modal.title | lowercase}} debe seleccionar una  o más etapas:</p>
+            <p *ngIf="modal.origin === 'modificar'">Las etapas del Cronograma a modificar son:</p>
+            <div class="content-table">
+                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef [hidden]="modal.origin == 'modificar'">
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row" [hidden]="modal.origin == 'modificar'">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row) || esEtapaExcluida(row)"
+                                [disabled]="esEtapaExcluida(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="registro">
+                        <th mat-header-cell *matHeaderCellDef [hidden]="modal.origin != 'modificar'">N°</th>
+                        <td mat-cell *matCellDef="let indice = index" [hidden]="modal.origin != 'modificar'"><p>{{indice + 1}}</p></td>
+                    </ng-container>
+                    <ng-container matColumnDef="etapa">
+                        <th mat-header-cell *matHeaderCellDef>Etapa</th>
+                        <td mat-cell *matCellDef="let row"><p>{{row.descripcionCatalogoItemEtapa}}</p></td>
+                    </ng-container>
+                    <ng-container matColumnDef="vigenciaInicio">
+                        <th mat-header-cell *matHeaderCellDef>Vigencia Inicio</th>
+                        <td mat-cell *matCellDef="let row"><p>{{row.vigenciaInicio | date: 'dd/MM/yyyy'}}</p></td>
+                    </ng-container>
+                    <ng-container matColumnDef="vigenciaTermino">
+                        <th mat-header-cell *matHeaderCellDef>Vigencia Término</th>
+                        <td mat-cell *matCellDef="let row"><p>{{row.vigenciaTermino | date: 'dd/MM/yyyy'}}</p></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                        (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}"
+                        [ngStyle]="esEtapaExcluida(row) && {'background-color': 'lightgrey'}">
+                    </tr>
+                </table>
+                <div class="no-results" [style.display]="dataSource?.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <button type="button" mat-raised-button color="primary" *ngIf="modal.origin == 'culminar'"
+            (click)="btnCulminar()"
+            style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+            <span class="material-icons">check_circle</span> Culminar cronograma
+        </button>
+        <button type="button" mat-raised-button color="primary" *ngIf="modal.origin == 'publicar'"
+            (click)="btnPublicar()"
+            style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+            <span class="material-icons">public</span> Publicar cronograma
+        </button>
+        <button type="button" mat-raised-button color="primary" *ngIf="modal.origin == 'proyecto'"
+            (click)="openGenerarProyecto()"
+            style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+            <span class="material-icons">description</span> Generar Proyecto
+        </button>
+        <button type="button" mat-raised-button color="primary" *ngIf="modal.origin == 'modificar'"
+            (click)="openSustentarModificacion()"
+            style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+            <span class="material-icons">create</span> Modificar Cronograma
+        </button>
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

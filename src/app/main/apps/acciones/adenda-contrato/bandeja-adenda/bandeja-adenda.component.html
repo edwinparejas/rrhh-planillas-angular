@@ -1,0 +1,529 @@
+
+<div class="content" >
+
+    <div fxLayout="column">
+
+        <!-- Inicio Breadcrumb -->
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxFlex="50%">
+                    <h3 class="titulo">Gestionar Adendas DL 1057</h3>
+                </div>
+                <div fxFlex="50%">
+                    <ol class="breadcrumb pull-right">
+                        <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                        <li class="active"><a [routerLink]="['/ayni/personal/acciones/contratoadenda/bandeja-adenda/']">Gestionar Adendas</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Breadcrumb -->
+
+        <div class="panel">
+
+
+            <div class="panel-body" fxLayout="column" class="mb-10 mr-20 ml-20">
+                    
+                <fieldset class="fieldset-border"> 
+                    <legend>Servidor Público</legend>
+
+                    <fieldset class="fieldset-border f1" >
+                        <legend>Datos personales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column" >
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.xs="100%"  fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Documento de identidad</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.numero_documento_identidad">
+                                            {{datos_contrato.numero_documento_identidad}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.numero_documento_identidad">No registrado
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Primer Apellido</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.primer_apellido">
+                                            {{datos_contrato.primer_apellido}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.primer_apellido">No registrado
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Segundo Apellido</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.segundo_apellido">
+                                            {{datos_contrato.segundo_apellido}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.segundo_apellido">No
+                                            registrado
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <label for="">Nombres</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.nombres">
+                                            {{datos_contrato.nombres}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.nombres">No registrado</p>
+                                    </div>
+                                </div>
+                                
+                            </div>                            
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px">
+
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <label for="">Estado civil</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.estado_civil">
+                                            {{datos_contrato.estado_civil}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.estado_civil">No registrado
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Sexo</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.genero">
+                                            {{datos_contrato.genero}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.genero">No registrado</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fecha de Nacimiento</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.fecha_nacimiento">
+                                            {{datos_contrato.fecha_nacimiento_str}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.fecha_nacimiento">No
+                                            registrado
+                                        </p>
+                                    </div>                                    
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">                                    
+                                    <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                        <label for="">Edad</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.edad">
+                                            {{datos_contrato.edad}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.edad">No
+                                            registrado
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="fieldset-border f2">
+                        <legend>Datos de la plaza</legend>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" >
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Código de plaza</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.codigo_plaza">
+                                            {{datos_contrato.codigo_plaza}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.codigo_plaza">No registrado
+                                        </p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Tipo de plaza</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.descripcion_tipo_plaza">
+                                            {{datos_contrato.descripcion_tipo_plaza}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.descripcion_tipo_plaza">No registrado
+                                        </p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Cargo</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.descripcion_cargo">
+                                            {{datos_contrato.descripcion_cargo}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.descripcion_cargo">No registrado</p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Jornada Laboral</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.descripcion_jornada_laboral">
+                                            {{datos_contrato.descripcion_jornada_laboral}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.descripcion_jornada_laboral">No registrado</p>
+                                    </div>
+                                </div>                                                               
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Código modular</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.codigo_modular">
+                                            {{datos_contrato.codigo_modular}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.codigo_modular">No registrado
+                                        </p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Centro de trabajo</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.institucion_educativa">
+                                            {{datos_contrato.institucion_educativa}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.institucion_educativa">No registrado
+                                        </p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Modalidad educativa</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.descripcion_modalidad_educativa">
+                                            {{datos_contrato.descripcion_modalidad_educativa}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.descripcion_modalidad_educativa">No registrado
+                                        </p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Nivel Educativo</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.descripcion_nivel_educativo">
+                                            {{datos_contrato.descripcion_nivel_educativo}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.descripcion_nivel_educativo">No registrado
+                                        </p>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                        <label for="">Motivo de Vacancia</label>
+                                        <p class="form-control-static" *ngIf="datos_contrato.motivo_vacancia">
+                                            {{datos_contrato.motivo_vacancia}}</p>
+                                        <p class="form-control-static" *ngIf="!datos_contrato.motivo_vacancia">No registrado
+                                        </p>
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                    </div>
+                                    <div class="form-group" fxFlex="25%" fxFlex.xs="100%">
+                                    </div>
+                                    <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                                              
+                    </fieldset>
+
+                </fieldset>                    
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos del contrato</legend>
+                    <div fxLayout="row" fxLayout.lt-md="column" >
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                                <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                    <label for="">Motivo de acción</label>
+                                    <p class="form-control-descripcion_motivo_accion" *ngIf="datos_contrato.descripcion_motivo_accion">
+                                        {{datos_contrato.descripcion_motivo_accion}}</p>
+                                    <p class="form-control-static" *ngIf="!datos_contrato.descripcion_motivo_accion">No registrado
+                                    </p>
+                                </div>
+                                <div class="form-group" fxFlex="50%" fxFlex.xs="100%">
+                                    <label for="">Número de contrato</label>
+                                    <p class="form-control-static" *ngIf="datos_contrato.numero_contrato">
+                                        {{datos_contrato.numero_contrato}}</p>
+                                    <p class="form-control-static" *ngIf="!datos_contrato.numero_contrato">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                    <label for="">Fecha de Inicio</label>
+                                    <p class="form-control-static" *ngIf="datos_contrato.fecha_inicio">
+                                        {{datos_contrato.fecha_inicio_str}}</p>
+                                    <p class="form-control-static" *ngIf="!datos_contrato.fecha_inicio">No registrado
+                                    </p>
+                                </div>
+                                <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                    <label for="">Fecha Fin</label>
+                                    <p class="form-control-static" *ngIf="datos_contrato.fecha_fin">
+                                        {{datos_contrato.fecha_fin_str}}</p>
+                                    <p class="form-control-static" *ngIf="!datos_contrato.fecha_fin">No registrado
+                                    </p>
+                                </div>
+                                <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                    <label for="">Estado</label>
+                                    <p class="form-control-static" *ngIf="datos_contrato.estado_contrato">
+                                        {{datos_contrato.estado_contrato}}</p>
+                                    <p class="form-control-static" *ngIf="!datos_contrato.estado_contrato">No registrado
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </fieldset>
+
+                <br>
+                
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                    <div mat-dialog-actions class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary" (click)="handleNuevo()" class="ml-4" >
+                            <span class="material-icons">add_circle</span>
+                            NUEVO 
+                        </button>
+                    </div>
+                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                        <button mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4" [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' }}">
+                            <span class="material-icons">get_app</span>
+                            EXPORTAR
+                        </button>
+                    </div>
+                </div>
+
+                <br>
+
+                <div>
+                    <mat-table class="minedu-table box-shadow" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+
+                        <ng-container matColumnDef="nro">
+                            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <p *ngIf="row.registro">{{row.registro}}</p>
+                                <p *ngIf="!row.registro">No registrado</p>
+                            </mat-cell>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="numeroAdenda">
+                            <mat-header-cell *matHeaderCellDef>Número de Adenda</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <p *ngIf="row.numero_adenda">{{row.numero_adenda}}</p>
+                                <p *ngIf="!row.numero_adenda"></p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="fechaAdenda">
+                            <mat-header-cell *matHeaderCellDef>Fecha de Adenda</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <p *ngIf="row.fecha_adenda_str">{{row.fecha_adenda_str}}</p>
+                                <p *ngIf="!row.fecha_adenda_str"></p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="motivoAccion">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Motivo de acción</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-lg>
+                                <p *ngIf="row.descripcion_motivo_accion">{{row.descripcion_motivo_accion}}</p>
+                                <p *ngIf="!row.descripcion_motivo_accion">N/A</p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="mandatoJudicial">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Mandato judicial</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-lg>
+                                <p *ngIf="row.descripcion_mandato_judicial">{{row.descripcion_mandato_judicial}}</p>
+                                <p *ngIf="!row.descripcion_mandato_judicial">N/A</p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="numeroDocumentoIdentidad">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Documento</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                <p *ngIf="row.numero_documento_identidad"> {{ row.tipo_documento_identidad }} : {{row.numero_documento_identidad}} </p>
+                                <p *ngIf="!row.numero_documento_identidad">N/A</p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="nombresCompletos">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Apellidos y Nombres</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                <p *ngIf="row.nombres"> {{ row.primer_apellido }} {{ row.segundo_apellido }}, {{row.nombres}} </p>
+                                <p *ngIf="!row.nombres"></p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="fechaInicio">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Fecha de inicio</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p *ngIf="row.fecha_inicio_str">{{row.fecha_inicio_str}}</p>
+                                <p *ngIf="!row.fecha_inicio_str">No registrado</p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="fechaFin">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Fecha fin</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                <p *ngIf="row.fecha_fin_str">{{row.fecha_fin_str}}</p>
+                                <p *ngIf="!row.fecha_fin_str">No registrado</p>
+                            </mat-cell>
+                        </ng-container>                                    
+            
+                        <ng-container matColumnDef="tipoDocumento">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Tipo de documento</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-lg>
+                                <p *ngIf="row.tipo_documento_sustento">{{row.tipo_documento_sustento}}</p>
+                                <p *ngIf="!row.tipo_documento_sustento">No registrado</p>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numeroDocumento">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Número de documento</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-lg>
+                                <p *ngIf="row.numero_documento_sustento">{{row.numero_documento_sustento}}</p>
+                                <p *ngIf="!row.numero_documento_sustento">No registrado</p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="estado">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Estado</mat-header-cell>
+                            <mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                <p *ngIf="row.descripcion_estado_adenda" class="h6 p-4" [ngClass]="{
+                                    'green-600':row.id_estado === 1,
+                                    'red-500':row.id_estado === 2,
+                                    'yellow-500':row.id_estado === 3,
+                                    'blue-400':row.id_estado === 4,
+                                    'primary-600':row.id_estado === 5                                    
+                                }"> {{row.descripcion_estado_adenda}}</p>
+                                <p *ngIf="!row.descripcion_estado_adenda">No registrado</p>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <ng-container matColumnDef="opciones">
+                            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let  i = index;">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="mat-icon-table" *ngIf="row.id_estado === 1">
+                                        <button mat-stroked-button color="primary" 
+                                            class="sidebar-toggle btn-sm ml-2" 
+                                            aria-label="Modificar"
+                                            matTooltip="Modificar" (click)="handleModificar(row)">
+                                            <mat-icon class="">edit</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.id_estado !== 1">
+                                        <button mat-stroked-button color="primary" 
+                                            class="sidebar-toggle btn-sm ml-2" 
+                                            aria-label="Ver Información"
+                                            matTooltip="Ver Información" (click)="handleInformacion(row)">
+                                            <mat-icon class="">informacion</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.id_estado === 1">
+                                        <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                            [style.display]="row.id_estado !== 2 ? '' : 'none'" (click)="handleEliminarAdenda(row, i)"
+                                            aria-label="Eliminar" matTooltip="Eliminar">
+                                            <mat-icon class="">restore_from_trash</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.id_estado === 1">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                            (click)="handleGenerarAdenda(row)" aria-label="Generar adenda"
+                                            matTooltip="Generar adenda">
+                                            <mat-icon class="">settings</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.id_estado === 3">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                            [style.display]="row.id_estado === 3 ? '' : 'none'"
+                                            (click)="handleAdjuntarContratoSuscrito(row)" aria-label="Adjuntar adenda suscrito"
+                                            matTooltip="Adjuntar adenda suscrito">
+                                            <mat-icon class="">attachment</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.id_estado === 3 || row.id_estado === 4 || row.id_estado === 5">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        [style.display]="(row.id_estado === 3 || row.id_estado === 4 || row.id_estado === 5) ? '' : 'none'"
+                                            (click)="handleVerAdendaSuscrita(row)" aria-label="Ver adenda suscrita"
+                                            matTooltip="Ver adenda suscrita">
+                                            <mat-icon class="">picture_as_pdf</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </mat-cell>
+                        </ng-container>
+            
+                        <mat-header-row *matHeaderRowDef="displayedColumns">
+                        </mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" 
+                            [@animate]="{value:'*',params:{y:'100%'}}">
+                        </mat-row>
+                    </mat-table>
+                    <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                        [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                        No se encontraron registros
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                        *ngIf="dataSource.loading | async">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
+                    <mat-paginator #paginator [length]="dataSource.dataTotal" [pageIndex]="0" [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+                    <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                    
+                            <!-- <div class="pl-6" fxLayout="row">
+                                <button mat-stroked-button color="primary"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                    (click)="handleGenerarContrato()"><span class="material-icons">send</span>
+                                    Enviar Acciones Grabadas</button>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <button mat-stroked-button color="primary"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                    (click)="handleGenerarProyecto()"><span class="material-icons">description</span>
+                                    Generar Proyecto</button>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <button mat-stroked-button color="primary"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                    (click)="handleObservar()"><span class="material-icons">remove_red_eye</span>
+                                    Observar</button>
+                            </div> -->
+    
+                        </div>
+                    </div>
+                    <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%">
+                        <div fxLayout="row" fxLayoutAlign="end center">
+                    
+                            <!-- <div class="pl-6" fxLayout="row">
+                                <minedu-button-save [mineduForm]="form" (mineduOnClick)="handleGuardar()"
+                                    [working]="working">
+                                </minedu-button-save>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                    [working]="working">
+                                </minedu-button-clear>
+                            </div> -->
+                            <div class="pl-6" fxLayout="row">
+                                <button mat-stroked-button color="primary"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                    (click)="handleRetornar()"><span class="material-icons">undo</span>
+                                    Retornar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                
+
+                
+
+            </div> 
+
+        </div>
+
+    </div>
+
+</div>
+
+
+

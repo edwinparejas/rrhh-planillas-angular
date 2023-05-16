@@ -1,0 +1,300 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Proceso y Etapa</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Año</span>
+                                            <br>
+                                            <span class="label-normal">2021</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Código</span>
+                                            <br>
+                                            <span class="label-normal">001</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Regimen Laboral</span>
+                                            <br>
+                                            <span class="label-normal">Ley N° 29944</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Proceso</span>
+                                            <br>
+                                            <span class="label-normal">Por interes personal y por unidad familiar</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">N° de Convocatoria</span>
+                                            <br>
+                                            <span class="label-normal">Unica</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Etapa</span>
+                                            <br>
+                                            <span class="label-normal">Etapa Regional General</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Fecha de Creación</span>
+                                            <br>
+                                            <span class="label-normal">15/12/2020</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idInstancia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">
+                                            Instancia
+                                        </mat-label>
+                                        <mat-select formControlName="idInstancia">
+                                            <mat-option *ngFor="let item of comboLists.listInstancia"
+                                                [value]="item.label">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idSubInstancia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idSubInstancia')">
+                                            Sub Instancia
+                                        </mat-label>
+                                        <mat-select formControlName="idSubInstancia">
+                                            <mat-option *ngFor="let item of comboLists.listSubInstancia"
+                                                [value]="item.label">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idEstado')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idEstado')">Estado
+                                        </mat-label>
+                                        <mat-select formControlName="idEstado">
+                                            <mat-option *ngFor="let item of comboLists.listEstado" [value]="item.label">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idEstado')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button>
+                                <span class="material-icons" (click)="handleLimpiar">clear</span>
+                                Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4">
+                                <span class="material-icons">search</span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayoutAlign="center" class="panel-libre">
+                <div fxLayoutAlign="end center" fxFlex="100%" fxFlex.xs="100%">
+                    <button mat-stroked-button color="primary" class="ml-4">
+                        <span class="material-icons">done</span>
+                        Aprobar Masivo
+                    </button>
+                    <button mat-stroked-button color="primary" class="ml-4">
+                        <span class="material-icons">settings</span>
+                        Generar Listado Plazas
+                    </button>
+                    <button mat-stroked-button color="primary" class="ml-4">
+                        <span class="material-icons">get_app</span>
+                        Exportar
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="content">
+                        <div class="content-table">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <mat-table class="minedu-table" #table [class.isMobile]="isMobile"
+                                    [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+
+                                    <ng-container matColumnDef="registro">
+                                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">N°:</span> 001
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="instancia">
+                                        <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">Instancia:</span> Instancia
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="sub_instancia">
+                                        <mat-header-cell *matHeaderCellDef>Sub Instancia</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">Sub Instancia:</span> SubInstancia
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="estado">
+                                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">Estado:</span> estado
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="fecha_validacion">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Validacion</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">Fecha Validacion</span> 01/04/2018
+                                            <!-- <span class="mobile-label">Fecha Validacion:</span> {{row.fecha_validacion}} -->
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="fecha_aprobacion">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Aprobacion</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">Fecha Aprobacion:</span> 01/04/2018
+                                            <!-- <span class="mobile-label">Fecha Aprobacion:</span> {{row.fecha_aprobacion}} -->
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="fecha_rechazo">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Rechazo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <span class="mobile-label">Fecha Rechazo:</span> 01/04/2018
+                                            <!-- <span class="mobile-label">Fecha Rechazo:</span> {{row.fecha_rechazo}} -->
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones" class="extra">
+                                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let  i = index;">
+                                            <span class="mobile-label">ACCIONES:</span>
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="primary"
+                                                        class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Motivo de Cancelacion"
+                                                        matTooltip="Motivo de Cancelacion">
+                                                        <mat-icon class="">visibility</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="primary"
+                                                        class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Pre Publicar Plazas"
+                                                        matTooltip="Pre Publicar Plazas">
+                                                        <mat-icon class="">list</mat-icon>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                    </mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        (click)="selection.toggle(row)"
+                                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                        matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </mat-row>
+                                </mat-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayoutAlign="start center" fxFlex="100%" fxFlex.xs="100%">
+                        <div class="espacioPadding" fxLayoutAlign="start center" fxFlex.xs="100%">
+                            <label class="label">Total IGED: 
+                                <span class="label-normal">215</span>
+                            </label>
+                        </div>
+                        <div class="espacioPadding" fxLayoutAlign="start center" fxFlex.xs="100%">
+                            <label class="label">Total Validado:
+                                <span class="label-normal">215</span>
+                            </label>
+                        </div>
+                        <div class="espacioPadding" fxLayoutAlign="start center"  fxFlex.xs="100%">
+                            <label class="label">Total Pendiente:
+                                <span class="label-normal">215</span>
+                            </label>
+                        </div>
+                        <div class="espacioPadding" fxLayoutAlign="start center" fxFlex.xs="100%">
+                            <label class="label">Total Rechazado:
+                                <span class="label-normal">215</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div fxLayoutAlign="end center" fxFlex="100%" fxFlex.xs="100%">
+                        <button mat-stroked-button color="primary" class="ml-4"
+                        (click)="handleRetornar()">
+                            <mat-icon class="">keyboard_backspace</mat-icon>
+                            RETORNAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

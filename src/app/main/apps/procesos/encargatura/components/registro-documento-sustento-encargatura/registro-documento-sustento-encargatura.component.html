@@ -1,0 +1,210 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Sustentar motivo de no publicación de plazas</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <p class="label">Plazas Seleccionadas para Observar: {{ plazasSeleccionadas }}</p>
+        <form [formGroup]="formMotivoNoPublicacion">
+            <div fxLayout="row wrap">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="12px">
+                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                        <mat-label [mineduFormRequiredLabel]="formMotivoNoPublicacion.get('codigoMotivoNoPublicacion')">
+                            Motivo</mat-label>
+                        <mat-select formControlName="codigoMotivoNoPublicacion">
+                            <mat-option *ngFor="let item of comboLists.listMotivoNoPublicacion" [value]="item.value">
+                                {{ item.label }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <minedu-form-field-validation-messages [mineduFormControl]="formMotivoNoPublicacion.get('codigoMotivoNoPublicacion')">
+                            </minedu-form-field-validation-messages>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="75%" fxFlex.xs="100%">
+                        <mat-label [mineduFormRequiredLabel]="formMotivoNoPublicacion.get('detalleNoPublicacion')">
+                            Detalle</mat-label>
+                        <textarea matInput formControlName="detalleNoPublicacion" placeholder="Detalle" rows="4" maxlength="400" uppercase></textarea>
+                        <mat-error>
+                            <minedu-form-field-validation-messages [mineduFormControl]="formMotivoNoPublicacion.get('detalleNoPublicacion')">
+                            </minedu-form-field-validation-messages>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="formDocumentoSustento">
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Documentos de sustento</legend>
+                <div fxLayout="row wrap">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="12px">
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('codigoTipoDocumentoSustento')">
+                                Tipo de documento</mat-label>
+                            <mat-select formControlName="codigoTipoDocumentoSustento">
+                                <mat-option *ngFor="let item of comboLists.listTiposDocumentoSustento" [value]="item.value">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('codigoTipoDocumentoSustento')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('numeroDocumentoSustento')">
+                                Número de documento</mat-label>
+                            <input matInput formControlName="numeroDocumentoSustento" placeholder="Número de documento" maxlength="50" uppercase>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('numeroDocumentoSustento')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('entidadEmisora')">Entidad emisora
+                            </mat-label>
+                            <input matInput formControlName="entidadEmisora" placeholder="Entidad emisora" maxlength="50" uppercase>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('entidadEmisora')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <minedu-datepicker appearance="fill" fxFlex="25%" fxFlex.xs="100%" label="Fecha de emisión" [mineduFormControl]="formDocumentoSustento.get('fechaEmision')" [formControl]="formDocumentoSustento.get('fechaEmision')" [max]="maxDate">
+                        </minedu-datepicker>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="12px">
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('numeroFolios')">Folios
+                            </mat-label>
+                            <input matInput formControlName="numeroFolios" placeholder="Folios" maxlength="3" onkeypress="return event.charCode >= 48 && event.charCode <= 57" oninput="javascript: if (this.value.length > this.maxLength) this.value = parseInt(this.value.slice(0, this.maxLength)); 
+                                else if(parseInt(this.value.slice(0, this.maxLength))==0) this.value=''; 
+                                else this.value = parseInt(this.value.slice(0, this.maxLength));" type="number" min="0">
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('numeroFolios')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('codigoTipoFormatoSustento')">
+                                Tipo de formato</mat-label>
+                            <mat-select formControlName="codigoTipoFormatoSustento">
+                                <mat-option *ngFor="let item of comboLists.listTiposFormatoSustento" [value]="item.value">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('codigoTipoFormatoSustento')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('sumilla')">Sumilla
+                            </mat-label>
+                            <input matInput formControlName="sumilla" placeholder="Sumilla" maxlength="400" uppercase>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('sumilla')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                            <mat-label [mineduFormRequiredLabel]="formDocumentoSustento.get('codigoAdjuntoSustento')">
+                                Adjuntar documento</mat-label>
+                            <input matInput formControlName="codigoAdjuntoSustento" class="icon-cursor" (click)="file.click()" readonly>
+                            <mat-icon matSuffix class="icon-cursor" (click)="file.click()">publish</mat-icon>
+                            <input hidden type="file" #file (change)="uploadFile(file.files)" accept="application/pdf">
+                            <mat-hint>Formato: PDF, tamaño máximo 2MB</mat-hint>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formDocumentoSustento.get('codigoAdjuntoSustento')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch" class="py-1">
+                        <button mat-raised-button color="primary" (click)="handleAddDocumentoSustento()">
+                            <mat-icon>add</mat-icon> AGREGAR
+                        </button>
+                    </div>
+                    <div fxLayout="row" fxFlex="100%" class="mb-1">
+                        <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile" [@animateStagger]="{value:'50'}" style="width: 100%">
+                            <ng-container matColumnDef="N">
+                                <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">N°</span> {{i+1}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="tipoDocumento">
+                                <mat-header-cell *matHeaderCellDef>Tipo de documento</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Tipo de documento:</span> {{row.descripcionTipoDocumentoSustento}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="numeroDocumento">
+                                <mat-header-cell *matHeaderCellDef>Número de documento</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Número de documento:</span> {{row.numeroDocumentoSustento}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="tipoFormato">
+                                <mat-header-cell *matHeaderCellDef>Tipo de formato</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Tipo de formato:</span> {{row.descripcionTipoFormatoSustento}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="folios">
+                                <mat-header-cell *matHeaderCellDef>Folios</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Folios:</span> {{row.numeroFolios}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="fechaEmision">
+                                <mat-header-cell *matHeaderCellDef>Fecha de emisión</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Fecha de emisión:</span> {{row.fechaEmision}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="fechaRegistro">
+                                <mat-header-cell *matHeaderCellDef>Fecha de registro</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Fecha de registro:</span> {{row.fechaRegistro}}
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="acciones">
+                                <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                                <mat-cell *matCellDef="let row; let i = index;">
+                                    <span class="mobile-label">Acciones:</span>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+                                        <button mat-stroked-button class="btn-sm" color="primary" (click)="handleViewDocumentoSustento(row)" matTooltip="Ver información">
+                                            <mat-icon>info</mat-icon>
+                                        </button>
+                                        <button mat-stroked-button class="btn-sm" color="warn" matTooltip="Eliminar" (click)="handleRemoveDocumentoSustento(i)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                        <button *ngIf="row.codigoAdjuntoSustento" mat-stroked-button class="btn-sm" color="primary" matTooltip="Ver documento sustento" (click)="handleDownloadAdjuntoSustento(row)">
+                                            <mat-icon>picture_as_pdf</mat-icon>
+                                        </button>
+                                    </div>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                        </mat-table>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleSave()">
+            <mat-icon>save</mat-icon> GUARDAR
+        </button>
+        <button mat-raised-button (click)="handleCancel()">
+            <mat-icon>cancel</mat-icon> CANCELAR
+        </button>
+    </mat-dialog-actions>
+</div>

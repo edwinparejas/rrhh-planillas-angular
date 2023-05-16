@@ -1,0 +1,277 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-20 pb-0 m-0">
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <!-- class="fieldset-border mt-0 mb-12" -->
+        <fieldset style="border: none">
+            <!-- <legend>Ver Listado de Documentos</legend> -->
+	<div  fxLayout="row" 
+	      fxLayoutAlign="end center"
+	      style="margin-bottom: 5px;">
+	    
+	</div>    
+    La persona <span style="font-weight: bold">{{listaVinculacionServidorPublico[0].nombres}} {{listaVinculacionServidorPublico[0].primerApellido}} {{listaVinculacionServidorPublico[0].segundoApellido}}</span>, cuenta con las siguientes vinculaciones vigentes: 
+    <br />
+    <br />
+            <!-- <div class="content-table">
+                <div fxLayout="row">
+                    <mat-table class="minedu-table" #table [dataSource]="listaVinculacionServidorPublico" [class.isMobile]="isMobile"
+                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+                        <ng-container matColumnDef="sel">
+                          <mat-header-cell *matHeaderCellDef>Sel</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row): null"
+                                [checked]="selection.isSelected(row)">
+                            </mat-checkbox>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="instancia">			    
+                            <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">                        
+                                {{row.descripcionDre}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="sub">	
+                            <mat-header-cell *matHeaderCellDef>Sub</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.descripcionUgel}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="centroTrabajo">	
+                            <mat-header-cell *matHeaderCellDef>Centro de trabajo</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.centroTrabajo}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="modalidad">	
+                            <mat-header-cell *matHeaderCellDef>Modalidad</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.modalidad}}                                                           
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="nivelEducativo">	
+                            <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.nivelEducativo}}                                          
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="codigoPlaza">	
+                            <mat-header-cell *matHeaderCellDef>Código de plaza</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.codigoPlaza}}                    
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="tipoPlaza">	
+                            <mat-header-cell *matHeaderCellDef>Tipo de plaza</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.descripcionTipoPlaza}}                    
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="regimenLaboral">	
+                            <mat-header-cell *matHeaderCellDef>Régimen laboral</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.descripcionRegimenLaboral}}            
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="condicionLaboral">	
+                            <mat-header-cell *matHeaderCellDef>Condición Laboral</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.descripcionCondicionLaboral}}                
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="cargo">	
+                            <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.descripcionCargo}}       
+                            </mat-cell>
+                        </ng-container>                        
+                        <ng-container matColumnDef="JornadaLaboral">	
+                            <mat-header-cell *matHeaderCellDef>Jornada Laboral</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{row.descripcionJornadaLaboral}}                                                           
+                            </mat-cell>                     
+                        </ng-container> 
+                        <ng-container matColumnDef="fechaInicio">	
+                            <mat-header-cell *matHeaderCellDef>Fecha inicio</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{this.transformarFecha(row.fechaInicio)}}                                                           
+                            </mat-cell>                     
+                        </ng-container> 
+                        <ng-container matColumnDef="fechaFin">	
+                            <mat-header-cell *matHeaderCellDef>Fecha fin</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{this.transformarFecha(row.fechaFin)}}                                                           
+                            </mat-cell>                     
+                        </ng-container>                                           
+                        <mat-header-row *matHeaderRowDef="displayedColumnsDocumentosPublicados; sticky: true" style="text-align: center !important;"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsDocumentosPublicados"
+                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                            [@animate]="{ value: '*', params: { y: '100%' } }">
+                        </mat-row>
+                    </mat-table>
+                </div>
+                <div class="no-results" *ngIf="!(listaVinculacionServidorPublico)" [style.display]="listaVinculacionServidorPublico.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>                
+            </div> -->
+            <div class="content-table" ngClass.lt-lg="scroll-grid">
+                <table mat-table class="minedu-table mt-12 mb-12" #table
+                    [dataSource]="listaVinculacionServidorPublico" [@animateStagger]="{value:'50'}">
+                 
+                    <ng-container matColumnDef="sel">
+                        <th mat-header-cell *matHeaderCellDef style="width: 70px;">Sel</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row): null"
+                                [checked]="selection.isSelected(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="instancia">
+                        <th mat-header-cell *matHeaderCellDef>Instancia</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionDre}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sub">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Sub
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionUgel}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="centroTrabajo">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Centro de trabajo
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.centroTrabajo}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="modalidad">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Modalidad
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.modalidad}}       
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nivelEducativo">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Nivel Educativo
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.nivelEducativo}}       
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="codigoPlaza">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Código de plaza
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.codigoPlaza}}       
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoPlaza">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Tipo de plaza
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionTipoPlaza}}            
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="regimenLaboral">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Régimen laboral
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionRegimenLaboral}}        
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="condicionLaboral">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Condición Laboral
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionCondicionLaboral}}                
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cargo">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Cargo
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionCargo}}      
+                        </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="JornadaLaboral">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Jornada Laboral
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{row.descripcionJornadaLaboral}}         
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="fechaInicio">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Fecha inicio
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{this.transformarFecha(row.fechaInicio)}}      
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="fechaFin">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Fecha fin
+                        </th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            {{this.transformarFecha(row.fechaFin)}}   
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumentosPublicados;"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsDocumentosPublicados;"
+                        (click)="selectionMerito.toggle(row)"
+                        [ngClass]="{hovered: row.hovered}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+                <div class="no-results" 
+                    [style.display]="listaVinculacionServidorPublico.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+            </div>
+        </fieldset>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button 
+		    (click)="handleSeleccionarFila()"
+		    color="primary" 
+		    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+		<span class="material-icons">check_circle</span>Seleccionar
+	    </button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>CERRAR</button>
+    </div>
+    </div>
+
+</div>

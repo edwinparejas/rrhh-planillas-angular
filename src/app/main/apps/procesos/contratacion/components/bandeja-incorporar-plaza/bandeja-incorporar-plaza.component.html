@@ -1,0 +1,295 @@
+<div class="page-layout carded fullwidth inner-scroll p-1" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Incorporar Plazas</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                            <li class="active" *ngIf="fragmentoUrlRetornarComplemento === null"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/',fragmentoUrlRetornar,idEtapaProceso]">{{this.fragmentoUrlRetornarTexto|titlecase}}</a></li>
+                            <li class="active"*ngIf="fragmentoUrlRetornarComplemento !== null"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/',fragmentoUrlRetornar, fragmentoUrlRetornarComplemento,idEtapaProceso]">{{this.fragmentoUrlRetornarComplementoTexto|titlecase}}</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/bandeja-incorporacion-plazas/bandeja-incorporacion/',idEtapaProceso]">Incorporar plazas</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <div class="panel">
+                <minedu-informacion-proceso-etapa 
+                  [idProcesoEtapa]="idEtapaProceso" 
+                  [codSede]="codSedeCabecera">
+                </minedu-informacion-proceso-etapa>
+            </div>
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de Búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    
+                                    <!-- <mat-option value="-1">--TODOS--</mat-option> -->
+                                    <mat-form-field 
+					 appearance="fill" 
+					 fxFlex="25%" 
+					 fxFlex.xs="100%" 
+					 [mineduFormFieldValidationState]="form.get('idInstancia')"
+					 *ngIf="ocultarInstancia">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">Instancia</mat-label>
+                                        <mat-select formControlName="idInstancia">
+                                            <mat-option *ngFor="let item of instancias" [value]="item.id_instancia">
+                                                {{ item.descripcion_instancia }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idInstancia')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <!-- <mat-option value="-1">--TODOS--</mat-option> -->
+                                    <mat-form-field 
+					appearance="fill" 
+					fxFlex="25%" 
+					fxFlex.xs="100%" 
+					[mineduFormFieldValidationState]="form.get('idSubinstancia')"
+					*ngIf="ocultarSubInstancia">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idSubinstancia')">Sub Instancia</mat-label>
+                                        <mat-select formControlName="idSubinstancia" [disabled]="modelCriterioBusqueda.esActivoSubInstancia()">
+                                            <mat-option *ngFor="let item of subinstancias" [value]="item.id_subinstancia">
+                                                {{ item.descripcion_subinstancia }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idSubinstancia')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+                                        <mat-label>Código Modular</mat-label>
+                                        <input matInput formControlName="codigoCentroTrabajo" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                            placeholder="Código modular" maxlength="7" (keyup.enter)="buscarPlazasContratacionIncorporadas()" />
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">
+                                            search
+                                        </mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                            Código de Plaza
+                                        </mat-label>
+                                        <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12" 
+                                        onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                            (keyup.enter)="buscarPlazasContratacionIncorporadas()" 
+					    onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" />
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                            search
+                                        </mat-icon>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="p-0" fxLayout="row">
+                        <button mat-raised-button (click)="handleLimpiar()">
+                            <span class="material-icons">clear</span>Limpiar</button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                            <span class="material-icons">search</span>Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <div style="font-weight: bold;">Listado de Plazas de Contratacion Docente generadas a la fecha.</div>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleExportarPlazasGeneradas()" color="primary" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons">get_app</span>
+                                Exportar
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="overflow-x: auto;">
+                            <table mat-table #table class="minedu-table" [dataSource]="dataSourcePlazasGeneradas" [@animateStagger]="{ value: '50' }">
+                                <ng-container matColumnDef="registro">
+                                    <mat-header-cell *matHeaderCellDef>
+                                        <!-- (change)="$event ? masterTogglePlazasGeneradas() : null" -->
+                                        <!-- [checked]="selectionPlazasGeneradas.hasValue() && isAllSelectedPlazasGeneradas() || isSeleccionadoTodosIncorporados" -->
+                                        <mat-checkbox (change)="$event ? masterTogglePlazasIncorporar($event) : null"
+                                            [checked]="selectionPlazasGeneradas.hasValue() && isAllSelectedPlazasGeneradas() || isSeleccionadoTodosIncorporados"
+                                            [indeterminate]="selectionPlazasGeneradas.hasValue() && !isAllSelectedPlazasGeneradas()"
+                                            [aria-label]="checkboxLabelPlazasGeneradas()">
+                                        </mat-checkbox>
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <!-- (change)="$event ? selectionPlazasGeneradas.toggle(row) : null" -->
+                                        <!-- (change)="$event ? selectedRowIncorporar(row): null" -->
+                                        <mat-checkbox 
+                                            (click)="$event.stopPropagation()" 
+                                            (change)="$event ? selectedRowIncorporar(row): null"
+                                            [checked]="verificaSeleccionIncorporar(row)" 
+                                            [aria-label]="checkboxLabelPlazasGeneradas(row)">
+                                        </mat-checkbox>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="instancia">
+                                    <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.instancia }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="subinstancia">
+                                    <mat-header-cell *matHeaderCellDef>Sub Instancia</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.subinstancia }}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="codigoModular">
+                                    <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.codigoModular }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="centroTrabajo">
+                                    <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.centroTrabajo }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="nivelEducativo">
+                                    <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.nivelEducativo }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoGestion">
+                                    <mat-header-cell *matHeaderCellDef>Tipo de Gestión</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.tipoGestion }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="codigoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Código de Plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.codigoPlaza }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="cargo">
+                                    <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.cargo }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="areaCurricular">
+                                    <mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.areaCurricular }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.tipoPlaza }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigenciaInicio">
+                                    <mat-header-cell *matHeaderCellDef>Vigencia Inicio</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.vigenciaInicio }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigenciaFin">
+                                    <mat-header-cell *matHeaderCellDef>Vigencia Fin</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.vigenciaFin }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="acciones">
+                                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <!-- <div style="padding-left: 10px;"></div> -->
+                                            <div class="mat-icon-table">
+                                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                                        aria-label="Ver información completa" matTooltip="Ver información completa"
+                                                        (click)="informacionPlazaView(row.idPlaza)">
+                                                    <mat-icon class="">info</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="modelBandejaIncorporacion.getColumns();sticky: true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: modelBandejaIncorporacion.getColumns()"
+                                    [ngClass]="{ hovered: row.hovered, selected: selectionPlazasGeneradas.isSelected(row) }"
+                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                    [@animate]="{ value: '*', params: { y: '100%' } }">
+                                </mat-row>
+                            </table>
+                        <div class="no-results" *ngIf="!(dataSourcePlazasGeneradas.loading | async)" [style.display]="dataSourcePlazasGeneradas.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourcePlazasGeneradas.loading | async">
+                            pageSize
+                            <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+                    </div>
+                        <mat-paginator 
+                            #paginatorPlazasGeneradas 
+                            class="mat-paginator-sticky" 
+                            [length]="dataSourcePlazasGeneradas.dataTotal" 
+                            fxLayoutAlign="center center"
+                            [pageIndex]="paginatorPlazasGeneradasPageIndex" 
+                            [pageSize]="modelBandejaIncorporacion.getConfiguracionPaginacion().selectPageSize" 
+                            [pageSizeOptions]="modelBandejaIncorporacion.getConfiguracionPaginacion().pageSize" 
+                            showFirstLastButtons>
+                        </mat-paginator>
+    
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" style="width: 100%" *ngIf=" dataSourcePlazasGeneradas?.dataTotal > 0">
+                            <div mat-dialog-actions class="p-10" fxLayout="row" style="margin-right: 12px; width: 98%">
+                                <span style="font-weight: bold">
+                                  Total de plazas:
+                                    {{ dataSourcePlazasGeneradas?.dataTotal }}
+                                </span>
+                                <span style="font-weight: bold;margin-left: 160px;">
+                                  Plazas seleccionadas:
+                                <!-- {{ this.selectionPlazasGeneradas.selected.length }} -->
+                                {{ this.isSeleccionadoTodosIncorporados?
+                                    (dataSourcePlazasGeneradas?.dataRegistrosRecuperados - filaNoSeleccionadas?.length): 
+                                    this.filaSeleccionadasIncorporar?.length }}
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="m-5" fxLayout="row">
+                            <button mat-raised-button color="primary" style="margin-left: 5px; margin-right: 5px;" (click)="handleIncorporarPlazas()">
+                                <span class="material-icons">check</span>
+                                AGREGAR PLAZAS
+                            </button>
+                            <button mat-raised-button style="margin-left: 5px; margin-right: 5px;" (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

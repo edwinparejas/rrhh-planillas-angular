@@ -1,0 +1,14 @@
+<div fxLayout="row" fxLayout.lt-md="column" >
+    <div fxLayout="column" fxFlex="100%" class="pl-2 pr-2"  >
+        <table>
+            <tbody>                                   
+                <tr *ngFor="let detalle of dataTable;let i = index">
+                    <td [ngStyle]="{'font-weight':data.bold == 1 ? 'bold' : 'normal' }"
+                    *ngFor="let data of detalle.dataObject" >
+                        {{ data.valorCampo }}
+                    </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

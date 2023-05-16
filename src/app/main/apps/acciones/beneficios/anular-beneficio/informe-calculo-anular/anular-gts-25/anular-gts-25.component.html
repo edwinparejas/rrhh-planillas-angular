@@ -1,0 +1,79 @@
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap"  fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" [formGroup]="form">
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">N° Informe de Calculo</label> 
+                    <p class="form-control-static" *ngIf="form.get('numeroInformeCalculo').value">
+                        {{form.get('numeroInformeCalculo').value}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('numeroInformeCalculo').value">No registrado</p>
+                </div>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Fecha de inicio</label>
+                    <p class="form-control-static" *ngIf="form.get('fechaBeneficio').value">
+                        {{form.get('fechaBeneficio').value  | date: 'dd/MM/yyyy' }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('fechaBeneficio').value">No registrado</p>
+                </div>
+            </div>  
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>        
+                </div>
+            </div> 
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Base de Cálculo</label>
+                    <p class="form-control-static" *ngIf="form.get('baseCalculo').value">
+                        {{form.get('baseCalculo').value  }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('baseCalculo').value">No registrado</p>
+                </div>
+            </div>                           
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Factor de Cálculo </label>
+                    <p class="form-control-static" *ngIf="form.get('factorCalculo').value">
+                        {{form.get('factorCalculo').value }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('factorCalculo').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Tiempo de Servicio del Cálculo </label>
+                    <p class="form-control-static" *ngIf="form.get('tiempoServicioCalculo').value">
+                        {{form.get('tiempoServicioCalculo').value }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('tiempoServicioCalculo').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Importe del beneficio</label>
+                    <p class="form-control-static" *ngIf="form.get('importeBeneficio').value!=null">
+                        {{ form.get('importeBeneficio').value | currency:'':'' }}
+                    </p>
+                    <p class="form-control-static" *ngIf="form.get('importeBeneficio').value==null">No registrado</p>
+                </div>
+            </div> 
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                
+            </div>
+        </div>
+    </div>
+</fieldset>

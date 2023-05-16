@@ -1,0 +1,54 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+
+
+.Minedu-informacion-vacaciones {
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width:1500px;
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+
+    .p1{
+        margin-top: 5px;
+    }
+
+    .nexus {
+        margin-bottom: -35px;
+        margin-top: 5px;
+    }
+
+    .historialnexus {
+        float: right;
+        background-color: black;
+        color: white;
+    }
+
+    .p25 {
+        margin-bottom: 39px;
+    }
+    
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+}

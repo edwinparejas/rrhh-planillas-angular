@@ -1,0 +1,203 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Sustentar motivo de no publicación de plazas</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    
+
+     <div mat-dialog-content class="p-7 pb-0 m-0" fusePerfectScrollbar>
+                 <div  > 
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Plazas Observadas</legend>
+                        <div>
+                            <span><b>Plazas seleccionadas para Observar: </b>3</span>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Motivo</mat-label>
+                                            <mat-select>
+                                              <mat-option value="motivo_sentencia">
+                                                SENTENCIA JUDICIAL
+                                              </mat-option>
+                                              <mat-option value="motivo_disciplinario">
+                                                MEDIDA DISCIPLINARIA
+                                              </mat-option>
+                                              <mat-option value="motivo_administrativo">
+                                                PROCESO ADMINISTRATIVO
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="70%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Detalle*</mat-label>
+                                            <input matInput placeholder="Detalle*" value="">
+                                          </mat-form-field>
+                                    </div>
+                                    <!-- <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Proceso</span>
+                                            <br>
+                                            <span class="label-normal">ASCENSO </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Código</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.codigoProceso}} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="35%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Descripción</span>
+                                            <br>
+                                             <span class="label-normal">{{etapa.descripcionProceso}} </span> 
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Fecha creación</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.fechaRegistroProceso}} </span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Documentos de sustento</legend>
+                        <div>
+                            <span><b>Plazas seleccionadas para Observar: </b>3</span>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Tipo de documento</mat-label>
+                                            <mat-select>
+                                              <mat-option value="motivo_sentencia">
+                                                DNI
+                                              </mat-option>
+                                              <mat-option value="motivo_disciplinario">
+                                                CARNET_EXTRANJERIA
+                                              </mat-option>
+                                              <mat-option value="motivo_administrativo">
+                                                PASAPORTE
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                    
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Número de documento*</mat-label>
+                                            <input matInput placeholder="Detalle*" value="">
+                                          </mat-form-field>
+                                    </div>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Entidad emisora</mat-label>
+                                            <input matInput placeholder="Detalle*" value="">
+                                          </mat-form-field>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Fecha de emisión*</mat-label>
+                                            <input matInput placeholder="Detalle*" value="">
+                                          </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Modalidades</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                        <div>
+                                            <!-- Form Documentos de sustento-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content" mineduPerfectScrollbar>
+                            <div class="content-table">
+                                <div fxLayout="row" fxLayout.lt-md="column">
+                                    <mat-table class="minedu-table" #table [dataSource]="dataSource"
+                                        [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                                        <ng-container matColumnDef="abreviatura">
+                                            <mat-header-cell *matHeaderCellDef>COOLUMNA1</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index;">
+                                                <p class="text-truncate">{{row.abreviatura}}</p>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="descripcion">
+                                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>COLUMNA2
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                                <p class="text-truncate">{{row.descripcion}}</p>
+                                            </mat-cell>
+                                        </ng-container>
+                         
+                                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                        </mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;"
+                                            (click)="selection.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                            matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </mat-row>
+                                    </mat-table>
+                                </div>
+                                <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                                    [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                    *ngIf="dataSource.loading | async">pageSize
+                                    <mat-spinner diameter="50"></mat-spinner>
+                                </div>
+                                <!-- <mat-paginator #paginator class="mat-paginator-sticky"
+                                    [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex"
+                                    [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20]"
+                                    showFirstLastButtons>
+                                </mat-paginator> -->
+
+                                <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource?.totalregistro"
+                                [pageIndex]="this.globals.paginatorPageIndex" [pageSize]="this.globals.paginatorPageSize"
+                                [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>  
+
+                            </div>
+                        </div>    
+                    </fieldset>
+                  </div>
+    </div>  
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-stroked-button color="primary" (click)="handleCancel()"><span class="material-icons">close</span> Cerrar</button>
+
+        
+    </div>
+</div> 

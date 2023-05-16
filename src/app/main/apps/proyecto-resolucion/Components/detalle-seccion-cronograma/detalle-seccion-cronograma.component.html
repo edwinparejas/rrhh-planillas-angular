@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLayout.lt-md="column" >
+    <div fxLayout="column" fxFlex="100%" class="pl-2 pr-2"  >
+          <table style="overflow:auto;">
+              <tbody>                           
+                  <tr *ngFor="let detalle of dataTable;let i = index">
+                      <td [attr.colspan]="data.colspan"  
+                      [ngStyle]="{'font-weight':data.bold == 1 ? 'bold' : 'normal' ,'text-align':data.centrado == 1 ? 'center' : 'left'}" 
+                      *ngFor="let data of detalle.dataObject">
+                        {{ data.valorCampo }}
+                      </td>
+                    </tr>
+              </tbody>
+          </table>
+      </div>
+</div>

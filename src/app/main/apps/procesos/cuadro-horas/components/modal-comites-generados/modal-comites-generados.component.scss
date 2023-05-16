@@ -1,0 +1,169 @@
+@import "@minedu/scss/minedu";
+
+.modal-comite-generados-dialog {
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    // @include media-breakpoint('gt-xs') {
+    //     width: 500px;
+    // }
+    .mat-dialog-container {
+        padding: 0;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    table {           
+        border-collapse: collapse;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+    }     
+
+    .mat-table {
+        font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
+        border-spacing: 0;
+    }    
+    
+    td.mat-cell,
+    td.mat-footer-cell{
+        font-size: 11px !important;    
+        padding: 0 10px 0 10px; 
+    }
+
+    tr.mat-header-row{
+        min-height: 36px !important;
+        height: 40px !important;
+    }
+
+    .mat-header-cell{
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #fff !important;
+        background-color: #0073B7 !important;
+        padding: 0 10px 0 10px; 
+    }
+
+    .mat-cell:first-child{
+        border-left: 1px solid #ddd;
+    } 
+
+    th {
+        border: 1px solid #ddd
+    }  
+
+    tr.mat-row {
+        border: 1px solid #ddd
+    }   
+    .mat-row.hovered {
+        background: #ECECEE;
+    } 
+    
+    .mat-row.selected{
+        background: #e5e5e5;
+    } 
+    .mat-header-cell:not(:last-child),
+    .mat-cell:not(:last-child){
+        border-right: 1px solid #ddd;
+    }
+    th.mat-header-cell:first-of-type,
+    td.mat-cell:first-of-type, 
+    td.mat-footer-cell:first-of-type{
+        padding-left: 10px;
+    }
+    th.mat-header-cell:last-of-type, 
+    td.mat-cell:last-of-type, 
+    td.mat-footer-cell:last-of-type {
+        padding-right: 10px;
+    }
+    .minedu-table {     
+        width: 100%;
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;   
+        .mat-icon-table{
+            width: 30px;            
+        } 
+        .mat-column-index {
+            flex: 0 1 10px;
+            width: 10px;
+        }        
+        .mat-column-instancia {
+            flex: 0 1 70px;            
+            width: 70px;
+            text-align: center;
+        }
+        .mat-column-subInstancia {
+            flex: 0 1 600px;
+            max-width: 600px;
+        }         
+        .mat-column-centroTrabajo {
+            flex: 0 1 120px;
+            width: 120px;
+        }
+        .mat-column-modalidad {
+            flex: 0 1 300px;
+            max-width: 300px;
+        }
+        .mat-column-nivelEducativo {
+            flex: 0 1 300px;
+            max-width: 300px;
+        }
+        .mat-column-codigoPlaza {
+            flex: 0 1 80px;
+            width: 80px;
+        }
+        .mat-column-tipoPlaza {
+            flex: 0 1 250px;
+            max-width: 250px;
+        }                
+        .mat-column-regimenLaboral {
+            flex: 0 1 100px;
+            width: 100px;
+            text-align: center;
+        }          
+        .mat-column-condicionLaboral {
+            flex: 0 1 110px;
+            width: 110px;
+        }   
+        .mat-column-cargo {
+            flex: 0 1 120px;  
+            width: 120px;   
+        }    
+        .mat-column-areaCurricular {
+            flex: 0 1 120px;  
+            width: 120px;   
+        }  
+        .mat-column-jornadaLaboral {
+            flex: 0 1 120px;  
+            width: 120px;   
+        } 
+        .mat-column-fechaInicio {
+            flex: 0 1 120px;  
+            width: 120px;   
+        }   
+        .mat-column-fechaFin {
+            flex: 0 1 120px;  
+            width: 120px;   
+        }    
+    }
+    .box-shadow {
+        -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+}

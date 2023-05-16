@@ -1,0 +1,152 @@
+<div class="dialog-content-wrapper" *ngIf="state$ | async as state">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Búsqueda de centro de trabajo</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+            <form autocomplete="off" novalidate [formGroup]="form">
+                <fieldset class="fieldset-border">
+                    <legend>Criterios de búsqueda</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idDre')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idDre')">Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idDre">
+                                        <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                        <mat-option *ngFor="let item of state.dres" [value]="item.idDre">
+                                            {{item.descripcionDre}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idDre')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%"
+                                    [mineduFormFieldValidationState]="form.get('idUgel')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idUgel')">Sub instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idUgel">
+                                        <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                        <mat-option *ngFor="let item of state.ugeles" [value]="item.idUgel">
+                                            {{item.descripcionUgel}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idUgel')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                           
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="66.6%" fxFlex.lt-md="100%">
+                            </div>
+                        </div>
+                        <div class="mb-20" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                            <div mat-dialog-actions fxLayout="row">
+                                <button type="button" mat-raised-button (click)="handleLimpiar()">
+                                    <span class="material-icons">clear</span> Limpiar</button>
+                            </div>
+                            <div mat-dialog-actions class="ml-12" fxLayout="row">
+                                <button type="button" mat-raised-button color="primary" (click)="handleBuscar()">
+                                    <span class="material-icons">search</span> Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="mt-8">
+                <span class="minedu-note">Doble click en una de las filas de la tabla para seleccionar centro de
+                    trabajo</span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                <mat-table class="minedu-table" #table [dataSource]="state.busquedaCentroTrabajoGrillaModel.centros" [@animateStagger]="{value:'50'}">
+
+                    <ng-container matColumnDef="codigoCentroTrabajo">
+                        <mat-header-cell *matHeaderCellDef>Código Modular</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <p *ngIf="row.codigoCentroTrabajo"> {{row.codigoCentroTrabajo}} </p>
+                            <p *ngIf="!row.codigoCentroTrabajo"></p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="centroTrabajo">
+                        <mat-header-cell *matHeaderCellDef>Centro de trabajo
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <p *ngIf="row.centroTrabajo"> {{row.centroTrabajo}} </p>
+                            <p *ngIf="!row.centroTrabajo"></p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="instancia">
+                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Instancia
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                            <p *ngIf="row.instancia"> {{row.instancia}}</p>
+                            <p *ngIf="!row.instancia"></p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subInstancia">
+                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Sub instancia
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                            <p *ngIf="row.subInstancia"> {{row.subInstancia}}</p>
+                            <p *ngIf="!row.subInstancia"></p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoCentroTrabajo">
+                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Tipo de centro de trabajo
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                            <p *ngIf="row.tipoCentroTrabajo"> {{row.tipoCentroTrabajo}}</p>
+                            <p *ngIf="!row.tipoCentroTrabajo"></p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="state.busquedaCentroTrabajoGrillaModel.displayedColumns; sticky:true">
+                    </mat-header-row>
+                    <mat-row *matRowDef="let row; let i = index; columns: state.busquedaCentroTrabajoGrillaModel.displayedColumns;"
+                        (dblclick)="matDialogRef.close(handleSelectedRow(row))"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </mat-row>
+                </mat-table>
+                
+                <div class="no-results" *ngIf="!(state.busquedaCentroTrabajoGrillaModel.loading | async)"
+                    [style.display]="state.busquedaCentroTrabajoGrillaModel.centros.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                    *ngIf="state.busquedaCentroTrabajoGrillaModel.loading | async">
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <mat-paginator #paginatorModalBusquedaCentroTrabajo [length]="state.busquedaCentroTrabajoGrillaModel.totalRow" [pageIndex]="0" [pageSize]="5"
+                    [style.display]="state.busquedaCentroTrabajoGrillaModel.centros.length !== 0 ? '' : 'none'" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">close</span> Cerrar
+        </button>
+    </div>
+</div>

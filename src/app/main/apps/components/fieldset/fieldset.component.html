@@ -1,0 +1,8 @@
+<fieldset class="fieldset" [attr.form]="form" [attr.name]="name" [disabled]="disabled">
+    <legend class="fieldset__legend" [id]="legendId" [attr.aria-describedby]="helperText ? legendId + 'desc' : null">
+        {{legend}}</legend>
+    <div class="fieldset__content">
+        <ng-content></ng-content>
+    </div>
+</fieldset>
+<p [id]="legendId + 'desc'" class="fieldset__helper" *ngIf="helperText">{{helperText}}</p>

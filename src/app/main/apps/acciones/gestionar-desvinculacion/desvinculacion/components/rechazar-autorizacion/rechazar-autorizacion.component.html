@@ -1,0 +1,37 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title"> {{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form autocomplete="off" novalidate [formGroup]="form">
+            <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap.xs="0">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Detalle motivo de rechazo (*)</mat-label>
+                    <textarea name="observacion" formControlName="observacion" matInput type="text" matTextareaAutosize
+                        [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+        <div mat-dialog-actions class="m-0 p-16"  fxLayout="row" fxLayoutAlign="end center" >
+            <button mat-raised-button color="primary" class="ml-4" (click)="handleGuardarPrimero()">
+                <span class="material-icons">remove_circle_outline</span>Rechazar</button>
+        </div>
+    
+    
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" >
+            <button mat-raised-button  (click)="handleCancelar()">
+                <span class="material-icons">close</span>Cancelar</button>
+        </div>
+    </div>    
+</div>

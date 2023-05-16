@@ -1,0 +1,284 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form autocomplete="off" novalidate fxLayout="column" [formGroup]="form">
+            <div fxLayout="column" fxFlex="100%" fxLayoutAlign="start none"
+                *ngIf="modal.action==='edit'">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.lt-md="100%">
+                        <mat-form-field appearance="none" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('etapa')">
+                            <mat-label  [mineduFormRequiredLabel]="form.get('etapa')">Etapa
+                            </mat-label>
+                            <input type="text" name="etapa" formControlName="etapa" matInput disabled readonly="true">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayoutAlign="start start" fxFlex="35%" fxFlex.lt-md="100%">
+                        <mat-form-field appearance="fill" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('idTipoVigencia')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('idTipoVigencia')">Tipo Vigencia
+                            </mat-label>
+                            <mat-select formControlName="idTipoVigencia">
+                                <mat-option *ngFor="let item of tipoVigencia"
+                                    [value]="item.idCatalogoItem">
+                                    {{item.descripcionCatalogoItem}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('idTipoVigencia')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%" >
+                        <mat-form-field appearance="fill" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <mat-label [mineduFormRequiredLabel]="form.get('vigenciaInicio')">Vigencia inicio</mat-label>
+                            <input matInput [matDatepicker]="vigenciaInicio" readonly
+                                [formControl]="form.get('vigenciaInicio')" [matDatepickerFilter]="filtroTipoVigencia"
+                                (click)="vigenciaInicio.open()" (focus)="vigenciaInicio.open()" [min]="minInicio" [max]="untilDate">
+                            <mat-datepicker-toggle matSuffix [for]="vigenciaInicio"></mat-datepicker-toggle>
+                            <mat-datepicker #vigenciaInicio></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div  fxLayoutAlign="start start"  fxFlex="25%" fxFlex.lt-md="100%" >
+                        <mat-form-field appearance="fill" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <mat-label [mineduFormRequiredLabel]="form.get('vigenciaTermino')">Vigencia término</mat-label>
+                            <input matInput [matDatepicker]="vigenciaTermino" readonly
+                                [formControl]="form.get('vigenciaTermino')" [matDatepickerFilter]="filtroTipoVigencia"
+                                (click)="vigenciaTermino.open()" (focus)="vigenciaTermino.open()" [min]="minDate" [max]="maxDate">
+                            <mat-datepicker-toggle matSuffix [for]="vigenciaTermino"></mat-datepicker-toggle>
+                            <mat-datepicker #vigenciaTermino></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="15%" fxFlex.xs="100%">
+                        <mat-form-field appearance="none" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('diasHabiles')">
+                            <mat-label  [mineduFormRequiredLabel]="form.get('diasHabiles')">Cantidad días</mat-label>
+                            <input type="text" name="diasHabiles" formControlName="diasHabiles" matInput disabled readonly="true">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap.lt-md="0" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="31%" fxFlex.md="100%">
+                        <mat-form-field appearance="fill" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <mat-label [mineduFormRequiredLabel]="form.get('vigenciaTerminoHolgura')">Vigencia término con holgura</mat-label>
+                            <input matInput [matDatepicker]="vigenciaTerminoHolgura" readonly
+                                [formControl]="form.get('vigenciaTerminoHolgura')" [matDatepickerFilter]="filtroTipoVigencia"
+                                (click)="vigenciaTerminoHolgura.open()" (focus)="vigenciaTerminoHolgura.open()" [min]="minDateHolgura" [max]="maxDate">
+                            <mat-datepicker-toggle matSuffix [for]="vigenciaTerminoHolgura"></mat-datepicker-toggle>
+                            <mat-datepicker #vigenciaTerminoHolgura></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.sm="100%">
+                        <mat-form-field appearance="none" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('diasHolgura')">
+                            <mat-label  [mineduFormRequiredLabel]="form.get('diasHolgura')">Cantidad días holgura</mat-label>
+                            <input type="text" name="diasHolgura" formControlName="diasHolgura" matInput disabled readonly="true">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="44%" fxFlex.sm="100%">                            
+                        <mat-form-field appearance="fill" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('descripcionEtapa')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('descripcionEtapa')">Descripción
+                            </mat-label>
+                            <input matInput name="descripcionEtapa" formControlName="descripcionEtapa" uppercase>
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('descripcionEtapa')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column" fxFlex="100%" fxLayoutAlign="start none"
+                *ngIf="modal.action == 'cancel' || modal.action == 'info'">
+                <div class="ml-4" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Etapa</label>
+                            <p class="form-control-static">{{ etapaProceso.etapa }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayoutAlign="start start" fxFlex="29%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Tipo de vigencia</label>
+                            <p class="form-control-static">{{ etapaProceso.descripcionTipoVigencia }}</p>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Vigencia inicio</label>
+                            <p class="form-control-static">{{ etapaProceso.vigenciaInicio | date: 'dd/MM/yyyy' }}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Vigencia término</label>
+                            <p class="form-control-static">{{ etapaProceso.vigenciaTermino | date: 'dd/MM/yyyy' }}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="21%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Cantidad días</label>
+                            <p class="form-control-static">{{ etapaProceso.diasHabiles }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Vigencia término con holgura</label>
+                            <p class="form-control-static">{{ etapaProceso.vigenciaTerminoHolgura | date: 'dd/MM/yyyy' }}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Cantidad días holgura</label>
+                            <p class="form-control-static">{{ etapaProceso.diasHolgura }}</p>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"
+                        *ngIf="etapaProceso?.descripcionEtapa">
+                        <div class="form-group">
+                            <label class="label" for="">Descripción</label>
+                            <p class="form-control-static wrap-break">{{ etapaProceso.descripcionEtapa }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0"
+                    *ngIf="modal.action==='info' && etapaProceso?.motivoCancelacion">
+                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Motivo de cancelación</label>
+                            <p class="form-control-static">{{ etapaProceso.motivoCancelacion }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column" fxFlex="100%" fxLayoutAlign="start none"
+                fxLayoutGap.lt-md="0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="57.8%" fxFlex.sm="100%"
+                        *ngIf="modal.action==='edit' && !form.get('codigoDocumentoEtapa').value">
+                        <div fxLayout="column" class="form-group" fxFlex="100%">
+                            <minedu-single-file-input [mineduFormControl]="form.get('documentoConvocatoria')"
+                                inputText="Adjuntar convocatoria o arrastre aquí"
+                                removeButtonLabel="Eliminar convocatoria adjuntada" noFileText="Sin convocatoria adjuntada"
+                                (mineduUpload)="adjunto($event)" style="width: 100%;">
+                            </minedu-single-file-input>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div fxLayout="row" class="form-group">
+                            <button mat-stroked-button color="primary" class="descargar p-4 mb-12"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                (click)="handleVisualizar()" *ngIf="form.get('codigoDocumentoEtapa').value">
+                                <span class="material-icons">picture_as_pdf</span>Ver convocatoria
+                            </button>
+                            <button mat-button color="warn" class="sidebar-toggle ml-2" *ngIf="form.get('codigoDocumentoEtapa').value && modal.action==='edit'" 
+                                (click)="handleEliminarAdjunto()"><u>ELIMINAR</u>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <fieldset class="fieldset-border mt-0 mb-0">
+                <legend>Participación via web</legend>
+                <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="column" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                <mat-checkbox formControlName="aceptaPostulanteWeb" labelPosition="after"
+                                    [mineduFormFieldValidationState]="form.get('aceptaPostulanteWeb')"
+                                    [disabled]="modal.disabled">
+                                    Inscripción postulantes
+                                </mat-checkbox>
+                            </div>
+                            <!-- <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                <mat-checkbox formControlName="aceptaExpedienteWeb" labelPosition="after"
+                                    [mineduFormFieldValidationState]="form.get('aceptaExpedienteWeb')"
+                                    [disabled]="modal.disabled">
+                                    Presentación de expedientes
+                                </mat-checkbox>
+                            </div> -->
+                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%" class="mb-12">
+                                <mat-checkbox formControlName="aceptaReclamosWeb" labelPosition="after"
+                                    [mineduFormFieldValidationState]="form.get('aceptaReclamosWeb')"
+                                    [disabled]="modal.disabled">
+                                    Presentación de reclamos
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div fxLayout="column" fxLayoutAlign="start none" 
+                 *ngIf="modal.action==='cancel'"><br>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('motivoCancelacion')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('motivoCancelacion')">Motivo de cancelación
+                                </mat-label>
+                                <textarea name="motivoCancelacion" formControlName="motivoCancelacion" matInput type="text"
+                                    matTextareaAutosize [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20"
+                                    uppercase></textarea>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('motivoCancelacion')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <p class="text-danger" *ngIf="modal.action !== 'info'">(*) Datos obligatorios</p>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <div *ngIf="modal.action === 'edit'">
+            <minedu-button-update [mineduForm]="form" (mineduOnClick)="handleModificar()" [working]="working">
+            </minedu-button-update>
+        </div>
+        <div *ngIf="modal.action === 'cancel'">
+            <minedu-button-save [mineduForm]="form" (mineduOnClick)="handleCancelarEtapaProceso()" [working]="working">
+            </minedu-button-save>
+        </div>
+        <minedu-button-cancel *ngIf="modal.action !== 'info'" (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+        <button mat-raised-button *ngIf="modal.action === 'info'" (click)="handleCancelar()"><span class="material-icons">cancel</span> Cerrar</button>
+
+    </div>
+</div>

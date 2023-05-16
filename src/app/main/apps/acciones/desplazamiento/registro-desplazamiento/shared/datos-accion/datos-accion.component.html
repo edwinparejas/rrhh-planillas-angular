@@ -1,0 +1,68 @@
+<!-- Inicio Datos de la accion -->
+<div *ngIf="getControlValue(accionPersonalForm, 'idMotivoAccion')!==null">
+    <fieldset [formGroup]="form" class="fieldset-border" style="padding-bottom: 20px !important;">
+        <legend>Datos de la Acción</legend>
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <!-- Inicio Fecha Inicio-->
+                <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <minedu-datepicker fxFlex="100%" mode="" label="Fecha de Inicio"
+                        [mineduFormControl]="form.get('fechaInicio')"
+                        [formControl]="form.get('fechaInicio')"></minedu-datepicker>
+                    <mat-error fxFlex="100%">
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('fechaInicio')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </div>
+                <!-- Fin Fecha Inicio -->
+                <!-- Inicio Fecha termino-->
+                <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="idAccion !== PERMUTA && 
+                       idAccion !== REASIGNACION && 
+                       idAccion !== ASCENSOCARGO && 
+                       idAccion !== ASCENSOESCALAMAGISTERIAL && 
+                       idAccion !== UBICACIONESCALAMAGISTERIAL && 
+                       idAccion !== ROTACION && 
+                       idAccion !== RETORNAR">
+                    <minedu-datepicker fxFlex="100%" mode="" label="Fecha Termino"
+                        [mineduFormControl]="form.get('fechaTermino')" [formControl]="form.get('fechaTermino')">
+                    </minedu-datepicker>
+                    <mat-error fxFlex="100%">
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('fechaTermino')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </div>
+                <!-- Fin Fecha termino -->
+                <!-- Inicio Escala Magisterial-->
+                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="
+                       idAccion === ASCENSOESCALAMAGISTERIAL || 
+                       idAccion === UBICACIONESCALAMAGISTERIAL">  
+
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="form?.get('escalaMagisterial')">
+                        <mat-label [mineduFormRequiredLabel]="form?.get('escalaMagisterial')">
+                            Escala magisterial
+                        </mat-label>
+                        <mat-select formControlName="escalaMagisterial">
+                            <mat-option [value]="null"> --SELECCIONE-- </mat-option>
+                            <mat-option *ngFor="let item of categoriaRemunerativaList" [value]="item.value">
+                                {{item.label}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <minedu-form-field-validation-messages [mineduFormControl]="form?.get('escalaMagisterial')">
+                            </minedu-form-field-validation-messages>
+                        </mat-error>
+                    </mat-form-field>
+
+
+
+
+
+                </div>
+                <!-- Fin Escala Magisterial -->
+            </div>
+        </div>
+        <minedu-seccion-plaza [parentForm]="parentForm"></minedu-seccion-plaza>
+    </fieldset>
+</div>
+<!-- FIn Datos de la accion -->

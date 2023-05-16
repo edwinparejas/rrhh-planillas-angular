@@ -1,0 +1,22 @@
+@import "src/@minedu/scss/minedu";
+@import "src/@minedu/scss/comun";
+
+.minedu-observar {
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint('gt-xs') {
+        width: 900px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+    p.form-control-static {
+        margin: 5px 0px 15px 0px;
+    }
+}
+
+.mat-dialog-container {
+    padding: 0px !important;
+}

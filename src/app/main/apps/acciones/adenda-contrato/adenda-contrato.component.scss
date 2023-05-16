@@ -1,0 +1,182 @@
+:host {
+    width: 100%;
+}
+
+minedu-adenda-contrato {
+    width: 100%;
+    padding: 2px;  
+
+    .remove {
+        color: #dd3333;
+    }
+
+    .content {
+        width: 100%;       
+        .ml-2 {
+            margin-left: 2px;
+        }
+        .pl-2 {
+            padding-left: 2px;
+        }
+        .pl-6 {
+            padding-left: 6px;
+        }
+        .pr-2 {
+            padding-right: 2px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+        .mb-15 {
+            margin-bottom: 15px;
+        }
+        .mat-raised-button {
+            border: 1px solid #ccc;
+            line-height: 34px;
+        }
+        .mat-raised-button.mat-primary {
+            background-color: #0073b7;
+            border-color: #0073b7;
+        }
+        .mat-stroked-button.mat-primary {
+            color: #0073b7;
+        }
+        .mat-flat-button.mat-primary {
+            background-color: #0073b7;
+        }
+        .mat-stroked-button:not([disabled]).mat-primary {
+            border-color: #0073b7;
+            background-color: #fff;
+        }
+        .mat-stroked-button:not([disabled]).mat-warn {
+            border-color: #f44336;
+            background-color: #fff;
+        }
+        button .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm {
+            line-height: 24px;
+            min-width: 27px;
+            padding: 0;
+        }
+        button.btn-sm .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm .mat-icon {
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+        .btn-icon .mat-button-wrapper .material-icons {
+            font-size: 22px!important;
+        }
+        .minedu-table {
+            flex: 1 1 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, .12);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+    
+            .mat-icon-table{
+                width: 30px;
+            }
+            .mat-column-nro {
+                flex: 0 1 5px;
+                text-align: center;
+                justify-content: space-around;
+                width: 5px;
+            }    
+            .mat-column-numeroContrato {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-fechaContrato {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-accion {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-motivoAccion {
+                flex: 0 1 250px;
+                width: 250px;
+            }
+            .mat-column-mandatoJudicial {
+                flex: 0 1 80px;
+                text-align: center;
+                justify-content: space-around;
+                width: 80px;
+            }
+            .mat-column-numeroDocumentoIdentidad {
+                flex: 0 1 150px;
+                text-align: center;
+                justify-content: space-around;
+                width: 150px;
+            }
+            .mat-column-nombresCompletos {
+                flex: 0 1 350px;
+                width: 350px;
+            }
+            .mat-column-fechaInicio {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-fechaFin {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-codigoPlaza {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-tieneAdenda {
+                flex: 0 1 100px;
+                text-align: center;
+                justify-content: space-around;
+                width: 100px;
+            }
+            .mat-column-estado {
+                flex: 0 1 150px;
+                text-align: center;
+                justify-content: space-around;
+                width: 150px;
+            }
+            .mat-column-opciones {
+                flex: 0 1 150px;     
+                text-align: center;
+                width: 150px;
+            }
+    
+            .mat-header-cell, 
+            .mat-cell {
+                padding: 0 10px 0 10px; 
+            }
+            .mat-header-cell:not(:last-child),
+            .mat-cell:not(:last-child){
+                border-right: 1px solid #ddd;
+            }    
+        }
+        .mat-paginator-container {
+            place-content: center;
+        }  
+        
+    }
+            
+}

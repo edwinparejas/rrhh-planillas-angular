@@ -1,0 +1,130 @@
+<div class="content-table"> 
+	<mat-table 
+	    class="minedu-table"
+	    #table 
+	    [dataSource]="dataSourcePostulantes" 
+	    [class.isMobile]="isMobile"
+	    [@animateStagger]="{ value: '50' }">
+	    <ng-container matColumnDef="registro">
+		<mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index;">
+		    <!-- <p>{{ i + 1 }}</p> -->
+            <p>{{ (i + 1)+((paginatorPostulantes.pageIndex)*paginatorPostulantes.pageSize) }}</p>
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="documento">
+		<mat-header-cell *matHeaderCellDef class="mat-cell-center">Documento</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index" class="mat-cell-center">
+		    {{ row.documento }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="apellidos_nombres">
+		<mat-header-cell *matHeaderCellDef>Apellidos y Nombres</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.apellidosNombres }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="numero_expediente">
+		<mat-header-cell *matHeaderCellDef>Número de Expediente</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.numeroExpediente }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="modalidad_educativa">
+		<mat-header-cell *matHeaderCellDef>Modalidad Educativa</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.modalidad }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="nivel_educativo">
+		<mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.nivelEducativo }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="area_curricular">
+		<mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.areaCurricular }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="especialidad">
+		<mat-header-cell *matHeaderCellDef>Especialidad</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.descripcionEspecialidad }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="estado">
+		<mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.estadoCalificacion }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="tipo_registro">
+		<mat-header-cell *matHeaderCellDef>Tipo Registro</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    {{ row.tipoRegistro }}
+		</mat-cell>
+	    </ng-container>
+	    <ng-container matColumnDef="acciones">
+		<mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+		<mat-cell *matCellDef="let row; let i = index">
+		    <div fxLayout="row" fxLayoutAlign="space-between center" 
+			 *ngIf="row.codigoEstadoCalificacion != EstadoPostulacionEnum.ELIMINADO && row.codigoEstadoCalificacion != EstadoPostulacionEnum.APROBADO">
+			<!-- <div style="padding-left: 10px;"></div> -->
+			<div class="mat-icon-table">
+			    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+				    aria-label="Editar datos del postulante" matTooltip="Editar datos del postulante"
+				    (click)="editarPostulanteView(row)">
+				<mat-icon class="">edit</mat-icon>
+			    </button>
+			</div>
+		    </div>
+		    <div fxLayout="row" fxLayoutAlign="space-between center" 
+			 *ngIf="row.codigoEstadoCalificacion != EstadoPostulacionEnum.ELIMINADO && row.codigoEstadoCalificacion != EstadoPostulacionEnum.APROBADO">
+			<div style="padding-left: 2px;"></div>
+			<div class="mat-icon-table">
+			    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+				    aria-label="Eliminar postulante" matTooltip="Eliminar postulante"
+				    (click)="eliminarPostulante(row, i)">
+				<mat-icon style="color: red;" class="">delete</mat-icon>
+			    </button>
+			</div>
+		    </div>
+		    <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="row.codigoEstadoCalificacion == EstadoPostulacionEnum.ELIMINADO">
+			<div style="padding-left: 2px;"></div>
+			<div class="mat-icon-table">
+			    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+				    aria-label="Ver información completa" matTooltip="Ver información completa"
+				    (click)="informacionPostulanteView(row)">
+				<mat-icon class="">info</mat-icon>
+			    </button>
+			</div>
+		    </div>
+		</mat-cell>
+	    </ng-container>
+	    <mat-header-row *matHeaderRowDef="displayedColumnsPostulantes; sticky: true"></mat-header-row>
+	    <mat-row *matRowDef="let row; columns: displayedColumnsPostulantes"
+		(mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+		[@animate]="{ value: '*', params: { y: '100%' } }">
+	    </mat-row>
+	</mat-table>
+    <div class="no-results" *ngIf="!(dataSourcePostulantes.loading | async)" [style.display]="dataSourcePostulantes.data.length === 0 ? '' : 'none'">
+	No se encontraron registros
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourcePostulantes.loading | async">
+	pageSize
+	<mat-spinner diameter="50"></mat-spinner>
+    </div>
+</div>
+    <mat-paginator #paginatorPostulantes class="mat-paginator-sticky" [length]="dataSourcePostulantes.dataTotal" fxLayoutAlign="center center"
+	[pageIndex]="paginatorPostulantesPageIndex" [pageSize]="paginatorPostulantesPageSize"
+	[pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+    </mat-paginator>
+
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" style="width: 100%" *ngIf=" dataSourcePostulantes?.dataTotal > 0">
+        <div mat-dialog-actions class="p-10" fxLayout="row" style="margin-right: 12px; width: 98%">
+            <span style="font-weight: bold">Total postulantes:
+                {{ dataSourcePostulantes?.dataTotal }}</span>
+        </div>
+    </div>

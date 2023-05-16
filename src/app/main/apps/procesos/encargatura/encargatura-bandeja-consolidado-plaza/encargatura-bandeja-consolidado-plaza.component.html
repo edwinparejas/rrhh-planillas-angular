@@ -1,0 +1,192 @@
+<div class="page-layout carded fullwidth inner-scroll p-0">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <minedu-cabecera-etapa-proceso-encargatura [idEtapaProceso]="idEtapaProceso">
+            </minedu-cabecera-etapa-proceso-encargatura>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row wrap">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idInstancia" [disabled]="true">
+                                        <mat-option *ngFor="let item of comboLists.listInstancia" [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idInstancia')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idSubinstancia')">Sub Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idSubinstancia">
+                                        <mat-option value="-1">TODOS</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listSubinstancia" [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <!-- <button mat-icon-button matSuffix *ngIf="form.get('idSubinstancia').value" (click)="clearFormField($event, 'idSubinstancia')">
+                                        <mat-icon>close</mat-icon>
+                                    </button> -->
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idSubinstancia')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoEstadoConsolidado')">
+                                        Estado
+                                    </mat-label>
+                                    <mat-select formControlName="codigoEstadoConsolidado">
+                                        <mat-option value="-1">TODOS</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listEstadoConsolidado" [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <!-- <button mat-icon-button matSuffix *ngIf="form.get('codigoEstadoConsolidado').value" (click)="clearFormField($event, 'codigoEstadoConsolidado')">
+                                        <mat-icon>close</mat-icon>
+                                    </button> -->
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoEstadoConsolidado')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span
+                                class="material-icons">clear</span> LIMPIAR</button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span
+                                class="material-icons">search</span> BUSCAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="content">
+                        <div class="my-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch" fxLayoutGap="3px">
+                            <button *ngIf="visibleAprobarMasivo" mat-raised-button color="primary" (click)="handleAprobarMasivo()">
+                                <mat-icon class="mt-2">check</mat-icon> APROBAR MASIVO
+                            </button>
+                            <button *ngIf="visibleGenerarListadoPlazas" mat-stroked-button color="primary" (click)="handleGenerarListadoPlazas()">
+                                <mat-icon class="mt-2">settings</mat-icon> GENERAR CONSOLIDADO PLAZAS
+                            </button>
+                            <button *ngIf="visibleVerListadoPlazas" mat-stroked-button color="primary" (click)="handleVerListadoPlazas()">
+                                <mat-icon class="mt-2">picture_as_pdf</mat-icon> VER LISTADO PLAZAS
+                            </button>
+                            <button mat-stroked-button color="primary" (click)="handleExportar()">
+                                <mat-icon class="mt-2">save_alt</mat-icon> EXPORTAR
+                            </button>
+                        </div>
+                        <div class="content-table" style="overflow: auto;">
+                            <div fxLayout="row">
+                                <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                    <ng-container matColumnDef="rowNum">
+                                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">N°:</span> {{ row.rowNum }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="instancia">
+                                        <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">Instancia:</span> {{ row.descripcionDre }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="subinstancia">
+                                        <mat-header-cell *matHeaderCellDef>Subinstancia</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">Subinstancia:</span> {{ row.descripcionUgel }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="estado">
+                                        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">Estado:</span>
+                                            <span class="badge" [ngClass]="{
+                                                'badge-warning':row.codigoEstadoConsolidado == estadoConsolidadoEnum.Pendiente, 
+                                                'badge-primary':row.codigoEstadoConsolidado == estadoConsolidadoEnum.Validado, 
+                                                'badge-success':row.codigoEstadoConsolidado == estadoConsolidadoEnum.Aprobado,
+                                                'badge-danger':row.codigoEstadoConsolidado == estadoConsolidadoEnum.Rechazado}">
+                                                {{ row.descripcionEstadoConsolidado }}
+                                            </span>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaValidacion">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Validación</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">Fecha Validación:</span> {{ row.fechaValidacion }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaAprobacion">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Aprobación</mat-header-cell>
+                                        <mat-cell *matCellDef="let row;let i = index">
+                                            <span class="mobile-label">Fecha Aprobación:</span> {{ row.fechaAprobacion }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaRechazo">
+                                        <mat-header-cell *matHeaderCellDef>Fecha Rechazo</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">Fecha Rechazo:</span> {{ row.fechaRechazo }}
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            <span class="mobile-label">Acciones:</span>
+                                            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="3px">
+                                                <button *ngIf="row.codigoEstadoConsolidado != estadoConsolidadoEnum.Pendiente" mat-stroked-button color="primary" class="btn-sm" matTooltip="Ver Listado de Plazas" (click)="handleGoPlazas(row)">
+                                                    <mat-icon>file_copy</mat-icon>
+                                                </button>
+                                                <button *ngIf="row.codigoEstadoConsolidado == estadoConsolidadoEnum.Rechazado" mat-stroked-button color="primary" class="btn-sm" matTooltip="Ver Motivo de Rechazo" (click)="handleVerMotivoRechazo(row)">
+                                                    <mat-icon>remove_red_eye</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                                    </mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                                </mat-table>
+                            </div>
+                            <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                        </div>
+                        <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+                        <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+                            <div fxLayout="row" fxLayoutAlign="start" fxLayout.xs="column" fxLayoutGap="3px">
+                                <span style="padding-right: 25px;"><strong>Total IGED :</strong> {{ totalesData?.totalRegistros }}</span>
+                                <span style="padding-right: 25px;"><strong>Total validado :</strong> {{ totalesData?.totalValidado }}</span>
+                                <span style="padding-right: 25px;"><strong>Total pendiente :</strong> {{ totalesData?.totalPendiente }}</span>
+                                <span style="padding-right: 25px;"><strong>Total aprobado :</strong> {{ totalesData?.totalAprobado }}</span>
+                                <span><strong>Total rechazado :</strong> {{ totalesData?.totalRechazado }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <button mat-stroked-button (click)="handleGoAscenso()"><span
+                                class="material-icons">arrow_back</span> RETORNAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

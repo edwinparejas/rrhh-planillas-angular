@@ -1,0 +1,606 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="permiteEliminar">
+                <span class="title dialog-title">Eliminar registro de postulante</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="!permiteEliminar">
+                <span class="title dialog-title">Información del registro de postulante</span>
+            </div>
+            <button type="button" mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+            <fieldset class="fieldset-border">
+                <legend>Servidor público</legend>
+                <div fxLayout="column">
+                    <fieldset class="fieldset-border" *ngIf="spublico">
+                        <legend>Datos personales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Documento</span>&nbsp;
+                                        <br />
+                                        <span>{{ spublico.tipoDocumentoIdentidad }}:
+                                            {{spublico.numeroDocumentoIdentidad}} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Primer apellido</span>
+                                        <br />
+                                        <span>{{ spublico.primerApellido }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Segundo apellido</span>
+                                        <br />
+                                        <span>{{ spublico.segundoApellido }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Nombres</span>
+                                        <br />
+                                        <span>{{ spublico.nombres }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Sexo</span>
+                                        <br />
+                                        <span>{{ spublico.generoPersona }} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset class="fieldset-border" *ngIf="plaza">
+                        <legend>Datos laborales (actual)</legend>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Código plaza</span>&nbsp;
+                                            <br />
+                                            <span>{{ plaza.codigoPlaza }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Régimen laboral</span>
+                                            <br />
+                                            <span>{{ plaza.regimenLaboral }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Cargo</span>
+                                            <br />
+                                            <span>{{ plaza.cargo }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Condición laboral</span>
+                                            <br />
+                                            <span>{{ plaza.condicionPlaza }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Situación laboral</span>
+                                            <br />
+                                            <span>{{ spublico.situacionLaboral }} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Jornada laboral</span>&nbsp;
+                                            <br />
+                                            <span>{{ plaza.jornadaLaboral }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Grupo ocupacional</span>
+                                            <br />
+                                            <span>{{ plaza.grupoOcupacional }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Categoría remunerativa</span>
+                                            <br />
+                                            <span>{{ plaza.categoriaremunerativa }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Código modular</span>
+                                            <br />
+                                            <span>{{ plaza.codigoModular }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Centro de trabajo</span>
+                                            <br />
+                                            <span>{{ plaza.centroTrabajo }} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Modalidad educativa</span>&nbsp;
+                                            <br />
+                                            <span>{{ plaza.modalidad }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Nivel educativo</span>
+                                            <br />
+                                            <span>{{ plaza.nivelEducativo }} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </fieldset>
+                </div>
+                <br />
+            </fieldset>
+            <br />
+            <mat-tab-group mat-align-tabs="start" [selectedIndex]="0" animationDuration="0ms" dynamicHeight>
+                <mat-tab label="1. Informe escalafonario">
+                    <fieldset class="fieldset-border">
+                        <legend>...</legend>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0" *ngIf="informe">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" class="ml-4" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Número de informe escalafonario</span>&nbsp;
+                                            <br />
+                                            <span>{{ informe.numeroInformeEscalafonario }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Fecha informe escalafonario</span>
+                                            <br />
+                                            <span>{{ informe.fechaInformeEscalafonario | date:'dd/MM/yyyy h:mm:ss a'}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Documento informe escalafonario</span>
+                                            <br />
+                                            <button mat-stroked-button color="primary"
+                                                (click)="handleVerDocumentoSustento()" class="ml-4"
+                                                style="margin-right: 12px"
+                                                [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                                <span class="material-icons">get_app</span>
+                                                Ver Informe escalafonario
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <fieldset class="fieldset-border" *ngIf="informe">
+                                <legend>Datos de formación académica y títulos</legend>
+                                <div class="content-table" ngClass.lt-lg="scroll-grid">
+                                    <table mat-table class="minedu-table mt-12 mb-12" #table
+                                        [dataSource]="dataSourceEstudios" [@animateStagger]="{value:'50'}">
+                                        <ng-container matColumnDef="index">
+                                            <th mat-header-cell *matHeaderCellDef>Nro</th>
+                                            <td mat-cell *matCellDef="let row; let i = index;">
+                                                <p>{{i + 1}}</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="centroEstudios">
+                                            <th mat-header-cell *matHeaderCellDef>CENTRO DE ESTUDIO</th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <p *ngIf="row.centroEstudios">{{row.centroEstudios}}</p>
+                                                <p *ngIf="!row.centroEstudios">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="especialidad">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>ESPECIALIDAD
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.especialidad">{{row.especialidad}}
+                                                </p>
+                                                <p *ngIf="!row.especialidad">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="gradoAcademico">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>GRADO ACADÉMICO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.gradoAcademico">{{row.gradoAcademico}}</p>
+                                                <p *ngIf="!row.gradoAcademico">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="grupoCarrera">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>GRUPO CARRERA
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.grupoCarrera">{{row.grupoCarrera}}</p>
+                                                <p *ngIf="!row.grupoCarrera">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="nivelEducativo">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>NIVEL EDUCATIVO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.nivelEducativo">{{row.nivelEducativo}}</p>
+                                                <p *ngIf="!row.nivelEducativo">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="situacionAcademica">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>SITUACIÓN
+                                                ACADÉMICA
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.situacionAcademica">{{row.situacionAcademica}}</p>
+                                                <p *ngIf="!row.situacionAcademica">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="titulo">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>TÍTULO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.titulo">{{row.titulo}}</p>
+                                                <p *ngIf="!row.titulo">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="anioInicio">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>AÑO INICIO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.anioInicio">{{row.anioInicio}}</p>
+                                                <p *ngIf="!row.anioInicio">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="anioFin">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>AÑO FIN
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.anioFin">{{row.anioFin}}</p>
+                                                <p *ngIf="!row.anioFin">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsEstudios;"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsEstudios;"
+                                            (click)="selectionEstudios.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, selected: selectionEstudios.isSelected(row)}"
+                                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                            [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </tr>
+                                    </table>
+                                    <div class="no-results" *ngIf="!(loadingEstudios | async)"
+                                        [style.display]="dataSourceEstudios.data.length === 0 ? '' : 'none'">
+                                        No se encontraron registros
+                                    </div>
+                                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                        *ngIf="loadingEstudios | async">
+                                        <mat-spinner diameter="50"></mat-spinner>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="fieldset-border" *ngIf="informe">
+                                <legend>Datos de méritos</legend>
+                                <div class="content-table" ngClass.lt-lg="scroll-grid">
+                                    <table mat-table class="minedu-table mt-12 mb-12" #table
+                                        [dataSource]="dataSourceMerito" [@animateStagger]="{value:'50'}">
+                                        <ng-container matColumnDef="index">
+                                            <th mat-header-cell *matHeaderCellDef>Nro</th>
+                                            <td mat-cell *matCellDef="let row; let i = index;">
+                                                <p>{{i + 1}}</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="tipoMerito">
+                                            <th mat-header-cell *matHeaderCellDef>TIPO MÉRITO</th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <p *ngIf="row.tipoMerito">{{row.tipoMerito}}</p>
+                                                <p *ngIf="!row.tipoMerito">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="merito">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>MÉRITO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.merito">{{row.merito}}
+                                                </p>
+                                                <p *ngIf="!row.merito">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="fechaMerito">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>FECHA REGISTRO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.fechaMerito">{{row.fechaMerito | date:'dd/MM/yyyy'}}</p>
+                                                <p *ngIf="!row.fechaMerito">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="instancia">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>INSTANCIA
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.instancia">{{row.instancia}}</p>
+                                                <p *ngIf="!row.instancia">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsMerito;"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsMerito;"
+                                            (click)="selectionMerito.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, selected: selectionMerito.isSelected(row)}"
+                                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                            [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </tr>
+                                    </table>
+                                    <div class="no-results" *ngIf="!(loadingMerito | async)"
+                                        [style.display]="dataSourceMerito.data.length === 0 ? '' : 'none'">
+                                        No se encontraron registros
+                                    </div>
+                                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                        *ngIf="loadingMerito | async">
+                                        <mat-spinner diameter="50"></mat-spinner>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="fieldset-border" *ngIf="informe">
+                                <legend>Datos de deméritos</legend>
+                                <div class="content-table" ngClass.lt-lg="scroll-grid">
+                                    <table mat-table class="minedu-table mt-12 mb-12" #table
+                                        [dataSource]="dataSourceSancion" [@animateStagger]="{value:'50'}">
+                                        <ng-container matColumnDef="index">
+                                            <th mat-header-cell *matHeaderCellDef>Nro</th>
+                                            <td mat-cell *matCellDef="let row; let i = index;">
+                                                <p>{{i + 1}}</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="tipoDemerito">
+                                            <th mat-header-cell *matHeaderCellDef>TIPO DEMÉRITO</th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <p *ngIf="row.tipoDemerito">{{row.tipoDemerito}}</p>
+                                                <p *ngIf="!row.tipoDemerito">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="demerito">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>DEMÉRITO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.demerito">{{row.demerito}}
+                                                </p>
+                                                <p *ngIf="!row.demerito">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="fechaInicio">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>FECHA INICIO
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.fechaInicio">{{row.fechaInicio | date:'dd/MM/yyyy'}}</p>
+                                                <p *ngIf="!row.fechaInicio">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="fechaFin">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>FECHA FIN
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                                <p *ngIf="row.fechaFin">{{row.fechaFin | date:'dd/MM/yyyy'}}</p>
+                                                <p *ngIf="!row.fechaFin">No registrado</p>
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumnsSancion;"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumnsSancion;"
+                                            (click)="selectionSancion.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, selected: selectionSancion.isSelected(row)}"
+                                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                            [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </tr>
+                                    </table>
+                                    <div class="no-results" *ngIf="!(loadingSancion | async)"
+                                        [style.display]="dataSourceSancion.data.length === 0 ? '' : 'none'">
+                                        No se encontraron registros
+                                    </div>
+                                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                        *ngIf="loadingSancion | async">
+                                        <mat-spinner diameter="50"></mat-spinner>
+                                    </div>
+                                </div>
+                                <br />
+
+                            </fieldset>
+                            <br />
+                        </div>
+                    </fieldset>
+
+                </mat-tab>
+                <mat-tab label="2. Centros de trabajo destino">
+                    <fieldset class="fieldset-border">
+                        <legend>Datos del centro de trabajo destino</legend>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0" *ngIf="centroTrabajo">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Código modular</span>&nbsp;
+                                            <br />
+                                            <span>{{ centroTrabajo.codigoCentroTrabajo }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Centro de trabajo</span>
+                                            <br />
+                                            <span>{{ centroTrabajo.centroTrabajo }} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-table" ngClass.lt-lg="scroll-grid">
+                                <table mat-table class="minedu-table mt-12 mb-12" #table [dataSource]="dataSource"
+                                    [@animateStagger]="{value:'50'}">
+                                    <ng-container matColumnDef="index">
+                                        <th mat-header-cell *matHeaderCellDef>Nro</th>
+                                        <td mat-cell *matCellDef="let row; let i = index;">
+                                            <p>{{i + 1}}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="alternativa">
+                                        <th mat-header-cell *matHeaderCellDef>ALTERNATIVA</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p *ngIf="row.alternativa">{{row.alternativa}}</p>
+                                            <p *ngIf="!row.alternativa">No registrado</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="codigoModular">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>CÓDIGO MODULAR
+                                        </th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                            <p *ngIf="row.codigoModular">{{row.codigoModular}}
+                                            </p>
+                                            <p *ngIf="!row.codigoModular">No registrado</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="centroTrabajo">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Centro Trabajo
+                                        </th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                            <p *ngIf="row.centroTrabajo">{{row.centroTrabajo}}</p>
+                                            <p *ngIf="!row.centroTrabajo">No registrado</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="tipoRotacion">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Tipo rotación
+                                        </th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                                            <p *ngIf="row.tipoRotacion">{{row.tipoRotacion}}</p>
+                                            <p *ngIf="!row.tipoRotacion">No registrado</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        (click)="selection.toggle(row)"
+                                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                        [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </tr>
+                                </table>
+                                <div class="no-results" *ngIf="!(loading | async)"
+                                    [style.display]="dataSource?.data?.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                    *ngIf="loading | async">
+                                    <mat-spinner diameter="50"></mat-spinner>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </mat-tab>
+                <mat-tab label="3. Expediente">
+                    <fieldset class="fieldset-border">
+                        <legend>Datos del expediente</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0" *ngIf="postulacion">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Número de expediente</span>&nbsp;
+                                        <br />
+                                        <span>{{ postulacion.numeroExpediente }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Fecha de expediente</span>
+                                        <br />
+                                        <span>{{ postulacion.fechaExpediente }} </span>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </fieldset>
+                </mat-tab>
+            </mat-tab-group>
+
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 pr-12" fxLayout="row" fxLayoutAlign="end center">
+        <div class="ml-4" *ngIf="permiteEliminar">
+            <minedu-button-delete [mineduForm]="form" [working]="workingRegistro" (mineduOnClick)="handleEliminar()">
+            </minedu-button-delete>
+        </div>
+
+        <button class="ml-4" type="button" mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">close</span> CERRAR
+        </button>
+    </div>
+</div>

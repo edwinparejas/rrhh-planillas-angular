@@ -1,0 +1,153 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!--
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                -->
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+
+        <div class="panel-body">
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos generales</legend>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Documento </span><br>
+                                <span class="label-normal">{{calificacion?.numeroDocumentoIdentidadCompleto}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Primer apellido </span><br>
+                                <span class="label-normal">{{calificacion?.primerApellido}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Segundo apellido</span><br>
+                                <span class="label-normal">{{calificacion?.segundoApellido}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Nombres </span><br>
+                                <span class="label-normal">{{calificacion?.nombres}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="24%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Sexo </span><br>
+                                <span class="label-normal">{{calificacion?.descripcionGenero}}</span>
+                            </div>
+                        </div>
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Grupo de inscripción </span><br>
+                                <span class="label-normal">{{calificacion?.descripcionGrupoInscripcion}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <mat-checkbox class="label-normal" [ngModel]="calificacion?.noSePresento"
+                (change)="noSePresentoChange($event)">No se presentó
+            </mat-checkbox>
+        </div>
+        <mat-tab-group dynamicHeight>
+            <mat-tab label="Resultados PUN" *ngIf="etapaResponse.codigoEtapaFase == etapaFase.FASE1">
+                <minedu-resultado-pun [data]="resultadosPun" [puntajeTotal]="calificacion?.puntajeTotal">
+                </minedu-resultado-pun>
+            </mat-tab>
+            <mat-tab label="Requisitos Ninimos">
+                <minedu-requisito-minimo #requisitoMinimoComponent [data]="requisitosMinimos"
+                    [soloLectura]="calificacion?.noSePresento === true"></minedu-requisito-minimo>
+            </mat-tab>
+            <mat-tab label="Formación Acedémica" *ngIf="calificacion?.empate == true">
+                <minedu-criterio-evaluacion #formacionAcademicaComponent [data]="formacionAcademica"
+                    puntajeTotalLabel="PUNTAJE TOTAL DE FORMACIÓN ACADÉMICA"
+                    [puntajeTotal]="calificacion?.puntajeFormacionAcademica"
+                    (calcularEvent)="calculateEvaluacionExpediente()"
+                    [soloLectura]="calificacion?.noSePresento === true">
+                </minedu-criterio-evaluacion>
+                <br>
+                <div fxLayout=" row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <label class="label" style="font-size: 14px !important;">PUNTAJE TOTAL DE LA EVALUACIÓN DE
+                            EXPEDIENTE:
+                            {{calificacion?.puntajeEvaluacionExpediente}} PUNTOS</label>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Formación Profesional" *ngIf="calificacion?.empate == true">
+                <minedu-criterio-evaluacion #formacionProfesionalComponent [data]="formacionProfesional"
+                    puntajeTotalLabel="PUNTAJE TOTAL DE FORMACIÓN PROFESIONAL"
+                    [puntajeTotal]="calificacion?.puntajeFormacionProfesional"
+                    (calcularEvent)="calculateEvaluacionExpediente()"
+                    [soloLectura]="calificacion?.noSePresento === true">
+                </minedu-criterio-evaluacion>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <label class="label" style="font-size: 14px !important;">PUNTAJE TOTAL DE LA EVALUACIÓN DE
+                            EXPEDIENTE:
+                            {{calificacion?.puntajeEvaluacionExpediente}} PUNTOS</label>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Experiencia Laboral" *ngIf="calificacion?.empate == true">
+                <minedu-criterio-evaluacion #experienciaLaboralComponent [data]="experienciaLaboral"
+                    puntajeTotalLabel="PUNTAJE TOTAL DE ESPERIENCIA LABORAL"
+                    [puntajeTotal]="calificacion?.puntajeExperienciaLaboral"
+                    (calcularEvent)="calculateEvaluacionExpediente()"
+                    [soloLectura]="calificacion?.noSePresento === true">
+                </minedu-criterio-evaluacion>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+                        <label class="label" style="font-size: 14px !important;">PUNTAJE TOTAL DE LA EVALUACIÓN DE
+                            EXPEDIENTE:
+                            {{calificacion?.puntajeEvaluacionExpediente}} PUNTOS</label>
+                    </div>
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="handleSave()"><span class="material-icons">save</span>
+            GUARDAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

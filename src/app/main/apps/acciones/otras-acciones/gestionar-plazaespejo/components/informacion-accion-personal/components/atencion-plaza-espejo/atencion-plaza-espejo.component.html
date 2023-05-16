@@ -1,0 +1,110 @@
+<div class="pt-20 pb-20 pl-10 pr-10 ">
+    <form *ngIf="form" [formGroup]="form">
+        <div fxLayout="column" fxFlexAlign="flex-start">
+            <div fxLayout="row wrap" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="1%" fxLayoutGap.xs="0">
+                <div fxFlex="24%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Fecha del Inicio</label><br />
+                        <div class="label-normal">
+                            {{actividadResolucion?.fechaInicio | date: 'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="24%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Fecha del Fin </label><br />
+                        <div class="label-normal">
+                            {{actividadResolucion?.fechaFin | date: 'dd/MM/yyyy'| noRegistrado}}
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ver && tipoCargoStr" fxFlex="24%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Tipo de Cargo </label><br />
+                        <div class="label-normal">
+                            {{tipoCargoStr}}
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ver && cargoStr" fxFlex="24%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Cargo</label><br />
+                        <div class="label-normal">
+                            {{cargoStr}}
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="ver && jornadaLaboralStr" fxFlex="24%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Jornada Laboral</label><br />
+                        <div class="label-normal">
+                            {{jornadaLaboralStr}}
+                        </div>
+                    </div>
+                </div>
+                <mat-form-field *ngIf="!ver" appearance="fill" fxFlex="24%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idTipoCargo')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoCargo')">
+                        Tipo de Cargo
+                    </mat-label>
+                    <mat-select formControlName="idTipoCargo" (selectionChange)="tipoCargoChangeEvent()">
+                        <mat-option [value]="null">--SELECCIONE--</mat-option>
+                        <mat-option *ngFor="let item of tipoCargos" [value]="item.id">
+                            {{ item.descripcion }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoCargo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="!ver" appearance="fill" fxFlex="24%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form.get('idCargo')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idCargo')">
+                        Cargo
+                    </mat-label>
+                    <mat-select formControlName="idCargo" (selectionChange)="cargoChangeEvent()">
+                        <mat-option [value]="null">--SELECCIONE--</mat-option>
+                        <mat-option *ngFor="let item of cargos" [value]="item.id">
+                            {{ item.descripcion }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idCargo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="!ver && jornadasLaborales?.length > 0" appearance="fill" fxFlex="24%"
+                    fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idJornadaLaboral')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idJornadaLaboral')">
+                        Jornada Laboral
+                    </mat-label>
+                    <mat-select formControlName="idJornadaLaboral">
+                        <mat-option [value]="null">--SELECCIONE--</mat-option>
+                        <mat-option *ngFor="let item of jornadasLaborales" [value]="item.id">
+                            {{ item.descripcion }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idJornadaLaboral')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlexAlign="flex-start">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+                <mat-form-field appearance="fill" fxFlex="100%">
+                    <mat-label>
+                        Anotaciones
+                    </mat-label>
+                    <textarea formControlName="anotaciones" matInput placeholder="Anotaciones" rows="4" uppercase
+                        maxlength="400">
+                </textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>

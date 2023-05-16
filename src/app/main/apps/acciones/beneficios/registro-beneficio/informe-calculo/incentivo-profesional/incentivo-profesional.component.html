@@ -1,0 +1,131 @@
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap"  fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" [formGroup]="form">
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('numeroInformeCalculo')" >
+                <mat-label [mineduFormRequiredLabel]="form.get('numeroInformeCalculo')">Número Informe Cálculo</mat-label>
+                    <input matInput 
+                        [disabled]="true"
+                        disabled
+                        formControlName="numeroInformeCalculo" 
+                        placeholder="Número Informe Escalafonario" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressnumeroInformeCalculo($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroInformeCalculo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <button type="button" mat-stroked-button color="primary"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    (click)="handleBuscarInformeCalculo()" 
+                    color="accent"
+                    [disabled]="true">
+                    <span class="material-icons">description</span>
+                        BUSCAR
+                    </button>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <minedu-datepicker label="Fecha de inicio"
+                    [mineduFormControl]="form.get('fechaBeneficio')"
+                    [formControl]="form.get('fechaBeneficio')"
+                    >
+                </minedu-datepicker>
+            </div>  
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo"
+                        (change)="selectConInformeCalculo()" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>                  
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%"
+                    [mineduFormFieldValidationState]="form.get('idTipoBeneficio')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoBeneficio')">
+                        Tipo Beneficio
+                    </mat-label>
+                    <mat-select formControlName="idTipoBeneficio" >
+                        <mat-option *ngFor="let item of comboLists.listTipoBeneficio" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idTipoBeneficio')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>                             
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%"
+                    [mineduFormFieldValidationState]="form.get('idCategoriaBeneficio')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idCategoriaBeneficio')">
+                        Categoría
+                    </mat-label>
+                    <mat-select formControlName="idCategoriaBeneficio" >
+                        <mat-option *ngFor="let item of comboLists.listCategoria" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idCategoriaBeneficio')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>  
+           
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Periocidad</label>
+                    <p class="form-control-static" *ngIf="form.get('periocidad').value">
+                        {{form.get('periocidad').value}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('periocidad').value">No registrado</p>
+                </div>
+            </div>   
+            
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" >
+                <mat-label [mineduFormRequiredLabel]="form.get('importeBeneficio')" >Importe del Beneficio</mat-label>
+                    <input matInput 
+                        formControlName="importeBeneficio" 
+                        placeholder="Importe del beneficio" 
+                        [maxLength]="7"
+                        (keypress)="onKeyPressImporteBeneficio($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('importeBeneficio')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>  
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    
+                </div>
+            </div>                            
+        </div>
+        
+    </div>
+</fieldset>

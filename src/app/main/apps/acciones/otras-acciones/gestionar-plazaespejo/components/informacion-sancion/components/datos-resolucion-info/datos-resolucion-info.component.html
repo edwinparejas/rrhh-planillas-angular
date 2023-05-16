@@ -1,0 +1,72 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>Datos de la Resolución</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Tipo Resolución</span>
+                <br>
+                <span class="label-normal">
+                    {{sancion?.descripcionTipoResolucion| noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Número Resolución</span>
+                <br>
+                <span class="label-normal">
+                    {{sancion?.numeroResolucion | noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Fecha de Resolución</span>
+                <br>
+                <span class="label-normal">
+                    {{sancion?.fechaResolucion | date:"dd/MM/yyyy"|
+                    noRegistrado}}
+                </span>
+            </div>
+        </div>
+        
+        <div *ngIf="sancion?.numeroProyectoResolucion as numeroProyectoResolucion" fxFlex="24.5%"
+            fxFlex.xs="100%">
+            <div>
+                <span class="label">Ver Resolución</span>
+                <br>
+                <button type="button" mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                    aria-label="Número Resolución" matTooltip="Número Resolución"
+                    (click)="verDocumento(sancion?.documentoProyectoResolucion)">
+                    <span class="material-icons">description</span>
+                </button>
+            </div>
+        </div>
+        
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Grupo de Acción</span>
+                <br>
+                <span class="label-normal">{{sancion?.grupoAccionDescripcion| noRegistrado}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Acción</span>
+                <br>
+                <span class="label-normal">{{sancion?.accionDescripcion| noRegistrado}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Motivo de Acción</span>
+                <br>
+                <span class="label-normal">{{sancion?.motivoAccionDescripcion| noRegistrado}}
+                </span>
+            </div>
+        </div>
+    </div>
+</fieldset>

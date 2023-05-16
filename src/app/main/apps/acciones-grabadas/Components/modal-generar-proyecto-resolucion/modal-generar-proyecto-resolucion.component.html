@@ -1,0 +1,430 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Generar proyecto de resoluci&oacute;n</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+            <form autocomplete="off" novalidate [formGroup]="formPri">
+                <fieldset class="fieldset-border">
+                    <legend>Acci&oacute;n de personal</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="">Mandato Judicial</label>
+                                    <p class="form-control-static"> {{ multipleMandatoJudicial }}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="">R&eacute;gimen laboral</label>
+                                    <p class="form-control-static">{{ multipleRegimen }}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="">Grupo de acci&oacute;n</label>
+                                    <p class="form-control-static"> {{ multipleGrupoAccion }}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="">Acci&oacute;n</label>
+                                    <p class="form-control-static"> {{ multipleAccion }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="">Motivo de acci&oacute;n</label>
+                                    <p class="form-control-static"> {{ multipleMotivo }}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%">
+                                    <mat-label [mineduFormRequiredLabel]="formPri.get('idTipoResolucion')">
+                                        Tipo de resoluci&oacute;n
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoResolucion">
+                                        <mat-option>--SELECCIONE--</mat-option>
+                                        <mat-option *ngFor="let item of tiposDeResolucion"
+                                            [value]="item.idCatalogoItem">
+                                            {{item.descripcionCatalogoItem}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="formPri.get('idTipoResolucion')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+
+                <mat-tab-group principal mat-align-tabs="start start">                    
+                    <mat-tab p1 label="Documento de sustento">
+                        <fieldset class="fieldset-border">
+                            <form autocomplete="off" novalidate [formGroup]="formSus">
+                                <div fxLayout="column">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                            <mat-label [mineduFormRequiredLabel]="formSus.get('idTipoDocumentoSustento')">
+                                                Tipo de documento
+                                            </mat-label>
+                                            <mat-select formControlName="idTipoDocumentoSustento">
+                                                <mat-option>--SELECCIONE--</mat-option>
+                                                <mat-option *ngFor="let item of tiposDocumentoSustento"
+                                                    [value]="item.idCatalogoItem">
+                                                    {{item.descripcionCatalogoItem}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="formSus.get('idTipoDocumentoSustento')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                            <mat-label [mineduFormRequiredLabel]="formSus.get('numeroDocumentoSustento')">
+                                                Número de documento
+                                            </mat-label>
+                                            <input matInput formControlName="numeroDocumentoSustento" uppercase
+                                                alphaNumeric [maxlength]="maximo">
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="formSus.get('numeroDocumentoSustento')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    
+                                        <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                            <mat-label>
+                                                Entidad emisora
+                                            </mat-label>
+                                            <input matInput formControlName="entidadEmisora" uppercase alphaNumeric/>
+                                        </mat-form-field> 
+
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                            <minedu-datepicker label="Fecha de emision"  appearance="fill"
+                                                [mineduFormControl]="formSus.get('fechaEmision')"
+                                                [formControl]="formSus.get('fechaEmision')"
+                                                >
+                                            </minedu-datepicker>
+                                            <!-- <mat-error>
+                                                <minedu-form-field-validation-messages [mineduFormControl]="formSus.get('fechaEmision')"></minedu-form-field-validation-messages>
+                                            </mat-error> -->
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">                   
+                                        <mat-form-field appearance="fill" fxFlex="24.3%" fxFlex.xs="100%">
+                                            <mat-label [mineduFormRequiredLabel]="formSus.get('numeroFolios')">
+                                                Folios
+                                            </mat-label>
+                                            <input matInput formControlName="numeroFolios" placeholder="Folios"
+                                            maxlength="3"
+                                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"                                
+                                            oninput="javascript: if (this.value.length > this.maxLength) this.value = parseInt(this.value.slice(0, this.maxLength)); 
+                                            else if(parseInt(this.value.slice(0, this.maxLength))==0) this.value=''; 
+                                            else this.value = parseInt(this.value.slice(0, this.maxLength));"
+                                            type="number" min="0">
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="formSus.get('numeroFolios')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                        
+                                        <mat-form-field appearance="fill" fxFlex="24.3%" fxFlex.xs="100%">
+                                            <mat-label [mineduFormRequiredLabel]="formSus.get('idTipoFormatoSustento')">
+                                                Tipo de formato
+                                            </mat-label>
+                                            <mat-select formControlName="idTipoFormatoSustento">
+                                                <mat-option>--SELECCIONE--</mat-option>
+                                                <mat-option *ngFor="let item of tiposFormatoSustento"
+                                                    [value]="item.idCatalogoItem">
+                                                    {{item.descripcionCatalogoItem}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="formSus.get('idTipoFormatoSustento')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                        
+                                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+                                            <mat-label>
+                                                Sumilla
+                                            </mat-label>
+                                            <input matInput formControlName="sumilla" uppercase alphaNumeric/>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                        <div fxLayoutAlign="start start" fxFlex="24.3%" fxFlex.xs="100%">
+                                            <minedu-single-file-input-temp [mineduFormControl]="formSus.get('adjuntarDocumento')"
+                                                appearance="fill"
+                                                inputText="Adjuntar documento o arrastre aquí"
+                                                removeButtonLabel="Eliminar documento adjunto"
+                                                noFileText="Sin documento adjunto" (mineduUpload)="handleAdjunto($event)"
+                                                style="width: 100%;">
+                                            </minedu-single-file-input-temp> 
+                                        </div>
+                                        
+                                        <mat-form-field appearance="fill" fxFlex="24.3%" fxFlex.xs="100%">
+                                            <mat-label [mineduFormRequiredLabel]="formSus.get('vistoDeProyecto')">
+                                                Mostrar en el visto del proyecto
+                                            </mat-label>
+                                            <mat-select formControlName="vistoDeProyecto" style="padding-bottom: 3px;">
+                                                <mat-option>--SELECCIONE--</mat-option>
+                                                <mat-option value=1>SI</mat-option>
+                                                <mat-option value=0>NO</mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="formSus.get('vistoDeProyecto')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>  
+                                    </div>
+                                </div>
+                            </form>
+                        </fieldset>
+                        <br>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end end" fxFlex>
+                                <div mat-dialog-actions class="ml-12" fxLayout="row">
+                                    <button type="button" mat-raised-button color="primary"
+                                        (click)="agregarSustentoAGrillaTemporal()"
+                                        style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+                                        <span class="material-icons">add_circle_outline</span> AGREGAR
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <span class="minedu-note"></span>
+                        </div>
+                        <br>
+                        <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                            <table class="minedu-table" role="grid">
+                                <thead role="rowgroup">
+                                    <tr class="mat-header-row cdk-header-row ng-tns-c388-15 ng-star-inserted">
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 3%">N</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 20%">Tipo de documento</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 20%">N&uacute;mero de documento</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 10%">Fecha de emisi&oacute;n</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 20%">Tipo de formato</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 5%">Folios</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 10%">Fecha de registro</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 15%">Mostrar en el Visto del Proyecto </th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 15%">Acciones</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody role="rowgroup">
+                                    <tr *ngFor="let item of ELEMENTOS_TEMP_DATAGRID; index as i"
+                                        class="mat-row cdk-row ng-tns-c386-4 ng-trigger ng-trigger-animate ng-star-inserted">
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{i+1}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.tipoDocumentoSustento}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.numeroDocumentoSustento}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.fechaEmision | date: 'dd/MM/yyyy'}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.tipoFormatoSustento}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.numeroFolios}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.fechaCreacion | date: 'dd/MM/yyyy'}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.vistoProyectoDes}}</td>
+
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">
+                                            <div fxLayout="row" fxLayoutAlign="start center">
+                                                <div class="mat-icon-table ng-tns-c386-4" >
+                                                    <button mat-stroked-button color="primary"
+                                                        class="sidebar-toggle btn-sm"
+                                                        (click)="handleMostrarDatos(item)"
+                                                        aria-label="Ver información"
+                                                        matTooltip="Ver información">
+                                                        <mat-icon class="">info</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table ng-tns-c386-4">
+                                                    <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm"
+                                                        (click)="quitarElimentoDeGrillaTemporal(i)" aria-label="Eliminar"
+                                                        matTooltip="Eliminar">
+                                                        <mat-icon class="">delete_forever</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table ng-tns-c386-4" *ngIf="item.archivoSustento">
+                                                    <button mat-stroked-button color="primary"
+                                                        class="sidebar-toggle btn-sm"
+                                                        (click)="handleMostrar(item.archivoSustento)"
+                                                        aria-label="Ver documento adjunto"
+                                                        matTooltip="Ver documento adjunto">
+                                                        <mat-icon class="">picture_as_pdf</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="(this.ELEMENTOS_TEMP_DATAGRID.length==0)">
+                                <div class="no-results">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                            <span>(*) Datos Obligatorios</span>
+                        </div>
+                    </mat-tab>
+                    
+                    <mat-tab p2 label="Considerandos del proyecto">
+                        <fieldset class="fieldset-border">
+                            <form autocomplete="off" novalidate [formGroup]="formCons">
+                                <div fxLayout="column">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex>
+
+                                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <div class="form-group">
+                                                <label for="">Sección</label>
+                                                <p class="form-control-static">{{ seccion }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <div class="form-group">
+                                                <label for="">Tipo Sección</label>
+                                                <p class="form-control-static">{{ tipoSeccion }}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%">
+                                                    <mat-label [mineduFormRequiredLabel]="formCons.get('considerando')">
+                                                        Considerando (*)
+                                                    </mat-label>
+                                                    <textarea matInput formControlName="considerando"
+                                                        placeholder="Considerando" rows="5" maxlength="500"
+                                                        uppercase alphaNumeric>
+                                                    </textarea>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="formCons.get('considerando')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </fieldset>
+                        <br>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end end" fxFlex>
+                                <div mat-dialog-actions class="ml-12" fxLayout="row">
+                                    <button type="button" mat-raised-button color="primary"
+                                        (click)="agregarConsiderandoAGrillaTemporal()"
+                                        style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+                                        <span class="material-icons">add_circle_outline</span> AGREGAR CONSIDERANDO
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <span class="minedu-note"></span>
+                        </div>
+                        <br>
+                        <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                            <table class="minedu-table" role="grid">
+                                <thead role="rowgroup">
+                                    <tr class="mat-header-row cdk-header-row ng-tns-c388-15 ng-star-inserted">
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 3%">N</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 15%">Seccion</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 15%">Tipo seccion</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 60%">Considerando</th>
+                                        <th class="mat-header-cell cdk-header-cell ng-tns-c386-4 ng-star-inserted" style="width: 10%">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody role="rowgroup">
+                                    <tr *ngFor="let item of CONSIDERANDO_TEMP_DATAGRID; index as i"
+                                    class="mat-row cdk-row ng-tns-c386-4 ng-trigger ng-trigger-animate ng-star-inserted">
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{i+1}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.seccion}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.tipoSeccion}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">{{item.considerando}}</td>
+                                        <td class="mat-cell cdk-cell ng-tns-c386-4 ng-star-inserted">
+                                            <div fxLayout="row" fxLayoutAlign="start center">
+                                                <div class="mat-icon-table ng-tns-c386-4">
+                                                    <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm"
+                                                        (click)="quitarElimentoConsiderandoDeGrillaTemporal(i)"
+                                                        aria-label="Eliminar" matTooltip="Eliminar">
+                                                        <mat-icon class="">delete_forever</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="(this.ELEMENTOS_TEMP_DATAGRID.length==0)">
+                                <div class="no-results">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                            <span>(*) Datos Obligatorios</span>
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+            </form>
+
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="panel-footer m-0 pr-12" fxLayout="row" fxLayoutAlign="end center">
+        <button type="button" mat-raised-button color="primary"
+            (click)="guardarDocumentoSustentoYGenerarProyectoResolucion()"
+            style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+            <span class="material-icons">save</span> GENERAR PROYECTO
+        </button>
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">cancel</span> CANCELAR
+        </button>
+    </div>
+
+</div>

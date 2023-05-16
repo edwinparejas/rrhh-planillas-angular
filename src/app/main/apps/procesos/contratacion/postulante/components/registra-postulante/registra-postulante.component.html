@@ -1,0 +1,609 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!--
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                -->
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <mat-tab-group>
+            <mat-tab label="Datos personales">
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <br>
+                        <fieldset class="fieldset-border mt-0 mb-12">
+                            <legend>Datos personales</legend>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                            Tipo de
+                                            documento
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoDocumentoIdentidad"
+                                            (selectionChange)="selectTipoDocumento($event.value)">
+                                            <mat-option *ngFor="let item of comboLists.listTipoDocumento"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                            Número de
+                                            documento</mat-label>
+                                        <input matInput formControlName="numeroDocumentoIdentidad"
+                                            placeholder="Número de documento" (keyup.enter)="buscarPersona()"
+                                            (keypress)="maxLengthnumeroDocumentoIdentidad==8? validaNumericos($event):true"
+                                            [maxlength]="maxLengthnumeroDocumentoIdentidad">
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPersonalizada()">
+                                            search
+                                        </mat-icon>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Fecha nacimiento</span><br>
+                                            <span class="label-normal">{{persona?.fechaNacimiento}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Sexo </span><br>
+                                            <span class="label-normal">{{persona?.descripcionGenero}}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">primer apellido </span><br>
+                                            <span class="label-normal">{{persona?.primerApellido}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Segundo apellido</span><br>
+                                            <span class="label-normal">{{persona?.segundoApellido}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Nombres </span><br>
+                                            <span class="label-normal">{{persona?.nombres}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Nacionalidad </span><br>
+                                            <span class="label-normal">{{persona?.descripcionNacionalidad}}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border mt-0 mb-12">
+                            <legend>Datos domicilio</legend>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="32.5%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoVia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoVia')">
+                                            Tipo vía
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoVia">
+                                            <mat-option *ngFor="let item of comboLists.listTipoVia"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoVia')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="67.5%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('nombreVia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('nombreVia')">Nombre vía
+                                        </mat-label>
+                                        <input matInput formControlName="nombreVia" placeholder="Nombre vía"
+                                            maxlength="100">
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('nombreVia')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="33.33%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroVia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroVia')">Número
+                                        </mat-label>
+                                        <input matInput formControlName="numeroVia" placeholder="Número" maxlength="5"
+                                            type="number">
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroVia')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoZona')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoZona')">
+                                            Tipo de zona
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoZona">
+                                            <mat-option *ngFor="let item of comboLists.listTipoZona"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoZona')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="33.33%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('nombreZona')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('nombreZona')">Nombre de zona
+                                        </mat-label>
+                                        <input matInput formControlName="nombreZona" placeholder="Nombre de zona"
+                                            maxlength="100">
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('nombreZona')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idDepartamento')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idDepartamento')">
+                                            Departamento
+                                        </mat-label>
+                                        <mat-select formControlName="idDepartamento"
+                                            (ngModelChange)="loadProvincia($event)">
+                                            <mat-option *ngFor="let item of comboLists.listDepartamento"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idDepartamento')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idProvincia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idProvincia')">
+                                            Provincia
+                                        </mat-label>
+                                        <mat-select formControlName="idProvincia" (ngModelChange)="loadDistrito()">
+                                            <mat-option *ngFor="let item of comboLists.listProvincia"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idProvincia')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idDistrito')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idDistrito')">
+                                            Distrito
+                                        </mat-label>
+                                        <mat-select formControlName="idDistrito">
+                                            <mat-option *ngFor="let item of comboLists.listDistrito"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idDistrito')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset class="fieldset-border mt-0 mb-12">
+                            <legend>Datos de contacto</legend>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="33.33%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('telefonoMovil')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('telefonoMovil')">Celular
+                                        </mat-label>
+                                        <input matInput formControlName="telefonoMovil" placeholder="Celular"
+                                            maxlength="10"
+                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('telefonoMovil')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="33.33%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('telefonoFijo')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('telefonoFijo')">Teléfono fijo
+                                        </mat-label>
+                                        <input matInput formControlName="telefonoFijo" placeholder="Teléfono fijo"
+                                            maxlength="10"
+                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('telefonoFijo')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="color: red;">(*) Datos obligatorios </span><br>
+                                        <span> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab label="Formación académica">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Formación académica</legend>
+                    <minedu-formacion-academica [data]="formacionesAcademica" [soloLectura]="false">
+                    </minedu-formacion-academica>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Capacitaciones">
+                <br>
+                <fieldset class="fieldset-border mt-0 mb-12">
+                    <legend>Capacitaciones</legend>
+                    <minedu-capacitaciones [data]="capacitaciones" [soloLectura]="false"></minedu-capacitaciones>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Experiencia laboral">
+                <br>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <fieldset class="fieldset-border mt-0 mb-12">
+                            <legend>Experiencia laboral</legend>
+                            <minedu-experiencia-laboral [data]="experienciasLaborales" [soloLectura]="false">
+                            </minedu-experiencia-laboral>
+                        </fieldset>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                    <!--
+                                    <div>
+                                        <span>Experiencia general: </span>
+                                        <span>{{experienciaLaboralCalc?.totalAnioGeneral}} Año(s),</span>
+                                        <span>{{experienciaLaboralCalc?.totalmesGeneral}} mese(s) y </span>
+                                        <span>{{experienciaLaboralCalc?.diasRestanteGeneral}} día(s) </span>
+                                        <br />
+                                        <span>Experiencia específica: </span>
+                                        <span>{{experienciaLaboralCalc?.totalAnioEspecifico}} Año(s),</span>
+                                        <span>{{experienciaLaboralCalc?.totalmesEspecifico}} mese(s) y </span>
+                                        <span>{{experienciaLaboralCalc?.diasRestanteEspecifico}} día(s) </span>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab label="Datos de la plaza a postular">
+                <br>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <fieldset
+                            *ngIf="etapaResponse?.codigoRegimenLaboral === regimenLaboral.LEY_30328 && 
+                        (etapaResponse?.codigoEtapaFase === etapaFaseEnum.FASE2 || etapaResponse?.codigoEtapaFase === etapaFaseEnum.FASE3)"
+                            class="fieldset-border mt-0 mb-12">
+                            <legend>Datos laborales</legend>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idCargo')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idCargo')">
+                                            Cargo
+                                        </mat-label>
+                                        <mat-select formControlName="idCargo">
+                                            <mat-option *ngFor="let item of comboLists.listCargo" [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idCargo')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idModalidadEducativa')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idModalidadEducativa')">
+                                            Modalidad
+                                        </mat-label>
+                                        <mat-select formControlName="idModalidadEducativa"
+                                            (ngModelChange)="loadNivelEducativa($event)">
+                                            <mat-option *ngFor="let item of comboLists.listModalidadEducativa"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idModalidadEducativa')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idNivelEducativo')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idNivelEducativo')">
+                                            Nivel educativo
+                                        </mat-label>
+                                        <mat-select formControlName="idNivelEducativo">
+                                            <mat-option *ngFor="let item of comboLists.listNivelEducativo"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idNivelEducativo')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idAreaCurricular')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idAreaCurricular')">
+                                            Área curricular
+                                        </mat-label>
+                                        <mat-select formControlName="idAreaCurricular">
+                                            <mat-option *ngFor="let item of comboLists.listAreaCurricular"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idAreaCurricular')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset *ngIf="etapaResponse?.codigoRegimenLaboral === regimenLaboral.LEY_30512"
+                            class="fieldset-border mt-0 mb-12">
+                            <legend>Datos de plaza</legend>
+
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                            Código de plaza</mat-label>
+                                        <input matInput formControlName="codigoPlaza" placeholder="Código de plaza"
+                                            maxlength="8" (ngModelChange)="limpiarBusquedaPlaza()"
+                                            (keyup.enter)="buscarPlaza()"
+                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                            search
+                                        </mat-icon>
+                                    </mat-form-field>
+
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Régimen laboral</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.descripcionRegimenLaboral}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Centro de trabajo</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.codigoCentroTrabajo}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Cargo</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.descripcionCargo}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Nivel educativo</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.descripcionNivelEducativo}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Jornada laboral</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.jornadaLaboral}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Motivo de vacancia</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.descripcionMotivoVacancia}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Tipo plaza</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.descripcionTipoPlaza}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Grupo renumerativo</span>
+                                            <br>
+                                            <span class="label-normal">{{plaza?.descripcionGrupoInscripcion}}</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab label="Otros">
+                <br>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <fieldset class="fieldset-border mt-0 mb-12">
+                            <legend>Otros datos</legend>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-form-field appearance="fill" fxFlex="33.33%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroRuc')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroRuc')">R.U.C. (Solo D.L.
+                                            1057)
+                                        </mat-label>
+                                        <input matInput formControlName="numeroRuc"
+                                            placeholder="R.U.C. (Solo D.L. 1057)" maxlength="11"
+                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idColegioProfesional')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idColegioProfesional')">
+                                            Colegio profesional
+                                        </mat-label>
+                                        <mat-select formControlName="idColegioProfesional">
+                                            <mat-option value="-1"></mat-option>
+                                            <mat-option *ngFor="let item of comboLists.listColegioProfesional"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="33.33%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroColegioProfesional')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroColegioProfesional')">
+                                            Número de
+                                            colegiatura
+                                        </mat-label>
+                                        <input matInput formControlName="numeroColegioProfesional"
+                                            placeholder="Número de colegiatura" maxlength="20">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border mt-0 mb-12">
+                            <legend>Documentos de sustento</legend>
+                            <minedu-documentos-sustento [data]="documentosSustento" [soloLectura]="false"
+                                [listTiposSustento]="comboLists.listTiposSustento"
+                                [listTiposTipoFormato]="comboLists.listTiposFormato" [sustentoObligatorio]="false">
+                            </minedu-documentos-sustento>
+                        </fieldset>
+                    </form>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="handleSave(form)"><span class="material-icons">save</span>
+            GUARDAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

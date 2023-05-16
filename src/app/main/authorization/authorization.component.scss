@@ -1,0 +1,134 @@
+@import "@minedu/scss/minedu";
+minedu-authorization {
+    #authorization {
+        width: 100%;
+        color: #575655;
+        /*background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;*/
+        -webkit-box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+        background-size: cover;
+        .header {
+            padding: 15px;
+        }
+        #authorization-form-wrapper {
+            flex: 1 0 auto;
+            padding: 32px;
+            @include media-breakpoint('xs') {
+                padding: 16px;
+            }
+            .title {
+                font-family: "Gotham-Bold", Helvetica, Arial, sans-serif;
+                font-size: 46px;
+                letter-spacing: 2px;
+                margin-bottom: 0;
+                line-height: 1.1;
+            }
+            .sub-title {
+                font-family: "Gotham-Book", Helvetica, Arial, sans-serif;
+                font-size: 10px;
+                margin-top: 0;
+                margin-bottom: 15px;
+                text-align: center;
+                line-height: 1.2;
+            }
+            #authorization-form {
+                background-color: #ffffff;
+                max-width: 400px;
+                padding: 25px 25px;
+                margin: 0 auto;
+                border-radius: 4px;
+                text-align: center;
+                @include mat-elevation(16);
+                @include media-breakpoint('xs') {
+                    padding: 24px;
+                    width: 100%;
+                }
+                .logo {
+                    width: 128px;
+                    margin: 32px auto;
+                }
+                form {
+                    width: 100%;
+                    text-align: left;
+                    mat-form-field {
+                        width: 100%;
+                    }
+                    mat-checkbox {
+                        margin: 0;
+                    }
+                    .remember-forgot-password {
+                        font-size: 13px;
+                        margin-top: 8px;
+                        .remember-me {
+                            margin-bottom: 16px
+                        }
+                        .forgot-password {
+                            font-size: 13px;
+                            font-weight: 600;
+                            margin-bottom: 16px;
+                            color: #0056b3;
+                        }
+                    }
+                    .submit-button {
+                        width: 100%;
+                        margin: 0;
+                        display: block;
+                        text-transform: uppercase;
+                        font-weight: normal;
+                        @include media-breakpoint('xs') {
+                            width: 90%;
+                        }
+                    }
+                    .mat-form-field-infix {
+                        margin-left: 10px;
+                    }
+                }
+                .small {
+                    font-size: 85%;
+                    font-weight: 400;
+                    padding-bottom: 10px;
+                    .text {
+                        margin-right: 8px;
+                        .text-icon {
+                            font-size: inherit;
+                        }
+                    }
+                }
+                .separator {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    border: 0;
+                    border-top-color: currentcolor;
+                    border-top-style: none;
+                    border-top-width: 0px;
+                    border-top: 1px solid #d5d5d5;
+                }
+                button {
+                    background-color: #0073b7;
+                    width: 192px;
+                    text-transform: none;
+                    color: #FFFFFF;
+                    font-size: 13px;
+                    @include media-breakpoint('xs') {
+                        width: 80%;
+                    }
+                }
+                .mat-icon {
+                    height: auto;
+                    width: auto;
+                    min-width: 20px;
+                    min-height: auto;
+                }
+            }
+        }
+        .footer {
+            width: 100%;
+            height: 50px;
+            .text-muted {
+                color: #575655 !important;
+                margin: 16px 0;
+                font-size: 12px !important;
+            }
+        }
+    }
+}

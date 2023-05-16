@@ -1,0 +1,38 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+
+.Minedu-informacion-plaza-dialog{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width:800px;
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+
+    .p1{
+        margin-top: 5px;
+    }
+    
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+}

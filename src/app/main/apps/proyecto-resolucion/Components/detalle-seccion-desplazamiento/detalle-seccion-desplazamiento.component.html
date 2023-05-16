@@ -1,0 +1,12 @@
+<div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="column" fxFlex="100%">
+        <div *ngFor="let columns of sectionRows;let x = index" fxLayout="row wrap" fxLayoutGap=".5%">
+            <div *ngFor="let row of columns;let y = index" [fxFlex]="y==1?'1%':'32.5%'">
+                <span [ngStyle]="{'font-weight': row.style}">
+                    {{row.value}}
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,115 @@
+@import "../../../../../../../../@minedu/scss/minedu.scss";
+@import "../../../../../../../../@minedu/scss/comun.scss";
+
+minedu-pronoei-bandeja-grid{
+    .campo-estado {
+        text-align: left;
+        width: 100%;
+        // border-radius: 5px;
+    }
+
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336 !important;
+        background-color: #fff;
+    }
+
+    .content-table {
+        overflow-x: auto;
+    }
+    .no-results {
+        width:125%;
+    }
+
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        -webkit-overflow-scrolling: touch;
+        width:125%;
+
+        .mat-icon-table{
+            margin-right: 5px;
+        }
+        .mat-column-indice {
+            flex: 0 1 15px;
+            width: 15px;
+        }        
+        .mat-column-accion {
+            flex: 0 1 250px;
+            justify-content: start;
+            width: 250px;
+        }
+        .mat-column-documento {
+            flex: 0 1 250px;
+            justify-content: start;
+            width: 250px;              
+        }
+    
+        .mat-column-apellidos_nombres {
+            flex: 0 1 250px;
+            justify-content: start;
+            width: 250px;
+        }
+        .mat-column-codigo_modular {
+            flex: 0 1 130px;
+            justify-content: center;
+            width: 130px;
+        }
+        .mat-column-centro_trabajo {
+            flex: 0 1 250px;
+            justify-content: start;
+            width: 250px;
+        }
+        
+        .mat-column-zona {
+            flex: 0 1 100px;
+            justify-content: start;
+            width: 100px;
+        }
+        .mat-column-fecha_inicio {
+            flex: 0 1 120px;
+            justify-content: center;
+            width: 120px;
+        }
+        .mat-column-fecha_fin {
+            flex: 0 1 120px;
+            justify-content: center;
+            width: 120px;
+        }
+
+        .mat-column-estado {
+            flex: 0 1 200px;
+            justify-content: start;
+            width: 200px;
+        }
+        .mat-column-situacion_resolucion {
+            flex: 0 1 200px;
+            justify-content: start;
+            width: 200px;
+        }
+        .mat-column-acciones {
+            flex: 0 1 150px;   
+            width: 150px;  
+        }  
+        .mat-cell, 
+        .mat-footer-cell {
+            padding: 0 10px;
+        }
+        .mat-cell:not(:last-child){
+            border-right: 1px solid #ddd
+        }
+        .mat-cell:first-child{
+            border-left: 0px solid #ddd;
+            border-top: 0px solid #ddd;
+            border-bottom: 0px solid #ddd;
+        }  
+        .mat-header-cell:first-child{
+            border-left: 0px solid #ddd;
+            border-top: 0px solid #ddd;
+            border-bottom: 0px solid #ddd;
+        }   
+         
+    }
+        .mat-paginator-container {
+            place-content: center;
+        }  
+    }

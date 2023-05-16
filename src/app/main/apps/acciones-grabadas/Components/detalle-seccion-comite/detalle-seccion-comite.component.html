@@ -1,0 +1,17 @@
+<fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+    <legend>Detalle del comité</legend>
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0" style="padding-bottom: 5px;">                
+        <div appearance="fill" fxFlex="100%" fxFlex.xs="100%">
+            <table>
+                <tbody class="tamaniotexto">
+                    <tr *ngFor="let detalle of dataTable;let i = index">
+                        <td [ngStyle]="{'font-weight':data.bold == 1 ? 'bold' : 'normal' }"
+                        *ngFor="let data of detalle.dataObject">
+                            {{ data.valorCampo }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</fieldset>

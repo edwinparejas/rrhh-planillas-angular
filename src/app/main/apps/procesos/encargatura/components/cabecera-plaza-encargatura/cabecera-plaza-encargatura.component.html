@@ -1,0 +1,88 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutGap="5px">
+        <div class="pl-6" fxLayout="row">
+            <span><strong>Validación de Plazas: </strong></span>
+        </div>
+        <ng-container [ngSwitch]="true">
+            <ng-container *ngSwitchCase="plazaEncargatura?.codigoEstadoValidacionPlaza === EstadoValidacionPlazaEnum.Pendiente">
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4 orange-600 whiteText">
+                        <span> {{ plazaEncargatura?.descripcionEstadoValidacionPlaza }} </span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="plazaEncargatura?.codigoEstadoValidacionPlaza === EstadoValidacionPlazaEnum.Publicado">
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4 blue-600 whiteText">
+                        <span> {{ plazaEncargatura?.descripcionEstadoValidacionPlaza }} </span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="plazaEncargatura?.codigoEstadoValidacionPlaza === EstadoValidacionPlazaEnum.Aperturado">
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4 black-600 whiteText">
+                        <span> {{ plazaEncargatura?.descripcionEstadoValidacionPlaza }} </span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="plazaEncargatura?.codigoEstadoValidacionPlaza === EstadoValidacionPlazaEnum.Aprobado">
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4 green-600 whiteText">
+                        <span> {{ plazaEncargatura?.descripcionEstadoValidacionPlaza }} </span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="plazaEncargatura?.codigoEstadoValidacionPlaza === EstadoValidacionPlazaEnum.Rechazado">
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4 red-600 whiteText">
+                        <span> {{ plazaEncargatura?.descripcionEstadoValidacionPlaza }} </span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="plazaEncargatura?.codigoEstadoValidacionPlaza === EstadoValidacionPlazaEnum.Validado">
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4 blue-600 whiteText">
+                        <span> {{ plazaEncargatura?.descripcionEstadoValidacionPlaza }} </span>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                <div class="pl-6" fxLayout="row">
+                    <div class="campo-estado p-4">
+                        <span>  {{plazaEncargatura?.descripcionEstadoValidacionPlaza}} </span>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <div class="pl-6" fxLayout="row" *ngIf="visibleVerMotivoRechazo">
+            <button mat-raised-button color="primary" class="btn-sm" matTooltip="Ver motivo de rechazo" (click)="handleVerMotivoRechazo()">
+                <mat-icon>remove_red_eye</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="5px">
+        <div class="pl-6" fxLayout="row" *ngIf="visibleFinalizarValidacionPlazas">
+            <button mat-raised-button color="primary" (click)="handleFinalizarValidacionPlazas()">
+                <mat-icon>check</mat-icon> Finalizar Validación de plazas
+            </button>
+        </div>
+        <div class="pl-6" fxLayout="row" *ngIf="visiblePlazasPendienteAprobacion">
+            <span><strong> PLAZAS PENDIENTE DE APROBACIÓN</strong></span>
+        </div>
+        <div class="pl-6" fxLayout="row" *ngIf="visiblePlazasPublicadas">
+            <button mat-stroked-button color="primary" (click)="handleVerPlazasPublicadas()">
+                <mat-icon>picture_as_pdf</mat-icon> Ver plazas publicadas
+            </button>
+        </div>
+        <div class="pl-6" fxLayout="row" *ngIf="visiblePublicarPlazas">
+            <button mat-raised-button color="primary" (click)="handlePublicarPlaza()">
+                <mat-icon>public</mat-icon> Publicar plazas
+            </button>
+        </div>
+        <div class="pl-6" fxLayout="row" *ngIf="visibleAperturarPlazas">
+            <button mat-raised-button color="primary" (click)="handleAperturar()">
+                <mat-icon>restore</mat-icon> Aperturar publicación plazas
+            </button>
+        </div>
+    </div>
+</div>

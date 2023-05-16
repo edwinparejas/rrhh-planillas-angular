@@ -1,0 +1,671 @@
+<div *ngIf="getControlValue(plazaOrigenForm,'tipoPlaza') || getControlValue(plazaDestinoForm,'tipoPlaza')">
+    <!-- Inicio Datos Origen y Destino -->
+    <div style="text-align:center; color:#0073b7">
+        <h2>{{getControlValue(parentForm.get('adjudicacionPersona'),'mensaje')}}</h2>
+    </div>
+    <div fxLayoutGap="12px" fxLayoutAlign="center"
+        *ngIf="idAccion === ASCENSOESCALAMAGISTERIAL || idAccion === UBICACIONESCALAMAGISTERIAL">
+        <fieldset class="fieldset-border mb-3" fxFlex="100%" fxLayoutGap=".5%">
+            <legend>DATOS ORIGEN</legend>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Codigo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'codigoPlazaOrigen')}} </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'tipoPlaza')}} </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Centro de Trabajo</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'institucionEducativa')}}
+                        </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Regimen Laboral</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'regimenLaboral')}} </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Condicion Laboral</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'condicionLaboral')}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Jornada Laboral</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'jornadaLaboral')}} </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Categoria Remunerativa</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'categoriaRemunerativa')}}
+                        </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Cargo</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'tipoCargo')}} </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Modalidad</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'modalidadEducativa')}}
+                        </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Nivel Educativo</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'nivelEducativo')}} </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Area Curricular</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'areaCurricular')}} </span>
+
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Cargo</span>
+                        <br>
+                        <span class="label-normal">{{getControlValue(plazaOrigenForm,'cargo')}} </span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div fxLayoutGap="12px" fxLayoutAlign="center"
+        *ngIf="idAccion !== ASCENSOESCALAMAGISTERIAL && idAccion !== UBICACIONESCALAMAGISTERIAL">
+        <fieldset class="fieldset-border mb-3" fxFlex="20%" fxLayoutGap="12px" style="border: 0px !important;">
+            <br>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Codigo de Plaza</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span *ngIf="idAccion !== PERMUTA" class="label" style="margin-top: 9px !important;">
+                            Tipo de Plaza
+                        </span>
+                        <span *ngIf="idAccion === PERMUTA" class="label">
+                            Tipo de Plaza
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Centro de Trabajo</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Regimen Laboral</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Condicion Laboral</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Jornada Laboral</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="idRegimenLaboral == LEY_276" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Grupo Ocupacional</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">{{categoriaRemu}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Cargo</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Modalidad</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Nivel Educativo</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Area Curricular</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Cargo</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <br>
+        <br>
+        <!-- Inicio datos origen -->
+        <fieldset class="fieldset-border mb-3" fxFlex="30%" fxLayoutGap="12px">
+            <legend>Datos de Origen</legend>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">{{getControlValue(plazaOrigenForm,'codigoPlazaOrigen')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span *ngIf="idAccion !== PERMUTA" class="label" style="margin-top: 9px !important;">
+                            {{getControlValue(plazaOrigenForm,'tipoPlaza')}}
+                        </span>
+                        <span *ngIf="idAccion === PERMUTA" class="label">
+                            {{getControlValue(plazaOrigenForm,'tipoPlaza')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'institucionEducativa')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'regimenLaboral')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'condicionLaboral')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'jornadaLaboral')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="idRegimenLaboral == LEY_276" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'grupoOcupacional')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'categoriaRemunerativa')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'tipoCargo')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'modalidadEducativa')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'nivelEducativo')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'areaCurricular')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">
+                            {{getControlValue(plazaOrigenForm,'cargo')}}
+                        </span>
+                        <br>
+                        <span class="label-normal"> </span>
+
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <br>
+        <br>
+        <!-- Fin datos origen -->
+        <!-- Inicio Datos destino -->
+        <fieldset class="fieldset-border mb-3" fxFlex="30%" fxLayoutGap="12px">
+            <legend>Datos de Destino</legend>
+            <div fxLayout="row" fxLayout.lt-md="column" *ngIf="verPlazaDestinoBuscador">
+                <div [formGroup]="parentForm.get('plazaDestino')" fxFlex.xs="100%">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Código Plaza</mat-label>
+                        <input matInput placeholder="Codigo Plaza" formControlName="codigoPlazaFiltro">
+                    </mat-form-field>
+                </div>
+                <div fxFlex.xs="100%" style="padding-left: 5px;padding-top: 5px;">
+                    <button color="primary" mat-raised-button (click)="buscarPlazaDestino()">
+                        Buscar</button>
+                </div>
+            </div>
+            <br *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido') ">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="!verPlazaDestinoBuscador">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'codigoPlazaOrigen')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'tipoPlaza')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'tipoPlaza')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'institucionEducativa')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'institucionEducativa')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'regimenLaboral')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'regimenLaboral')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'condicionLaboral')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'condicionLaboral')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'jornadaLaboral')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'jornadaLaboral')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="idRegimenLaboral == LEY_276" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'grupoOcupacional')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'grupoOcupacional')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'categoriaRemunerativa')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'categoriaRemunerativa')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'tipoCargo')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'tipoCargo')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'modalidadEducativa')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'modalidadEducativa')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'nivelEducativo')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'nivelEducativo')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span
+                            class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'areaCurricular')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'areaCurricular')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end">
+
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div *ngIf="getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(parentForm.get('adjudicacionPersona'),'cargo')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                    <div *ngIf="!getControlValue(parentForm.get('adjudicacionPersona'),'esValido')">
+                        <span class="label">{{getControlValue(plazaDestinoForm,'cargo')}}</span>
+                        <br>
+                        <span class="label-normal"> </span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <!-- Fin datos destino -->
+        <br>
+        <br>
+        <br>
+    </div>
+    <!-- FIn datos Inicio destino -->
+</div>

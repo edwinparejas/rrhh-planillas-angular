@@ -1,0 +1,92 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Ver Listado de plazas</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0" style="overflow-y: auto;">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutGap="5px">
+                <div class="pl-6" fxLayout="row">
+                    <button mat-raised-button color="primary" (click)="handleRefrescar()">
+                        REFRESCAR
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="5px">
+                <div class="pl-6" fxLayout="row">
+                    <button mat-raised-button color="primary" (click)="handleGenerarPlazas()">
+                        GENERAR PLAZAS EN PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div fxLayout="row">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{ value: '50' }"
+                style="width: 100%">
+                <ng-container matColumnDef="rowNum">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label"></span>
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                            [disabled]="disabledCheck(row)" >
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaPublicacion">
+                    <mat-header-cell *matHeaderCellDef>Fecha de publicación</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        {{row.fechaPublicacion | date: 'dd/MM/yyyy h:mm a'}}
+                    </mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="estado">
+                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        {{row.descripcionEstado}}
+                    </mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="acciones">
+                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <div fxLayout="row" fxFlex="100%">
+                            <button mat-stroked-button color="primary" class="btn-sm"
+                                (click)="downloadDocumentoGenerado(row)"  matTooltip="Ver plazas" 
+                                *ngIf="estadoDocumentoEnum.PDFGenerado==row.codigoEstado">
+                                <mat-icon>picture_as_pdf</mat-icon>
+                            </button>
+                            <span *ngIf="estadoDocumentoEnum.ProcesoConERROR==row.codigoEstado">
+                                {{row.mensajeError}}
+                            </span>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                No se encontraron registros
+            </div>
+        </div>
+        <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center">
+            <mat-paginator fxLayoutAlign="center center" #paginator 
+            class="mat-paginator-sticky" [length]="dataSource.dataTotal"
+            [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+            [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> CERRAR</button>
+    </mat-dialog-actions>
+</div>

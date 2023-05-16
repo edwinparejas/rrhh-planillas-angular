@@ -1,0 +1,34 @@
+@import "@minedu/scss/minedu";
+:host {
+    width: 100%;
+}
+
+minedu-atender-solicitud {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    h3,
+    .h3 {
+        font-size: 16px;
+    }
+    .sidebar {
+        &:not(.locked-open) {
+            background: white;
+        }
+    }
+    .center {
+        .content-card {
+            @include media-breakpoint(xs) {
+                &.current-selected {
+                    .toolbar {
+                        padding-left: 16px !important;
+                    }
+                    .content {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

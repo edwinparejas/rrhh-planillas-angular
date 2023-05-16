@@ -1,0 +1,61 @@
+<div fxLayout="row wrap" fxFlex="100%" fxLayoutGap="1%">
+
+    <fieldset fxLayout.lt-md="column" fxFlex="19%" class="fieldset-border mb-3 pt-3" style="border: 0px !important;">
+        <legend>&nbsp;</legend>
+        <div class="label item-label-row">Codigo de Plaza</div>
+        <div class="label item-label-row">Tipo de Plaza</div>
+        <div class="label item-label-row">Centro de Trabajo</div>
+        <div class="label item-label-row">Régimen Laboral</div>
+        <div class="label item-label-row">Condición Laboral</div>
+        <div class="label item-label-row">Jornada Laboral</div>
+        <div class="label item-label-row">{{categoriaRemu}}</div>
+        <div class="label item-label-row">Tipo Servidor</div>
+        <div class="label item-label-row">Modalidad</div>
+        <div class="label item-label-row">Nivel Educativo</div>
+        <div class="label item-label-row">Area Curricular</div>
+        <div class="label item-label-row">Cargo</div>
+    </fieldset>
+
+    <fieldset class="fieldset-border mb-3" fxLayout.lt-md="column"
+        [fxFlex]="accionPersonal?.datosAccion?.codigoAccion !== ASCENSOESCALAMAGISTERIAL?'39%':'100%'">
+        <legend>Datos Origen</legend>
+        <div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.codigoPlaza | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.tipoPlaza | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.centroTrabajo | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.regimenLaborar | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.servidorPublicoOrigen?.descripcionCondicionLaboral|
+                noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.jornadaLaboral| noRegistrado}} </div>
+
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.categoriaRemunerativa| noRegistrado}}</div>
+
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.tipoCargo| noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.modalidadEducativa| noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.nivelEducativo| noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.areaCurricular | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.cargo| noRegistrado}} </div>
+        </div>
+    </fieldset>
+
+    <fieldset *ngIf="accionPersonal?.datosAccion?.codigoAccion !== ASCENSOESCALAMAGISTERIAL"
+        class="fieldset-border mb-3" fxLayout.lt-md="column" fxFlex="39%">
+        <legend>Datos Destino</legend>
+        <div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.codigoPlaza | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.tipoPlaza | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.centroTrabajo | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.regimenLaborar | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.servidorPublicoDestino?.descripcionCondicionLaboral|
+                noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.jornadaLaboral| noRegistrado}} </div>
+
+            <div class="item-label-row">{{accionPersonal?.plazaOrigen?.categoriaRemunerativa| noRegistrado}}</div>
+
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.tipoCargo| noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.modalidadEducativa| noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.nivelEducativo| noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.areaCurricular | noRegistrado}} </div>
+            <div class="item-label-row">{{accionPersonal?.plazaDestino?.cargo| noRegistrado}} </div>
+        </div>
+    </fieldset>

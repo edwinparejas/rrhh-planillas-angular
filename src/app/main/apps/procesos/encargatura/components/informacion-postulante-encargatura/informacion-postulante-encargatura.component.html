@@ -1,0 +1,272 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Información Completa del Postulante</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <minedu-datos-postulante-encargatura [idPostulacion]="idPostulacion"></minedu-datos-postulante-encargatura>
+        <div fxLayout="row" class="mt-2">
+            <mat-checkbox [checked]="true" [disabled]="true">Según norma técnica vigente, se ha verificado que la persona no cuenta con impedimento para ser postulante.</mat-checkbox>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="1. Datos de Postulación">
+                <div class="content">
+                    <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+                        <legend>Datos del Expediente</legend>
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Número de Expediete</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.numeroExpediente }}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="20%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Fecha de Expediente</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.fechaExpediente | date:'dd/MM/yyyy'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </mat-tab>
+            <mat-tab label="2. Plaza a postular" *ngIf="codigoEtapa != etapaEnum.RatificacionCargo">
+                <div class="content">
+                    <div fxLayout="column">
+                    <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+                        <legend>Titulo </legend>
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                            <div fxFlex="30%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Titulo</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.titulo || "NO REGISTRADO"}}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="35%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Fecha de expedición del titulo</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.fechaExpedicionTitulo | date:'dd/MM/yyyy'  || "NO REGISTRADO"}}</span>
+                                </div>
+                            </div>
+                            <div fxFlex="35%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Fecha de registro de titulo</span>
+                                    <br>
+                                    <span class="label-normal">{{ datosPostulanteEncargatura?.fechaRegistroTitulo | date:'dd/MM/yyyy'  || "NO REGISTRADO"}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>         
+                    <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+                        <legend>Plaza a postular</legend>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código de plaza</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.codigoPlaza  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Régimen laboral</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionRegimenLaboral  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Cargo</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionCargo  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Jornada laboral</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionJornadaLaboral  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Especialidad</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionEspecialidad  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de plaza</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionTipoPlaza  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Vigencia Inicio</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.plazaVigenciaInicio  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Vigencia Fin</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.plazaVigenciaFin  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="40%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Motivo de vacante</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.motivoVacancia  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código modular</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.codigoModular  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Centro de trabajo</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.institucionEducativa  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Modalidad</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionDre  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nivel educativo</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionNivelEducativo  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de IE</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionTipoIEPadron  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de Gestión</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionTipoGestionInstitucionEducativa  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Dependencia</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionDependenciaInstitucionEducativa  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Modelo de Servicio</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionModeloServicio  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de ruralidad</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.descripcionTipoRuralidad  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Frontera</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.esFrontera || "NO REGISTRADO" }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">VRAEM</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.esVRAEM  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">EIB</span>
+                                        <br>
+                                        <span class="label-normal">{{ plazaEncargaturaDetalle?.esBilingue  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                    </fieldset>
+                </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="3. Informe Escalafonario" *ngIf="codigoEtapa != etapaEnum.RatificacionCargo">
+                <div class="content">                    
+                    <div fxLayout="column"> 
+                        <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%" *ngIf="informe">
+                            <legend>Datos</legend>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" >
+                                <div fxFlex="30%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Número Informe Escalafonario</span>
+                                        <br>
+                                        <span class="label-normal">{{ informe?.numeroInformeEscalafonario  || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="35%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Fecha Informe Escalafonario</span>
+                                        <br>
+                                        <span class="label-normal">{{ informe?.fechaInformeEscalafonario | date:'dd/MM/yyyy h:mm:ss a' || "NO REGISTRADO"}}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="35%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Documento Informe Escalafonario</span>
+                                        <br>
+                                        <button mat-stroked-button color="primary" 
+                                        matTooltip="Descargar"
+                                        (click)="handleVerDocumentoSustento()">
+                                            <span class="material-icons">picture_as_pdf</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> CERRAR</button>
+    </mat-dialog-actions>
+</div>

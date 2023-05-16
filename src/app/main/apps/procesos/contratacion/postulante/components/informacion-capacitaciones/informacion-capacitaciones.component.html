@@ -1,0 +1,121 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{ dialogTitle }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <!--
+            <legend>Documento Sustento</legend>
+            -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha registro</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.fechaCreacion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.descripcionTipoCapacitacion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombre</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.nombreCapacitacion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha inicio</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.fechaInicio}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de término
+                            </span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.fechaFin}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Duración</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.duracionHoras}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Institución</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.institucionCapacitacion}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Lugar</span>
+                            <br>
+                            <span class="label-normal">{{capacitaciones?.lugarCapacitacion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento escaneado</span>
+                            <br>
+                            <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                aria-label="Descargar Documento escaneado" matTooltip="Descargar Documento escaneado"
+                                (click)="descargarResolucion()">
+                                <mat-icon class="">picture_as_pdf</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </fieldset>
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>
+                CANCELAR</button>
+        </div>
+    </div>

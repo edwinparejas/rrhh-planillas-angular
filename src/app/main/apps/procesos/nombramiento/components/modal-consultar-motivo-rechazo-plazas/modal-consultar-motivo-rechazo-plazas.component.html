@@ -1,0 +1,125 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+            <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                        
+                        <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Motivo</span>&nbsp;
+                                <br>
+                                <span class="label-normal">{{plazaNombramiento?.descripcionMotivoObservacion}} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Detalle</span>&nbsp;
+                                <br>
+                                <span class="label-normal">{{plazaNombramiento?.detalleObservacion}}</span>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <fieldset class="fieldset-border">
+            <legend>Datos del proceso</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    
+                    <div class="panel-body">                   
+                        <div class="content" mineduPerfectScrollbar>
+                            <div class="content-table">
+                                <div fxLayout="row" fxLayout.lt-md="column">
+
+                                    <mat-table class="minedu-table" #table [dataSource]="documentoSustento" [@animateStagger]="{value:'50'}">
+                                        <ng-container matColumnDef="descripcionTipoDocumentoSustento">
+                                            <th mat-header-cell *matHeaderCellDef>Tipo Documento</th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <p *ngIf="row.descripcionTipoDocumentoSustento"> {{row.descripcionTipoDocumentoSustento}}</p>
+                                                <p *ngIf="!row.descripcionTipoDocumentoSustento"></p>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="numeroDocumentoSustento">
+                                            <th mat-header-cell *matHeaderCellDef>Nro Documento
+                                            </th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <p *ngIf="row.numeroDocumentoSustento">{{row.numeroDocumentoSustento}}</p>
+                                                <p *ngIf="!row.numeroDocumentoSustento"></p>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="descripcionTipoFormatoSustento">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Tipo Formato
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                                                <p *ngIf="row.descripcionTipoFormatoSustento">{{row.descripcionTipoFormatoSustento}}</p>
+                                                <p *ngIf="!row.descripcionTipoFormatoSustento"></p>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="numeroFolios">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Folios
+                                            </th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                                                <p *ngIf="row.numeroFolios">{{row.numeroFolios}}</p>
+                                                <p *ngIf="!row.numeroFolios"></p>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fechaEmision">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Fecha de Emisión</th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                                                <p *ngIf="row.fechaEmision"> {{row.fechaEmision | date:'dd/MM/yyyy'}}</p>
+                                                <p *ngIf="!row.fechaEmision"></p>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fechaCreacion">
+                                            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Fecha de Registro</th>
+                                            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                                                <p *ngIf="row.fechaCreacion"> {{row.fechaCreacion | date:'dd/MM/yyyy'}}</p>
+                                                <p *ngIf="!row.fechaCreacion"></p>
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="acciones">
+                                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                            <td mat-cell *matCellDef="let row; let i = index">
+                                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                                        (click)="handleInformacionDocumentoSustento(row)"  aria-label="Ver información" 
+                                                        matTooltip="Ver información">
+                                                        <mat-icon class="">info</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </mat-row>
+                                    </mat-table>
+
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancelar()"><span class="material-icons">close</span> Cerrar</button>
+    </div>
+</div>

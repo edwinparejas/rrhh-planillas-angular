@@ -1,0 +1,54 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">Información Completa</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none" *ngIf="d">
+            <table class="table-informacion table-striped table-diten table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="w-150">Tipo documento sustento</th>
+                        <td>{{ d.tipoDocumentoSustento }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo formato sustento</th>
+                        <td>{{ d.tipoFormatoSustento }} </td>
+                    </tr>
+                    <tr>
+                        <th>Número documento</th>
+                        <td>{{d.numeroDocumentoSustento}}</td>
+                    </tr>
+                    <tr>
+                        <th>Folios</th>
+                        <td>{{d.numeroFolios}}</td>
+                    </tr>
+                    <tr>
+                        <th>Entidad emisora</th>
+                        <td>{{d.entidadEmisora}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha emisión</th>
+                        <td>{{d.fechaEmision | date: 'dd/MM/yyyy'}}</td>
+                    </tr>                    
+                    <tr>
+                        <th>Sumilla</th>
+                        <td>{{d.sumilla}}</td>
+                    </tr>                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-12" fxLayout="row" fxLayoutAlign="end center">
+        <button type="button" mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">close</span> Cerrar
+        </button>
+    </div>
+</div>

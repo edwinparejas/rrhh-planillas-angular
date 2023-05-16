@@ -1,0 +1,962 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{tituloModal}}</span>
+            </div>
+            <!-- <button type="button" mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button> -->
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <mat-tab-group mat-align-tabs="start" [selectedIndex]="0" animationDuration="0ms" dynamicHeight>
+            <mat-tab label="Requisitos y Evaluación">
+                <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                    <fieldset class="fieldset-border">
+                        <legend>Servidor público</legend>
+                        <div fxLayout="column">
+                            <fieldset class="fieldset-border" *ngIf="spublico">
+                                <legend>Datos personales</legend>
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                    fxLayoutGap.lt-md="0">
+                                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                        fxLayoutGap="12px">
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Documento</span>&nbsp;
+                                                <br />
+                                                <span>{{ spublico.tipoDocumentoIdentidad }}:
+                                                    {{spublico.numeroDocumentoIdentidad}} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Primer apellido</span>
+                                                <br />
+                                                <span>{{ spublico.primerApellido }} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Segundo apellido</span>
+                                                <br />
+                                                <span>{{ spublico.segundoApellido }} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Nombres</span>
+                                                <br />
+                                                <span>{{ spublico.nombres }} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Sexo</span>
+                                                <br />
+                                                <span>{{ spublico.generoPersona }} </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="fieldset-border" *ngIf="plaza">
+                                <legend>Datos laborales (actual)</legend>
+                                <div fxLayout="column">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Código plaza</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ plaza.codigoPlaza }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Régimen laboral</span>
+                                                    <br />
+                                                    <span>{{ plaza.regimenLaboral }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Cargo</span>
+                                                    <br />
+                                                    <span>{{ plaza.cargo }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Condición laboral</span>
+                                                    <br />
+                                                    <span>{{ plaza.condicionPlaza }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Situación laboral</span>
+                                                    <br />
+                                                    <span>{{ spublico.situacionLaboral }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Jornada laboral</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ plaza.jornadaLaboral }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Grupo ocupacional</span>
+                                                    <br />
+                                                    <span>{{ plaza.grupoOcupacional }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Categoría remunerativa</span>
+                                                    <br />
+                                                    <span>{{ plaza.categoriaremunerativa }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Código modular</span>
+                                                    <br />
+                                                    <span>{{ plaza.codigoModular }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Centro de trabajo</span>
+                                                    <br />
+                                                    <span>{{ plaza.centroTrabajo }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Modalidad educativa</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ spublico.modalidad }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Nivel educativo</span>
+                                                    <br />
+                                                    <span>{{ spublico.nivelEducativo }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </fieldset>
+                        </div>
+                        <br />
+                    </fieldset>
+                    <br />
+                    <form autocomplete="off" novalidate [formGroup]="form">
+                        <div class="vertical">
+                            <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onTabChanged($event)"
+                            [(selectedIndex)]="selectedTabIndex" animationDuration="0ms" dynamicHeight>
+                                <mat-tab label="1. Requisitos Generales">
+                                    <div class="content">
+                                        <div class="content-table">
+                                            <div fxLayout="column">
+                                                <ng-container formArrayName="requisitosGenerales">
+                                                    <table mat-table class="minedu-table" #table
+                                                        [dataSource]="requisitosGenerales.controls"
+                                                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+
+                                                        <ng-container matColumnDef="numero">
+                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                Nro
+                                                            </th>
+                                                            <td mat-cell *matCellDef=" let row; let i = index">
+                                                                <p> {{ row.get('codigoCriterio').value }} </p>
+                                                            </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="requisitosGenerales">
+                                                            <th mat-header-cell *matHeaderCellDef>Requisitos
+                                                                generales
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p> {{ row.get('descripcionCriterio').value }} </p>
+                                                            </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="cumple">
+                                                            <th mat-header-cell *matHeaderCellDef>Cumple
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let rowIndex = index "
+                                                                [formGroup]="row">
+                                                                <div>
+                                                                    <!-- <mat-checkbox formControlName="acreditaDocumento"
+                                                                        [disabled]="esDesabilitado"
+                                                                        (click)="handleAcreditaDocumentoRequisitosGenerales($event, row)"
+                                                                        (change)="$event ? selectionRequisitosGenerales.toggle(row) : null"
+                                                                        [checked]="selectionRequisitosGenerales.isSelected(row)">
+                                                                    </mat-checkbox> -->
+                                                                    <mat-checkbox formControlName="acreditaDocumento"
+                                                                        [disabled]="esDesabilitado"
+                                                                        (click)="handleAcreditaDocumentoRequisitosGenerales($event, row)"
+                                                                        (change)="$event ? selectionRequisitosGenerales.toggle(row) : null"
+                                                                        [checked]="row.get('acreditaDocumentoSeleccionado').value">
+                                                                    </mat-checkbox>
+                                                                </div>
+                                                            </td>
+                                                        </ng-container>
+
+
+                                                        <tr mat-header-row
+                                                            *matHeaderRowDef="displayedRequisitosGenerales;sticky: true">
+                                                        </tr>
+                                                         <tr mat-row
+                                                            *matRowDef="let row;columns: displayedRequisitosGenerales"
+                                                            [ngClass]="{ hovered: row.hovered,selected: selectionRequisitosGenerales.isSelected(row)}"
+                                                            (mouseover)=" row.hovered = true "
+                                                            (mouseout)="row.hovered = false"
+                                                            [@animate]="{value: '*',params: { y: '100%' }}">
+                                                        </tr> 
+                                                    </table>
+                                                </ng-container>
+                                                <br />
+                                                <div fxLayout="row" fxLayout.lt-md="column">
+                                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%"
+                                                        fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                                            [mineduFormFieldValidationState]="form.get('anotacionesRequisitosGenerales')">
+                                                            <mat-label
+                                                                [mineduFormRequiredLabel]="form.get('anotacionesRequisitosGenerales')">
+                                                                Anotaciones
+                                                            </mat-label>
+                                                            <textarea matInput
+                                                                [readonly]="esDesabilitado"
+                                                                formControlName="anotacionesRequisitosGenerales"
+                                                                maxlength="400" alphaNumeric uppercase></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="2. Experiencia Laboral">
+                                    <div class="content">
+                                        <div class="content-table">
+                                            <div fxLayout="column">
+                                                <ng-container formArrayName="experienciasLaborales">
+                                                    <table mat-table class="minedu-table" #table
+                                                        [dataSource]="experienciasLaborales.controls"
+                                                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+
+                                                        <ng-container matColumnDef="numero">
+                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                Nro
+                                                            </th>
+                                                            <td mat-cell *matCellDef=" let row; let i = index">
+                                                                <p> {{ row.get('codigoCriterio').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="requisitosGenerales">
+                                                            <th mat-header-cell *matHeaderCellDef>Requisitos
+                                                                generales 
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p> {{ row.get('descripcionCriterio').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> PUNTAJE TOTAL DE
+                                                                EXPERIENCIA LABORAL</td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="puntajeMaximo">
+                                                            <th mat-header-cell *matHeaderCellDef>Puntaje Máximo
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value">
+                                                                    {{
+                                                                    row.get('puntajeMaximo').value }}
+                                                                </p>
+                                                                <p
+                                                                    *ngIf="row.get('tieneSubCriterio').value && !row.get('tienePadre').value">
+                                                                    {{
+                                                                    row.get('puntajeMaximo').value }}
+                                                                </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="criterioPuntuacion">
+                                                            <th mat-header-cell *matHeaderCellDef>Criterio de
+                                                                puntuación
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index " [formGroup]="row">
+                                                                <div *ngIf="row.get('tienePadre').value && row.get('tieneSubCriterio').value == false">
+                                                                    <mat-radio-group
+                                                                        formControlName="criterioPuntuacion">
+                                                                        <mat-radio-button [value]="rowIndex"
+                                                                            [disabled]="esDesabilitado"
+                                                                            (click)="handleCriterioPuntuacionExperienciaLaboral($event, row)"
+                                                                            [checked]="row.get('criterioPuntuacionSeleccionado').value">
+                                                                        </mat-radio-button>
+                                                                    </mat-radio-group>
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value && !row.get('esSeleccionExcluyente').value">
+                                                                    <p>{{ row.get('puntajeMaximoUnidad').value }} {{ row.get('descripcionCriterioPuntuacion').value }}
+                                                                    </p>
+                                                                </div>
+                                                                
+                                                                <div *ngIf="!row.get('tienePadre').value"></div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="acreditaDocumento">
+                                                            <th mat-header-cell *matHeaderCellDef>acredita Documento
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let rowIndex = index "
+                                                                [formGroup]="row">
+                                                                <!-- <div
+                                                                    *ngIf="row.get('tienePadre').value && row.get('esSeleccionExcluyente').value">
+                                                                    <mat-radio-group
+                                                                        formControlName="acreditaDocumento">
+                                                                        <mat-radio-button [value]="rowIndex"
+                                                                            (click)="selectionEstudiosCapacitaciones.toggle(row)"
+                                                                            (change)="$event ? selectionEstudiosCapacitaciones.toggle(row) : null"
+                                                                            [checked]="row.get('acreditaDocumentoSeleccionado').value">
+                                                                        </mat-radio-button>
+                                                                    </mat-radio-group>
+                                                                </div> -->
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value && !row.get('esSeleccionExcluyente').value">
+                                                                    <mat-checkbox formControlName="acreditaDocumento"
+                                                                        [disabled]="esDesabilitado"
+                                                                        (click)="selectionEstudiosCapacitaciones.toggle(row)"
+                                                                        (change)="$event ? selectionEstudiosCapacitaciones.toggle(row) : null"
+                                                                        [checked]="row.get('acreditaDocumentoSeleccionado').value">
+                                                                    </mat-checkbox>
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="cantidadCertificados">
+                                                            <th mat-header-cell *matHeaderCellDef>Cantidad
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index "
+                                                                [formGroup]="row">
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value">
+                                                                    <mat-form-field floatLabel="never">
+                                                                        <input matInput formControlName="cantidadCertificados"
+                                                                            min="0"
+                                                                            [readonly]="esDesabilitado"
+                                                                            (keyup)="handleRecalcularExperienciasLaboralesInput($event,row)"
+                                                                            numbersOnly>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="puntaje">
+                                                            <th mat-header-cell *matHeaderCellDef> Puntaje
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index "
+                                                                [formGroup]="row">
+                                                                <!-- <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value">
+                                                                    <mat-form-field floatLabel="never">
+                                                                        <input matInput formControlName="puntaje"
+                                                                            min="0"
+                                                                            (keyup)="handleRecalcularExperienciasLaborales($event,row)"
+                                                                            [max]="row.get('puntajeMaximo').value"
+                                                                            numbersOnly>
+                                                                    </mat-form-field>
+                                                                </div> -->
+                                                                <div
+                                                                    *ngIf="row.get('cantidadCertificados').value > 0">
+                                                                    <p> {{ row.get('puntaje').value }} </p>
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && row.get('tienePadre').value">
+                                                                    <p> {{ row.get('puntaje').value }} </p>
+                                                                </div>
+                                                                <div *ngIf="row.get('tieneSubCriterio').value">
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef>
+                                                                {{puntajeTotalExperienciaLaboral}}</td>
+                                                        </ng-container>
+
+                                                        <tr mat-header-row
+                                                            *matHeaderRowDef="displayedExperienciaLaboral;sticky: true">
+                                                        </tr>
+                                                        <tr mat-row
+                                                            *matRowDef="let row;columns: displayedExperienciaLaboral"
+                                                            (click)="selectionExperienciaLaboral.toggle(row)"
+                                                            [ngClass]="{ hovered: row.hovered,selected: selectionExperienciaLaboral.isSelected(row)}"
+                                                            (mouseover)=" row.hovered = true "
+                                                            (mouseout)="row.hovered = false"
+                                                            [@animate]="{value: '*',params: { y: '100%' }}">
+                                                        </tr>
+                                                        <tr mat-footer-row
+                                                            *matFooterRowDef="displayedExperienciaLaboral"></tr>
+                                                    </table>
+                                                </ng-container>
+                                                <br />
+                                                <div fxLayout="row" fxLayout.lt-md="column">
+                                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%"
+                                                        fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                                            [mineduFormFieldValidationState]="form.get('anotacionesExperienciaLaboral')">
+                                                            <mat-label
+                                                                [mineduFormRequiredLabel]="form.get('anotacionesExperienciaLaboral')">
+                                                                Anotaciones
+                                                            </mat-label>
+                                                            <textarea matInput
+                                                                formControlName="anotacionesExperienciaLaboral"
+                                                                [readonly]="esDesabilitado"
+                                                                maxlength="400" alphaNumeric uppercase></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="3. Unidad Familiar">
+                                    <div class="content">
+                                        <div class="content-table">
+                                            <div fxLayout="column">
+                                                <ng-container formArrayName="unidadesFamiliares">
+                                                    <table mat-table class="minedu-table" #table
+                                                        [dataSource]="unidadesFamiliares.controls"
+                                                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+
+                                                        <ng-container matColumnDef="numero">
+                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                Nro
+                                                            </th>
+                                                            <td mat-cell *matCellDef=" let row; let i = index">
+                                                                <p> {{ row.get('codigoCriterio').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="requisitosGenerales">
+                                                            <th mat-header-cell *matHeaderCellDef>Requisitos
+                                                                generales
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p> {{ row.get('descripcionCriterio').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef>PUNTAJE TOTAL DE
+                                                                UNIDAD FAMILIAR </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="puntajeMaximo">
+                                                            <th mat-header-cell *matHeaderCellDef>Puntaje máximo
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p> {{ row.get('puntajeMaximo').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="acreditaDocumento">
+                                                            <th mat-header-cell *matHeaderCellDef>Criterio de Puntuación
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let rowIndex = index "
+                                                                [formGroup]="row">
+                                                                <div
+                                                                    *ngIf="row.get('tienePadre').value && row.get('esSeleccionExcluyente').value">
+                                                                    <mat-radio-group
+                                                                        formControlName="acreditaDocumento">
+                                                                        <mat-radio-button [value]="rowIndex"
+                                                                            [disabled]="esDesabilitado"
+                                                                            (click)="handleAcreditaDocumentoUnidadFamiliar($event, row)"
+                                                                            [checked]="row.get('acreditaDocumentoSeleccionado').value">
+                                                                        </mat-radio-button>
+                                                                    </mat-radio-group>
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value && !row.get('esSeleccionExcluyente').value">
+                                                                    <mat-checkbox formControlName="acreditaDocumento"
+                                                                        (click)="handleRecalcularUnidadFamiliarInput($event,row)"
+                                                                        [disabled]="esDesabilitado"
+                                                                        (change)="$event ? selectionUnidadFamiliar.toggle(row) : null"
+                                                                        [checked]="selectionUnidadFamiliar.isSelected(row)">
+                                                                    </mat-checkbox>
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="puntaje">
+                                                            <th mat-header-cell *matHeaderCellDef> Puntaje
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index "
+                                                                [formGroup]="row">
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value">
+                                                                    <mat-form-field floatLabel="never">
+                                                                        <input matInput formControlName="puntaje"
+                                                                            min="0"
+                                                                            [readonly]="true"
+                                                                            (keyup)="handleRecalcularUnidadFamiliarInput($event,row)"
+                                                                            [max]="row.get('puntajeMaximo').value"
+                                                                            numbersOnly>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && row.get('tienePadre').value">
+                                                                    <p> {{ row.get('puntaje').value }} </p>
+                                                                </div>
+                                                                <div *ngIf="row.get('tieneSubCriterio').value">
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef>
+                                                                {{puntajeTotalUnidadFamiliar}} </td>
+                                                        </ng-container>
+
+                                                        <tr mat-header-row
+                                                            *matHeaderRowDef="displayedUnidadFamiliar;sticky: true">
+                                                        </tr>
+                                                        <tr mat-row
+                                                            *matRowDef="let row;columns: displayedUnidadFamiliar"
+                                                            [ngClass]="{ hovered: row.hovered,selected: selectionUnidadFamiliar.isSelected(row)}"
+                                                            (mouseover)=" row.hovered = true "
+                                                            (mouseout)="row.hovered = false"
+                                                            [@animate]="{value: '*',params: { y: '100%' }}">
+                                                        </tr>
+                                                        <tr mat-footer-row *matFooterRowDef="displayedUnidadFamiliar">
+                                                        </tr>
+                                                    </table>
+                                                </ng-container>
+                                                <br />
+                                                <div fxLayout="row" fxLayout.lt-md="column">
+                                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%"
+                                                        fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                                            [mineduFormFieldValidationState]="form.get('anotacionesUnidadFamiliar')">
+                                                            <mat-label
+                                                                [mineduFormRequiredLabel]="form.get('anotacionesUnidadFamiliar')">
+                                                                Anotaciones
+                                                            </mat-label>
+                                                            <textarea matInput
+                                                                [readonly]="esDesabilitado"
+                                                                formControlName="anotacionesUnidadFamiliar"
+                                                                maxlength="400" alphaNumeric uppercase></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="4. Estudios / Capacitación y Perfeccionamiento">
+                                    <div class="content">
+                                        <div class="content-table">
+                                            <div fxLayout="column">
+                                                <ng-container formArrayName="estudiosCapacitaciones">
+                                                    <table mat-table class="minedu-table" #table
+                                                        [dataSource]="estudiosCapacitaciones.controls"
+                                                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+
+                                                        <ng-container matColumnDef="numero">
+                                                            <th mat-header-cell *matHeaderCellDef>
+                                                                Nro
+                                                            </th>
+                                                            <td mat-cell *matCellDef=" let row; let i = index">
+                                                                <p> {{ row.get('codigoCriterio').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="requisitosGenerales">
+                                                            <th mat-header-cell *matHeaderCellDef>Requisitos
+                                                                generales
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p> {{ row.get('descripcionCriterio').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> PUNTAJE TOTAL DE
+                                                                ESTUDIOS / CAPACITACION Y PERFECCIONAMIENTO </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="puntajeMaximo">
+                                                            <th mat-header-cell *matHeaderCellDef>Puntaje máximo
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p> {{ row.get('puntajeMaximo').value }} </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="criterioPuntuacion">
+                                                            <th mat-header-cell *matHeaderCellDef>Criterio de
+                                                                puntuación
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index ">
+                                                                <p>{{ row.get('puntajeMaximoUnidad').value }} {{ row.get('descripcionCriterioPuntuacion').value }}
+                                                                </p>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="acreditaDocumento">
+                                                            <th mat-header-cell *matHeaderCellDef>Acredita documento
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let rowIndex = index "
+                                                                [formGroup]="row">
+                                                                <div
+                                                                    *ngIf="row.get('tienePadre').value && row.get('esSeleccionExcluyente').value">
+                                                                    <mat-radio-group
+                                                                        formControlName="acreditaDocumento">
+                                                                        <mat-radio-button [value]="rowIndex"
+                                                                            [disabled]="esDesabilitado"
+                                                                            (click)="selectionEstudiosCapacitaciones.toggle(row)"
+                                                                            (change)="$event ? selectionEstudiosCapacitaciones.toggle(row) : null"
+                                                                            [checked]="row.get('acreditaDocumentoSeleccionado').value">
+                                                                        </mat-radio-button>
+                                                                    </mat-radio-group>
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="!row.get('tieneSubCriterio').value && !row.get('tienePadre').value && !row.get('esSeleccionExcluyente').value">
+                                                                    <mat-checkbox formControlName="acreditaDocumento"
+                                                                        [disabled]="esDesabilitado"
+                                                                        (click)="selectionEstudiosCapacitaciones.toggle(row)"
+                                                                        (change)="$event ? selectionEstudiosCapacitaciones.toggle(row) : null"
+                                                                        [checked]="row.get('acreditaDocumentoSeleccionado').value">
+                                                                    </mat-checkbox>
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+                                                        <ng-container matColumnDef="cantidadCertificados">
+                                                            <th mat-header-cell *matHeaderCellDef>Cantidad
+                                                                certificados
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let rowIndex = index "
+                                                                [formGroup]="row">
+                                                                <div *ngIf="row.get('tieneCantidad').value">
+                                                                    <mat-form-field floatLabel="never">
+                                                                        <input matInput
+                                                                            [readonly]="esDesabilitado"
+                                                                            formControlName="cantidadCertificados"
+                                                                            [attr.data-sectionvalue]="rowIndex"
+                                                                            (keyup)="handleRecalcularEstudiosCapacitacionInput($event,row)"
+                                                                            min="0" numbersOnly>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef> </td>
+                                                        </ng-container>
+
+                                                        <ng-container matColumnDef="puntaje">
+                                                            <th mat-header-cell *matHeaderCellDef> Puntaje
+                                                            </th>
+                                                            <td mat-cell *matCellDef="let row;let i = index "
+                                                                [formGroup]="row">
+                                                                <div>
+                                                                    <input matInput
+                                                                    formControlName="puntaje"
+                                                                    [readonly]="true"
+                                                                    min="0" numbersOnly>
+                                             
+                                                                    <!-- <p> {{ row.get('puntaje').value }} </p> -->
+                                                                </div>
+                                                            </td>
+                                                            <td mat-footer-cell *matFooterCellDef>
+                                                                {{puntajeTotalEstudiosCapacitacion}} </td>
+                                                        </ng-container>
+
+                                                        <tr mat-header-row
+                                                            *matHeaderRowDef="displayedEstudiosCapacitaciones;sticky: true">
+                                                        </tr>
+                                                        <tr mat-row
+                                                            *matRowDef="let row;columns: displayedEstudiosCapacitaciones"
+                                                            [ngClass]="{ hovered: row.hovered,selected: selectionEstudiosCapacitaciones.isSelected(row)}"
+                                                            (mouseover)=" row.hovered = true "
+                                                            (mouseout)="row.hovered = false"
+                                                            [@animate]="{value: '*',params: { y: '100%' }}">
+                                                        </tr>
+                                                        <tr mat-footer-row
+                                                            *matFooterRowDef="displayedEstudiosCapacitaciones"></tr>
+                                                    </table>
+                                                </ng-container>
+                                                <br />
+                                                <div fxLayout="row" fxLayout.lt-md="column">
+                                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%"
+                                                        fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                                            [mineduFormFieldValidationState]="form.get('anotacionesEstudiosCapacitacion')">
+                                                            <mat-label
+                                                                [mineduFormRequiredLabel]="form.get('anotacionesEstudiosCapacitacion')">
+                                                                Anotaciones
+                                                            </mat-label>
+                                                            <textarea matInput
+                                                                [readonly]="esDesabilitado"
+                                                                formControlName="anotacionesEstudiosCapacitacion"
+                                                                maxlength="400" alphaNumeric uppercase></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                        <br />
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab label="Centros de trabajos destino">
+                <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                    <fieldset class="fieldset-border">
+                        <legend>Servidor público</legend>
+                        <div fxLayout="column">
+                            <fieldset class="fieldset-border" *ngIf="spublico">
+                                <legend>Datos personales</legend>
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                    fxLayoutGap.lt-md="0">
+                                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                        fxLayoutGap="12px">
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Documento</span>&nbsp;
+                                                <br />
+                                                <span>{{ spublico.tipoDocumentoIdentidad }}:
+                                                    {{spublico.numeroDocumentoIdentidad}} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Primer apellido</span>
+                                                <br />
+                                                <span>{{ spublico.primerApellido }} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Segundo apellido</span>
+                                                <br />
+                                                <span>{{ spublico.segundoApellido }} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Nombres</span>
+                                                <br />
+                                                <span>{{ spublico.nombres }} </span>
+                                            </div>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                            <div>
+                                                <span style="font-weight: bold">Sexo</span>
+                                                <br />
+                                                <span>{{ spublico.generoPersona }} </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="fieldset-border" *ngIf="plaza">
+                                <legend>Datos laborales (actual)</legend>
+                                <div fxLayout="column">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Código plaza</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ plaza.codigoPlaza }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Régimen laboral</span>
+                                                    <br />
+                                                    <span>{{ plaza.regimenLaboral }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Cargo</span>
+                                                    <br />
+                                                    <span>{{ plaza.cargo }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Condición laboral</span>
+                                                    <br />
+                                                    <span>{{ plaza.condicionPlaza }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Situación laboral</span>
+                                                    <br />
+                                                    <span>{{ spublico.situacionLaboral }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Jornada laboral</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ plaza.jornadaLaboral }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Grupo ocupacional</span>
+                                                    <br />
+                                                    <span>{{ plaza.grupoOcupacional }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Categoría remunerativa</span>
+                                                    <br />
+                                                    <span>{{ plaza.categoriaremunerativa }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Código modular</span>
+                                                    <br />
+                                                    <span>{{ plaza.codigoModular }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Centro de trabajo</span>
+                                                    <br />
+                                                    <span>{{ plaza.centroTrabajo }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Modalidad educativa</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ spublico.modalidad }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Nivel educativo</span>
+                                                    <br />
+                                                    <span>{{ spublico.nivelEducativo }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="fieldset-border" *ngIf="postulacion">
+                                <legend>Centros de trabajo destino</legend>
+                                <div fxLayout="column">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Primera alternativa</span>&nbsp;
+                                                    <br />
+                                                    <span>{{ postulacion.primeraAlternativa }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Segunda alternativa</span>
+                                                    <br />
+                                                    <span>{{ postulacion.segundaAlternativa }} </span>
+                                                </div>
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span style="font-weight: bold">Tercera alternativa</span>
+                                                    <br />
+                                                    <span>{{ postulacion.terceraAlternativa }} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                            </fieldset>
+                        </div>
+                        <br />
+                    </fieldset>
+                    <br />
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+        <p class="text-danger">(*) Datos obligatorios</p>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 pr-12" fxLayout="row" fxLayoutAlign="end center">
+        <div class="ml-4" *ngIf="esRegistrarInformacion">
+            <minedu-button-save [mineduForm]="form" [working]="working" (mineduOnClick)="handleRegistrar()">
+            </minedu-button-save>
+        </div>
+
+        <div class="ml-4" *ngIf="esEditarInformacion">
+            <minedu-button-save [mineduForm]="form" [working]="working" (mineduOnClick)="handleRegistrar()">
+            </minedu-button-save>
+        </div>
+
+        <!-- <button class="ml-4" type="button" mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">close</span> {{ buttonClose }}
+        </button> -->
+        <div class="ml-4">
+            <button mat-stroked-button (click)="handleRetornar()"><span
+                    class="material-icons">keyboard_backspace</span>
+                RETORNAR</button>
+        </div>
+    </div>
+</div>

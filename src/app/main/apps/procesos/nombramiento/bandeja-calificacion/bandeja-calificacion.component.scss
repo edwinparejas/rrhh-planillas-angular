@@ -1,0 +1,200 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+
+:host {
+    width: 100%;
+}
+
+.mat-tab-body-wrapper{
+ margin-top: -20px;;
+}
+
+.espacio-v{
+     padding-top: 13px!important;
+}
+
+minedu-bandeja-calificacion {
+    width: 100%;
+    padding: 2px;
+    
+    .remove {
+        color: #dd3333;
+    }
+    .content {
+        width: 100%;
+       
+        .panel {
+            margin-bottom: 0px !important;
+            background-color: #fff;
+            border: 0;
+            border-radius: 4px;
+
+            .panel-heading {
+                padding: 8px 15px;
+                border-bottom: 1px solid transparent;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                background-color: #0073b7;
+                > h3.panel-title {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 13px;
+                    color: #fff;
+                }
+            }
+            .panel-body {
+                padding: 15px 15px 0;
+            }
+            .panel-footer {
+                padding: 10px 15px;
+                background-color: #fff;
+                border-top: 1px solid #ddd;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+        }
+        .mat-raised-button {
+            border: 1px solid #ccc;
+            line-height: 34px;
+        }
+        .mat-raised-button.mat-primary {
+            background-color: #0073b7;
+            border-color: #0073b7;
+        }
+        .mat-stroked-button.mat-primary {
+            color: #0073b7;
+        }
+        .mat-flat-button.mat-primary {
+            background-color: #0073b7;
+        }
+        .mat-stroked-button:not([disabled]).mat-primary {
+            border-color: #0073b7;
+            background-color: #fff;
+        }
+        .mat-stroked-button:not([disabled]).mat-warn {
+            border-color: #f44336;
+            background-color: #fff;
+        }
+        button .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm {
+            line-height: 24px;
+            min-width: 27px;
+            padding: 0;
+        }
+        button.btn-sm .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm .mat-icon {
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+        .btn-icon .mat-button-wrapper .material-icons {
+            font-size: 22px !important;
+        }
+        .minedu-table {
+            flex: 1 1 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            .mat-icon-table{
+                width: 30px;
+            }                 
+            .mat-column-registro {
+                flex: 0 1 50px;
+            }
+            .mat-column-fechaInicio {
+                flex: 0 1 100px;
+            }
+            .mat-column-fechaFin {
+                flex: 0 1 100px;
+            }
+            .mat-column-cantidadDias {
+                flex: 0 1 100px;
+            }
+            .mat-column-estadoLicencia {
+                flex: 0 1 150px;
+            }
+            .mat-column-codigoResolucion {
+                flex: 0 1 150px;
+            }
+            .mat-column-acciones {
+                flex: 0 1 100px;
+            }
+           /*begin personalizacion*/
+           .mat-cell, .mat-footer-cell {
+            font-size: 11px !important;
+        }
+        .mat-header-cell{
+            font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #fff !important;
+            background-color: #0073B7 !important;
+            padding: 0 5px 0 10px; 
+        }
+        .mat-row:nth-of-type(odd) {
+            background:  #F8F9FA;
+          }
+
+          /*end personalizacion*/
+            .mat-cell:first-of-type,
+            .mat-header-cell:first-of-type,
+            .mat-footer-cell:first-of-type {
+                padding-left: 15px;
+            }
+            .mat-cell:last-of-type,
+            .mat-header-cell:last-of-type,
+            .mat-footer-cell:last-of-type {
+                padding-right: 15px;
+            }
+
+            .mobile-label {
+                display: none;
+            }
+            .mat-table {
+                overflow: auto;
+                max-height: 800px;
+            }
+            @media(max-width: 700px) {
+                .mobile-label {
+                    width: 100px;
+                    display: inline-block;
+                    font-weight: bold;
+                    margin-right: 10px;
+                }
+                .mat-header-row {
+                    display: none;
+                }
+                .mat-cell {
+                    width: 100%;
+                }
+                .mat-row {
+                    flex-direction: column;
+                    align-items: start;
+                    text-align: left;
+                    max-height: 595px;
+                }
+            }
+        }        
+        .box-shadow {
+            -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+        .mat-dialog-actions {
+            padding: 0px !important;
+            display: flex;
+            flex-wrap: wrap;
+            min-height: auto !important;
+            align-items: center;
+            margin-bottom: 0px !important;
+        }
+    }
+}

@@ -1,0 +1,280 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>            
+            <div class="panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">Proceso y etapa</h3>
+                </div>
+                <div class="panel-body">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Año</span><br>
+                                        <span class="label-normal">{{etapaProceso.anio}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código</span><br>
+                                        <span class="label-normal">{{etapaProceso.codigoProceso}} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Régimen laboral</span><br>
+                                        <span class="label-normal">{{etapaProceso.descripcionRegimenLaboral}} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Proceso</span><br>
+                                        <span class="label-normal">{{etapaProceso.descripcionProceso}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">N° de Convocatoria</span><br>
+                                        <span class="label-normal">{{etapaProceso.numeroConvocatoria}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <br>
+            <div class="panel" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div> 
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idDre')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idDre')">
+                                        Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idDre" [(ngModel)]="selectedDre" (selectionChange)="selectInstancia($event.value)">
+                                        <mat-option *ngFor="let item of comboLists.listDre" [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idDre')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>                                            
+                                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idUgel')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idUgel')">
+                                        Sub Instancia
+                                    </mat-label>
+                                    <mat-select formControlName="idUgel" [(ngModel)]="selectedUgel">
+                                        <mat-option *ngFor="let item of comboLists.listUgel" [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idUgel')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>   
+
+                                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idEstadoConsolidado')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idEstadoConsolidado')">
+                                        Estado
+                                    </mat-label>
+                                    <mat-select formControlName="idEstadoConsolidado" [(ngModel)]="selectedEstadoConsolidado">
+                                        <mat-option *ngFor="let item of comboLists.listEstadoConsolidado" [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idEstadoConsolidado')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span class="material-icons">clear</span>Limpiar</button>
+                        </div>
+                        <div mat-dialog-actions fxLayout="row">
+                            <button *ngIf="permisos.autorizadoConsultar" (click)="handleBuscar()" mat-raised-button color="primary" class="ml-4"><span class="material-icons">search</span> Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                <div mat-dialog-actions class="p-0" fxLayout="row">
+                    <button (click)="handleAprobarPlazas()"  mat-raised-button color="primary" class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">check_circle</span>ABROBAR MASIVO
+                    </button>
+                </div> 
+                <div mat-dialog-actions class="p-0" fxLayout="row">
+                    <button mat-raised-button color="primary" class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">check_circle</span>GENERAR LISTADO PLAZAS
+                    </button>
+                </div> 
+                <div mat-dialog-actions class="p-0" fxLayout="row">
+                    <button mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">get_app</span> EXPORTAR
+                    </button>
+                </div>             
+            </div>
+            <br>
+            <div class="panel">
+                <div class="panel-body">                   
+                    <div class="content" mineduPerfectScrollbar>
+                        <div class="content-table">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <mat-table class="minedu-table" #table [dataSource]="dataSource"  [class.isMobile]="isMobile" [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                                    <ng-container matColumnDef="registro">
+                                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;">
+                                            <p class="text-truncate">{{row.registro}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="descripcionDre">
+                                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>INSTANCIA</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                            <p class="text-truncate">{{row.descripcionDre}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="descripcionUgel">
+                                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>SUBINSTANCIA</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                            <p class="text-truncate">{{row.descripcionUgel}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="descripcionEstadoConsolidado">
+                                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>ESTADO</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                            <ng-container [ngSwitch]="true">
+                                                <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.PENDIENTE"> &nbsp;&nbsp; 
+                                                    <p class="badge badge-warning badge-width">{{row.descripcionEstadoConsolidado}}</p>
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.VALIDADO"> &nbsp; &nbsp; 
+                                                    <p class="badge badge-info badge-width">{{row.descripcionEstadoConsolidado}}</p>
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.RECHAZADO"> &nbsp;&nbsp;
+                                                    <p class="badge badge-danger badge-width">{{row.descripcionEstadoConsolidado}}</p>
+                                                </ng-container>
+                                                <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.APROBADO"> &nbsp; &nbsp; 
+                                                    <p class="badge badge-success badge-width ">{{row.descripcionEstadoConsolidado}}</p>
+                                                </ng-container>                                                       
+                                                <ng-container *ngSwitchDefault> &nbsp; &nbsp;
+                                                    <p class="badge badge-default badge-width">{{row.descripcionEstadoConsolidado}}</p></ng-container>
+                                            </ng-container>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaValidacion">
+                                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>FECHA VALIDACIóN</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                            <p class="text-truncate">{{row.fechaValidacion | date:'dd/MM/yyyy'}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaAprobacion">
+                                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>FECHA APROBACIóN</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; " fxHide fxShow.gt-md>
+                                            <p class="text-truncate">{{row.fechaAprobacion | date:'dd/MM/yyyy'}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaRechazo">
+                                        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>FECHA RECHAZO</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                            <p class="text-truncate">{{row.fechaRechazo | date:'dd/MM/yyyy'}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="acciones">
+                                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let  i = index;">
+                                            <div fxLayout="row" fxLayoutAlign="space-between " style="margin-left: 20px!important; ">                                        
+                                                <ng-container [ngSwitch]="true"> 
+                                                    <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.PENDIENTE" >
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.VALIDADO" >
+                                                        <div class="mat-icon-table"> 
+                                                            <button  (click)="handleGoConsolidadoPlazasDetalle(row)"mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" 
+                                                            aria-label="Lista de plazas" matTooltip="Lista de plazas">
+                                                                <mat-icon class="">report</mat-icon>
+                                                            </button>
+                                                        </div> 
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.RECHAZADO" >
+                                                        <div class="mat-icon-table" style="margin-left: 10px;" > 
+                                                            <button  (click)="handleGoConsolidadoPlazasDetalle(row)"mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" 
+                                                            aria-label="Lista de plazas" matTooltip="Lista de plazas">
+                                                                <mat-icon class="">report</mat-icon>
+                                                            </button>
+                                                        </div>  
+                                                        <div class="mat-icon-table"> 
+                                                            <button mat-stroked-button color="primary" (click)="handleMotivoRechazo(row)" class="sidebar-toggle btn-sm ml-2" 
+                                                            aria-label="Detalle de rechazo" matTooltip="Detalle de rechazo">
+                                                                <mat-icon class="">grid_on</mat-icon>
+                                                            </button>
+                                                        </div> 
+                                                    </ng-container>
+                                                    <ng-container *ngSwitchCase="row.codigoEstadoConsolidado === estadoConsolidadoEnum.APROBADO" >
+                                                        <div class="mat-icon-table" style="margin-left: 10px;" > 
+                                                            <button  (click)="handleGoConsolidadoPlazasDetalle(row)"mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2" 
+                                                            aria-label="Lista de plazas" matTooltip="Lista de plazas">
+                                                                <mat-icon class="">report</mat-icon>
+                                                            </button>
+                                                        </div>  
+                                                    </ng-container>
+                                                </ng-container>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)" [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </mat-row>
+                                </mat-table>
+                            </div>
+                            <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">pageSize
+                                <mat-spinner diameter="50"></mat-spinner>
+                            </div>
+                            <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex"
+                                [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10 espacio-v" style="width: 100%;">                
+                    <div mat-dialog-actions class="p-0" fxLayout="row"  style="width: 91%;margin-left: 11px; ">
+                        <ng-container [ngSwitch]="true">
+                            <ng-container>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="label">Total IGED: &nbsp;&nbsp;</span><span class="label-normal">{{dataSource.totalregistro}}</span>
+                                </div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="label">Total Validado: &nbsp;&nbsp;</span><span class="label-normal">{{dataSource.totalvalidado}}</span>
+                                </div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="label">Total Pendiente: &nbsp;&nbsp;</span><span class="label-normal">{{dataSource.totalpendiente}}</span>
+                                </div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="label">Total Rechazado: &nbsp;&nbsp;</span><span class="label-normal">{{dataSource.totalrechazado}}</span>
+                                </div>
+                            </ng-container>
+                        </ng-container>          
+                    </div> 
+
+                    <div mat-dialog-actions class="p-0" fxLayout="row" style="margin-right: 14px;">
+                        <a mat-button routerLink="ascenso" mat-raised-button (click)="handleGoNombramiento()"><span class="material-icons">keyboard_backspace</span>RETORNAR</a>           
+                    </div>    
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

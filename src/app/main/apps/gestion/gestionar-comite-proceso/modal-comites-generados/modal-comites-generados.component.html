@@ -1,0 +1,78 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlex="100%">
+            <div ngClass.lt-lg="scroll-grid-lt-lg">
+                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+
+                    <ng-container matColumnDef="registro">
+                        <th mat-header-cell *matHeaderCellDef>N°</th>
+                        <td mat-cell *matCellDef="let row">
+                            <p *ngIf="row.registro">{{row.registro}}</p>
+                            <p *ngIf="!row.registro">N/A</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaCreacion">
+                        <th mat-header-cell *matHeaderCellDef>{{tituloFechaGeneracion}}</th>
+                        <td mat-cell *matCellDef="let row">
+                            <p *ngIf="row.fechaCreacion">{{row.fechaCreacion | date:'dd/MM/yyyy h:mm:ss a' }}</p>
+                            <p *ngIf="!row.fechaCreacion">N/A</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef [hidden]="modal?.origin === 'aprobacion'">Estado</th>
+                        <td mat-cell *matCellDef="let row" [hidden]="modal?.origin === 'aprobacion'">
+                            <p *ngIf="row.estado" class="p-4" [ngClass]="
+                            {'grey-900':row.codigoEstado === codEstadoProyectoResolucion.CreandoProyecto,
+                            'green-600':row.codigoEstado === codEstadoProyectoResolucion.EnProyecto,
+                            'red-500'  :row.codigoEstado === codEstadoProyectoResolucion.Eliminado,
+                            'blue-700' :row.codigoEstado === codEstadoProyectoResolucion.ConResolucion}">
+                            {{row.estado}}</p>
+                            <p *ngIf="!row.estado">N/A</p>
+                        </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                        <td mat-cell *matCellDef="let row;">
+                            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5px">
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="handleVerDocumento(row.codigoDocumentoGenerado)"
+                                        aria-label="Ver documento" matTooltip="Ver documento">
+                                        <mat-icon class="">picture_as_pdf</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="onSelect(row)"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="btnCancelar()"><span class="material-icons">cancel</span> Cerrar</button>
+    </div>
+</div>

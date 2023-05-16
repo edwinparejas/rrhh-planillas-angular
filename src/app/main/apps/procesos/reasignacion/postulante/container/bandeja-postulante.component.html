@@ -1,0 +1,401 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Postulantes</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']">
+                                    <mat-icon color="accent" class="s-18">home</mat-icon> Inicio
+                                </a></li>
+                            <li class=""><a
+                                    [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion']">Reasignación</a>
+                            </li>
+                            <li class="active"><a
+                                    [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion/postulante/',idEtapaProceso]">Postulantes</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+
+            <minedu-cabecera-proceso-etapa [proceso]="proceso"></minedu-cabecera-proceso-etapa>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                        Tipo de documento
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoDocumentoIdentidad"
+                                        (selectionChange)="lengthDocumento($event)">
+                                        <mat-option *ngFor="let item of comboLists.listTipoDocumento"
+                                            [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%">
+                                        <!-- <mat-icon matPrefix [disabled]='desactivarDocumentoIdentidad' (click)="busquedaServidorPublicoDialog()">search</mat-icon> -->
+                                    <mat-label>Numero de Documento</mat-label>
+                                    <input matInput placeholder="Numero de Documento" formControlName="numeroDocumentoIdentidad" 
+                                    id="numeroDocumentoIdentidad" (keypress)="onKeyOnlyNumbers($event)">
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaServidorPublicoDialog()">search</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <!-- <mat-icon matPrefix (click)="busquedaPlazaDialog($event)">search</mat-icon> -->
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">Codigo Plaza</mat-label>
+                                    <input matInput formControlName="codigoPlaza" placeholder="Código de plaza"
+                                    maxlength="12" minlength="12" alphaNumeric uppercase />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaDialog($event)">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoPlaza')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%">
+                                    <mat-label>Numero de Expediente</mat-label>
+                                    <input matInput placeholder="Numero de Expediente"
+                                        formControlName="numeroExpediente">
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idCausal')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idCausal')">
+                                        Causal
+                                    </mat-label>
+                                    <mat-select formControlName="idCausal">
+                                        <mat-option *ngFor="let item of comboLists.listCausal" [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idCausal')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idEtapaPostulacion')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idEtapaPostulacion')">
+                                        Etapa
+                                    </mat-label>
+                                    <mat-select formControlName="idEtapaPostulacion">
+                                        <mat-option *ngFor="let item of comboLists.listEtapaPostulante"
+                                            [value]="item.id">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idEtapaPostulacion')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idEstadoPostulacion')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idEstadoPostulacion')">
+                                        Estado
+                                    </mat-label>
+                                    <mat-select formControlName="idEstadoPostulacion">
+                                        <mat-option *ngFor="let item of comboLists.listEstadoPostulacion"
+                                            [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idEstadoPostulacion')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span
+                                    class="material-icons">clear</span>
+                                Limpiar</button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span
+                                    class="material-icons">search</span>
+                                Buscar</button>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+            <div class="panel-libre">
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                        <button *ngIf="!aprobado && dataSource.aprobados === 0" mat-raised-button color="primary"
+                            (click)="handleNuevo()" class="ml-4"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                class="material-icons">add_circle</span>
+                            NUEVO POSTULANTE</button>
+                    </div>
+                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                        <button *ngIf="!aprobado && dataSource.aprobados === 0 && dataSource.totalregistro > 0"
+                            mat-raised-button color="primary" (click)="handleAprobarPostulantes()" class="ml-4"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                class="material-icons">check_circle</span> APROBAR POSTULANTES
+                        </button>
+                    </div>
+                    <div mat-dialog-actions class="p-0" fxLayout="row">
+                        <button mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                class="material-icons">get_app</span> EXPORTAR</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group>
+                        <mat-tab label="Postulantes">
+                            <div class="tabla-espacio">                        
+                                <div class="content-table">
+                                    <div class="gridContainer">
+                                        <div class="panel-body">
+                                            <div class="content">
+                                                <div class="content-table">
+                                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                                        <table mat-table class="minedu-table" #table [dataSource]="dataSource"
+                                                             [@animateStagger]="{value:'50'}" style="width: 100%">
+
+                                                            <ng-container matColumnDef="registro">
+                                                                <th mat-header-cell *matHeaderCellDef>N°</th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">N°:</span> {{row?.registro}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="documento">
+                                                                <th mat-header-cell *matHeaderCellDef>DOCUMENTO</th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <p class="text-truncate">
+                                                                        <span class="mobile-label">DOCUMENTO:</span>
+                                                                        {{row?.tipo_documento}} ; {{row?.numero_documento}}
+                                                                    </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="apellido_nombre">
+                                                                <th mat-header-cell *matHeaderCellDef>APELLIDOS Y NOMBRES
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <p class="text-truncate">
+                                                                        <span class="mobile-label">APELLIDOS Y NOMBRES:</span>
+                                                                        {{row?.apellido_nombre}}
+                                                                    </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="numero_expediente">
+                                                                <th mat-header-cell *matHeaderCellDef>Numero Expediente</th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <p class="text-truncate">
+                                                                        <span class="mobile-label">Numero Expediente:</span>
+                                                                        {{row?.numero_expediente}}
+                                                                    </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="causal">
+                                                                <th mat-header-cell *matHeaderCellDef>Causal</th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Causal:</span>
+                                                                    {{row?.causal}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="etapa">
+                                                                <th mat-header-cell *matHeaderCellDef>Etapa</th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Etapa:</span>
+                                                                    {{row?.etapa}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="codigo_plaza">
+                                                                <th mat-header-cell *matHeaderCellDef>Codigo Plaza
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Codigo Plaza:</span>
+                                                                    {{row?.codigo_plaza}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="centro_trabajo">
+                                                                <th mat-header-cell *matHeaderCellDef>Centro Trabajo
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Centro Trabajo:</span>
+                                                                    {{row?.centro_trabajo}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="nivel_educativo">
+                                                                <th mat-header-cell *matHeaderCellDef>Nivel Educativo
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Nivel Educativo:</span>
+                                                                    {{row?.nivel_educativo}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="area_curricular">
+                                                                <th mat-header-cell *matHeaderCellDef>Area Curricular
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Area Curricular:</span>
+                                                                    {{row?.area_curricular}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="estado_postulante">
+                                                                <th mat-header-cell *matHeaderCellDef>ESTADO</th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <ng-container [ngSwitch]="true">
+                                                                        <ng-container *ngSwitchCase="row.estado_postulacion === 'APROBADO'">
+                                                                            <p class="badge badge-success badge-width">
+                                                                                {{row?.estado_postulacion}}</p>
+                                                                        </ng-container>
+                                                                        <ng-container *ngSwitchCase="row.estado_postulacion === 'REGISTRADO'">
+                                                                            <p class="badge badge-info badge-width">
+                                                                                {{row?.estado_postulacion}}</p>
+                                                                        </ng-container>
+                                                                        <ng-container *ngSwitchCase="row.estado_postulacion === 'ELIMINADO'">
+                                                                            <p class="badge badge-danger badge-width">
+                                                                                {{row?.estado_postulacion}}</p>
+                                                                        </ng-container>
+                                                                        <ng-container *ngSwitchDefault>
+                                                                            <p class="badge badge-default badge-width">
+                                                                                {{row?.estado_postulacion}}</p>
+                                                                        </ng-container>
+                                                                    </ng-container>
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="tipo_registro">
+                                                                <th mat-header-cell *matHeaderCellDef>Tipo de Registro
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let row; let i = index;">
+                                                                    <span class="mobile-label">Tipo de Registro:</span>
+                                                                    {{row?.tipo_registro}}
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="acciones">
+                                                                <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                                                                <td mat-cell *matCellDef="let row; let  i = index;">
+                                                                    <div fxLayout="row" fxLayoutAlign="flex-start stretch">
+                                                                            <div class="mat-icon-table">
+                                                                                <button mat-stroked-button color="primary"
+                                                                                    class="sidebar-toggle btn-sm ml-2"
+                                                                                    aria-label="Ver información" matTooltip="Ver información"
+                                                                                    (click)="handleInformacion(row, i)">
+                                                                                    <mat-icon class="">info</mat-icon>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="mat-icon-table">
+                                                                                <button mat-stroked-button color="primary" *ngIf="row.estado_postulacion === 'REGISTRADO'"
+                                                                                    class="sidebar-toggle btn-sm ml-2" aria-label="Modificar"
+                                                                                    matTooltip="Modificar" (click)="handleEditar(row, i)">
+                                                                                    <mat-icon class="">create</mat-icon>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="mat-icon-table">
+                                                                                <button mat-stroked-button color="warn" *ngIf="row.estado_postulacion === 'REGISTRADO'"
+                                                                                    class="sidebar-toggle btn-sm ml-2" aria-label="Eliminar"
+                                                                                    matTooltip="Eliminar" (click)="handleEliminar(row, i)">
+                                                                                    <mat-icon style="color: red;" class="">restore_from_trash</mat-icon>
+                                                                                </button>
+                                                                            </div>
+                                                                    </div>
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                                            </tr>
+                                                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                                (click)="selection.toggle(row)"
+                                                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                                                [@animate]="{value:'*',params:{y:'100%'}}">
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                                                        [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                                        No se encontraron registros
+                                                    </div>
+                                                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                                        *ngIf="dataSource.loading | async">pageSize
+                                                        <mat-spinner diameter="50"></mat-spinner>
+                                                    </div>
+                                                    <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.totalregistro"
+                                                        fxLayoutAlign="center center" [pageIndex]="paginatorPageIndex"
+                                                        [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]"
+                                                        showFirstLastButtons>
+                                                    </mat-paginator>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <!-- <div fxLayout="row" fxLayoutAlign="start center" class="mb-10" style="width: 100%">
+                                                <div fxLayoutAlign="start center" fxFlex="50%" fxFlex.xs="100%">
+                                                    <label class="label">Total de Postulantes:
+                                                        <span class="label-normal">{{dataSource.totalregistro}}</span>
+                                                    </label>
+                                                </div>
+                                            </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-libre">
+                    <div class="panel-footer" fxLayoutAlign="start center" fxFlex="100%" fxFlex.xs="100%">
+                        <div fxLayoutAlign="start center" fxFlex="50%" fxFlex.xs="100%">
+                            <label class="label">Total de Postulantes:
+                                <span class="label-normal">{{dataSource.totalregistro}}</span>
+                            </label>
+                        </div>
+                        <div fxLayoutAlign="end center" fxFlex="50%" fxFlex.xs="100%">
+                            <button mat-stroked-button color="primary" class="ml-4" (click)="handleRetornar()">
+                                <mat-icon class="">keyboard_backspace</mat-icon>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

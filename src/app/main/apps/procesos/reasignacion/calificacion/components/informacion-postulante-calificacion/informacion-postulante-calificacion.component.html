@@ -1,0 +1,80 @@
+
+<div class="p-20">
+    <div class="dialog-content-wrapper">
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <span class="title dialog-title">Registrar Calificaciones</span>
+                </div>
+                <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+    <fieldset class="fieldset-border m-auto">
+        <legend>Datos Personales </legend>
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="15%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de Identidad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.documento }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="15%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer Apellido</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.primerApellido }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="15%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo Apellido</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.segundoApellido }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="15%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.nombres }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.sexo }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Nacimiento</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.fechaNacimiento }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Edad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.edad }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nacionalidad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.nacionalidad }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

@@ -1,0 +1,41 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Rechazar solicitud de aprobación</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="form">
+            <div fxLayout="column" fxFlex="100%">
+                <mat-form-field appearance="fill" fxFlex="100%">
+                    <mat-label [mineduFormRequiredLabel]="form.get('detalleMotivoRechazo')">Detalle motivo de rechazo
+                    </mat-label>
+                    <textarea matInput formControlName="detalleMotivoRechazo" placeholder="Detalle motivo de rechazo" rows="8" maxlength="4000" onkeyup="javascript:this.value=this.value.toUpperCase();"></textarea>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('detalleMotivoRechazo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-dialog-content>
+
+    <div fxLayout="row" fxLayout.xs="column">
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="right" fxFlex="100%" fxFlex.xs="100%">
+            <span class="text-danger">(*) Datos Obligatorios</span>
+        </div>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" fxFlex="100%" fxFlex.xs="100%">
+            <button mat-raised-button color="warn" (click)="handleSave()">
+                <span class="material-icons">close</span> Rechazar
+            </button>
+            <button mat-raised-button (click)="handleCancel()">
+                <span class="material-icons">cancel</span> Cancelar
+            </button>
+        </div>
+    </div>
+</div>

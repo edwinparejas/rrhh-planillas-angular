@@ -1,0 +1,123 @@
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+
+p {
+    margin: 6px 0;
+    color: rgba(0, 0, 0, .6);
+}
+.mat-dialog-container {
+     padding: 0px !important ;
+     overflow-x: hidden  !important ;
+}
+
+
+.content {
+    margin-left: 1px;
+    width: 100%!important;
+}
+.label-bold{
+    font-weight: bold;
+}
+ 
+.label{
+    font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    padding-top: 0px!important; 
+    display: inline-block;  
+    margin: 0px;
+}
+.label-normal{
+    font-family: "Roboto-regular", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    padding-bottom: 10px!important; 
+    display: inline-block;
+    margin: 0px;
+}
+ 
+fieldset > legend{
+    font-family: "Roboto-regular", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+servidorpublico-ver-detalles{
+    .mat-dialog-container {
+        padding: 0px !important ;
+        overflow-x: hidden  !important ;
+   }
+    width: 100%!important;
+    .content {
+        width: 100%;
+        font-size: 13px;          
+        .minedu-table {
+            .direccion {
+                position: relative;
+                cursor: pointer;               
+            }   
+                
+            .mat-column-descripcionAreaCurricular {
+                flex: 0 1 20px;
+                width:250px;     
+                font-size: 13px;           
+            } 
+            
+            .mat-column-primero {
+                flex: 0 1 50px;
+                width: 120px;      
+                font-size: 13px;              
+            }      
+            .mat-column-segundo {
+                flex: 0 1 500px; 
+                width: 120px;         
+                font-size: 13px;           
+                
+            }
+            .mat-column-tercero {
+                flex: 0 1 240px;  
+                width: 120px;       font-size: 13px;                
+            }
+            .mat-column-cuarto {
+                flex: 0 1 100px;      
+                width: 120px;      font-size: 13px;       
+                 
+            }
+            .mat-column-quinto {
+                flex: 0 1 250px;    
+                width: 120px;           font-size: 13px;       
+            }
+            .mat-column-total {
+                flex: 0 1 250px;    
+                width: 20%!important;     font-size: 13px;                  
+            }
+        }
+    }
+    .label-bold{
+        font-weight: bold;
+    }
+    .mat-dialog-container{
+        padding: 0px!important;
+    }
+    .label{
+        font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        padding-top: 0px!important; 
+        display: inline-block;
+        margin: 0px;
+    }
+    .label-normal{
+        font-family: "Roboto-regular", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        padding-bottom: 10px!important; 
+        display: inline-block;
+        margin: 0px;
+    }
+    fieldset > legend{
+        font-family: "Roboto-regular", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+    }
+    
+}

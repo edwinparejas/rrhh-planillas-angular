@@ -1,0 +1,205 @@
+<form *ngIf="!soloLectura" [formGroup]="form">
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idTipoExperiencia')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idTipoExperiencia')">
+                    Tipo de experiencia
+                </mat-label>
+                <mat-select formControlName="idTipoExperiencia">
+                    <mat-option *ngFor="let item of comboLists.listTipoExperiencia" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoExperiencia')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('cargoExperienciaLaboral')">
+                <mat-label [mineduFormRequiredLabel]="form.get('cargoExperienciaLaboral')">Cargo</mat-label>
+                <input matInput formControlName="cargoExperienciaLaboral" placeholder="Cargo" maxlength="200">
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('cargoExperienciaLaboral')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idNivelExperiencia')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idNivelExperiencia')">
+                    Nivel
+                </mat-label>
+                <mat-select formControlName="idNivelExperiencia">
+                    <mat-option *ngFor="let item of comboLists.listNivelExperiencia" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idNivelExperiencia')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <minedu-datepicker appearance="fill" fxFlex="32%" fxFlex.xs="100%" label="Fecha de inicio"
+                [mineduFormControl]="form.get('fechaInicio')" [formControl]="form.get('fechaInicio')"
+                (ngModelChange)="configurarFechaFin()">
+            </minedu-datepicker>
+            <mat-error>
+                <minedu-form-field-validation-messages [mineduFormControl]="form.get('fechaInicio')">
+                </minedu-form-field-validation-messages>
+            </mat-error>
+            <minedu-datepicker appearance="fill" fxFlex="32.5%" fxFlex.xs="100%" label="Fecha de fin"
+                [mineduFormControl]="form.get('fechaFin')" [formControl]="form.get('fechaFin')" [min]="minDate">
+            </minedu-datepicker>
+            <mat-error>
+                <minedu-form-field-validation-messages [mineduFormControl]="form.get('fechaFin')">
+                </minedu-form-field-validation-messages>
+            </mat-error>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('idTipoEntidad')">
+                <mat-label [mineduFormRequiredLabel]="form.get('idTipoEntidad')">
+                    Tipo de entidad
+                </mat-label>
+                <mat-select formControlName="idTipoEntidad">
+                    <mat-option *ngFor="let item of comboLists.listTipoEntidad" [value]="item.value">
+                        {{item.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoEntidad')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('nombreEntidad')">
+                <mat-label [mineduFormRequiredLabel]="form.get('nombreEntidad')">Nombre de entidad</mat-label>
+                <input matInput formControlName="nombreEntidad" placeholder="Nombre de entidad" maxlength="200">
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('nombreEntidad')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%"
+                [mineduFormFieldValidationState]="form.get('codigoAdjuntoSustento')">
+                <mat-label [mineduFormRequiredLabel]="form.get('codigoAdjuntoSustento')">
+                    Adjuntar sustento</mat-label>
+                <input matInput formControlName="codigoAdjuntoSustento" class="icon-cursor" (click)="file.click()"
+                    readonly>
+                <mat-icon matSuffix class="icon-cursor" (click)="file.click()">publish
+                </mat-icon>
+                <input hidden (change)="uploadFile(file.files)" #file type="file" id="file" accept="application/pdf">
+                <mat-hint>Formato: PDF, tamaño máximo 2MB</mat-hint>
+                <mat-error>
+                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoAdjuntoSustento')">
+                    </minedu-form-field-validation-messages>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+        <div mat-dialog-actions class="p-0" fxLayout="row">
+            <button mat-stroked-button color="primary" (click)="handleAdd(form)"><span class="material-icons">add</span>
+                AGREGAR</button>
+        </div>
+    </div>
+</form>
+<br *ngIf="!soloLectura">
+<div class="content" mineduPerfectScrollbar>
+    <div class="content-table">
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                <ng-container matColumnDef="descripcionTipoExperiencia">
+                    <mat-header-cell *matHeaderCellDef>TIPO DE EXPERIENCIA </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">TIPO DE EXPERIENCIA:</span> {{row?.descripcionTipoExperiencia}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cargoExperienciaLaboral">
+                    <mat-header-cell *matHeaderCellDef>CARGO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">CARGO:</span> {{row?.cargoExperienciaLaboral}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcionNivelExperiencia">
+                    <mat-header-cell *matHeaderCellDef>NIVEL</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">NIVEL:</span> {{row?.descripcionNivelExperiencia}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcionTipoEntidad">
+                    <mat-header-cell *matHeaderCellDef>TIPO DE ENTIDAD</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">TIPO DE ENTIDAD:</span> {{row?.descripcionTipoEntidad}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nombreEntidad">
+                    <mat-header-cell *matHeaderCellDef>NOMBRE DE ENTIDAD</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;" maxlength="">
+                        <span class="mobile-label">NOMBRE DE ENTIDAD:</span> {{row?.nombreEntidad}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaInicio">
+                    <mat-header-cell *matHeaderCellDef>FECHA DE INICIO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">FECHA DE INICIO:</span> {{row?.fechaInicio | date: 'dd/MM/yyyy'}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaFin">
+                    <mat-header-cell *matHeaderCellDef>FECHA DE FIN</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">FECHA DE FIN:</span> {{row?.fechaFin | date: 'dd/MM/yyyy'}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="sustento">
+                    <mat-header-cell *matHeaderCellDef>SUSTENTO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">SUSTENTO:</span>
+                        <div style="padding-left: 10px;"></div>
+                        <div class="mat-icon-table">
+                            <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                matTooltip="Ver documento sustento" (click)="descargarAdjunto(row)">
+                                <mat-icon class="">picture_as_pdf</mat-icon>
+                            </button>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">ACCIONES:</span>
+                        <!--
+                        <div class="mat-icon-table" style="padding-right: 2px;">
+                            <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                matTooltip="Ver información" (click)="handleInfo(row, i)">
+                                <mat-icon class="">info</mat-icon>
+                            </button>
+                        </div>
+                        -->
+                        <div class="mat-icon-table" style="padding-right: 2px;">
+                            <button *ngIf="!soloLectura" mat-stroked-button color="warn"
+                                class="sidebar-toggle btn-sm ml-2" matTooltip="Eliminar"
+                                (click)="hadleEliminarRow(row,i)">
+                                <mat-icon class="">restore_from_trash</mat-icon>
+                            </button>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+                </mat-row>
+            </mat-table>
+        </div>
+    </div>
+</div>

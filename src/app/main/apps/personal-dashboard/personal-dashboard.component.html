@@ -1,0 +1,63 @@
+<div class="page-layout blank p-12">
+    <div class="page-layout carded fullwidth inner-scroll">
+        <div class="center">
+            <div id="form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+                <br>   
+                <div class="logo">
+                    <img src="assets/images/logo_personal.png">
+                </div>
+                <div class="sub-title"></div>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<!-- <div class="page-layout blank p-12">
+    <div class="page-layout carded fullwidth inner-scroll">
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="font-size-20 ml-12"> Inicio</span>
+                <span fxLayout="row" class="mr-12">
+                    <mat-icon color="accent" class="s-18 mr-6">home</mat-icon> Inicio
+                </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-divider class="item-divider"></mat-divider>
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start center">
+            <div id="main">
+                <div fxLayout="column" fxLayoutAlign="start center" fxFlex>
+                    <div class="container header pt-44 pt-md-88 pl-28">
+                        <div class="title">OPCIONES DE PERSONAL</div>
+                    </div>
+                    <div class="container" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                        fxLayoutGap.lt-md="0" fxLayoutAlign="start center">
+                        <div class="board-list" fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100" fxFlex.lt-sm="100%"
+                            fxLayoutGap="12px">
+                            <mat-card *ngFor="let item of menus" class="tp-card" fxFlex="30%"
+                                [@animate]="{value:'*',params:{y:'100%'}}" (click)="navigate(item)">
+                                <mat-card-content>
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <div class="mr-12">
+                                            <img src="assets/icons/{{item.URL}}.png">
+                                        </div>
+                                        <div>
+                                            <h2 class="mt-0 mb-0">{{item.NOMBRE_MENU}}</h2>
+                                        </div>
+                                    </div>
+                                </mat-card-content>
+                                <mat-card-actions class="card-footer">
+                                    <div class="footer-button" fxLayout="row" fxLayoutAlign="start center">
+                                        <span>Ingresar </span>
+                                        <mat-icon>chevron_right</mat-icon>
+                                    </div>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

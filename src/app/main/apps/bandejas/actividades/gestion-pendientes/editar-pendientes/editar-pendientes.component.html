@@ -1,0 +1,183 @@
+<div class="dialog-content-wrapper animated fadeIn fast">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="isWorking" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <form [formGroup]="form">
+            <section class="fieldset" style="margin-left: -20px; margin-right: -20px;">
+                <h1>Datos del servidor</h1>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" style="margin-left: 5px;">
+
+                        <mat-form-field appearance="fill" fxFlex="19%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('tipoDocumentoIdentidad')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('tipoDocumentoIdentidad')">Tipo de documento
+                            </mat-label>
+                            <input matInput formControlName="tipoDocumentoIdentidad" placeholder="Tipo de documento" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('tipoDocumentoIdentidad')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="19%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento
+                            </mat-label>
+                            <input matInput formControlName="numeroDocumentoIdentidad" placeholder="Número de documento" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="19%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('apellidoPaterno')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('apellidoPaterno')">Primer apellido
+                            </mat-label>
+                            <input matInput formControlName="apellidoPaterno" placeholder="Primer apellido" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('apellidoPaterno')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="19%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('apellidoMaterno')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('apellidoMaterno')">Segundo apellido
+                            </mat-label>
+                            <input matInput formControlName="apellidoMaterno" placeholder="Segundo apellido" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('apellidoMaterno')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="19%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('nombres')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('nombres')">Segundo apellido
+                            </mat-label>
+                            <input matInput formControlName="nombres" placeholder="Nombres" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('nombres')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+
+
+                    </div>
+                </div>
+            </section>
+            <br>
+            <section class="fieldset" style="margin-left: -20px; margin-right: -20px;">
+                <h1>Acción a realizar</h1>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" style="margin-left: 5px;">
+
+                        <mat-form-field appearance="fill" fxFlex="24%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('regimenLaboral')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('regimenLaboral')">Régimen laboral
+                            </mat-label>
+                            <input matInput formControlName="regimenLaboral" placeholder="Régimen laboral" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('regimenLaboral')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="24%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('grupoAccion')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('grupoAccion')">Grupo acción </mat-label>
+                            <input matInput formControlName="grupoAccion" placeholder="Grupo acción" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('grupoAccion')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="24%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('accion')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('accion')">Acción
+                            </mat-label>
+                            <input matInput formControlName="accion" placeholder="Acción" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('accion')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" fxFlex="24%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('motivoAccion')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('motivoAccion')">Motivo acción
+                            </mat-label>
+                            <input matInput formControlName="motivoAccion" placeholder="Motivo acción" maxlength="100" readonly>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('motivoAccion')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </section>
+            <br>
+            <section class="fieldset" *ngIf="!informativo" style="margin-left: -20px; margin-right: -20px;">
+                <h1>Datos de observación</h1>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="30%" fxFlex.xs="80%" fxLayoutGap="12px" fxLayoutGap.xs="0" style="margin-right: 30px; margin-left: 5px;">
+                        <table style="width: 100px;">
+                            <tr>
+                                <td>
+                                    <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('estadoActividad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('estadoActividad')">Estado
+                                        </mat-label>
+                                        <input matInput formControlName="estadoActividad" placeholder="Estado" maxlength="100" readonly>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('estadoActividad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div fxLayout="row" fxFlex="50%" fxFlex.lt-md="100%" fxLayoutGap="12px" fxLayoutGap.xs="12px">
+                                        <div fxFlex="100%" fxFlex.lt-lg="100%">
+                                            <minedu-file-input *ngIf="esPendiente && !informativo" buttonText="Seleccione documento de sustento de la observación escaneada o arrastre aquí" labelText="Documento de Sustento" removeButtonLabel="Eliminar documento sustento adjuntada" noFileText="Sin documento sustento escaneada"
+                                                (mineduUpload)="adjunto($event)" style="width: 100%;">
+                                            </minedu-file-input>
+                                            <button *ngIf="!esPendiente || informativo" mat-stroked-button color="primary" (click)="descargarSustento()" class="ml-4 mb-10" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"> Descargar Sustento <span class="material-icons">get_app</span></button>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('motivoObservacion')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('motivoObservacion')">Motivo Observación</mat-label>
+                            <!-- <input matInput formControlName="motivoObservacion" placeholder="Motivo Observación" maxlength="400"> -->
+                            <textarea matInput formControlName="motivoObservacion" placeholder="Motivo Observación" maxlength="400" matTextareaAutosize [matAutosizeMinRows]="7" [matAutosizeMaxRows]="20" uppercase [readonly]="!esPendiente"></textarea>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('motivoObservacion')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button *ngIf="esPendiente && !informativo" mat-raised-button color="primary" (click)="handleObservar(form)"><span class="material-icons">save</span>
+            Guardar</button>
+        <button mat-raised-button (click)="handleCancel()" class="mat-raised-button2"><span class="material-icons">block</span> Cancelar</button>
+    </div>
+</div>

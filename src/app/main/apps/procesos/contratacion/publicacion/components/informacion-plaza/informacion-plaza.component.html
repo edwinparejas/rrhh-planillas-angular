@@ -1,0 +1,228 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!--
+                <mat-icon class="mr-4">info</mat-icon>
+                -->
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos de centro de trabajo</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código modular</span><br>
+                            <span class="label-normal">{{plaza?.codigoModular}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Centro de trabajo</span><br>
+                            <span class="label-normal">{{plaza?.descripcionInstitucionEducativa}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">DRE</span><br>
+                            <span class="label-normal">{{plaza?.descripcionDre}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">UGEL</span><br>
+                            <span class="label-normal">{{plaza?.descripcionUgel}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div><br>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Distrito</span><br>
+                            <span class="label-normal">{{plaza?.nombreDistrito}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Modalidad</span><br>
+                            <span class="label-normal">{{plaza?.abreviaturaModalidadEducativa}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nivel educativo</span><br>
+                            <span class="label-normal">{{plaza?.descripcionNivelEducativo}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Getión</span><br>
+                            <span class="label-normal">{{plaza?.descripcionTipoGestionEducativa}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Zona</span><br>
+                            <span class="label-normal">{{plaza?.nombreZona}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">EIB</span><br>
+                            <span> {{plaza?.eib}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo I.E.</span><br>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Dependencia</span><br>
+                            <span> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos de plaza</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código de plaza</span><br>
+                            <span class="label-normal">{{plaza?.codigoPlaza}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cargo</span><br>
+                            <span class="label-normal">{{plaza?.descripcionCargo}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Área curricular</span><br>
+                            <span class="label-normal">{{plaza?.descripcionAreaCurricular}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Jornada laboral</span><br>
+                            <span class="label-normal">{{plaza?.jornadaLaboral}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div><br>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo de plaza</span><br>
+                            <span class="label-normal">{{plaza?.descripcionTipoPlaza}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Motivo de vacante</span><br>
+                            <span class="label-normal">{{plaza?.descripcionMotivoVacancia}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Vigencia desde</span><br>
+                            <span class="label-normal">{{plaza?.fechaVigenciaDesde}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Vigencia hasta</span><br>
+                            <span class="label-normal">{{plaza?.fechaVigenciaHasta}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div><br>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Régimen laboral</span><br>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Estado</span><br>
+                            <span class="label-normal">{{plaza?.descripcionEstadoPlaza}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Detalle de observación</span><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>CERRAR</button>
+    </div>
+</div>

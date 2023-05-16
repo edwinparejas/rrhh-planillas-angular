@@ -1,0 +1,1464 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+
+
+        <!-- Inicio Breadcrumb -->
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxFlex="50%">
+                    <h3 class="titulo c1">{{ nombreCabecera }} </h3>
+                </div>
+                <div fxFlex="50%" *ngIf="!isAprobacion">
+                    <ol class="breadcrumb pull-right">
+                        <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                        <li><a [routerLink]="['/ayni/personal/acciones/vinculacion']">Gestionar vinculación</a></li>
+                        <li class="active"><a style="cursor: pointer;">{{ nombreCabecera }}</a></li>
+                    </ol>
+                </div>
+
+                <div fxFlex="50%" *ngIf="isAprobacion">
+                    <ol class="breadcrumb pull-right">
+                        <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                        <li><a [routerLink]="['/ayni/personal/bandejas/aprobacionespendientes']">Bandeja Aprobación</a></li>
+                        <li class="active"><a style="cursor: pointer;">{{ nombreCabecera }}</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- Fin Breadcrumb --> 
+
+        <div class="panel mt-12"> 
+            <form autocomplete="off" novalidate [formGroup]="form">
+                <div class="panel-body" fxLayout="column" class="mb-10 mr-20 ml-20">
+                    <fieldset class="fieldset-border">
+                        <legend>Acción de personal</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="40%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px" fxLayoutGap.xs="0" class="ml-2">
+
+                                <div fxLayoutAlign="start start" fxFlex="80%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <div fxLayout="column">
+                                        <mat-label class="label" [mineduFormRequiredLabel]="form.get('esMandatoJudicial')">
+                                            Por mandato judicial
+                                        </mat-label>
+                                        <div>
+                                            <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                                            <mat-slide-toggle formControlName="esMandatoJudicial"
+                                            (change)="validarMandatoJudicial()" >SI
+                                            </mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="80%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Por mandato judicial</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionMandatoJudicial}}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                            </div>                            
+                            </div>
+                        </div>
+                        <br>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                           
+                            <div fxLayout="row"  fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px" fxLayoutGap.xs="0" >
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">
+                                            Régimen laboral
+                                        </mat-label>
+                                        <mat-select formControlName="idRegimenLaboral" (selectionChange)="loadComboAcciones($event.value)" >
+                                            <mat-option>--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.regimenesLaborales"
+                                                [value]="item.idRegimenLaboral">
+                                                {{item.descripcionRegimenLaboral}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idRegimenLaboral')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Régimen laboral</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.DescripcionRegimenLaboral}}
+                                        </p>
+                                    </div>
+                                </div>    
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idAccion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idAccion')">
+                                            Acción
+                                        </mat-label>
+                                        <mat-select formControlName="idAccion" (selectionChange)="loadComboMotivoAccion($event.value)" 
+                                        [disabled]="form.get('idRegimenLaboral').value < 1">
+                                            <mat-option value="-1">--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.acciones" [value]="item.id_accion">
+                                                {{item.descripcion_accion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idAccion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Acción</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionAccion}}
+                                        </p>
+                                    </div>
+                                </div>                                
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idMotivoAccion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idMotivoAccion')">
+                                            Motivo acción
+                                        </mat-label>
+                                        <mat-select formControlName="idMotivoAccion" (selectionChange)="esMotivoAccionProceso($event.value)"                                                    
+                                                    [disabled]="form.get('idAccion').value < 1">
+                                            <mat-option>--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of combo.motivosAccion"
+                                                [value]="item.id_motivo_accion">
+                                                {{item.descripcion_motivo_accion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idMotivoAccion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Motivo acción</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionMotivoAccion}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="!isInformacion && !isEdit">
+                                    <div fxLayout="column">
+                                        <mat-label class="label" [mineduFormRequiredLabel]="form.get('porProceso')">
+                                            Por proceso
+                                        </mat-label>
+                                        <div>
+                                            <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                                            <mat-slide-toggle formControlName="porProceso"
+                                            (change)="validarPorProceso()" >SI
+                                            </mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%" *ngIf="isInformacion || isEdit">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Por proceso</label>
+                                        <p class="form-control-static">
+                                            {{datos_cabecera.descripcionPorProceso}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </div>
+                      
+
+                        </div>                        
+                        
+                    </fieldset>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0" 
+                             *ngIf="seBuscoPersona">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"></div>
+                                
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"
+                                     *ngIf="tieneVinculacionesVigente">
+                                    <!-- <div class="pl-6" fxLayout="row"> -->
+                                        <button mat-raised-button color="primary" class="bt-1"                                            
+                                            (click)="handleVerVinculacionVigente()"><span class="material-icons">description</span>
+                                            Ver vinculacion vigente</button>
+                                    <!-- </div> -->
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%"
+                                     *ngIf="tieneSancionesAdministrativas">
+                                    <!-- <div class="pl-6" fxLayout="row"> -->
+                                        <button mat-stroked-button color="primary"  class="bt-1"                                            
+                                            (click)="handleSancionesAdministrativas()"><span class="material-icons">description</span>
+                                            Ver sanción adm.</button>
+                                    <!-- </div> -->
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    <!-- </fieldset> -->
+
+
+                    <fieldset class="fieldset-border" *ngIf="tipo_vinculacion!='a'">
+                        <legend>Datos personales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px" *ngIf="!isInformacion && !isEdit"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                            Tipo de documento
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoDocumentoIdentidad" [disabled]="isEdit || isInformacion" (selectionChange)="onChangeTipoDocumento()">
+                                            <mat-option value="-1">-SELECCIONE-</mat-option>
+                                            <mat-option *ngFor="let item of combo.tiposDocumentoIdentidad"
+                                                [value]="item.id_catalogo_item">
+                                                {{item.descripcion_catalogo_item}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                            Número de documento
+                                        </mat-label>
+                                        <input matInput formControlName="numeroDocumentoIdentidad" 
+                                            [readonly]="isEdit || isInformacion || (form.get('idTipoDocumentoIdentidad').value == -1 || form.get('idTipoDocumentoIdentidad').value == 0)" 
+                                            (keydown.enter)="buscarPersona($event)" 
+                                            (keypress)="onKeyPressNumeroDocumento($event)"
+                                            [maxLength]="form.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                                            uppercase>
+                                        <!--  <button type="button" *ngIf="!form.get('numeroDocumentoIdentidad').invalid"
+                                            matSuffix mat-button mat-icon-button (click)="buscarPersona($event)" [disabled]="isEdit">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button> -->                                        
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                        
+                                    </mat-form-field>
+                                    
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%" *ngIf=" !isInformacion && !isEdit">
+                                    <button mat-raised-button color="primary" class="ml-4" (click)="buscarPersona($event)" [disabled]="isEdit || isInformacion">
+                                        <span class="material-icons">search</span>
+                                        Buscar
+                                    </button>                                    
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPersona">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Documento de Identidad</label>
+                                        <p class="form-control-static" *ngIf="persona.numeroDocumentoIdentidad">
+                                            {{persona.tipoDocumentoIdentidad}} : {{persona.numeroDocumentoIdentidad}}
+                                        </p>
+                                        <p class="form-control-static" *ngIf="!persona.numeroDocumentoIdentidad">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Primer apellido</label>
+                                        <p class="form-control-static" *ngIf="persona.primerApellido">
+                                            {{persona.primerApellido}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.primerApellido">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Segundo apellido</label>
+                                        <p class="form-control-static" *ngIf="persona.segundoApellido">
+                                            {{persona.segundoApellido}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.segundoApellido">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Nombres</label>
+                                        <p class="form-control-static" *ngIf="persona.nombres">
+                                            {{persona.nombres}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.nombres">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Estado civil</label>
+                                        <p class="form-control-static" *ngIf="persona.estadoCivil">
+                                            {{persona.estadoCivil}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.estadoCivil">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPersona">                            
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="30%" fxFlex.xs="100%">
+                                        <label for="">Sexo</label>
+                                        <p class="form-control-static" *ngIf="persona.sexo">
+                                            {{persona.sexo}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.sexo">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%" fxFlex.xs="100%">
+                                        <label for="">Fecha de Nacimiento</label>
+                                        <p class="form-control-static" *ngIf="persona.fechaNacimiento">
+                                            {{persona.fechaNacimientoStr}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.fechaNacimiento">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="20%" fxFlex.xs="100%">
+                                        <label for="">Edad</label>
+                                        <p class="form-control-static" *ngIf="persona.edad">
+                                            {{persona.edad}}</p>
+                                        <p class="form-control-static" *ngIf="!persona.edad">NO REGISTRADO</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                    <fieldset class="fieldset-border" *ngIf="seBuscoPersona">
+                        <legend>Datos de la plaza</legend>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" >
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%" *ngIf="!estaEnProcesoAdjudicacion && !isInformacion">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                            Código plaza
+                                        </mat-label>
+                                        <input matInput formControlName="codigoPlaza"                                             
+                                            (keydown.enter)="buscarPlaza($event)"
+                                            uppercase>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoPlaza')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%" *ngIf="!estaEnProcesoAdjudicacion && !isInformacion">
+                                    <button mat-raised-button color="primary" class="ml-4" (click)="buscarPlazaDialogo($event)" *ngIf=" !form.get('codigoPlaza').invalid">
+                                        <span class="material-icons">search</span>
+                                        Buscar
+                                    </button>                                    
+                                </div>
+
+                                
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%" *ngIf="tipo_vinculacion == 'c'">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                            Código plaza
+                                        </mat-label>
+                                        <input matInput formControlName="codigoPlaza"
+                                            (keydown.enter)="buscarPlaza($event)" uppercase>
+                                        <button type="button" *ngIf="!form.get('codigoPlaza').invalid" matSuffix
+                                            mat-button mat-icon-button (click)="buscarPlazaDialogo($event)">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoPlaza')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPlaza">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%" >
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Código plaza</label>
+                                        <p class="form-control-static" *ngIf="plaza.codigo_plaza">
+                                            {{plaza.codigo_plaza}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.codigo_plaza">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Régimen laboral</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_regimen_laboral">
+                                            {{plaza.descripcion_regimen_laboral}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_regimen_laboral">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Tipo de plaza</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_tipo_plaza">
+                                            {{plaza.descripcion_tipo_plaza}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_tipo_plaza">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Condición Plaza</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_condicion">
+                                            {{plaza.descripcion_condicion}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_condicion">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Cargo</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_cargo">
+                                            {{plaza.descripcion_cargo}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_cargo">NO REGISTRADO</p>
+                                    </div>
+                                </div>      
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPlaza">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Jornada laboral</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_jornada_laboral">
+                                            {{plaza.descripcion_jornada_laboral}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_jornada_laboral">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Área Curricular</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_area_curricular">
+                                            {{plaza.descripcion_area_curricular}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_area_curricular">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Especialidad</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_especialidad">
+                                            {{plaza.descripcion_especialidad}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_especialidad">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Código modular</label>
+                                        <p class="form-control-static" *ngIf="plaza.codigo_modular">
+                                            {{plaza.codigo_modular}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.codigo_modular">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Centro de trabajo</label>
+                                        <p class="form-control-static" *ngIf="plaza.institucion_educativa">
+                                            {{plaza.institucion_educativa}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.institucion_educativa">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="seBuscoPlaza">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Modalidad Educativa</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_modalidad_educativa">
+                                            {{plaza.descripcion_modalidad_educativa}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_modalidad_educativa">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">                                    
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Nivel educativo</label>
+                                        <p class="form-control-static" *ngIf="plaza.descripcion_nivel_educativo">
+                                            {{plaza.descripcion_nivel_educativo}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.descripcion_nivel_educativo">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Motivo de vacancia</label>
+                                        <p class="form-control-static" *ngIf="plaza.motivo_vacancia">
+                                            {{plaza.motivo_vacancia}}</p>
+                                        <p class="form-control-static" *ngIf="!plaza.motivo_vacancia">NO REGISTRADO
+                                        </p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">    
+                                    <button mat-stroked-button color="primary" 
+                                        class="sidebar-toggle btn-sm ml-2" 
+                                        aria-label="Ver Información"
+                                        matTooltip="Ver información completa" (click)="verInformacionPlaza(row)">
+                                        <mat-icon class="">informacion</mat-icon>
+                                    </button>                                    
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">                                     
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                    <fieldset class="fieldset-border" *ngIf="seBuscoPersona ">
+                        <legend>Datos de la acción</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column" >
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px" >
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                    <minedu-datepicker 
+                                        label="Fecha de inicio"
+                                        [mineduFormControl]="form.get('fechaInicio')"
+                                        [formControl]="form.get('fechaInicio')" 
+                                        [min]="minDate" 
+                                        [max]="untilDate" 
+                                        (OnChange)="validacionFechaVinculacion2()"                                      
+                                        >
+                                    </minedu-datepicker>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Inicio</label>
+                                        <p class="form-control-static">
+                                            {{datos_accion.fechaInicioStr}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                    <minedu-datepicker 
+                                        label="Fecha Fin"
+                                        [mineduFormControl]="form.get('fechaTermino')"
+                                        [formControl]="form.get('fechaTermino')"                                         
+                                        [min]="newMinDate"                                         
+                                        [max]="maxDate"
+                                        >
+                                    </minedu-datepicker>
+                                </div>
+
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">Fecha Fin</label>
+                                        <p class="form-control-static">
+                                            {{datos_accion.fechaTerminoStr}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px" 
+                                *ngIf="tipo_vinculacion !== 'v'">
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="tipo_vinculacion=='c'">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroRuc')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroRuc')">
+                                            R.U.C.
+                                        </mat-label>
+                                        <input matInput formControlName="numeroRuc" uppercase>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('numeroRuc')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="tipo_vinculacion=='a'"
+                                    style="padding-left: 20px;">
+                                    <div class="form-group" fxFlex="100%">
+                                        <label for="">R.U.C.</label>
+                                        <p class="form-control-static">{{form.get('numeroRuc').value}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-sm="column" *ngIf="verInformacionTieneImpedimento">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <input type="checkbox" formControlName="tieneImpedimento" 
+                                [attr.disabled]="isInformacion ? true : null">
+                                <mat-label [mineduFormRequiredLabel]="form.get('tieneImpedimento')">Se ha verificado que
+                                    la
+                                    persona no cuenta con
+                                    impedimento vigente para la vinculación segun la norma técnica
+                                </mat-label>
+                            </div>
+                        </div>
+                            
+                    </fieldset>
+                    <div *ngIf="(seBuscoPersona ) || tipo_vinculacion==='a'">
+                    <!-- <mat-tab-group *ngIf="(seBuscoPersona && seBuscoPlaza) || tipo_vinculacion==='a'" mat-align-tabs="start" class="mt-12" [selectedIndex]="0" animationDuration="0ms"
+                        dynamicHeight mineduPerfectScrollbar> -->
+                        <!-- <mat-tab label="Datos laborales"> -->
+                            <div fxLayout="column" class="pl-2 pr-2">
+                                <fieldset class="fieldset-border" *ngIf="verInformacionRegimenPensionario">
+                                    <legend>Datos del sistema pensionario</legend>
+                                    <div fxLayout="row" fxLayout.lt-md="column" >
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idRegimenPensionario')">
+                                                    <mat-label
+                                                        [mineduFormRequiredLabel]="form.get('idRegimenPensionario')">
+                                                        Régimen pensionario
+                                                    </mat-label>
+                                                    <mat-select formControlName="idRegimenPensionario" (selectionChange)="onChangeRegimenPensionario($event.value)"
+                                                    [disabled]="isInformacion">
+                                                        <mat-option *ngFor="let item of combo.regimenesPensionarios"
+                                                            [value]="item.id_regimen_pensionario">
+                                                            {{item.descripcion_regimen_pensionario}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idRegimenPensionario')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Régimen pensionario</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.descripcionRegimenPensionario">
+                                                        {{datos_pensionario.descripcionRegimenPensionario}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.descripcionRegimenPensionario">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value != 2">                                                
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value != 2">                                                
+                                            </div>
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value != 2">                                                
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value == 2 && !isInformacion" >
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idAfp')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idAfp')">
+                                                        AFP
+                                                    </mat-label>
+                                                    <mat-select formControlName="idAfp"  >
+                                                        <mat-option *ngFor="let item of combo.afps"
+                                                            [value]="item.id_afp">
+                                                            {{item.descripcion_afp}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idAfp')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value == 2 && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">AFP</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.descripcionAfp">
+                                                        {{datos_pensionario.descripcionAfp}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.descripcionAfp">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value == 2 && !isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idTipoComision')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoComision')">
+                                                        Tipo comisión
+                                                    </mat-label>
+                                                    <mat-select formControlName="idTipoComision"  [disabled]="isInformacion">
+                                                        <mat-option *ngFor="let item of combo.tiposComision"
+                                                            [value]="item.id_catalogo_item">
+                                                            {{item.descripcion_catalogo_item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idTipoComision')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value == 2 && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Tipo comisión</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.descripcionTipoComision">
+                                                        {{datos_pensionario.descripcionTipoComision}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.descripcionTipoComision">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value == 2 && !isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('numeroCuspp')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('numeroCuspp')">
+                                                        Número CUSPP
+                                                    </mat-label>
+                                                    <input matInput formControlName="numeroCuspp" uppercase maxlength="12"
+                                                    [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('numeroCuspp')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="form.get('idRegimenPensionario').value == 2 && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Número CUSPP</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.codigoCuspp">
+                                                        {{datos_pensionario.codigoCuspp}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.codigoCuspp">NO REGISTRADO
+                                                    </p>                                               
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        
+                                    </div>
+
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <minedu-datepicker label="Fecha de afiliación"
+                                                    [mineduFormControl]="form.get('fechaIngresoSPP')"
+                                                    [formControl]="form.get('fechaIngresoSPP')" [max]="nowDate">
+                                                </minedu-datepicker>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Fecha de afiliación</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.fechaIngresoSPPStr">
+                                                        {{datos_pensionario.fechaIngresoSPPStr}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.fechaIngresoSPPStr">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <minedu-datepicker label="Fecha de devengue"
+                                                    [mineduFormControl]="form.get('fechaDevengue')"
+                                                    [formControl]="form.get('fechaDevengue')" [max]="nowDate">
+                                                </minedu-datepicker>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Fecha de devengue</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.fechaDevengueStr">
+                                                        {{datos_pensionario.fechaDevengueStr}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.fechaDevengueStr">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('folios')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('folios')">
+                                                        Folios
+                                                    </mat-label>
+                                                    <input matInput formControlName="folios" numbersOnly maxlength="3">
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('folios')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Folios</label>
+                                                    <p class="form-control-static" *ngIf="datos_pensionario.folios">
+                                                        {{datos_pensionario.folios}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_pensionario.folios">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="tieneDocumento">
+                                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%" style="margin-top: -2px; border-top-width: 0px;"
+                                                    *ngIf=" (isNew && !documentoEscalafon)|| (isEdit && !form.get('codigoDocumentoPensionario').value) || (documentoEscalafon && !form.get('codigoDocumentoPensionario').value)">
+                                                    <div fxLayout="column" class="form-group" fxFlex="100%">
+                                                        <minedu-single-file-input [mineduFormControl]="form.get('adjuntarDocumento')"
+                                                            inputText="Adjuntar convocatoria o arrastre aquí"
+                                                            removeButtonLabel="Eliminar documento adjunto" noFileText="Sin documento adjunto"
+                                                            (mineduUpload)="handleAdjuntoVinculacion($event)" style="width: 100%;">
+                                                        </minedu-single-file-input>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" *ngIf="isInformacion || (isEdit && form.get('codigoDocumentoPensionario').value) || (documentoEscalafon && form.get('codigoDocumentoPensionario').value) ">
+                                                    <div fxLayout="row" class="form-group">
+                                                        <button mat-stroked-button color="primary" class="descargar p-4" 
+                                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                                            (click)="handleVerPdfAdjunto()" >
+                                                            <span class="material-icons">picture_as_pdf</span>Ver documento
+                                                        </button>
+                                                        <button mat-button color="warn" class="sidebar-toggle ml-2" *ngIf=" (isEdit && form.get('codigoDocumentoPensionario').value) || (documentoEscalafon && form.get('codigoDocumentoPensionario').value)" 
+                                                            (click)="handleEliminarAdjunto()"><u>ELIMINAR</u>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!tieneDocumento">                                                
+                                            </div>
+                                            
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+
+                                <fieldset class="fieldset-border" *ngIf="verInformacionFormacionAcademica">
+                                    <legend>Datos de formación académica</legend>
+
+                                    <div fxLayout="row" fxLayout.lt-md="column" style="margin-bottom: 20px" *ngIf="!isInformacion && tieneFormacionAcademica">
+
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%" >
+                                                <button mat-raised-button color="primary" class="ml-4" (click)="handleEscalafon()" >
+                                                    <span class="material-icons">search</span>
+                                                    AGREGAR FORMACIÓN ACADÉMICA - ESCALAFÓN
+                                                </button>                                    
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div fxLayout="row" fxLayout.lt-md="column" >
+
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idNivelEducativo')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idNivelEducativo')">
+                                                        Nivel educativo
+                                                    </mat-label>
+                                                    <mat-select formControlName="idNivelEducativo" (selectionChange)="onChangeNivelEducativo()"
+                                                    [disabled]="isInformacion">
+                                                        <mat-option *ngFor="let item of combo.nivelesEducativos"
+                                                            [value]="item.id_nivel_educativo">
+                                                            {{item.descripcion_nivel_educativo}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idNivelEducativo')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Nivel educativo</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.descripcionNivelEducativo">
+                                                        {{datos_Formacion_Academica.descripcionNivelEducativo}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.descripcionNivelEducativo">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" 
+                                            *ngIf="nivelSecundaria && !isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idSecundaria')">
+                                                    <!-- *ngIf="combo.situacionesAcademicas.length > 1"> -->
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idSecundaria')" >
+                                                        Secundaria
+                                                    </mat-label>
+                                                    <mat-select formControlName="idSecundaria" (selectionChange)="ListarSituacionAcademica()"
+                                                                >
+                                                        <mat-option *ngFor="let item of combo.nivelesSecundaria"
+                                                            [value]="item.id_catalogo_item">
+                                                            {{item.descripcion_catalogo_item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idSecundaria')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="nivelSecundaria > 0 && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Secundaria</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.descripcionSecundaria">
+                                                        {{datos_Formacion_Academica.descripcionSecundaria}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.descripcionSecundaria">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>                                            
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" 
+                                            *ngIf="nivelSuperior && !isInformacion"  >
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idSuperior')">
+                                                    <!-- *ngIf="combo.gradosAcademicos.length > 1"> -->
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idSuperior')">
+                                                        Superior
+                                                    </mat-label>
+                                                    <mat-select formControlName="idSuperior" (selectionChange)="ListarSituacionAcademica()"
+                                                    
+                                                    >
+                                                        <mat-option *ngFor="let item of combo.nivelesSuperior"
+                                                            [value]="item.id_catalogo_item">
+                                                            {{item.descripcion_catalogo_item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idSuperior')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="nivelSuperior && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Superior</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.descripcionSuperior">
+                                                        {{datos_Formacion_Academica.descripcionSuperior}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.descripcionSuperior">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>       
+                                            
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!nivelSecundaria">                                                
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!nivelSuperior">                                                
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idSituacionAcademica')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idSituacionAcademica')" >
+                                                        Situación académica
+                                                    </mat-label>
+                                                    <mat-select formControlName="idSituacionAcademica" 
+                                                                (selectionChange)="onChangeSituacionAcademica()"
+                                                                [disabled]="combo.situacionesAcademicas < 1">
+                                                        <mat-option *ngFor="let item of combo.situacionesAcademicas"
+                                                            [value]="item.id_catalogo_item">
+                                                            {{item.descripcion_catalogo_item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idSituacionAcademica')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div> 
+                                            
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Situación académica</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.descripcionSituacionAcademica">
+                                                        {{datos_Formacion_Academica.descripcionSituacionAcademica}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.descripcionSituacionAcademica">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>   
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" 
+                                            *ngIf="nivelEstudio && !isInformacion"  >
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idEstudio')">
+                                                    <!-- *ngIf="combo.gradosAcademicos.length > 1"> -->
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idEstudio')">
+                                                        Nivel estudio
+                                                    </mat-label>
+                                                    <mat-select formControlName="idEstudio" 
+                                                    (selectionChange)="getIdSituacionAcademica()"
+                                                    >
+                                                        <mat-option *ngFor="let item of combo.nivelesGrado"
+                                                            [value]="item.id_catalogo_item">
+                                                            {{item.descripcion_catalogo_item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idEstudio')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="nivelEstudio && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Nivel estudio</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.descripcionGradoAcademico">
+                                                        {{datos_Formacion_Academica.descripcionGradoAcademico}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.descripcionGradoAcademico">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div> 
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" 
+                                            *ngIf="nivelGradoAcademico && !isInformacion"  >
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('idGrado')">
+                                                    <!-- *ngIf="combo.gradosAcademicos.length > 1"> -->
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idGrado')">
+                                                        Grado alcanzado
+                                                    </mat-label>
+                                                    <mat-select formControlName="idGrado"      
+                                                    (selectionChange)="getIdSituacionAcademica()"                                               
+                                                    >
+                                                        <mat-option *ngFor="let item of combo.nivelesGrado"
+                                                            [value]="item.id_catalogo_item">
+                                                            {{item.descripcion_catalogo_item}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idGrado')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="nivelGradoAcademico && isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Grado Alcanzado</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.descripcionGradoAcademico">
+                                                        {{datos_Formacion_Academica.descripcionGradoAcademico}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.descripcionGradoAcademico">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div> 
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!nivelEstudio">                                                
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!nivelGradoAcademico">                                                
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('titulos')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('titulos')">
+                                                        Títulos
+                                                    </mat-label>
+                                                    <input matInput formControlName="titulos" uppercase [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('titulos')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Títulos</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.titulos">
+                                                        {{datos_Formacion_Academica.titulos}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.titulos">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('especialidad')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('especialidad')">
+                                                        Especialidad
+                                                    </mat-label>
+                                                    <input matInput formControlName="especialidad" uppercase [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('especialidad')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Especialidad</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.especialidad">
+                                                        {{datos_Formacion_Academica.especialidad}}
+                                                    </p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.especialidad">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('nroRegistroTitulo')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('nroRegistroTitulo')">
+                                                        N° Registro del Titulo
+                                                    </mat-label>
+                                                    <input matInput formControlName="nroRegistroTitulo" uppercase maxlength="12" [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('nroRegistroTitulo')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">N° Registro del Titulo</label>
+                                                    <p class="form-control-static" *ngIf="datos_Formacion_Academica.nroRegistroTitulo">
+                                                        {{datos_Formacion_Academica.descripcionRegimenPensionario}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Formacion_Academica.nroRegistroTitulo">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >                                                
+                                            </div>
+
+                                        </div>                                        
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="fieldset-border" *ngIf="verInformacionDatosContacto">
+                                    <legend>Datos de contacto</legend>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('celular')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('celular')">
+                                                        Celular
+                                                    </mat-label>
+                                                    <input matInput (keypress)="onKeyPressSoloNumeros($event)" formControlName="celular" uppercase maxlength="9"
+                                                    [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('celular')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Celular</label>
+                                                    <p class="form-control-static" *ngIf="datos_Contacto.celular">
+                                                        {{datos_Contacto.celular}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Contacto.celular">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('telefonoFijo')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('telefonoFijo')">
+                                                        Teléfono fijo
+                                                    </mat-label>
+                                                    <input matInput (keypress)="onKeyPressSoloNumeros($event)" formControlName="telefonoFijo" 
+                                                    maxlength="10"
+                                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                    uppercase  [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('telefonoFijo')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Teléfono fijo</label>
+                                                    <p class="form-control-static" *ngIf="datos_Contacto.telefonoFijo">
+                                                        {{datos_Contacto.telefonoFijo}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Contacto.telefonoFijo">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('correoElectronico')">
+                                                    <mat-label
+                                                        [mineduFormRequiredLabel]="form.get('correoElectronico')">
+                                                        Correo electrónico
+                                                    </mat-label>
+                                                    <input matInput formControlName="correoElectronico" uppercase [readonly]="isInformacion" >
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('correoElectronico')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Correo electrónico</label>
+                                                    <p class="form-control-static" *ngIf="datos_Contacto.correoElectronico">
+                                                        {{datos_Contacto.correoElectronico}}</p>
+                                                    <p class="form-control-static" *ngIf="!datos_Contacto.correoElectronico">NO REGISTRADO
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >                                               
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+
+                                    
+                                </fieldset>
+
+                                <fieldset class="fieldset-border" *ngIf="verInformacionAnotacion">
+                                    <legend>Anotaciones</legend>
+
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.lt-md="0">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+                                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%" *ngIf="!isInformacion">
+                                                <mat-form-field appearance="fill" fxFlex="100%"
+                                                    [mineduFormFieldValidationState]="form.get('anotaciones')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('anotaciones')">
+                                                        Anotaciones
+                                                    </mat-label>
+                                                    <textarea name="anotaciones" formControlName="anotaciones" matInput
+                                                        type="text" matTextareaAutosize [matAutosizeMinRows]="3"
+                                                        [matAutosizeMaxRows]="10" uppercase  [readonly]="isInformacion" ></textarea>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('anotaciones')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            
+
+                                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%" *ngIf="isInformacion">
+                                                <div class="form-group" fxFlex="100%">
+                                                    <label for="">Anotacioness</label>
+                                                    <p  [innerHTML]="datos_Contacto.anotaciones"class="form-control-static" >
+                                                        
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        
+                                    </div>
+                                </fieldset>
+
+                               
+                            </div>                        
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+                        <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" >
+                            <div fxLayout="row" fxLayoutAlign="start center" 
+                            *ngIf="!isMandatoJudicial && !isInformacion && form.get('idMotivoAccion').value > 0 "
+                                width=device-width, initial-scale=1.0>
+                        
+                                <div class="pl-6" fxLayout="row" >
+                                    <!-- <button mat-stroked-button color="primary"
+                                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                        (click)="handleGenerarContrato()"><span class="material-icons">send</span>
+                                        Enviar Acciones Grabadas</button> -->
+                                    <minedu-button-customized 
+                                        [mineduForm]="form" 
+                                        (mineduOnClick)="handleEnviarAccionesGrabadas()"
+                                        [working]="working" 
+                                        [text]="'Enviar Acciones Grabadas'" 
+                                        [textWorking]="'Enviando...'" 
+                                        [icon]="'send'">
+                                    </minedu-button-customized>
+                                </div>
+                                <div class="pl-6" fxLayout="row" >
+                                    <!-- <button mat-stroked-button color="primary"
+                                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                        (click)="handleGenerarProyecto()"><span class="material-icons">description</span>
+                                        Generar Proyecto</button> -->
+                                    <minedu-button-customized 
+                                        [mineduForm]="form" 
+                                        (mineduOnClick)="handleGenerarProyecto()"
+                                        [working]="working" 
+                                        [text]="'Generar proyecto'" 
+                                        [textWorking]="'Generando...'" 
+                                        [icon]="'description'">
+                                    </minedu-button-customized>
+                                </div>
+                                <div class="pl-6" fxLayout="row" *ngIf="!isNew && estaEnProcesoAdjudicacion && VerObservacion">                                   
+                                    <minedu-button-customized 
+                                        [mineduForm]="form" 
+                                        (mineduOnClick)="handleObservar()"
+                                        [working]="working" 
+                                        [text]="'Observar'" 
+                                        [textWorking]="'Observando...'" 
+                                        [icon]="'remove_red_eye'">
+                                    </minedu-button-customized>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%">
+                            <div fxLayout="row" fxLayoutAlign="end center" *ngIf="!isAprobacion" width=device-width, initial-scale=1.0>
+        
+                                <div class="pl-6" fxLayout="row" *ngIf=" isInformacion === false && isEdit === false">
+                                    <minedu-button-save [mineduForm]="form" (mineduOnClick)="handleGuardar()"
+                                        [working]="working">
+                                    </minedu-button-save>
+                                </div>  
+
+                                <div class="pr-6" fxLayout="row" *ngIf=" isInformacion === false && isEdit!">
+                                    <minedu-button-update [mineduForm]="form" (mineduOnClick)="handleGuardar()"
+                                        [working]="working">
+                                    </minedu-button-update>
+                                </div>  
+
+                                <div class="pl-6" fxLayout="row" *ngIf="isNew" >
+                                    <minedu-button-clear class="mr-7" [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                        [working]="working">
+                                    </minedu-button-clear>
+                                </div>
+                                <!-- [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"-->
+                                <div class="pl-6" fxLayout="row" style="padding-left: 0px;">
+                                    <button mat-stroked-button color="primary"  class="pl-7"                                     
+                                        (click)="handleCancelar()"><span class="material-icons">undo</span>
+                                        Retornar</button>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="end center" *ngIf="isAprobacion" width=device-width, initial-scale=1.0>
+        
+                                <div class="pl-6" fxLayout="row" *ngIf="codigo_estado_vinculacion == 7">
+                                    <button mat-stroked-button color="primary"  class="ml-4"                                    
+                                        (click)="handleAutorizar()"><span class="material-icons">check_circle_outline</span>
+                                        Autorizar</button>
+                                </div>
+
+                                <div class="pl-6" fxLayout="row" *ngIf="codigo_estado_vinculacion == 7">
+                                    <button mat-stroked-button color="warn"   (click)="handleNoAutorizar()"
+                                        class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                        <span class="material-icons">remove_circle_outline</span>
+                                        Rechazar</button>
+                                </div>
+
+                                <div class="pl-6" fxLayout="row" >
+                                    <button mat-stroked-button color="primary"  class="ml-4"   
+                                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"                                  
+                                        (click)="handleCancelar()"><span class="material-icons">undo</span>
+                                        Retornar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

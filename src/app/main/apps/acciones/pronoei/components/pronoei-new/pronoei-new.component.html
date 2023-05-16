@@ -1,0 +1,702 @@
+<!-- Inicio Breadcrumb -->
+<div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxFlex="100%">
+        <div fxFlex="50%" fxFlex.xs="100%">
+            <h3 class="titulo c1">{{ nombreCabecera }} </h3>
+        </div>
+        <div fxFlex="50%" fxFlex.xs="100%">
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a [routerLink]="['/ayni/personal/inicio']">
+                        <mat-icon color="accent" class="s-18">home</mat-icon> Inicio
+                    </a>
+                </li>
+                <li><a [routerLink]="['/ayni/personal/acciones/pronoei']">Gestionar PRONOEI</a></li>
+                <li class="active"><a style="cursor: pointer;">{{ nombreCabecera }}</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- Fin Breadcrumb -->
+
+
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div fxFlex="100%" class="panel">
+
+        <div class="p-20 pt-0 mt-0">
+            <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                <form [formGroup]="form">
+                    <fieldset class="fieldset-border">
+                        <legend>Acción Personal</legend>
+                        <div>
+                            <div fxLayout="row wrap" class="mb-20">
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <label class="label">Por mandato judicial</label>
+                                    <div>
+                                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>
+                                        <mat-slide-toggle formControlName="esMandatoJudicial">SI
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="(regimenGrupoAccionData$ | async ) as regimenGrupoAccionData">
+                                <div fxLayout="row wrap">
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label">Régimen Laboral</label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{regimenGrupoAccionData.descripcion_regimen_laboral}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label">Grupo de Acción</label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{regimenGrupoAccionData.descripcion_grupo_accion}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label">Acción</label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{regimenGrupoAccionData.descripcion_accion}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label">Motivo Acción
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{regimenGrupoAccionData.descripcion_motivo_accion}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset class="fieldset-border">
+                        <legend>
+                            Datos Promotor Educativo Comunitario
+                        </legend>
+
+                        <div *ngIf="!esModificar" fxLayout="row wrap">
+                            <!-- <div fxLayout="row wrap"> -->
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group pr-20">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                            Tipo Documento
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoDocumentoIdentidad">
+                                            <mat-option [value]="-1">--Seleccionar--</mat-option>
+                                            <mat-option *ngFor="let item of (tipoDocumentoIdentidadActivo$|async)"
+                                                [value]="item.id_catalogo_item">
+                                                {{item.descripcion_catalogo_item}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group pr-20"
+                                    *ngIf="(tipoDocumentoIdentidadActivo$|async) as tipoDocumentoIdentidadActivo ">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                            Número de documento</mat-label>
+                                        <input matInput formControlName="numeroDocumentoIdentidad"
+                                            [minLength]="form.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 9"
+                                            [maxLength]="form.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                                            (keypress)="onKeyPressNumeroDocumento($event, tipoDocumentoIdentidadActivo)"
+                                            (keydown.enter)="buscarPersona()">
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('documentoEncontrado')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <button [disabled]="!form.get('idTipoDocumentoIdentidad').valid" mat-raised-button
+                                    color="primary" class="ml-4" (click)="buscarPersona()">
+                                    <span class="material-icons">search</span>
+                                    Buscar
+                                </button>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="(persona$|async) as persona">
+                            <div fxLayout="row wrap">
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Documento de identidad</label>
+                                        <br />
+                                        <span class="label-normal">
+                                            {{persona.tipoDocumentoIdentidad}}: {{persona.numeroDocumentoIdentidad}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Primer Apellido</label>
+                                        <br />
+                                        <span class="label-normal">
+                                            {{persona.primerApellido}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Segundo Apellido</label>
+                                        <br />
+                                        <span class="label-normal">
+                                            {{persona.segundoApellido}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Nombres</label><br />
+                                        <span class="label-normal">
+                                            {{persona.nombres}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Estado Civil</label><br />
+                                        <span class="label-normal">
+                                            {{persona.estadoCivil}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Sexo</label>
+                                        <br />
+                                        <span class="label-normal">
+                                            {{persona.sexo}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Fecha de Nacimiento</label>
+                                        <br />
+                                        <div class="label-normal">
+                                            {{persona.fechaNacimientoStr}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-container>
+                    </fieldset>
+                    <ng-container *ngIf="(persona$|async) as persona">
+                        <fieldset class="fieldset-border">
+                            <legend>Datos del PRONOEI</legend>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="25%" fxFlex.xs="100%">
+
+                                    <div class="form-group pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('codigoModular')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">Código
+                                                modular
+                                            </mat-label>
+                                            <input appBasico="integer" matInput formControlName="codigoModular"
+                                                (keydown.enter)="buscarCentroTrabajo($event)" minlength="6"
+                                                maxlength="7">
+                                            <button (click)="buscarCentroTrabajoDialogo()" type="button" matSuffix
+                                                mat-button mat-icon-button>
+                                                <mat-icon class="s-24">search</mat-icon>
+                                            </button>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('codModularEncontrado')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <button mat-raised-button color="primary" class="ml-4"
+                                        (click)="buscarCentroTrabajo()">
+                                        <span class="material-icons">search</span>
+                                        Buscar
+                                    </button>
+                                </div>
+                            </div>
+                            <div fxLayout="row wrap">
+                                <ng-container *ngIf="(centroTrabajo$|async) as centroTrabajo">
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Código modular
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.codigo_modular}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Centro de trabajo
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.institucion_educativa}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Instancia
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.descripcion_dre}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Sub Instancia
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.descripcion_ugel}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Modalidad Educativa
+                                            </label><br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.descripcion_modalidad_educativa}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Nivel Educativo
+                                            </label><br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.descripcion_nivel_educativo}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Tipo de Gestión
+                                            </label><br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.tipo_gestion_educativa}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Dependencia
+                                            </label><br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.dependencia_institucion_educativa}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Departamento
+                                            </label><br />
+                                            <p class="label-normal">
+                                                {{centroTrabajo.departamento}}
+                                            <p>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Provincia
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.provincia}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Distrito
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.distrito}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Centro poblado
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.centro_poblado_institucion_educativa}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div fxFlex="25%" fxFlex.xs="100%">
+                                        <div class="form-group">
+                                            <label class="label" for="">
+                                                Zona
+                                            </label>
+                                            <br />
+                                            <span class="label-normal">
+                                                {{centroTrabajo.zona}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border">
+                            <legend>Datos de la acción</legend>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="pr-20">
+                                        <minedu-datepicker [requiredLabel]="true" label="Fecha inicio"
+                                            [mineduFormControl]="form.get('fechaInicio')"
+                                            [formControl]="form.get('fechaInicio')" [min]="minDate" [max]="untilDate"
+                                            (OnChange)="validacionFechaPronoei()">
+                                        </minedu-datepicker>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="pr-20">
+                                        <minedu-datepicker [requiredLabel]="true" label="Fecha fin"
+                                            [mineduFormControl]="form.get('fechaFin')"
+                                            [formControl]="form.get('fechaFin')" [min]="newMinDate" [max]="maxDate">
+                                        </minedu-datepicker>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="form-group">
+                                        <label class="label" for="">
+                                            Propina en S/.
+                                        </label><br />
+                                        <ng-container *ngIf="monto;else zonaUrbana">
+                                            <p class="label-normal">
+                                                {{ monto | currency:'':'' }}
+                                            <p>
+                                        </ng-container>
+                                        <ng-template #zonaUrbana>
+                                            <p class="label-normal">
+                                                -
+                                            <p>
+                                        </ng-template>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="100%">
+                                    <div class="mb-20">
+                                        <mat-checkbox (change)="onChangeCheckImpedimento($event)"
+                                            formControlName="checkImpedimento">
+                                            Se ha verificado que la persona no cuenta con impedimento vigente para la
+                                            vinculación según la norma técnica. (*)
+                                        </mat-checkbox>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('checkImpedimento')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border">
+                            <legend>Datos de Formación Académica Alcanzada</legend>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="25%">
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('idNivelEducativoFa')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idNivelEducativoFa')">
+                                                Nivel Educativo
+                                            </mat-label>
+                                            <mat-select formControlName="idNivelEducativoFa"
+                                                (selectionChange)="onChangeNivelEducativo()">
+                                                <mat-option [value]="-1">--Seleccionar--</mat-option>
+                                                <mat-option *ngFor="let item of (nvlAcademicoActivoCatalogo$|async)"
+                                                    [value]="item.id_catalogo_item">
+                                                    {{item.descripcion_catalogo_item}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('idNivelEducativoFa')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%" *ngIf="esNivelEducativoSecundaria">
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('idSecundaria')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idSecundaria')">
+                                                Secundaria
+                                            </mat-label>
+                                            <mat-select formControlName="idSecundaria"
+                                                (selectionChange)="loadSituacionAcademica()">
+                                                <mat-option [value]="-1">--Seleccionar--</mat-option>
+                                                <mat-option *ngFor="let item of (secundariaDataCatalogo$|async)"
+                                                    [value]="item.id_catalogo_item">
+                                                    {{item.descripcion_catalogo_item}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('idSecundaria')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%" *ngIf="esNivelEducativoSuperior">
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('idSuperior')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idSuperior')">
+                                                Superior
+                                            </mat-label>
+                                            <mat-select formControlName="idSuperior"
+                                                (selectionChange)="loadSituacionAcademica()">
+                                                <mat-option [value]="-1">--Seleccionar--</mat-option>
+                                                <mat-option *ngFor="let item of (nivelSuperiorDataCatalogo$|async)"
+                                                    [value]="item.id_catalogo_item">
+                                                    {{item.descripcion_catalogo_item}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('idSuperior')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('idSituacionAcademica')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idSituacionAcademica')">
+                                                Situación Académica
+                                            </mat-label>
+                                            <mat-select formControlName="idSituacionAcademica" (selectionChange)="onChangeSituacionAcademica()">
+                                                <mat-option [value]="-1">--Seleccionar--</mat-option>
+                                                <mat-option
+                                                    *ngFor="let item of (situacionAcademicaActivoCatalogo$|async)"
+                                                    [value]="item.id_catalogo_item">
+                                                    {{item.descripcion_catalogo_item}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('idSituacionAcademica')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+                                <div fxFlex="25%" *ngIf="esGradoAcademico">
+
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('idGradoAlcanzado')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idGradoAlcanzado')">
+                                                Grado Alcanzado
+                                            </mat-label>
+                                            <mat-select formControlName="idGradoAlcanzado">
+                                                <mat-option [value]="-1">--Seleccionar--</mat-option>
+                                                <mat-option
+                                                    *ngFor="let item of (gradoAcademicoDataCatalogo$|async)"
+                                                    [value]="item.id_catalogo_item">
+                                                    {{item.descripcion_catalogo_item}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('idGradoAlcanzado')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border">
+                            <legend>Datos de contacto</legend>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="25%">
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('celular')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('celular')">
+                                                Celular
+                                            </mat-label>
+                                            <input appBasico="integer" matInput formControlName="celular"
+                                                maxLength="10">
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('celular')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                    </div>
+                                </div>
+                                <div fxFlex="25%">
+                                    <div class="pr-20">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                            [mineduFormFieldValidationState]="form.get('telefono')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('telefono')">
+                                                Teléfono Fijo
+                                            </mat-label>
+                                            <input appBasico="integer" matInput formControlName="telefono"
+                                                maxLength="10">
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('telefono')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+                                <div fxFlex="25%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('email')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('email')">
+                                            Correo electrónico
+                                        </mat-label>
+                                        <input uppercase matInput formControlName="email" maxLength="60">
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('email')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border">
+                            <legend>Anotaciones</legend>
+                            <div fxLayout="row wrap">
+                                <div fxFlex="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('anotaciones')">
+                                        <textarea uppercase alphaNumeric matInput formControlName="anotaciones"
+                                            maxLength="400"></textarea>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('anotaciones')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </ng-container>
+
+                </form>
+
+
+                <div *ngIf="(maestroPermiso$|async) as maestroPermiso" fxLayout="row" fxLayout.xs="column">
+                    <div class="m-0 p-16 pl-0" fxLayout="row" fxLayoutAlign="left" fxLayoutGap="10px" fxFlex="100%"
+                        fxFlex.xs="100%">
+
+                        <button [color]="form.valid?'primary':'grey'" *ngIf="maestroPermiso?.enviarAccionesGrabadas"
+                            color="primary" [disabled]="!form.valid" mat-raised-button
+                            (click)="handleEnviarAccionesGrabadas()">
+                            <span class="material-icons">send</span>
+                            Enviar Acciones Grabadas
+                        </button>
+
+                        <button [color]="form.valid?'primary':'grey'" *ngIf="maestroPermiso?.generarProyecto"
+                            color="primary" [disabled]="!form.valid" mat-raised-button
+                            (click)="handleGenerarProyecto()">
+                            <span class="material-icons">settings</span>
+                            Generar proyecto
+                        </button>
+
+                    </div>
+                    <div class="m-0 p-16" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" fxFlex="100%"
+                        fxFlex.xs="100%">
+
+                        <button [color]="form.valid?'primary':'grey'" [disabled]="!form.valid" mat-raised-button
+                            (click)="handleGuardar()">
+                            <span class="material-icons">save</span>
+                            {{esModificar?'Modificar':'Guardar'}}
+                        </button>
+
+                        <button mat-raised-button (click)="handleLimpiar()">
+                            <span class="material-icons">close</span>
+                            Limpiar
+                        </button>
+
+                        <button mat-raised-button (click)="handleCancelar()">
+                            <span class="material-icons">undo</span>
+                            Retornar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

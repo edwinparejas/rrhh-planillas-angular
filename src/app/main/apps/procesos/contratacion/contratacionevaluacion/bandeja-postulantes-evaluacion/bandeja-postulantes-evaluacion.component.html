@@ -1,0 +1,172 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Postulación</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/contratacion-evaluacion-expediente/bandeja-plazas/',idEtapaProceso]">Postulación</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <div class="panel">
+                <minedu-informacion-proceso-etapa 
+		    (eventDataInfo)="onDataInformacion($event)"
+		    [idProcesoEtapa]="idEtapaProceso"  
+		    [codSede]="codSedeCabecera">
+		</minedu-informacion-proceso-etapa>
+            </div>
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de Búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idTipoDocumento')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumento')">Tipo de Documento
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoDocumento" (selectionChange)="activarCampoNroDocumento()">
+                                            <mat-option *ngFor="let item of comboLists.listTipoDocumento" [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoDocumento')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento</mat-label>
+                                        <input 
+					  matInput 
+					  formControlName="numeroDocumentoIdentidad" 
+					  (keydown.enter)="handleBuscar()" 
+                                          [maxlength]="maxLengthnumeroDocumentoIdentidad"
+					  uppercase>
+                                        <button
+						type="button"
+						[disabled]="form.get('idTipoDocumento').value == -1"
+						*ngIf="!form.get('numeroDocumentoIdentidad').invalid" 
+						matSuffix mat-button mat-icon-button
+                                            (click)="busquedaPersonalizada($event)">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('numeroExpediente')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroExpediente')">Número de expediente</mat-label>
+                                        <input matInput formControlName="numeroExpediente" uppercase [maxlength]="20">
+                                        <button type="button" *ngIf="!form.get('numeroExpediente').invalid" matSuffix mat-button mat-icon-button
+                                            (click)="handleBuscar()">
+                                            <mat-icon class="s-24">search</mat-icon>
+                                        </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroExpediente')"></minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idEstado')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idEstado')">Estado
+                                        </mat-label>
+                                        <mat-select formControlName="idEstado">
+                                            <mat-option *ngFor="let item of comboLists.listEstado" [value]="item.id">
+                                                <!-- {{item.label}} -->
+                                                {{item.descripcion | uppercase}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages [mineduFormControl]="form.get('idEstado')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="p-0" fxLayout="row">
+                        <button mat-raised-button (click)="handleLimpiar()">
+                            <span class="material-icons">clear</span>Limpiar</button>
+                    </div>
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                            <span class="material-icons">search</span>Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" fxFlex="50%">
+                            <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="controlesActivos.btnNuevoPostulante && !ocultarBotonesAprobacion">
+                                <button mat-stroked-button color="primary" (click)="handleNuevo()" class="ml-4"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                        class="material-icons">add_circle</span>
+                                    Nuevo</button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row" *ngIf="controlesActivos.btnAprobarPostulantes && !ocultarBotonesAprobacion">
+                                <button mat-stroked-button color="primary" (click)="handleAprobarPostulantes()" class="ml-4"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                        class="material-icons">check</span>
+                                    Aprobar postulantes</button>
+                            </div>
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-stroked-button color="primary" class="ml-4" (click)="handleExportarEvalExpPostulantes()"
+                                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                    <span class="material-icons">get_app</span>EXPORTAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+                    <br>
+		    <ng-container [ngSwitch]="templateRL">
+			<ng-container *ngSwitchCase="'RL4'" [ngTemplateOutlet]="RL4"></ng-container>
+			<ng-container *ngSwitchCase="'RL3'" [ngTemplateOutlet]="RL3"></ng-container>
+		    </ng-container>
+
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <ng-template #RL4>
+	<minedu-grilla-eval-postulante30493
+	    [dataSourcePostulantes]="dataSourcePostulantes"
+	    (eventPaginator)="handPaginator($event)"
+	    (eventDelete)="handleBuscar()"
+	    [idEtapaProceso]="idEtapaProceso"
+	    >
+	</minedu-grilla-eval-postulante30493>
+    </ng-template>
+    <ng-template #RL3>
+	<minedu-grilla-eval-postulante30328
+	    [dataSourcePostulantes]="dataSourcePostulantes"
+	    (eventPaginator)="handPaginator($event)"
+	    (eventDelete)="handleBuscar()"
+	    [idEtapaProceso]="idEtapaProceso"
+	    >
+	</minedu-grilla-eval-postulante30328>
+    </ng-template>

@@ -1,0 +1,494 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{titulo}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="  pb-0 m-0"   fusePerfectScrollbar style="overflow: hidden !important;"  style="overflow-x: hidden !important;">
+        <!-- <div class="panel-body"> -->
+            <div class="m-20">
+            <fieldset class="fieldset-border mb-0">
+                <legend>Instancia</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxFlex="25%">
+                        <div class="form-group">
+                            <label for="">Año</label>
+                            <p class="form-control-static ">{{paramInit.anio}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%">
+                        <div class="form-group">
+                            <label for="">Instancia</label>
+                            <p class="form-control-static">{{paramInit.instanciaText}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%">
+                        <div class="form-group">
+                            <label for="">Sub Instancia</label>
+                            <p class="form-control-static">{{paramInit.subInstanciaText}} </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%">
+                        <div class="form-group">
+                            <label for=""> </label>
+                            <p class="form-control-static">  </p>
+                        </div>
+                    </div>
+
+                    
+                </div>
+           
+            </fieldset> 
+            </div>
+            <div class="m-20">
+            <fieldset class="fieldset-border mb-0">
+                <legend>Datos Laborales</legend> 
+                
+                <div fxLayout="row"  fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                     <span class="label">C&oacute;digo Modular</span>
+                                    <br>
+                                    <form [formGroup]="form">
+                                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+
+                                        <input matInput formControlName="codigoModular" (keypress)="keyPressBuscarCodigoModular($event)"
+                                                [maxlength]="7" placeholder="Número de documento" [readonly]="!esReadOnly"
+                                                >
+                                        <mat-icon *ngIf="esReadOnly" matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">search
+                                        </mat-icon>
+                                        </mat-form-field>
+                                    </form>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Centro de trabajo</span>
+                                    <br>
+                                    <span class="label-normal">{{centrotrabajo.INSTITUCION_EDUCATIVA}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Entidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_DRE}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Sub Entidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_UGEL}}  </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Tipo centro de trabajo</span>
+                                    <br>
+                                    <span class="label-normal"> {{ centrotrabajo.DESCRIPCION_TIPO_CENTRO_TRABAJO}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modalidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_MODALIDAD_EDUCATIVA}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nivel educativo</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_NIVEL_EDUCATIVO}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modelo de Servicio</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.MODELO_SERVICIO}}    </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+              
+            </fieldset>
+            </div>
+
+          
+         
+            <div class="m-20">
+            <form [formGroup]="form2">
+            <!-- <div fxLayout="row">
+            <div fxLayout="column" fxFlex="80">   -->
+            <fieldset class="fieldset-border mb-0"  fxLayout >
+                <legend>Datos para IE</legend>  
+                <div fxLayout="column" fxFlex="75">  
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                            
+                                <div   fxLayoutAlign="start start" fxFlex="20" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label ">Grados</span>
+                                    </div>
+                                </div>
+                                <div   fxLayoutAlign="start start"  fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label "  >1&deg; </span> 
+                                    </div>
+                                </div>
+                                <div   fxLayoutAlign="start start"  fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label ">2&deg;</span>
+                                    </div>
+                                </div>
+                                <div   fxLayoutAlign="start start"  fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label" >3&deg;</span>
+                                    </div>
+                                </div>
+                                <div    fxLayoutAlign="start start"  fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  ">4&deg;</span>
+                                </div>
+                                </div>
+                                <div    fxLayoutAlign="start start"  fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  " >5&deg;</span>
+                                    </div>
+                                </div>
+                                <div    fxLayoutAlign="start center"  fxFlex="25" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label" style="margin-left: 40px !important;">Total</span>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                            
+                                <div   fxLayoutAlign="start center" fxFlex="20" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label ">Nro. alumnos/estudiantes</span>
+                                    </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div fxLayoutAlign="start start" >
+                                        <mat-form-field fxFlex="40%" >
+                                            <input matInput formControlName="totalAlumnoGrado1"   
+                                                [maxlength]="5"  
+                                                (keypress)="soloNumeros($event)"
+                                                (blur)="calcCargaDocente(1)" 
+                                                    required>
+                                            </mat-form-field> 
+                                    </div>
+                                </div>
+                                <div  fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <mat-form-field  fxFlex="40%" >
+                                            <input matInput formControlName="totalAlumnoGrado2"   
+                                                [maxlength]="5" 
+                                                (keypress)="soloNumeros($event)"
+                                                (blur)="calcCargaDocente(2)"
+                                                required >
+                                            </mat-form-field> 
+                                    </div>
+                                </div>
+                                <div    fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <mat-form-field fxFlex="40%" >
+                                            <input matInput formControlName="totalAlumnoGrado3"   
+                                                [maxlength]="5"  
+                                                (keypress)="soloNumeros($event)"
+                                                (blur)="calcCargaDocente(3)" 
+                                                required>
+                                            </mat-form-field>  
+                                    </div>
+                                </div>
+                                <div  fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <mat-form-field  fxFlex="40%" >
+                                            <input matInput formControlName="totalAlumnoGrado4"   
+                                                [maxlength]="5"  
+                                                (keypress)="soloNumeros($event)"
+                                                (blur)="calcCargaDocente(4)"
+                                                required >
+                                            </mat-form-field>   
+                                </div>
+                                </div>
+                                <div    fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <mat-form-field  fxFlex="40%" >
+                                            <input matInput formControlName="totalAlumnoGrado5"   
+                                                [maxlength]="5" 
+                                                (keypress)="soloNumeros($event)"
+                                                (blur)="calcCargaDocente(5)"
+                                                required >
+                                            </mat-form-field> 
+                                    </div>
+                                </div>
+                                <div    fxLayoutAlign="start center"   fxFlex="25" fxFlex.xs="100%">
+                                    <div>
+                                        <mat-label class="label " style="margin-left: 40px !important;">{{total.alumnos}} &nbsp;TOTAL ALUMNOS</mat-label> 
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                                <div fxLayoutAlign="start start" fxFlex="20" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Número de Secciones</span>
+                                    </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <mat-form-field fxFlex="40%">
+                                        <input matInput formControlName="totalSeccionGrado1"   
+                                                [maxlength]="5"  
+                                                (keypress)="soloNumeros($event)"
+                                                (blur)="calcNumHora(1)"
+                                                >
+                                        </mat-form-field> 
+                                        </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div> <mat-form-field fxFlex="40%">
+                                        <input matInput formControlName="totalSeccionGrado2"   
+                                        [maxlength]="5" 
+                                        (keypress)="soloNumeros($event)"
+                                        (blur)="calcNumHora(2)" >
+                                        </mat-form-field>    </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div> <mat-form-field fxFlex="40%" >
+                                        <input matInput formControlName="totalSeccionGrado3"   
+                                        [maxlength]="5"  
+                                        (keypress)="soloNumeros($event)" 
+                                        (blur)="calcNumHora(3)">
+                                        </mat-form-field> </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>   <mat-form-field fxFlex="40%" >
+                                        <input matInput formControlName="totalSeccionGrado4"   
+                                        [maxlength]="5" 
+                                        (keypress)="soloNumeros($event)"
+                                        (blur)="calcNumHora(4)" >
+                                        </mat-form-field> </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>   <mat-form-field fxFlex="40%">
+                                        <input matInput formControlName="totalSeccionGrado5"   
+                                        [maxlength]="5" 
+                                        (keypress)="soloNumeros($event)"
+                                        (blur)="calcNumHora(5)" >
+                                        </mat-form-field> </div>
+                                </div>
+                                <div   fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                        <span class="label   " style="margin-left:40px!important;">{{total.secciones}} &nbsp;TOTAL SECCIONES</span>    
+                                </div>
+                                    
+                                
+                            
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                                <div fxLayoutAlign="start start" fxFlex="20" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Número de Horas Clase</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label "  >{{calculoHoraClase.grado1}}</span> 
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label"  >{{calculoHoraClase.grado2}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label "  >{{calculoHoraClase.grado3}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label "  >{{calculoHoraClase.grado4}}</span>
+                                </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label "  >{{calculoHoraClase.grado5}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label" style="margin-left:40px!important;"  >{{total.horasClase}} &nbsp;TOTAL HORAS CLASE</span>
+                                    </div>
+                                </div>
+                        
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                                <div fxLayoutAlign="start start" fxFlex="20" fxFlex.xs="100%">
+                                    
+                                        <span class="label ">Carga Docente</span>
+                                    
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  "   >{{calculoCargaDocente.grado1}}</span> 
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  "   >{{calculoCargaDocente.grado2 }}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  "   >{{calculoCargaDocente.grado3 }}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  "  >{{calculoCargaDocente.grado4 }}</span>
+                                </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="7" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label  " >{{calculoCargaDocente.grado5 }}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label"></span>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="25">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                        <div  fxLayoutAlign="start start" fxFlex="50" fxFlex.xs="100%">
+                            <div> 
+                                <span class="label"> </span>
+                            </div>
+                        </div>
+                        <div  fxLayoutAlign="start start" fxFlex="40" fxFlex.xs="100%">
+                            <div>
+                                <span class="label"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                        <div  fxLayoutAlign="start start" fxFlex="60" fxFlex.xs="100%">
+                            <div> 
+                                <span class="label">Total Bolsa Horas UGEL</span>
+                            </div>
+                        </div>
+                        <div  fxLayoutAlign="start start" fxFlex="40" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">{{resumen.totalBolsaUgel}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                        <div  fxLayoutAlign="start start" fxFlex="60" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Total Bolsa Horas Asignadas</span>
+                            </div>
+                        </div>
+                        <div  fxLayoutAlign="start start" fxFlex="40" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">{{resumen.totalBolsaAsignadaUgel}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                        <div  fxLayoutAlign="start start" fxFlex="60" fxFlex.xs="100%">
+                            <div>
+                                <span class="label" style="margin-top:10px">Total Bolsa Horas Asignada IE</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                            <div>
+                                <mat-form-field   fxFlex="30" fxFlex.xs="100%"  >
+                                    <input matInput formControlName="totalBolsaHoras"   
+                                           [maxlength]="5" 
+                                           (keypress)="soloNumeros($event)"
+                                            >
+                                      </mat-form-field> 
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="1px" fxLayoutGap.lt-md="0">
+                        <div  fxLayoutAlign="start start" fxFlex="60" fxFlex.xs="100%">
+                            <div>
+                                <span class="label" style="margin-top:10px">Total Docentes</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                            <div>
+                                <mat-form-field   fxFlex="30" fxFlex.xs="100%" >
+                                    <input matInput formControlName="totalDocentes"   
+                                           [maxlength]="5" 
+                                           (keypress)="soloNumeros($event)"
+                                            >
+                                      </mat-form-field> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>  
+            </fieldset> 
+             
+            </form>
+            </div>
+           
+        <!-- </div> -->
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" >
+       
+            <div fxFlex="50%">
+                <div class="form-group">
+                    <span class="label">Nro Horas Clases Mínima Segun Plan Estudios:&nbsp;{{resumen.totalHorasPlanEstudio}} &nbsp;Horas</span>
+                </div>
+            </div>
+            <div fxFlex="50%" fxLayoutAlign="end center">
+                <div class="form-group">
+                    <button mat-raised-button [disabled]="disabledBtn" color="primary" (click)="handleSave()"><span class="material-icons">save</span> Grabar</button>
+                    <button mat-raised-button (click)="handleCancel()"><span class="material-icons">close</span> Retornar</button>
+                </div>
+            </div>
+       
+
+    </div>
+</div>

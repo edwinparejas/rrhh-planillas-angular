@@ -1,0 +1,149 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-10 pb-0 m-0" >
+	<minedu-buscar-informacion-personal
+	        (eventDataPersona)="ObtenerDataPersona($event)"
+		[conValidacionEdad]="true"
+		[dataInicial]="postulante"
+		[conNacionalidad]="false">
+	</minedu-buscar-informacion-personal>
+        <form autocomplete="off" [formGroup]="form">
+	    <br>
+            <mat-checkbox class="label-normal" formControlName="cumpleNormaTecnica"  [disabled]="soloLectura" required>Según norma técnica vigente, se ha verificado que la persona no cuenta con impedimento para ser postulante (*)
+                <!-- [ngModel]="calificacion?.noSePresento" -->
+            </mat-checkbox>
+            <mat-tab-group>
+                <mat-tab label="1. Expediente">
+                    <fieldset class="fieldset-border">
+                        <legend>Datos del Tituulo</legend>
+                        <div fxLayout="column" fxFlexAlign="flex-start">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('numeroExpediente')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('numeroExpediente')">
+						Numero de Expediente
+                                            </mat-label>
+					    <input matInput formControlName="numeroExpediente" uppercase> 
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('numeroExpediente')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                                        <minedu-datepicker label="Fecha del expediente" 
+							   [mineduFormControl]="form.get('fechaExpediente')"
+							   [formControl]="form.get('fechaExpediente')" 
+							   [max]="nowDate" 
+							   [requiredLabel]="true">
+                                        </minedu-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </mat-tab>
+                <mat-tab label="2. Plaza a Postular">
+                    <fieldset class="fieldset-border">
+                        <legend>Título</legend>
+                        <div fxLayout="column" fxFlexAlign="flex-start">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%" 
+					        [mineduFormFieldValidationState]="form.get('numeroExpedienteTitulo')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('numeroExpedienteTitulo')">
+						Tiulo
+                                            </mat-label>
+                                            <input matInput formControlName="numeroExpedienteTitulo" uppercase>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('numeroExpedienteTitulo')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <minedu-datepicker label="Fecha de expediente del título" [mineduFormControl]="form.get('fechaExpedienteTitulo')"
+                                            [formControl]="form.get('fechaExpedienteTitulo')" [max]="nowDate">
+                                        </minedu-datepicker>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <minedu-datepicker 
+					    label="Fecha de registro del título" 
+					    [mineduFormControl]="form.get('fechaRegistroTitulo')"
+                                            [formControl]="form.get('fechaRegistroTitulo')" 
+					    [max]="nowDate">
+                                        </minedu-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-border">
+                        <legend>Orden de prelación</legend>
+                        <div fxLayout="column" fxFlexAlign="flex-start">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idModalidadEducativa')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idModalidadEducativa')">Modalidad Educativa
+                                            </mat-label>
+                                            <mat-select formControlName="idModalidadEducativa">
+                                                <mat-option *ngFor="let item of combo.modalidadEducativa" [value]="item.idModalidadEducativa">
+                                                    {{item.descripcionModalidadEducativa}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('idModalidadEducativa')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idNivelEducativo')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idNivelEducativo')">Nivel Educativo
+                                            </mat-label>
+                                            <mat-select formControlName="idNivelEducativo">
+                                                <mat-option *ngFor="let item of combo.nivelEducativa" [value]="item.idNivelEducativo">
+                                                    {{item.descripcionNivelEducativo}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('idNivelEducativo')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </mat-tab>
+                <mat-tab label="3. Vinculación Vigente" *ngIf="tieneVinculacion">
+		    <minedu-grilla-vinculacion-vigente
+			[dataSourcePlazasVinculadas]="dataSourcePlazasVinculadas">
+		    </minedu-grilla-vinculacion-vigente>
+                </mat-tab> 
+            </mat-tab-group>
+        </form>
+        <p class="text-danger">(*) Datos obligatorios</p>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <button *ngIf="!soloLectura" mat-stroked-button (click)="handleGuardarNuevoPostulante()" color="primary" class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+            <span class="material-icons">save</span>Guardar
+        </button>
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

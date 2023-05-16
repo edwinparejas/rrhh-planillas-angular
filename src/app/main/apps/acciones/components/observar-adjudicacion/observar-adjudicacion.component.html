@@ -1,0 +1,30 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title"> Observación</span>
+            </div>
+            <button mat-icon-button (click)="matDialogObsRef.close()" aria-label="Close dialog">
+                
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form autocomplete="off" novalidate [formGroup]="form">
+            <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap.xs="0">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Observacioness</mat-label>
+                    <textarea name="observacion" formControlName="observacion" matInput type="text" matTextareaAutosize
+                        [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-send [mineduForm]="form" (mineduOnClick)="handleEnviar()" [working]="working">
+        </minedu-button-send>
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

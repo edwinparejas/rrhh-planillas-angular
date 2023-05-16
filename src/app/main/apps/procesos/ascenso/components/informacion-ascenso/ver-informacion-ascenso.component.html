@@ -1,0 +1,92 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Motivo de Cancelación</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    
+
+     <div mat-dialog-content class="p-7 pb-0 m-0" fusePerfectScrollbar>
+                 <div  > 
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Datos del proceso</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="5%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Año</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.anio}} 2021 </span>
+                                           
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Régimen laboral</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.abreviaturaRegimenLaboral}} 
+                                                LEY 29944 - LEY DE REFORMA MAGISTERIAL</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Proceso</span>
+                                            <br>
+                                            <span class="label-normal">ASCENSO </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Código</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.codigoProceso}} 2021-002</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Fecha creación</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.fechaRegistroProceso}} 10/12/2021</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Motivo de Cancelación</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                    fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Motivo de prueba test</span>
+                                            <br>
+                                            <span class="label-normal">{{etapa.descripcionEtapaFase}} </span>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </fieldset>
+                  </div>
+    </div>  
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-stroked-button color="primary" (click)="handleCancel()"><span class="material-icons">close</span> Cerrar</button>
+
+        
+    </div>
+</div> 

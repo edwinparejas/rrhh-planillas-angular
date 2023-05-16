@@ -1,0 +1,246 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Información completa de la plazaa</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                <fieldset class="fieldset-border">
+                    <legend>Datos de la Plaza</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Código de Plaza</label>
+                                    <p class="p1">{{plaza.codigo_plaza}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Regimen Laboral</label>
+                                    <p class="p1">{{plaza.regimen_laboral}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de Plaza</label>
+                                    <p class="p1">{{plaza.tipo_plaza}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Cargo</label>
+                                    <p class="p1"> {{plaza.cargo}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Jornada Laboral</label>
+                                    <p class="p1"> {{plaza.jornada_laboral}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Area Curricular</label>
+                                    <p class="form-control-static accion-personal">{{plaza.area_curricular}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Especialidad</label>
+                                    <p class="form-control-static accion-personal">{{plaza.especialidad}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Vigencia Inicio</label>
+                                    <p class="form-control-static accion-personal">{{plaza.vigencia_inicio}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">vigencia Fin</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.vigencia_fin}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">                                
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Vacante</label>
+                                    <p class="form-control-static accion-personal">{{plaza.motivo_vacante}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos del Centro de Trabajo</legend>
+                    <div fxLayout="column">
+                        
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Código Modular</label>
+                                    <p class="form-control-static accion-personal">{{plaza.codigo_modular}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Centro de Trabajo</label>
+                                    <p class="form-control-static accion-personal">{{plaza.centro_trabajo}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Instancia</label>
+                                    <p class="form-control-static accion-personal">{{plaza.instancia}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Sub Instancia</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.sub_instancia}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Modalidad Ed</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.modalidad}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Nivel Educativo</label>
+                                    <p class="form-control-static accion-personal">{{plaza.nivel_educativo}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de IE</label>
+                                    <p class="form-control-static accion-personal">{{plaza.tipo_ie}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de Gestión</label>
+                                    <p class="form-control-static accion-personal">{{plaza.tipo_gestion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Dependencia</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.dependencia}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Modelo de servicio</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.modelo_servicio}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de ruralidad</label>
+                                    <p class="form-control-static accion-personal">{{plaza.tipo_ruralidad}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">EIB</label>
+                                    <p class="form-control-static accion-personal">{{plaza.eib}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Forma de atención</label>
+                                    <p class="form-control-static accion-personal">{{plaza.forma_atencion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Lengua originaria</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.lengua_ordinaria}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Frontera</label>
+                                    <p class="form-control-static accion-personal"> {{plaza.frontera}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">VRAEM</label>
+                                    <p class="form-control-static accion-personal">{{plaza.vraem}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+

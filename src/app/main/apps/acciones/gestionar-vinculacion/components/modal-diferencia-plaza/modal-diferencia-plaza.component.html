@@ -1,0 +1,115 @@
+<div class="dialog-content-wrapper">
+    
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title"> Actualización de datos</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <div class="mb-2">
+            <span class="minedu-note">NO SE PUDO GENERAR EL PROYECTO DE RESOLUCION, YA QUE SE ENCONTRO, diferencia de información en los siguientes campos:</span>        </div>
+        <br>
+
+        <div class="panel">
+            <div class="panel-body">
+                <div class="content" mineduPerfectScrollbar>
+                    <div class="content-table" ngClass.lt-lg="scroll-grid">
+                        <mat-table class="minedu-table" #table [dataSource]="dataSource" 
+                        [@animateStagger]="{value:'50'}" mineduPerfectScrollbar>
+
+                            <ng-container matColumnDef="nro">
+                                <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                <mat-cell *matCellDef="let row;">
+                                    <span class="text-truncate"></span> {{row.registro}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="campo">
+                                <mat-header-cell *matHeaderCellDef>Campo</mat-header-cell>
+                                <mat-cell *matCellDef="let row;">
+                                    <span class="text-truncate"></span> {{row.campo}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="original">
+                                <mat-header-cell *matHeaderCellDef>Dato Original</mat-header-cell>
+                                <mat-cell *matCellDef="let row;">
+                                    <span class="text-truncate"></span> {{row.original}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actualizado">
+                                <mat-header-cell *matHeaderCellDef>Dato Actualizado</mat-header-cell>
+                                <mat-cell *matCellDef="let row;">
+                                    <span class="text-truncate"></span> {{row.actualizado}}
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                                
+                                <mat-row *matRowDef="let row; columns: displayedColumns"
+                                (mouseover)="row.hovered = true"
+                                (mouseout)="row.hovered = false"
+                                matRipple
+                                [@animate]="{ value: '*', params: { y: '100%' } }"
+                                >
+
+                        </mat-row>
+
+                        </mat-table>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                *ngIf="dataSource?.loading | async">
+                                <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+
+                        <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">
+                            <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+
+                    </div>
+
+                  
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <div class="pl-6" fxLayout="row">
+            <button mat-raised-button *ngIf="enProcesoMotivo === false"
+                color="primary" class="ml-4" (click)="handleActualizar()">
+                <span class="material-icons">edit</span>
+                ACTUALIZAR DATOS
+            </button>
+        </div>
+
+        <div class="pl-6" fxLayout="row">
+            <button mat-raised-button *ngIf="enProcesoMotivo"
+                color="primary" class="ml-4" (click)="handleObservar()">
+                <span class="material-icons">remove_red_eye</span>
+                OBSERVAR ADJUDICACION
+            </button>
+        </div>
+
+        <div class="pl-6">
+            <minedu-button-cancel (mineduOnCancel)="handleCancel()"></minedu-button-cancel>
+        </div>        
+    </div>
+</div>

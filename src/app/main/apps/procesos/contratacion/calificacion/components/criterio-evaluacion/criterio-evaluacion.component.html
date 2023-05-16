@@ -1,0 +1,85 @@
+<div class="content" mineduPerfectScrollbar>
+    <div class="content-table">
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                <ng-container matColumnDef="registro">
+                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">N°:</span> {{row?.codigoCriterio}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcion">
+                    <mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">DESCRIPCIÓN:</span> {{row?.descripcionCriterio}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="puntajeMaximo">
+                    <mat-header-cell *matHeaderCellDef>PUNTAJE MÁXIMO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <div style="padding-left: 10px;"></div>
+                        <div style="padding-left: 10px;"></div>
+                        <span class="mobile-label">PUNTAJE MÁXIMO:</span> {{row?.puntajeMaximo}}<br>
+                        {{row?.descripcionPuntajeMaximo}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="acreditaDocumento">
+                    <mat-header-cell *matHeaderCellDef>ACREDITA DOCUMENTO</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">ACREDITA DOCUMENTO:</span>
+                        <div style="padding-left: 10px;"></div>
+                        <div style="padding-left: 10px;"></div>
+                        <mat-checkbox *ngIf="data[i].tieneSubcriterios === false"
+                            [(ngModel)]="data[i].acreditaDocumento" [checked]="data[i].acreditaDocumento"
+                            [disabled]="soloLectura == true" (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            (ngModelChange)="calcularPuntajeFinal(row)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cantidad">
+                    <mat-header-cell *matHeaderCellDef>CANTIDAD MESES</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">CANTIDAD MESES:</span>
+                        <input *ngIf="data[i].acreditaDocumento === true && data[i].debeIngresarCantidad === true"
+                            [disabled]="soloLectura" class="text-box" [(ngModel)]="data[i].cantidad" placeholder=""
+                            maxlength="5" autocomplete="off" (ngModelChange)="calcularPuntajeFinal(row)"
+                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                        <!--
+                        <mat-form-field *ngIf="data[i].acreditaDocumento === true" >
+                            <input matInput [(ngModel)]="data[i].cantidad" placeholder="" maxlength="5"
+                                autocomplete="off" (ngModelChange)="calcularPuntajeFinal(row)"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                        </mat-form-field>
+                        -->
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="puntaje">
+                    <mat-header-cell *matHeaderCellDef>PUNTAJE</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <div style="padding-left: 10px;"></div>
+                        <div style="padding-left: 10px;"></div>
+                        <span class="mobile-label">PUNTAJE:</span> {{row?.puntajeFinal}}
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+                </mat-row>
+            </mat-table>
+        </div>
+        <br>
+        <div fxLayout=" row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+                <label class="label">{{puntajeTotalLabel}}: {{puntajeTotal}} PUNTOS</label>
+            </div>
+        </div>
+    </div>
+</div>

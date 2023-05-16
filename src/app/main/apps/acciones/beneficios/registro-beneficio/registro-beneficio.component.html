@@ -1,0 +1,118 @@
+<!-- <div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center"> -->
+        <!-- Inicio Breadcrumb -->
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxFlex="50%">
+                    <h3 class="titulo c1">Acciones de Personal: Beneficios</h3>
+                </div>
+                <div fxFlex="50%" >
+                    <ol class="breadcrumb pull-right">
+                        <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                        <li><a [routerLink]="['/ayni/personal/acciones/beneficios']">Accion Beneficio</a></li>
+                        <li class="active"><a style="cursor: pointer;">Nuevo Registro de Beneficio</a></li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+        <!-- Fin Breadcrumb --> 
+<div class="page-layout carded fullwidth inner-scroll p-0">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Nuevo Registro de Beneficio</h3>
+                </div>
+            </div>
+            <div class="panel mt-12">
+                <form autocomplete="off" novalidate [formGroup]="form">
+                    <div class="panel-body" >
+                        <div fxLayout="row wrap">
+                            <minedu-accion-personal [form]="form" fxFlex="100%"></minedu-accion-personal>
+                            <minedu-servidor-publico [form]="form" fxFlex="100%"></minedu-servidor-publico>
+                            <minedu-informe-escalafonario [form]="form" fxFlex="100%"></minedu-informe-escalafonario>
+                            <minedu-informe-calculo [form]="form" fxFlex="100%"></minedu-informe-calculo>
+                            <fieldset class="fieldset-border"  fxFlex="100%">
+                                <legend>Anotaciones</legend>
+
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                    fxLayoutGap.lt-md="0" >
+                                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('anotaciones')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('anotaciones')"   >
+                                                    Antaciones
+                                                </mat-label>
+                                                <textarea name="anotaciones" formControlName="anotaciones" matInput
+                                                    type="text" matTextareaAutosize [matAutosizeMinRows]="3"
+                                                    [matAutosizeMaxRows]="10" uppercase></textarea>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('anotaciones')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%">
+                            <div fxLayout.lt-sm="column" fxLayout="row wrap" fxFlex="50%" fxFlex.lt-sm="100%">
+                                
+                                <div fxLayout="row" fxLayoutAlign="start center" *ngIf="disponibleEnviarAccionesGrabadas && form.get('mandatoJudicial') ">
+                                    <div class="pl-6" fxLayout="row">
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleEnviarAccionesGrabadas()"><span class="material-icons">send</span>
+                                            ENVIAR ACCIONES GRABADAS</button>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="start center" *ngIf="disponibleGenerarProyecto && form.get('mandatoJudicial')">
+                                    <div class="pl-6" fxLayout="row">
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleGenerarProyectoResolucion()"><span class="material-icons">settings</span>
+                                            GENERAR PROYECTO</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%">
+                                <div fxLayout="row" fxLayoutAlign="end center">
+            
+                                    <div class="pl-6" fxLayout="row" *ngIf="disponibleRegistrar">
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleGuardar()"><span class="material-icons">save</span>
+                                            GUARDAR</button>
+                                    </div>
+                                    <div class="pl-6" fxLayout="row" *ngIf="disponibleLimpiar">
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleLimpiar()"><span class="material-icons">delete</span>
+                                            LIMPIAR</button>
+                                    </div>
+                                    <div class="pl-6" fxLayout="row" >
+                                        <button mat-stroked-button color="primary"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleCancelar()"><span class="material-icons">block</span>
+                                            CANCELAR</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- </div>
+</div> -->

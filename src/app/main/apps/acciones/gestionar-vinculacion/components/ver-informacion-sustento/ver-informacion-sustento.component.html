@@ -1,0 +1,110 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Ver Información de Sustento</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-10 pb-0 m-0" fusePerfectScrollbar>
+        <div class="panel-body">
+            
+            <br>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo de Documento</span>&nbsp;
+                            <br>
+                            <span class="label-normal">{{InfoDocumentoSustento.tipoDocumentoSustento}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Número de Documento</span>
+                            <br>
+                            <span class="label-normal">{{InfoDocumentoSustento.numeroDocumentoSustento}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" >Entidad Emisora</span>
+                            <br>
+                            <span class="label-normal" *ngIf="InfoDocumentoSustento.entidadEmisora"> {{InfoDocumentoSustento.entidadEmisora}} </span>
+                            <span class="label-normal" *ngIf="!InfoDocumentoSustento.entidadEmisora">NO REGISTRADO</span>
+
+                            
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Emisión</span>
+                            <br>
+                            <span class="label-normal">{{InfoDocumentoSustento.fechaEmision | date:"yyyy-MM-dd"}} </span>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Folios</span>
+                            <br>
+                            <span class="label-normal">{{InfoDocumentoSustento.numeroFolios}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo de Formato</span>
+                            <br>
+                            <span class="label-normal">{{InfoDocumentoSustento.tipoFormatoSustento}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sumilla</span>
+                            <br>
+                            <span class="label-normal" *ngIf="InfoDocumentoSustento.sumilla"> {{InfoDocumentoSustento.sumilla}} </span>
+                            <span class="label-normal" *ngIf="!InfoDocumentoSustento.sumilla">NO REGISTRADO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div *ngIf="InfoDocumentoSustento.archivoSustento != 0">
+                            <span class="label">Documento Escaneado</span>
+                            <br>
+                            <button type="button" mat-stroked-button color="primary"
+                                class="sidebar-toggle btn-sm ml-2"
+                                (click)="handleMostrarAdjunto(InfoDocumentoSustento.archivoSustento )"
+                                aria-label="Ver documento adjunto"
+                                matTooltip="Ver documento adjunto">
+                                <mat-icon class="">picture_as_pdf</mat-icon>
+                            </button>
+                        </div>
+
+                        <div *ngIf="InfoDocumentoSustento.archivoSustento == 0">
+                            <span class="label">Documento Escaneado</span>
+                            <br>
+                            <span class="label-normal" *ngIf="!InfoDocumentoSustento.sumilla">NO REGISTRADO</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Mostrar en el visto del proyecto</span>
+                            <br>
+                            <!-- <span class="label-normal">{{plaza.tipoGestion}} </span> -->
+                            <span class="label-normal">{{ InfoDocumentoSustento.vistoProyecto ? 'SI' : 'NO' }} </span>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">close</span> CERRAR</button>
+    </div>
+</div>

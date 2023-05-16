@@ -1,0 +1,36 @@
+<div class="dialog-content-wrapper" *ngIf="adjudicacion != null">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{ 'Información de Subsanación' }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <form [formGroup]="form">
+        <div mat-dialog-content class="p-20 pb-0 m-0" fusePerfectScrollbar>
+            <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+                <mat-spinner [diameter]="50" style="margin: 0 auto"></mat-spinner>
+                <span>Espere, estamos procesando tu solicitud</span>
+            </div>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos de subsanación</legend>
+                <div fxLayout="row" fxLayout.lt-md="column" *ngIf="adjudicacion.detalleSubsanacion == null">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Detalle: </span><br>
+                                <span class="label-normal">{{adjudicacion?.detalle_subsanacion}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancelar()"><span class="material-icons">block</span>CERRAR</button>
+    </div>
+</div>

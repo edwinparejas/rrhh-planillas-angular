@@ -1,0 +1,39 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Observar postulante</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="form">
+            <div fxLayout="column" fxFlex="100%">
+                <mat-form-field appearance="fill" fxFlex="100%">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idMotivoObservacion')">Motivo de la observación</mat-label>
+                    <mat-select formControlName="idMotivoObservacion">
+                        <mat-option *ngFor="let item of comboLists.listMotivoObservacion" [value]="item.value">
+                            {{ item.label }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('idMotivoObservacion')"></minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" fxFlex="100%">
+                    <mat-label [mineduFormRequiredLabel]="form.get('anotacionesObservacion')">Anotaciones</mat-label>
+                    <textarea matInput formControlName="anotacionesObservacion" placeholder="Anotaciones" rows="8" maxlength="4000" uppercase></textarea>
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('anotacionesObservacion')"></minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <span style="color: red;">(*) Dato Obligatorio</span>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleSave()"><span class="material-icons">save</span> Guardar</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> Cancelar</button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,14 @@
+<ng-container *ngIf="template;else normalColumn">
+  <ng-container *ngTemplateOutlet="template; context {$implicit: element, rowIndex: rowIndex}"></ng-container>
+</ng-container>
+
+<ng-template #normalColumn>
+  <span
+    *ngIf="!colDef.isDatetime"
+    class="word-wrap">{{this.getProperty(element, colDef['field'])}}</span>
+  <span
+    *ngIf="colDef.isDatetime"
+    class="word-wrap">{{
+        this.getProperty(element, colDef['field'])|dateFormat: null: (colDef['dateTimeFormat']||datetimeDefaultFormat)
+      }}</span>
+</ng-template>

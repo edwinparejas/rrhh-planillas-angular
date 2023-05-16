@@ -1,0 +1,206 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-20 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos del Postulante</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de Identidad</span><br>
+                            <span class="label-normal">{{adjudicacion?.documento | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer Apellido</span><br>
+                            <span class="label-normal">{{adjudicacion?.primer_apellido | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo Apellido</span><br>
+                            <span class="label-normal">{{adjudicacion?.segundo_apellido | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span><br>
+                            <span class="label-normal">{{adjudicacion?.nombres | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span><br>
+                            <span class="label-normal">{{adjudicacion?.genero | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Nacimiento</span><br>
+                            <span class="label-normal">{{adjudicacion?.fecha_nacimiento | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Edad</span><br>
+                            <span class="label-normal">{{adjudicacion?.edad | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nacionalidad</span><br>
+                            <span class="label-normal">{{adjudicacion?.nacionalidad | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos de la Plaza</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Regimen Laboral</span><br>
+                            <span class="label-normal">{{adjudicacion?.regimen_laboral | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código Modular</span><br>
+                            <span class="label-normal">{{adjudicacion?.codigo_modular | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Centro Trabajo</span><br>
+                            <span class="label-normal">{{adjudicacion?.centro_trabajo | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Modalidad</span><br>
+                            <span class="label-normal">{{adjudicacion?.modalidad | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nivel Educativo</span><br>
+                            <span class="label-normal">{{adjudicacion?.nivel_educativo | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código Plaza</span><br>
+                            <span class="label-normal">{{adjudicacion?.codigo_plaza | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cargo</span><br>
+                            <span class="label-normal">{{adjudicacion?.descripcion_cargo | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Jornada Laboral</span><br>
+                            <span class="label-normal">{{adjudicacion?.jornada_laboral | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo Plaza</span><br>
+                            <span class="label-normal">{{adjudicacion?.tipo_plaza | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Grupo Inscripción</span><br>
+                            <span class="label-normal">{{adjudicacion?.grupo_inscripcion | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Área Curricular</span><br>
+                            <span class="label-normal">{{adjudicacion?.descripcion_area_curricular | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Estado Adjudicación</span><br>
+                            <span class="label-normal">{{adjudicacion?.estado_adjudicacion | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Vigencia Inicio</span><br>
+                            <span class="label-normal">{{adjudicacion?.vigencia_inicio | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Vigencia Fin</span><br>
+                            <span class="label-normal">{{adjudicacion?.vigencia_fin | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>No Adjudicación</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Motivo No Adjudicación</span><br>
+                            <span class="label-normal">{{adjudicacion?.motivo_no_adjudicacion | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Anotaciones</span><br>
+                            <span class="label-normal">{{adjudicacion?.anotaciones | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>RETORNAR</button>
+    </div>
+</div>

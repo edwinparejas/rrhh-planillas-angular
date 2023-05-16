@@ -1,0 +1,204 @@
+<div class="gridContainer">
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+        <div mat-dialog-actions class="p-0 mt-12" fxLayout="row">
+
+            <div *ngIf="permisoCalificacion?.publicarResultadoFinal && permisos?.publicadoFinal && !permisos?.publicadoCalificacion">
+                <button mat-raised-button (click)="handlePublicarResultadoFinal()" color="primary" class="ml-4"
+                    [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                    <span class="material-icons">public</span>
+                    Publicar resultado final
+                </button>
+            </div>
+            <div *ngIf="permisoCalificacion?.publicarResultadoFinal && permisos?.publicadoFinal && permisos?.publicadoCalificacion">
+                <button mat-raised-button (click)="handleVerResultadoFinal()" color="primary" class="ml-4"
+                    [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                    <span class="material-icons">cloud_download</span>
+                   Ver resultados finales
+                </button>
+            </div>
+            <div *ngIf="permisos?.publicadoFinal">
+                <button mat-stroked-button color="primary" (click)="handleExportarCalificacionesFinales()" class="ml-4"
+                    style="margin-right: 12px" [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                    <span class="material-icons">get_app</span>
+                    EXPORTAR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="content">
+            <div class="content-table">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <table mat-table class="minedu-table" #table [dataSource]="dataSourceResultadosFinales"
+                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>
+                                N°
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.numeroRegistro }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="causal">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Causal
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.causal }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="etapa">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Etapa
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.etapa }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="documento">
+                            <th mat-header-cell *matHeaderCellDef>Documento
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.documentoIdentidad }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nombresApellidos">
+                            <th mat-header-cell *matHeaderCellDef>Apellidos y nombres
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.nombreCompleto }} </p>
+                            </td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="codigoPlaza">
+                            <th mat-header-cell *matHeaderCellDef>Código plaza
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.codigoPlaza }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="cargoActual">
+                            <th mat-header-cell *matHeaderCellDef>Cargo actual
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.cargo}} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="centroTrabajo">
+                            <th mat-header-cell *matHeaderCellDef>Centro de trabajo
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.centroTrabajo}} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nivelEducativo">
+                            <th mat-header-cell *matHeaderCellDef>Nivel educativo
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.nivelEducativo }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="puntajeTotal">
+                            <th mat-header-cell *matHeaderCellDef>Puntaje total
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p>{{ row.puntajeTotal?.toFixed(2)}} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef>Estado
+                            </th>
+                            <td mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">ESTADO:</span>
+                                <p class="badge badge-width" [ngClass]="claseSegunEstado(row.codigoEstadoCalificacion)" >{{ row.estadoCalificacion }}</p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="conReclamo">
+                            <th mat-header-cell *matHeaderCellDef>Con reclamo
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index">
+                                <p> {{ row.conReclamo }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                            <td mat-cell *matCellDef=" let row; let i = index ">
+                                <div fxLayout="row" fxLayoutAlign="flex-start stretch">
+                                    <div class="mat-icon-table">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                            (click)="handleGoVerCalificacion(row)"
+                                            aria-label="Ver información" matTooltip="Ver información">
+                                            <mat-icon class="">info</mat-icon>
+                                        </button>
+                                    </div>
+                                     <div class="mat-icon-table" *ngIf="row.conReclamo == 'SI' && !permisos?.publicadoCalificacion">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                            (click)="handleGoRegistrarCalificacion(row)"
+                                            aria-label="Editar calificación" matTooltip="Editar calificación">
+                                            <mat-icon class="">event</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="!row.permiteVerObservacion && permisoCalificacion?.observarPostulante == true && permisos?.publicadoFinal && !permisos?.publicadoCalificacion">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                            (click)="handleObservar(row)" aria-label="Observar postulante"
+                                            matTooltip="Observar postulante">
+                                            <mat-icon style="color: red;" class="" >highlight_off</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.permiteVerObservacion">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                            (click)="handleVerObservacion(row)" aria-label="Ver observación"
+                                            matTooltip="Ver observación">
+                                            <mat-icon class="">visibility</mat-icon>
+                                        </button>
+                                    </div>
+                                    <div class="mat-icon-table" *ngIf="row.permiteVerReclamo">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                            (click)="handleVerReclamo(row)" aria-label="Ver Reclamo"
+                                            matTooltip="Ver Reclamo">
+                                            <mat-icon class="">library_books</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsPlazas;sticky: true">
+                        </tr>
+                        <tr mat-row *matRowDef="let row;columns: displayedColumnsPlazas"
+                            (click)=" selectionResultadosFinales.toggle(row)"
+                            [ngClass]="{ hovered: row.hovered,selected: selectionResultadosFinales.isSelected(row)}"
+                            (mouseover)=" row.hovered = true " (mouseout)="row.hovered = false"
+                            [@animate]="{value: '*',params: { y: '100%' }}">
+                        </tr>
+                    </table>
+                </div>
+                <div class="no-results" *ngIf="!(dataSourceResultadosFinales.loading | async)"
+                    [style.display]="dataSourceResultadosFinales.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                    *ngIf="dataSourceResultadosFinales.loading | async">
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <mat-paginator fxLayoutAlign="center center"  #paginatorResultadosFinales class="mat-paginator-sticky"
+                    [length]="dataSourceResultadosFinales.dataTotal" [pageIndex]="paginatorPageIndex"
+                    [pageSize]="paginatorPageSize" [pageSizeOptions]="[5,10,20,30,40,50,100]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+
+</div>

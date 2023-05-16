@@ -1,0 +1,187 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+
+.minedu-registro-plaza-postulante-encargatura {
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint('gt-xs') {
+        width:900px;
+    }
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            >h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+    .mat-dialog-container {
+        padding: 0;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .minedu-note{
+        font-style: italic;
+        font-weight: 700;
+        color: #0073B7;
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+
+        line-height: 34px;
+    }
+    .mat-tree-node {
+        user-select: none;
+        cursor: pointer;
+    }
+    .mat-tree {
+        border: 1px solid #ddd !important;
+        min-height: 300px;
+        overflow-y: visible !important;
+    }
+    .form-group {
+        margin-bottom: 5px;
+    }
+    p {
+        margin: 6px 0;
+        color: rgba(0, 0, 0, .6);
+    }
+
+    .content {
+        .mat-tab-label {
+            justify-content: left;
+        }
+        .mat-tab-group {
+            flex-direction: row;
+            width: 100%;
+        }
+        .mat-tab-header {
+            border-bottom: none;
+        }
+        .mat-tab-header-pagination {
+            display: none !important;
+        }
+        .mat-tab-labels {
+            flex-direction: column;
+        }
+        .mat-ink-bar {
+            height: 100%;
+            left: 98% !important;
+        }
+        .mat-tab-body-wrapper {
+            flex: 1 1 auto;
+            width: 100%;
+        }
+    }
+
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .mat-icon-table {
+            width: 30px;
+        }
+        .mat-column-codigoCriterio {
+            flex: 0 1 50px;
+        }
+        .mat-column-descripcionCriterio {
+            margin-left: 5px;
+        }
+        .mat-column-cumpleDocumento {
+            flex: 0 1 80px;
+        }
+        .mat-column-puntajeMaximo {
+            flex: 0 1 10%;
+        }
+        .mat-column-puntajeUnidad {
+            flex: 0 1 10%;
+        }
+        .mat-column-acreditaDocument {
+            flex: 0 1 10%;
+        }
+        .mat-column-cantidadCertificad {
+            flex: 0 1 10%;
+        } 
+        .mat-column-sustento {
+            flex: 0 1 10%;
+        }
+        .mat-column-puntajeObtenido {
+            flex: 0 1 10%;
+        }  
+    }
+
+    .mb-2, .my-2 {
+        margin-bottom: 0.8rem !important;
+    }
+
+    .mt-2, .my-2 {
+        margin-top: 0.8rem !important;
+    }
+
+    .text-box {
+        font-family: "Roboto-regular", Helvetica, Arial, sans-serif!important;
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        height: 24px;
+    }  
+
+    .puntaje {
+        font-family: "Roboto-regular", Helvetica, Arial, sans-serif!important;
+        padding: .375rem .75rem;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+    }
+}
+

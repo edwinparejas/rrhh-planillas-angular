@@ -1,0 +1,201 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Búsqueda de plaza</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Criterios de búsqueda</legend>
+            <form [formGroup]="form" *ngIf="!working">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%">
+                            <mat-label>Código de plaza </mat-label>
+                            <input matInput formControlName="codigoPlaza" placeholder="Codigo de plaza">
+                            <!-- <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('codigoPlaza')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('centroTrabajo')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('centroTrabajo')">Centro de trabajo</mat-label>
+                            <input matInput formControlName="centroTrabajo" placeholder="Centro de trabajo">
+                            <!-- <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('centroTrabajo')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoCentroTrabajo')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('codigoCentroTrabajo')">Código modular
+                            </mat-label>
+                            <input matInput formControlName="codigoCentroTrabajo" placeholder="Código de centro trabajo">
+                            <!-- <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoCentroTrabajo')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">Régimen Laboral
+                            </mat-label>
+                            <mat-select formControlName="idRegimenLaboral" [(ngModel)]="selectedRegimen">
+                                <mat-option [value]=0>
+                                    TODOS
+                                </mat-option>
+                                <mat-option *ngFor="let item of comboLists.listRegimenLaboral" [value]="item.value">
+                                    {{item.label}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="form.get('idRegimenLaboral')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" fxLayoutAlign="center center">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span
+                                    class="material-icons">clear</span>
+                                Limpiar</button>
+                        </div>
+                        <div mat-dialog-actions class="" fxLayout="row" fxLayout="row" fxLayoutAlign="center center">
+                            <button mat-raised-button color="primary" (click)="handleBuscar()"><span
+                                    class="material-icons">search</span> Buscar</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </form>
+        </fieldset>
+
+        <div class="content" mineduPerfectScrollbar>
+            <div class="content-table">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                        <ng-container matColumnDef="codigoPlaza">
+                            <mat-header-cell *matHeaderCellDef>CÓDIGO DE PLAZA</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <p class="text-truncate">{{row.codigoPlaza}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="codigoCentroTrabajo">
+                            <mat-header-cell *matHeaderCellDef>CÓDIGO MODULAR</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <p class="text-truncate">{{row.codigoCentroTrabajo}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcionCentroTrabajo">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>CENTRO DE TRABAJO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.descripcionCentroTrabajo}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="abreviaturaModalidad">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>MODALIDAD</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.abreviaturaModalidad}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcionNivelEducativo">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>NIVEL EDUCATIVO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.descripcionNivelEducativo}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcionRegimenLaboral">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>RÉGIMEN LABORAL</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.abreviaturaRegimenLaboral}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcionCargo">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>CARGO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.descripcionCargo}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcionAreaCurricular">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>ÁREA CURRICULAR</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.descripcionAreaCurricular}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="jornadaLaboral">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>JORNADA LABORAL</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.jornadaLaboral}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="tipoVacancia">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>MOTIVO DE VACANCIA</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.tipoVacancia}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="tipoPlaza">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>TIPO DE PLAZA</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <p class="text-truncate">{{row.tipoPlaza}}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <!--<ng-container matColumnDef="estado">
+                            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>ESTADO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" fxHide fxShow.gt-md>
+                                <ng-container [ngSwitch]="true">
+                                <ng-container *ngSwitchCase="row.activo === true">
+                                    <p class="text-truncate">CON VÍNCULO</p>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="row.activo === false">
+                                    <p class="text-truncate">SIN VÍNCULO</p>
+                                </ng-container>
+                                </ng-container>
+                            </mat-cell>
+                        </ng-container>-->
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="matDialogRef.close(selectedRow(row))" [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                            [@animate]="{value:'*',params:{y:'100%'}}">
+                        </mat-row>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div class="no-results" *ngIf="!(dataSource?.loading | async)" [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                        No se encontraron registros
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource?.loading | async">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
+                </div>
+                <!-- <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource?.totalregistro"
+                    [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+                    [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator> -->
+
+                <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource?.totalregistro" [pageIndex]="this.globals.paginatorPageIndex" [pageSize]="this.globals.paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div> -->
+
+
+</div>

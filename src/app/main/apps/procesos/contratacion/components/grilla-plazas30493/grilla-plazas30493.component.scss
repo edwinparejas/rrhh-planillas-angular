@@ -1,0 +1,21 @@
+minedu-grilla-plazas30493{
+
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        
+        .mat-icon-table{
+            width: 30px;
+        }                 
+        .mat-column-registro {
+            flex: 0 1 50px;
+        }
+        .mat-cell, .mat-footer-cell {
+            font-size: 11px !important;
+            padding: 0 10px;
+        }
+    }
+    
+}

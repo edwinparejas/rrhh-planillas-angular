@@ -1,0 +1,43 @@
+@import "src/@minedu/scss/minedu";
+@import "src/@minedu/scss/comun";
+
+.Minedu-solicitar-autorizacion-dialog{
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width:500px;
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+
+    .ml-2 {
+        text-align: center;
+    }
+
+    .ml-3 {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+}

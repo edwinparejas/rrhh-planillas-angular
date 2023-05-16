@@ -1,0 +1,57 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Observar postulante</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <form [formGroup]="form">
+        <div mat-dialog-content class="p-20 pb-0 m-0" fusePerfectScrollbar>
+            <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+                <mat-spinner [diameter]="50" style="margin: 0 auto"></mat-spinner>
+                <span>Espere, estamos procesando tu solicitud</span>
+            </div>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos de observación</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="60%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idMotivo')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idMotivo')">Motivo de la observación</mat-label>
+                                <mat-select formControlName="idMotivo">
+                                    <mat-option *ngFor="let item of comboLists.listMotivo" [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idMotivo')"></minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex>
+                                <mat-label>Anotaciones</mat-label>
+                                <textarea name="anotaciones" formControlName="anotaciones" matInput type="text" matTextareaAutosize
+                                    [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleGuardar()" color="primary" class="ml-4" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+            <span class="material-icons">save</span>GUARDAR
+        </button>
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

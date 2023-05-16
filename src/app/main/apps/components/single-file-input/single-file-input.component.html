@@ -1,0 +1,17 @@
+<div class="container" fxFlex="100%" fxLayout="column">
+    <input #mineduInput type="file" (change)="adjuntarDocumento($event)" [attr.accept]="accept ? accept : null"
+        style="display:none;" />
+    <mat-form-field appearance="fill" [mineduFormFieldValidationState]="mineduFormControl">
+        <mat-label [mineduFormRequiredLabel]="mineduFormControl">{{inputText}}
+        </mat-label>
+        <input matInput [(ngModel)]="name" (click)="mineduInput.click()" readonly>
+        <button *ngIf="!hasFiles" matSuffix mat-icon-button type="button" (click)="mineduInput.click()"
+            [matTooltip]="inputText">
+            <mat-icon matSuffix>folder_open</mat-icon>
+        </button>
+        <button *ngIf="hasFiles" matSuffix mat-icon-button type="button" (click)="eliminarDocumento($event)"
+            [matTooltip]="removeButtonLabel">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>

@@ -1,0 +1,126 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Vinculaciones Vigentes</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlex="100%">
+            <div>
+                La persona {{miembro.primerApellido}} {{miembro.segundoApellido}} {{miembro.nombres}}, cuenta con las siguientes vinculaciones vigentes:
+            </div>
+            <div ngClass.lt-lg="scroll-grid-lt-lg">
+            <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+    
+                <ng-container matColumnDef="nro">
+                    <th mat-header-cell *matHeaderCellDef>N°</th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                        <p *ngIf="row.fechaFin"> {{i+1}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="instancia">
+                    <th mat-header-cell *matHeaderCellDef>Instacia</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p *ngIf="row.instancia"> {{row.instancia}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="subInstancia">
+                    <th mat-header-cell *matHeaderCellDef>Sub Instancia</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p *ngIf="row.subInstancia">{{row.subInstancia}}</p>
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="centroTrabajo">
+                    <th mat-header-cell *matHeaderCellDef>Centro Trabajo</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p *ngIf="row.centroTrabajo">{{row.centroTrabajo}}</p>
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="modalidad">
+                    <th mat-header-cell *matHeaderCellDef >Modalidad</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.modalidad"> {{row.modalidad}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="nivelEducativo">
+                    <th mat-header-cell *matHeaderCellDef >Nivel Educativo</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.nivelEducativo"> {{row.nivelEducativo}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="codigoPlaza">
+                    <th mat-header-cell *matHeaderCellDef >Código de Plaza</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.codigo_plaza"> {{row.codigo_plaza}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="tipoPlaza">
+                    <th mat-header-cell *matHeaderCellDef >Tipo de Plaza</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.descripcion_tipo_plaza"> {{row.descripcion_tipo_plaza}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="regimenLaboral">
+                    <th mat-header-cell *matHeaderCellDef >Régimen Laboral</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.regimenLaboral"> {{row.regimenLaboral}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="condicionLaboral">
+                    <th mat-header-cell *matHeaderCellDef >Condición Laboral</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.condicionLaboral"> {{row.condicionLaboral}}</p>
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="cargo">
+                    <th mat-header-cell *matHeaderCellDef >Cargo</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.cargo"> {{row.cargo}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="areaCurricular">
+                    <th mat-header-cell *matHeaderCellDef >Area Curricular</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.areaCurricular"> {{row.areaCurricular}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="jornadaLaboral">
+                    <th mat-header-cell *matHeaderCellDef >Jornada Laboral</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.jornadaLaboral"> {{row.jornadaLaboral}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="fechaInicio">
+                    <th mat-header-cell *matHeaderCellDef >Fecha Inicio</th>
+                    <td mat-cell *matCellDef="let row" >
+                        <p *ngIf="row.fechaIni"> {{row.fechaIni | date: 'dd/MM/yyyy'}}</p>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="fechaFin">
+                    <th mat-header-cell *matHeaderCellDef>Fecha Fin</th>
+                    <td mat-cell *matCellDef="let row">
+                        <p *ngIf="row.fechaFin">{{row.fechaFin | date: 'dd/MM/yyyy' }}</p>
+                        <p *ngIf="!row.fechaFin">No registrado</p>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="onSelect(row)"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                    (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+                </tr>
+            </table>
+            </div>
+        </div>
+
+     
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-cancel (mineduOnCancel)="btnCancelar()"></minedu-button-cancel>
+    </div>
+</div>

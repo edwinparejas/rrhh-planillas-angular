@@ -1,0 +1,126 @@
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" [formGroup]="form">
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">N° Informe de Calculo</label>
+                    <p class="form-control-static" *ngIf="form.get('numeroInformeCalculo').value">
+                        {{form.get('numeroInformeCalculo').value}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('numeroInformeCalculo').value">No registrado</p>
+                </div>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Fecha de inicio</label>
+                    <p class="form-control-static" *ngIf="form.get('fechaBeneficio').value">
+                        {{form.get('fechaBeneficio').value | date: 'dd/MM/yyyy' }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('fechaBeneficio').value">No registrado</p>
+                </div>
+            </div>  
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>                  
+                </div>
+            </div>   
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%">
+                    ‎ 
+                </div>
+            </div>                                  
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">N° Informe de Calculo</label>
+                    <p class="form-control-static" *ngIf="form.get('descripcionTipoCreditoDevengado').value">
+                        {{form.get('descripcionTipoCreditoDevengado').value}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('descripcionTipoCreditoDevengado').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Fecha de inicio Crédito Devengado</label>
+                    <p class="form-control-static" *ngIf="form.get('fechaInicioCreditoDevengado').value">
+                        {{form.get('fechaInicioCreditoDevengado').value | date: 'dd/MM/yyyy'}}</p>
+                    <p class="form-control-static" *ngIf="!form.get('fechaInicioCreditoDevengado').value">No registrado</p>
+                </div>
+            </div>  
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Fecha de Termino Crédito Devengado</label>
+                    <p class="form-control-static" *ngIf="form.get('fechaFinCreditoDevengado').value">
+                        {{form.get('fechaFinCreditoDevengado').value | date: 'dd/MM/yyyy'}} </p>
+                    <p class="form-control-static" *ngIf="!form.get('fechaFinCreditoDevengado').value">No registrado</p>
+                </div>
+            </div>
+           
+            
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Total Liquidación</label>
+                    <p class="form-control-static" *ngIf="form.get('totalLiquidacionDevengado').value">
+                        {{"(a) => " }} {{form.get('totalLiquidacionDevengado').value | currency:'':'' }}                       
+                    </p>
+                    <p class="form-control-static" *ngIf="!form.get('totalLiquidacionDevengado').value">No registrado</p>
+                </div>
+            </div>  
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Pagado</label>
+                    <p class="form-control-static" *ngIf="form.get('pagadoDevengado').value">
+                        {{"(b) => " }} {{ form.get('pagadoDevengado').value | currency:'':'' }}
+                    </p>
+                    <p class="form-control-static" *ngIf="!form.get('pagadoDevengado').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Total Deuda</label>
+                    <p class="form-control-static" *ngIf="form.get('totalDeudaDevengado').value">
+                        {{"(c=a-b) => " }} {{ form.get('totalDeudaDevengado').value | currency:'':'' }}
+                    </p>
+                    <p class="form-control-static" *ngIf="!form.get('totalDeudaDevengado').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Intereses Legales</label>
+                    <p class="form-control-static" *ngIf="form.get('interesLegalDevengado').value">
+                        {{"(d) => " }} {{form.get('interesLegalDevengado').value | currency:'':'' }}
+                    </p>
+                    <p class="form-control-static" *ngIf="!form.get('interesLegalDevengado').value">No registrado</p>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Por Pagar</label>
+                    <p class="form-control-static" *ngIf="form.get('porPagarDevengado').value">
+                        {{"(e=c+d) => " }} {{form.get('porPagarDevengado').value | currency:'':'' }}
+                    </p>
+                    <p class="form-control-static" *ngIf="!form.get('porPagarDevengado').value">No registrado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>

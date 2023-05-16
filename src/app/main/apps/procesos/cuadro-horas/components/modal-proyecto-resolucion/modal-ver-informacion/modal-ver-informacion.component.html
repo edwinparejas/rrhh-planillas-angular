@@ -1,0 +1,85 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Ver Informacion de Sustento</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxLayoutGap="5px">
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Documento:</label>
+                        <p class="form-control-static">{{ documento }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Numero de Documento:</label>
+                        <p class="form-control-static">{{ numeroDocumento }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Entidad Emisora:</label>
+                        <p class="form-control-static">{{ entidadEmisora }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Fecha de Emision:</label>
+                        <p class="form-control-static">{{ fechaEmision | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Folios:</label>
+                        <p class="form-control-static">{{ folios }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Tipo de Formato:</label>
+                        <p class="form-control-static">{{ tipoFormato }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Sumilla:</label>
+                        <p class="form-control-static">{{ sumilla }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="66%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Mostrar en el visto del proyecto:</label>
+                        <p class="form-control-static">{{ mostrarVisto }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="panel-footer m-0 pr-12" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">cancel</span> Cancelar
+        </button>
+    </div>
+
+</div>

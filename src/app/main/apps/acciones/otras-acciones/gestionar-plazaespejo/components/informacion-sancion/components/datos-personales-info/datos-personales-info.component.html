@@ -1,0 +1,56 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>Datos Personales</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Documento de Identidad</span>&nbsp;
+                <br>
+                <ng-container
+                    *ngIf="sancion?.documentoIdentidad && sancion?.numeroDocumentoIdentidad; else docIdentidad">
+                    <span class="label-normal">{{sancion?.documentoIdentidad| noRegistrado}}
+                        <span>:</span>
+                        {{sancion?.numeroDocumentoIdentidad | noRegistrado}}</span>
+                </ng-container>
+                <ng-template #docIdentidad>
+                    <span class="label-normal">{{null | noRegistrado}}</span>
+                </ng-template>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Apellidos y Nombres</span>
+                <br>
+                <ng-container *ngIf="sancion?.primerApellido && sancion?.segundoApellido && sancion?.nombre; else apeNombres">
+                    <span class="label-normal">
+                        {{sancion?.primerApellido}}
+                        {{sancion?.segundoApellido}},&nbsp;
+                        {{sancion?.nombre}}
+                    </span>
+                </ng-container>
+                <ng-template #apeNombres>
+                    <span class="label-normal">{{null | noRegistrado}}</span>
+                </ng-template>
+
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Fecha de Nacimiento</span>
+                <br>
+                <span class="label-normal">
+                    {{sancion?.fecNacimiento | noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Sexo</span>
+                <br>
+                <span class="label-normal">{{sancion?.sexo | noRegistrado}}</span>
+            </div>
+        </div>
+
+    </div>
+</fieldset>

@@ -1,0 +1,55 @@
+<div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="start" *ngIf="dataSource?.mostrarActualizar">
+<span>*EXISTEN ACTUALIZACIÓN DE DATOS DE LA PLAZA Y SERVIDOR PÚBLICO LOS CUALES ESTÁN SOMBREADOS DE AMARRILLO</span>
+<br>
+</div>
+<div class="content">   
+    <div class="content-table" style="overflow: auto;">
+        <div fxLayout="row">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource"
+                [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" style="width: 100%"
+                mineduPerfectScrollbar>
+                <ng-container matColumnDef="row">
+                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">N°:</span>
+                        {{ row.row }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcion">
+                    <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Campo:</span>
+                        {{ row.descripcion }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="datoOriginal">
+                    <mat-header-cell *matHeaderCellDef>Dato Original</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Dato Original:</span>
+                        {{ row.datoOriginal }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="datoActualizado">
+                    <mat-header-cell *matHeaderCellDef>Dato Actualizado</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index">
+                        <span class="mobile-label">Dato Actualizado:</span>
+                        {{ row.datoActualizado }}
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                </mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'make-gold': row.diferente === true}"></mat-row>
+            </mat-table>
+        </div>
+        <div class="no-results" *ngIf="!(dataSource.loading | async)"
+            [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+            No se encontraron registros
+        </div>
+    </div>
+</div>
+<br>
+<div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" (click)="handleSave()" *ngIf="dataSource?.mostrarActualizar">
+        <span class="material-icons">save</span>ACTUALIZAR DATOS</button>
+    <button mat-raised-button (click)="sendCancel()"><span class="material-icons">cancel</span> CANCELAR</button>
+</div>

@@ -1,0 +1,25 @@
+<mat-form-field appearance="fill" fxFlex [mineduFormFieldValidationState]="mineduFormControl" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+    <mat-label *ngIf="!requiredLabel" [mineduFormRequiredLabel]="mineduFormControl" >{{label}}</mat-label>
+    <mat-label *ngIf="requiredLabel" [ngClass]="{'required-minedu': requiredLabel}" >{{label}}</mat-label>
+    <input matInput 
+           [matDatepicker]="datepicker"
+           [max]="_max"
+           [min]="_min"
+           [formControl]="_inputCtrl"
+           [matDatepickerFilter]="_customFilter"    
+           (click)="_openDatepickerOnClick(datepicker)"
+           (focus)="_openDatepickerOnFocus(datepicker)"
+           (dateChange)="_dateChangeHandler($event.value)"
+           (dateInput)="_dateChangeHandler($event.value)"
+           readonly>
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <!-- <button type="button" *ngIf="cleaning" matSuffix class="clear-buttton" mat-icon-button type="button" (click)="clear()" color="warn">
+            <mat-icon>close</mat-icon>
+        </button>        -->
+        <mat-error>
+            <minedu-form-field-validation-messages
+                [mineduFormControl]="mineduFormControl">
+            </minedu-form-field-validation-messages>
+        </mat-error>
+  </mat-form-field>
+  <mat-datepicker #datepicker [touchUi]="touchUi"></mat-datepicker>

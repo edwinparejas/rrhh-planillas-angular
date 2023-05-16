@@ -1,0 +1,127 @@
+
+
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+ 
+p {
+    margin: 6px 0;
+    color: rgba(0, 0, 0, .6);
+}
+.highlight{
+    color: white;
+    background: #673AB7;
+  }
+  .aleft{
+     text-align: left!important;
+     margin-left: 5px!important;
+  }
+  .aright{
+    text-align:right!important;
+    
+ }
+servidorpublico-anexo-primero {
+    .highlight{
+        color: white;
+        background: #673AB7;
+      }
+    width: 100%!important;
+    .content {
+        width: 100%;
+        .minedu-table {
+            .direccion {
+                position: relative;
+                cursor: pointer;               
+            }       
+            .mat-column-descripcionAreaCurricular {
+                  flex: 0 1 500px; 
+                 max-width: 500px;   
+                 width: 200px;        
+            }
+            .mat-column-segundoHoras {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #E1EFFE;            
+            }
+            .mat-column-segundoSeccion {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #E1EFFE;                     
+            }
+            .mat-column-segundoTotal {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #E1EFFE;                
+            }
+          
+            .mat-column-cuartoHoras {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #E1EFFE;            
+            }
+            .mat-column-cuartoSeccion {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #E1EFFE;                     
+            }
+            .mat-column-cuartoTotal {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #E1EFFE;                
+            }
+            .mat-column-totalParcial {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #e5e5e5 ;                  
+                font-weight: bold!important;    
+            }
+            .mat-column-numeroSeccionParcial {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #e5e5e5 ;                                   
+                font-weight: bold!important;    
+            }
+            .mat-column-totalHorasParcial {
+                // flex: 0 1 500px; 
+                // max-width: 500px;   
+                background-color: #e5e5e5 ;                
+                font-weight: bold!important;    
+            }
+            .mat-row.highlight .mat-cell {
+                background-color: #e5e5e5 ;                
+                font-weight: bold!important;    
+
+              }
+              th.mat-header-cell, td.mat-cell {
+                text-align: center;
+            
+                padding: 0 !important;
+            }
+            
+        }
+    }
+    .profile-outer {
+        border-radius: 0.4em;
+        width: 112px;
+        height:115px;
+        .profile-inner { 
+            border-radius: 0.4em;
+            display:table-cell;
+            width: 112px;
+            height:115px;
+            vertical-align: middle;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                display: block;
+                margin: auto auto;
+                border-radius: 0.4em;
+              }
+          }
+      }
+}

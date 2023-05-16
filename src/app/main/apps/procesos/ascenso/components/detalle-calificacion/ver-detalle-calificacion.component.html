@@ -1,0 +1,242 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Detalle de calificaciones</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-10 pb-0 m-0" fusePerfectScrollbar>
+        <div class="panel-body">
+            <fieldset class="fieldset-border mb-3">
+                <legend>Datos personales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Documento de identidad</span>&nbsp;
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.abreviaturaDocumento}}   
+                                            {{calificacion?.numeroDocumento}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Primer apellido</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.apellidoPaterno}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Segundo apellido</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.apellidoMaterno}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nombres</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.nombres}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border mb-3">
+                <legend>Datos Laborales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Región</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.descripcionRegion}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Instancia</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.descripcionInstancia}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Sub instancia</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.descripcionSubinstancia}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Código modular</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.codigoModular}} </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Centro de trabajo</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.centroTrabajo}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Cargo</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.cargo}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Escala magisterial</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.escalaMagisterial}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Área currícular</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.areaCurricular}} </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Jornada laboral</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.jornadaLaboral}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Régimen laboral</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.abreviaturaRegimenLaboral}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Código de Plaza</span>
+                                    <br>
+                                    <span class="label-normal">{{calificacion?.codigoPlaza}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border mb-3">
+                <legend>Puntuación</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                <table class="table-eval mb-3" style="width:100%;border-collapse: collapse;">
+                                    <tr>
+                                        <th style="width: 70%; height:30px; border: 1px solid rgb(172, 173, 175);text-align: left;" class="label-td">&nbsp;P1: Prueba única nacional</th>
+                                        <th style=" height: 30px;border: 1px solid rgb(172, 173, 175); text-align: left;" class="label-td">&nbsp;{{calificacion?.puntajePUN}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 70%; height: 30px;border: 1px solid rgb(172, 173, 175); text-align: left;" class="label-td">&nbsp;P2: Trayectoria profesional</th>
+                                        <th style=" height: 30px;border: 1px solid rgb(172, 173, 175); text-align: left;" class="label-td">&nbsp;{{calificacion?.puntajeTrayectoria}}</th>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <table class="table-eval mb-3" style="width:100%;border-collapse: collapse;">
+                                    <tr>
+                                        <th style="width: 70%;height: 30px; border: 1px solid rgb(172, 173, 175); text-align: left;" class="label-td">&nbsp;P3: Bonificación por discapacidad</th>
+                                        <th style="border: 1px solid rgb(172, 173, 175); text-align: left;" class="label-td">&nbsp;{{calificacion?.puntajeBonificacion}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div fxLayoutAlign="end center">
+                                                <span class="label" style="margin-top: 10px; margin-right: 103px;">
+                                                        Puntaje final: &nbsp;&nbsp;{{calificacion?.puntajeFinal}}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        &nbsp;
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset class="fieldset-border mb-3">
+                <legend>Datos del ascenso</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Grupo de competencia</span>
+                                    <br>
+                                    <span class="label-normal"> {{calificacion?.descripcionGrupoCompetencia}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Escala obtenida</span>
+                                    <br>
+                                    <span class="label-normal"> {{calificacion?.escalaObtenida}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">close</span> Cerrar</button>
+
+
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0" fusePerfectScrollbar >      
+        
+        <span class="instruccionesSeleccionar">La persona {{ persona.primerApellido }} {{ persona.segundoApellido }} {{ persona.nombres }}, cuenta con las siguientes formación académica registradas en escalafón:</span>
+        <br>
+        <br>
+
+        <div class="content" >
+            <div  class="content-table" style="overflow: auto;">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{ value: '50' }" >
+                        
+                        <ng-container matColumnDef="seleccione">
+                            <mat-header-cell *matHeaderCellDef>Sel.</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = indice;">
+                                        
+                                <mat-radio-button [checked]="selection.isSelected(row)" (click)="$event.stopPropagation()"
+                                       (change)="$event ? selection.toggle(row) : null" [aria-label]="checkboxLabel(row)">
+                                </mat-radio-button>
+                                        
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="niveleducativo">
+                            <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label"></span> {{row.descripcion_nivel}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="situacionacademica">
+                            <mat-header-cell *matHeaderCellDef>Situación Académica</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label"> </span>{{row.descripcion_situacion_academica}}
+                            </mat-cell>
+                        </ng-container> 
+                        <ng-container matColumnDef="gradoalcanzado">
+                            <mat-header-cell *matHeaderCellDef>Grado Alcanzado</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label"> </span>{{row.descripcion_grado_academico}}
+                            </mat-cell>
+                        </ng-container> 
+                        <ng-container matColumnDef="titulo">
+                            <mat-header-cell *matHeaderCellDef>Título</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label"> </span>{{row.titulo}}
+                            </mat-cell>
+                        </ng-container> 
+                        <ng-container matColumnDef="especialidad">
+                            <mat-header-cell *matHeaderCellDef >Especialidad</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" >
+                                <span class="mobile-label"></span> {{row.especialidad_titulo}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="registrotitulo">
+                            <mat-header-cell *matHeaderCellDef >N° Registro del Título</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;" >
+                                <span class="mobile-label"></span> {{row.numero_registro_titulo}}
+                            </mat-cell>
+                        </ng-container>
+                        
+                            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                            </mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onSelect(row)" [ngClass]="{
+                                    hovered: row.hovered,
+                                    selected: selection.isSelected(row)
+                                }" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                            </mat-row>
+                        </mat-table>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                    <div class="no-results" *ngIf="!(dataSource?.loading | async)" [style.display]="
+                            dataSource?.data.length === 0 ? '' : 'none'
+                        ">
+                        No se encontraron registros
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource?.loading | async">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+    
+    <div mat-dialog-actions class="panel-footer m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+            (click)="handleSeleccionar()"><span class="material-icons">done</span>
+            SELECCIONAR</button>
+        <minedu-button-cancel (mineduOnCancel)="handleCancel()"></minedu-button-cancel>
+    </div>
+
+</div>

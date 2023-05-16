@@ -1,0 +1,232 @@
+@import "@minedu/scss/minedu";
+:host{
+    width: 100%;
+}
+minedu-vinculacion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    h3,
+    .c1 {
+        margin-bottom: 0px;
+    }
+    .h3 {
+        font-size: 16px;
+    }   
+    .center {
+        .content-card {                
+
+            @include media-breakpoint(xs) {               
+                &.current-selected {
+                    .toolbar {
+                        padding-left: 16px !important;                       
+                    }
+                    .content {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }   
+
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            >h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+    .ml-2 {
+        margin-left: 2px;
+    }
+    .pl-2 {
+        padding-left: 2px;
+    }
+    .pl-6 {
+        padding-left: 6px;
+    }
+    .pr-6 {
+        padding-right: 6px;
+    }
+    .pl-7 {
+        top: 5px;
+    }
+    .pl-8 {
+        margin-left: -50px;
+    }
+    .pl-9 {
+        margin-left: 100px;
+    }
+    .pr-2 {
+        padding-right: 2px;
+    }
+    .mb-8 {
+        margin-bottom: 8px;
+    }
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+    .mb-15 {
+        margin-bottom: 15px;
+    }
+    .mr-7 {
+        margin-right: -2px;
+    }
+    .bt-1{
+        margin-top: 10px; 
+        margin-bottom: -12px;
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+        top: 5px;
+    }
+    .mat-raised-button.mat-primary {
+        background-color: #0073b7;
+        border-color: #0073b7;
+    }
+ 
+    .mat-raised-button.mat-primary[disabled]{
+        background-color: #0073b7 !important;
+        border-color: #0073b7 !important;
+        color: #fff !important;
+    }
+    .mat-stroked-button.mat-primary {
+        color: #0073b7;
+    }
+    .mat-flat-button.mat-primary {
+        background-color: #0073b7;
+    }
+    .mat-stroked-button:not([disabled]).mat-primary {
+        border-color: #0073b7 !important;
+        background-color: #fff !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336;
+        background-color: #fff;
+    }
+    button .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+    button.btn-sm {
+        line-height: 24px;
+        min-width: 27px;
+        padding: 0;
+    }
+    button.btn-sm .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+    button.btn-sm .mat-icon {
+        height: 20px;
+        width: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+    .btn-icon .mat-button-wrapper .material-icons {
+        font-size: 22px!important;
+    }
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .mat-icon-table{
+            width: 30px;
+        }
+        .mat-column-index {
+            flex: 0 1 80px;            
+        }
+        .mat-column-tipoDocumento {
+            flex: 0 1 300px;            
+        }
+        .mat-column-numeroDocumento {
+            flex: 0 1 300px;            
+        }
+        .mat-column-fechaEmision {
+            flex: 0 1 200px;            
+            justify-content: space-around;
+        }
+        .mat-column-tipoFormato {
+            flex: 0 1 280px;            
+        }
+        .mat-column-folios {
+            flex: 0 1 180px;            
+        }
+        .mat-column-fechaRegistro {
+            flex: 0 1 200px;            
+            justify-content: space-around;
+        }
+        .mat-column-opciones {
+            flex: 0 1 150px;               
+        }
+
+        .mat-header-cell, 
+        .mat-cell {
+            padding: 0 10px 0 10px; 
+        }
+        .mat-header-cell:not(:last-child),
+        .mat-cell:not(:last-child){
+            border-right: 1px solid #ddd;
+        }   
+    }
+    .box-shadow {
+        -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .mat-slide-toggle-content{
+        vertical-align: top;
+        display: inline-block;
+        line-height: 24px; // this is defined in .mat-slide-toggle
+    }
+
+    .labelBeforeSlide {
+        vertical-align: top;
+        line-height: 24px; 
+        margin-right:0.5rem;
+        margin-bottom:0.5rem;
+        font-weight: 600;
+    }
+    .form-group {
+        margin-bottom: 5px;
+    }
+    
+    label {
+        font-weight: bold;
+    }
+    
+    p {
+        margin: 6px 0;
+        color: rgba(0, 0, 0, .6);
+    }
+
+    .descargar{
+        height: 45px;
+        border-color: #757575 !important;
+    }
+}

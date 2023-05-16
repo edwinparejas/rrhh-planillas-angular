@@ -1,0 +1,239 @@
+<div class="p-20">
+    <ng-container [ngSwitch]="tipo">
+	<ng-container *ngSwitchCase="'postulanteContratacionDirecta'" 
+	              [ngTemplateOutlet]="postulanteContratacionDirecta">
+	</ng-container>
+	<ng-container *ngSwitchDefault 
+	              [ngTemplateOutlet]="postulanteDefault">
+	</ng-container>
+    </ng-container>
+</div>
+
+<ng-template #postulanteContratacionDirecta >
+<fieldset class="fieldset-border m-auto">
+        <legend>Datos del Postulante </legend>
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de Identidad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.documento  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer Apellido</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.primerApellido  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo Apellido</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.segundoApellido  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.nombres  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column">
+	    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+		<div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.sexo  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Nacimiento</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.fechaNacimiento  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Edad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.edad  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nacionalidad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.nacionalidad  | noRegistrado}}</span>
+                        </div>
+                    </div>
+		</div>
+	    </div>
+	</div>
+        <form autocomplete="off" [formGroup]="form">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="mostrarDetallesAdicionales">
+	    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+		    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('direccionDomicilio')">
+			<mat-label [mineduFormRequiredLabel]="form.get('direccionDomicilio')">
+			    Dirección de Domicilio
+			</mat-label>
+			<input 
+			matInput formControlName="direccionDomicilio" 
+                        (change)="emitFormValue()"
+			[maxlength]="400"
+			uppercase> 
+			<mat-error>
+			    <minedu-form-field-validation-messages
+				[mineduFormControl]="form.get('direccionDomicilio')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+		    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('correoElectronico')">
+			<mat-label [mineduFormRequiredLabel]="form.get('correoElectronico')">
+			    Correo electrónico
+			</mat-label>
+			<input 
+			matInput
+			formControlName="correoElectronico" 
+			(change)="emitFormValue()"
+			[maxlength]="600"
+			uppercase> 
+			<mat-error>
+			    <minedu-form-field-validation-messages
+				[mineduFormControl]="form.get('correoElectronico')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+                </div>
+            </div>
+        </div>
+	</form>
+    </fieldset>
+</ng-template>
+
+<ng-template #postulanteDefault >
+<fieldset class="fieldset-border m-auto">
+        <legend>Datos del Postulante </legend>
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de Identidad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.documento  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer Apellido</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.primerApellido  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo Apellido</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.segundoApellido  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.nombres  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.sexo  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Nacimiento</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.fechaNacimiento  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Edad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.edad  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nacionalidad</span>
+                            <br>
+                            <span class="label-normal">{{ Response?.nacionalidad  | noRegistrado}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <form autocomplete="off" [formGroup]="form">
+        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="mostrarDetallesAdicionales">
+	    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+		    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('direccionDomicilio')">
+			<mat-label [mineduFormRequiredLabel]="form.get('direccionDomicilio')">
+			    Dirección de Domicilio
+			</mat-label>
+			<input 
+			matInput formControlName="direccionDomicilio" 
+                        (change)="emitFormValue()"
+			[maxlength]="400"
+			uppercase> 
+			<mat-error>
+			    <minedu-form-field-validation-messages
+				[mineduFormControl]="form.get('direccionDomicilio')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+		    <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('correoElectronico')">
+			<mat-label [mineduFormRequiredLabel]="form.get('correoElectronico')">
+			    Correo electrónico
+			</mat-label>
+			<input 
+			matInput
+			formControlName="correoElectronico" 
+			(change)="emitFormValue()"
+			[maxlength]="600"
+			uppercase> 
+			<mat-error>
+			    <minedu-form-field-validation-messages
+				[mineduFormControl]="form.get('correoElectronico')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+                </div>
+            </div>
+        </div>
+	</form>
+    </fieldset>
+</ng-template>

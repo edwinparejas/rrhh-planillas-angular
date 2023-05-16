@@ -1,0 +1,54 @@
+<fieldset style="border-color:rgb(40, 103, 155) !important; border-style:none !important">
+    <legend></legend>
+    <div class="content-table">
+	<div fxLayout="row">
+	    <mat-table class="minedu-table" #table [dataSource]="dataSourceDocumentosPublicados" [class.isMobile]="isMobile"
+		[@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+		<ng-container matColumnDef="registro">
+		    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+		    <mat-cell *matCellDef="let row; let i = index;">
+			<p>{{ i + 1 }}</p>
+		    </mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="fecha">
+		    <mat-header-cell *matHeaderCellDef>Dirección Regional de Educación - DRE</mat-header-cell>
+		    <mat-cell *matCellDef="let row; let i = index" align="center">
+			<!-- {{ row.fechaPublicacion.substring(0, row.fechaPublicacion.length - 8) }} -->
+			{{ row.nombreDre}}
+		    </mat-cell>
+		</ng-container>
+		<ng-container matColumnDef="acciones">
+		    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+		    <mat-cell *matCellDef="let row; let i = index">
+			<div fxLayout="row" fxLayoutAlign="space-between center">
+			    <div style="padding-left: 10px;"></div>
+			    <div class="mat-icon-table">
+				<button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+					aria-label="Ver Listado de plazas por DRE" matTooltip="Ver Listado de plazas por DRE"
+					(click)="handleVerPlazasPublicadas(row.codigo, false, row.nombreDre)">
+				    <mat-icon style="color: red;">picture_as_pdf</mat-icon>
+				</button>
+			    </div>
+			</div>
+		    </mat-cell>
+		</ng-container>
+		<mat-header-row *matHeaderRowDef="displayedColumnsDocumentosPublicados; sticky: true"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumnsDocumentosPublicados"
+		    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+		    [@animate]="{ value: '*', params: { y: '100%' } }">
+		</mat-row>
+	    </mat-table>
+	</div>
+	<div class="no-results" *ngIf="!(dataSourceDocumentosPublicados.loading | async)" [style.display]="dataSourceDocumentosPublicados.data.length === 0 ? '' : 'none'">
+	    No se encontraron registros
+	</div>
+	<div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourceDocumentosPublicados.loading | async">
+	    pageSize
+	    <mat-spinner diameter="50"></mat-spinner>
+	</div>
+	<mat-paginator #paginatorDocumentos class="mat-paginator-sticky" [length]="dataSourceDocumentosPublicados.dataTotal" fxLayoutAlign="center center"
+	    [pageIndex]="paginatorDocumentosPageIndex" [pageSize]="paginatorDocumentosPageSize"
+	    [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+	</mat-paginator>
+    </div>
+</fieldset>

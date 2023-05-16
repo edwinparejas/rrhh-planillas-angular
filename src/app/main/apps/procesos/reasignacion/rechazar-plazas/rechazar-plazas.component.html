@@ -1,0 +1,96 @@
+<div class="class dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Rechazar solicitudes de aprobación</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="panel-body">
+        <div fxFlex="100%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Proceso de aprobación</span>
+                <br>
+                <span class="label-normal">Reubicación de Plaza Orgánica</span>
+            </div>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos delsolicitante</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">Nombre instancia solicitante</label><br>
+                                <span class="label-normal">Ugel Tarma</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">Usuario solicitante</label><br>
+                                <span class="label-normal">44231211</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">Fecha de solicitud</label><br>
+                                <span class="label-normal">10/10/2020</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Datos del Aprobador</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                        fxLayoutGap.xs="0">
+
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">Nombre instancia aprobador</label><br>
+                                <span class="label-normal">DRE JUNIN</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">Usuario aprobador</label><br>
+                                <span class="label-normal">40121312</span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <label class="label">Fecha de aprobación/rechazo</label><br>
+                                <span class="label-normal">13/10/2020</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Detalles del motivo de rechazo</legend>
+                <form class="parrafo">
+                    <mat-form-field class="parrafo" appearance="fill">
+                        <mat-label>Motivo de rechazo</mat-label>
+                        <textarea matInput placeholder="Debe de ingresar el motivo de rechazo..."></textarea>
+                    </mat-form-field>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-stroked-button class="rechazar">
+                <span class="material-icons">close</span>Rechazar</button>
+            <button mat-stroked-button color="primary" (click)="handleCancel()">
+                <span class="material-icons">close</span>Cerrar</button>
+        </div>
+    </div>
+
+
+</div>

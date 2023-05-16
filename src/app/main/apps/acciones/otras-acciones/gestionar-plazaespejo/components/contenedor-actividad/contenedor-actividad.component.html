@@ -1,0 +1,26 @@
+<div class="content" mineduPerfectScrollbar>
+    <!-- Inicio Breadcrumb -->
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div fxFlex="50%">
+                <h3 class="titulo">Bandeja de generacion de plazas espejo</h3>
+            </div>
+            <div fxFlex="50%">
+                <ol class="breadcrumb pull-right">
+                    <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent"
+                                class="s-18">home</mat-icon> Inicio</a></li>
+                    <li class="active"><a
+                            [routerLink]="['/ayni/personal/acciones/otrasacciones/generacionplazaespejo']">Generación de Plaza Espejo</a>
+                    </li>
+                    <!-- <li class="active"><a
+                            [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/prepublicacion/']">Prepublicación</a>
+                    </li> -->
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Breadcrumb -->
+    <div>
+        <ng-content></ng-content>
+    </div>
+</div>

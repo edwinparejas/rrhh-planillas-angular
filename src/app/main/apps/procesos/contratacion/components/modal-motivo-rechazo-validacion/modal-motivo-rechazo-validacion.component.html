@@ -1,0 +1,18 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title-toolbar">Ver Motivo de Rechazo</div>
+            <button mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="pb-0 m-0">
+        <fieldset class="fieldset-border" fxLayout="row" fxFlex="100%">
+            <legend>Ver Motivo de Rechazo</legend>
+            <!-- <p>{{ detalleMotivoRechazo }}</p> -->
+            <p>{{ mensajeMotivoRechazo }}</p>
+        </fieldset>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> CERRAR</button>
+    </mat-dialog-actions>
+</div>

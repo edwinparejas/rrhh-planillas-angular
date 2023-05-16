@@ -1,0 +1,10 @@
+<button type="button" mat-raised-button color="accent" class="save-button" *ngIf="!mineduForm.valid"
+    [disabled]="!mineduForm.valid"><span class="material-icons">send</span> Enviar
+</button>
+<button type="button" mat-raised-button color="accent" class="save-button" *ngIf="mineduForm.valid && working" [disabled]="working">
+    <span class="material-icons">send</span> Enviando...
+</button>
+<button type="button" mat-raised-button color="accent" class="save-button" (click)="onClickChild($event)"
+    *ngIf="mineduForm.valid && !working" [disabled]="working">
+    <span class="material-icons">send</span> Enviar
+</button>

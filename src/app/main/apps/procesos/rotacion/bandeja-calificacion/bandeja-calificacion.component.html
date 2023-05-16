@@ -1,0 +1,158 @@
+<div class="page-layout carded fullwidth inner-scroll p-16">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Desarrollo de Procesos de Rotación</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/rotacion']">Rotación</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <mat-tab-group>
+                    <mat-tab label="Calificaciones">
+                        <div class="panel-body">
+                            <minedu-cabecera-proceso-etapa [proceso]="proceso">
+                            </minedu-cabecera-proceso-etapa>
+
+                            <section class="fieldset mb-3">
+                                <h3>Criterios de búsqueda</h3>
+                                <form [formGroup]="form" autocomplete="off" novalidate>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                            fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                                <mat-label
+                                                    [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                                    Tipo de documento
+                                                </mat-label>
+                                                <mat-select formControlName="idTipoDocumentoIdentidad">
+                                                    <mat-option *ngFor="let item of combo.tiposDocumentoIdentidad"
+                                                        [value]="item.idCatalogoItem">
+                                                        {{ item.descripcionCatalogoItem }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                                <mat-label
+                                                    [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                                    Número de documento
+                                                </mat-label>
+                                                <input matInput placeholder="Digite documento"
+                                                    formControlName="numeroDocumentoIdentidad"
+                                                    (keypress)="onKeyOnlyNumbers($event)" [maxlength]="maximo" />
+                                                <button type="button" type="button" matSuffix mat-button mat-icon-button
+                                                    (click)="busquedaDocumentoIdentidadDialog($event)">
+                                                    <mat-icon class="s-24">search</mat-icon>
+                                                </button>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('numeroDocumentoIdentidad')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                [mineduFormFieldValidationState]="form.get('idTipoRotacion')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('idTipoRotacion')">
+                                                    Tipo rotación
+                                                </mat-label>
+                                                <mat-select formControlName="idTipoRotacion">
+                                                    <mat-option *ngFor="let item of combo.tiposRotacion"
+                                                        [value]="item.idCatalogoItem">
+                                                        {{ item.descripcionCatalogoItem }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('idTipoRotacion')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                [mineduFormFieldValidationState]="form.get('idEstadoCalificacion')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('idEstadoCalificacion')">
+                                                    Estado
+                                                </mat-label>
+                                                <mat-select formControlName="idEstadoCalificacion">
+                                                    <mat-option *ngFor="let item of combo.estadosCalificacion"
+                                                        [value]="item.idCatalogoItem">
+                                                        {{ item.descripcionCatalogoItem }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('idEstadoCalificacion')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                                <minedu-button-clear-search [working]="working"
+                                                    (mineduOnClear)="handleLimpiar()">
+                                                </minedu-button-clear-search>
+                                            </div>
+                                            <div mat-dialog-actions fxLayout="row">
+                                                <minedu-button-search class="ml-4" (mineduOnClick)="handleBuscar()"
+                                                    [mineduForm]="form" [working]="working"></minedu-button-search>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+
+                <div class="gridContainer">
+                    <div class="panel-body">
+                        <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onTabChanged($event)"
+                            [selectedIndex]="0" animationDuration="0ms" dynamicHeight>
+                            <mat-tab label="Cuadro de mérito preliminar">
+                                <ng-template matTabContent>
+                                    <minedu-cuadro-merito-preliminar [form]="form"
+                                        [btnBuscar]="btnBuscar.asObservable()"
+                                        [permisoCalificacion]="permisoCalificacion">
+                                    </minedu-cuadro-merito-preliminar>
+                                </ng-template>
+                            </mat-tab>
+                            <mat-tab label="Cuadro de mérito final">
+                                <ng-template matTabContent>
+                                    <minedu-cuadro-merito-final [form]="form" [btnBuscar]="btnBuscar.asObservable()"
+                                        [permisoCalificacion]="permisoCalificacion">
+                                    </minedu-cuadro-merito-final>
+                                </ng-template>
+                            </mat-tab>
+
+                        </mat-tab-group>
+
+                    </div>
+
+                </div>
+
+                <br />
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                    <div mat-dialog-actions class="p-0" fxLayout="row" style="margin-right: 12px">
+                        <minedu-button-return (mineduOnReturn)="handleRetornar()"></minedu-button-return>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

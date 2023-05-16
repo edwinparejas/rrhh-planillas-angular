@@ -1,0 +1,139 @@
+<form autocomplete="off" [formGroup]="formBuscar" >
+    <fieldset class="fieldset-border" >
+	<legend>Datos personales</legend>
+	<div fxLayout="column" fxFlexAlign="flex-start" >
+	    <div *ngIf="soloLectura" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+		<div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap="12px">
+		    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+			<mat-form-field appearance="fill" fxFlex="100%" 
+			    [mineduFormFieldValidationState]="formBuscar.get('idTipoDocumentoIdentidad')">
+			    <mat-label [mineduFormRequiredLabel]="formBuscar.get('idTipoDocumentoIdentidad')">
+				Tipo de documento
+			    </mat-label>
+			    <mat-select (selectionChange)="handleCambiarValor($event.value)"
+				formControlName="idTipoDocumentoIdentidad">
+				<mat-option *ngFor="let item of combo.tiposDocumentoIdentidad" [value]="item.codigo">
+				    {{ item.descripcion }}
+				</mat-option>
+			    </mat-select>
+			    <mat-error>
+				<minedu-form-field-validation-messages
+				    [mineduFormControl]="formBuscar.get('idTipoDocumentoIdentidad')">
+				</minedu-form-field-validation-messages>
+			    </mat-error>
+			</mat-form-field>
+		    </div>
+		    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+			<mat-form-field appearance="fill" fxFlex="100%" 
+			    [mineduFormFieldValidationState]="formBuscar.get('numeroDocumentoIdentidad')">
+			    <mat-label [mineduFormRequiredLabel]="formBuscar.get('numeroDocumentoIdentidad')">
+				Número de documento
+			    </mat-label>
+			    <input matInput formControlName="numeroDocumentoIdentidad" 
+					    (keyup.enter)="handleBuscarPostulante()"
+			    (keypress)="maxLengthnumeroDocumentoIdentidadmaxLengthnumeroDocumentoIdentidad == 8 ? validaNumericos($event):true"
+			    [maxlength]="maxLengthnumeroDocumentoIdentidad">
+			    <mat-error>
+				<minedu-form-field-validation-messages
+				    [mineduFormControl]="formBuscar.get('numeroDocumentoIdentidad')">
+				</minedu-form-field-validation-messages>
+			    </mat-error>
+			</mat-form-field>
+		    </div>
+		    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+			<button mat-raised-button color="primary" class="ml-4" (click)="handleBuscarPostulante()">
+			    <span class="material-icons">search</span>Buscar
+			</button>
+		    </div>
+		</div>
+	    </div>
+	    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0" *ngIf="postulante.numeroDocumentoIdentidadCompleto != null">
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Documento: </label>
+			<p class="form-control-static" *ngIf="postulante.numeroDocumentoIdentidadCompleto">
+			    {{ postulante.numeroDocumentoIdentidadCompleto }}
+			</p>
+		    </div>
+		</div>
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Primer Apellido: </label>
+			<p class="form-control-static" *ngIf="postulante.primerApellido">
+			    {{ postulante.primerApellido }}
+			</p>
+		    </div>
+		</div>
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Segundo Apellido: </label>
+			<p class="form-control-static" *ngIf="postulante.segundoApellido">
+			    {{ postulante.segundoApellido }}</p>
+		    </div>
+		</div>
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Nombres: </label>
+			<p class="form-control-static" *ngIf="postulante.nombres">
+			    {{ postulante.nombres }}</p>
+		    </div>
+		</div>
+	    </div>
+	    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0" *ngIf="postulante.numeroDocumentoIdentidadCompleto != null">
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Sexo: </label>
+			<p class="form-control-static" *ngIf="postulante.descripcionGenero">
+			    {{ postulante.descripcionGenero }}
+			</p>
+		    </div>
+		</div>
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Fecha de nacimiento: </label>
+			<p class="form-control-static" *ngIf="postulante.fechaNacimiento">
+			    {{ postulante.fechaNacimiento }}</p>
+		    </div>
+		</div>                        
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group">
+			<label class="label" for="">Edad: </label>
+			<p class="form-control-static" *ngIf="postulante.edad">
+			    {{ postulante.edad }}
+			</p>
+		    </div>
+		</div>
+		<div fxFlex="25%" fxFlex.xs="100%">
+		    <div class="form-group" *ngIf="conNacionalidad">
+			<label class="label" for="">Nacionalidad: </label>
+			<p class="form-control-static" *ngIf="postulante.descripcionNacionalidad">
+			    {{ postulante.descripcionNacionalidad }}
+			</p>
+		    </div>
+		</div>
+	    </div>
+	    <div fxLayout="row" fxLayout.lt-md="column" 
+		fxFlex="100%" fxLayoutGap="12px" 
+		*ngIf="(tipoDocumento == documento.CARNET_EXTRANJERIA || tipoDocumento == documento.PASAPORTE) && conNacionalidad">
+		<div fxLayout.lt-sm="column" fxFlex="24%" fxFlex.xs="100%">
+		    <mat-form-field appearance="fill" fxFlex="100%" 
+			[mineduFormFieldValidationState]="formBuscar.get('nacionalidad')">
+			<mat-label [mineduFormRequiredLabel]="formBuscar.get('nacionalidad')">
+			    Nacionalidad *</mat-label>
+			<mat-select (selectionChange)="handleCambiarValorNacionalidad($event.value)" 
+			    formControlName="nacionalidad">
+			    <mat-option *ngFor="let item of combo.nacionalidades" [value]="item.id">
+				{{ item.descripcion }}
+			    </mat-option>
+			</mat-select>
+			<mat-error>
+			    <minedu-form-field-validation-messages
+				[mineduFormControl]="form.get('nacionalidad')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+		</div>
+	    </div>
+	</div>
+    </fieldset>
+</form>

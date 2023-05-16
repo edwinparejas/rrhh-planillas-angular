@@ -1,0 +1,219 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Calificaciones</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']">
+                                    <mat-icon color="accent" class="s-18">home</mat-icon> Inicio
+                                </a></li>
+                            <li class=""><a
+                                    [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion']">Reasignación</a>
+                            </li>
+                            <li class="active"><a
+                                    [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion/calificaciones/',idEtapaProceso]">Calificaciones</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+
+            <minedu-cabecera-proceso-etapa [proceso]="proceso"></minedu-cabecera-proceso-etapa>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                        Tipo de documento
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoDocumentoIdentidad"
+                                        (selectionChange)="lengthDocumento($event)">
+                                        <mat-option
+                                            *ngFor="let item of comboLists.listTipoDocumento"
+                                            [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%">
+                                    <!-- <mat-icon matPrefix (click)="busquedaServidorPublicoDialog()">
+                                        search</mat-icon> -->
+                                    <mat-label>Numero de Documento</mat-label>
+                                    <input matInput placeholder="Numero de Documento"
+                                        formControlName="numeroDocumentoIdentidad"
+                                        id="numeroDocumentoIdentidad" (keypress)="onKeyOnlyNumbers($event)">
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaServidorPublicoDialog()">search</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <!-- <mat-icon matPrefix (click)="busquedaPlazaDialog($event)">search</mat-icon> -->
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">Codigo de Plaza</mat-label>
+                                    <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12" minlength="12"
+                                        alphaNumeric uppercase />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaDialog($event)">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoPlaza')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idCausal')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idCausal')">
+                                        Causal
+                                    </mat-label>
+                                    <mat-select formControlName="idCausal">
+                                        <mat-option *ngFor="let item of comboLists.listCausal"
+                                            [value]="item.id">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idCausal')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idEtapaPostulacion')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idEtapaPostulacion')">
+                                        Etapa
+                                    </mat-label>
+                                    <mat-select formControlName="idEtapaPostulacion">
+                                        <mat-option
+                                            *ngFor="let item of comboLists.listEtapaPostulante"
+                                            [value]="item.id">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idEtapaPostulacion')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idEstadoCalificacion')">
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="form.get('idEstadoCalificacion')">
+                                        Estado
+                                    </mat-label>
+                                    <mat-select formControlName="idEstadoCalificacion">
+                                        <mat-option
+                                            *ngFor="let item of comboLists.listEstadoCalificacion"
+                                            [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idEstadoCalificacion')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span
+                                    class="material-icons">clear</span>
+                                LIMPIAR</button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4"
+                                (click)="handleBuscar()"><span class="material-icons">search</span>
+                                BUSCAR</button>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+                        <mat-tab label="Resultados Preliminares" *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">
+                            <div class="tabla-espacio">                        
+                            <div class="content-table">
+                                <minedu-resultados-preliminares [form]="form" 
+                                [btnBuscar]="btnBuscar.asObservable()" 
+                                [idEtapaProceso]="idEtapaProceso" 
+                                [idAlcanceProceso]="idAlcanceProceso" 
+                                [permisoCalificacion]="permisoCalificacion" 
+                                (onBuscar)="handleRefrescar($event)"
+                                [selectedTabIndex]="selectedTabIndex"></minedu-resultados-preliminares>                            
+                            </div>                        
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Resultados Finales" *ngIf="etapaFase.ETAPA_REGIONAL_GENERAL == proceso?.codigoEtapaFase">                     
+                        <div class="tabla-espacio">
+                            <div class="content-table">
+                                <minedu-resultados-finales [form]="form" 
+                                [btnBuscar]="btnBuscar.asObservable()" 
+                                [idEtapaProceso]="idEtapaProceso" 
+                                [idAlcanceProceso]="idAlcanceProceso" 
+                                [permisoCalificacion]="permisoCalificacion" 
+                                (onBuscar)="handleRefrescar($event)"
+                                [selectedTabIndex]="selectedTabIndex"></minedu-resultados-finales>                        
+                            </div>
+                        </div>
+                        </mat-tab>
+                        <mat-tab label="Cuadro de mérito" *ngIf="etapaFase.ETAPA_REGIONAL_FASE_1 == proceso?.codigoEtapaFase || etapaFase.ETAPA_REGIONAL_FASE_2 == proceso?.codigoEtapaFase || etapaFase.ETAPA_INTERREGIONAL == proceso?.codigoEtapaFase">                     
+                            <div class="tabla-espacio">
+                                <div class="content-table">
+                                    <minedu-cuadro-merito [form]="form" 
+                                    [btnBuscar]="btnBuscar.asObservable()" 
+                                    [idEtapaProceso]="idEtapaProceso" 
+                                    [idAlcanceProceso]="idAlcanceProceso" 
+                                    [permisoCalificacion]="permisoCalificacion"
+                                    [proceso]="proceso"
+                                    [selectedTabIndex]="selectedTabIndex"></minedu-cuadro-merito>                        
+                                </div>
+                            </div>
+                            </mat-tab>                       
+                    </mat-tab-group>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-raised-button class="ml-4" (click)="handleRetornar()"><span
+                                        class="material-icons">keyboard_backspace</span>
+                                    RETORNAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

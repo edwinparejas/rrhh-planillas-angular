@@ -1,0 +1,14 @@
+<div class="dialog-content-wrapper">
+    <mat-dialog-content class="p-24 pb-0 m-0">
+        <div fxLayout="column">
+            <div class="content mb-2">
+                <span class="label">{{ data.mensaje }}</span>
+            </div>
+        </div>
+    </mat-dialog-content> 
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" (click)="onNoClick('I')"><span class="material-icons">check</span>&nbsp;Iniciar</button>
+        <button mat-raised-button color="primary" (click)="onNoClick('V')"><span class="material-icons">cancel</span>&nbsp;Visualizar</button>
+        <button mat-raised-button (click)="onNoClick('C')"><span class="material-icons">cancel</span>&nbsp;Cancelar</button>
+    </mat-dialog-actions>
+</div>

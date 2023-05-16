@@ -1,0 +1,30 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{ dialogTitle }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div *ngIf="isWorking" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <ng-template mineduDynamicHost *ngIf="!isWorking"> </ng-template>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button *ngIf="visibleEliminar" mat-stroked-button color="warn" (click)="handleEliminarProyecto()">
+            <span class="material-icons">restore_from_trash</span> ELIMINAR
+        </button>
+        <button mat-stroked-button (click)="handleCancel()">
+            <span class="material-icons">cancel</span> CERRAR
+        </button>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+
+.container {
+    position: relative;
+    border: 2px dashed transparent;
+    border-radius: 4px;  
+    &__dropzone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    &.drag {
+      border-color: #757575;
+    }
+  }
+  
+  .minedu {
+    &__button {    
+      height: 45px;
+      text-align: start;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }   
+  }
+
+  .dropzone {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.24);
+    &__text {
+      margin: 0;
+      font-size: 11px;
+    }
+  } 

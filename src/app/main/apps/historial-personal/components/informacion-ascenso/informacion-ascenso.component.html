@@ -1,0 +1,420 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Ver Información Ascenso</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                <fieldset class="fieldset-border">
+                    <legend>Acción de Personal</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            
+                           
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Grupo de Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.grupoAccion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.accion}}</p>                                    
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.motivoAccion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+                <div class="nexus">
+                    <span class="h6 p-4 historialnexus">
+                        HISTORIAL NEXUS
+                    </span>
+                </div>
+
+                <br>
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos del Ascenso</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Número Resolución</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.numeroResolucion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha Resolución</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.fechaResolucion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha Inicio</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.fechaInicio}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">                                
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                            <div fxFlex="50%" >      
+                                <fieldset class="fieldset-border ng-tns-c382-17">
+                                    <legend>Datos de la plaza actual</legend>
+                                    <div fxLayout="column">
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Codigo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.codigoPlazaActual">
+                                                        {{historial.detalleAscenso.codigoPlazaActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.codigoPlazaActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Regimen Lboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.regimenLaboralActual">
+                                                        {{historial.detalleAscenso.regimenLaboralActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.regimenLaboralActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Centro de trabajo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.centroTrabajoActual">
+                                                        {{historial.detalleAscenso.centroTrabajoActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.centroTrabajoActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Modalidad educativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.modalidadEducativaActual">
+                                                        {{historial.detalleAscenso.modalidadEducativaActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.modalidadEducativaActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Nivel Educativo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.nivelEducativaActual">
+                                                        {{historial.detalleAscenso.nivelEducativaActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.nivelEducativaActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Area Curricular</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.areaCurricularActual">
+                                                        {{historial.detalleAscenso.areaCurricularActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.areaCurricularActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.cargoActual">
+                                                        {{historial.detalleAscenso.cargoActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.cargoActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Jornada Laboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.jornadaLaboralActual">
+                                                        {{historial.detalleAscenso.jornadaLaboralActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.jornadaLaboralActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.tipoCargoActual">
+                                                        {{historial.detalleAscenso.tipoCargoActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.tipoCargoActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Categoria Remunerativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.categoriaRemunerativaActual">
+                                                        {{historial.detalleAscenso.categoriaRemunerativaActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.categoriaRemunerativaActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">tipo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.tipoPlazaActual">
+                                                        {{historial.detalleAscenso.tipoPlazaActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.tipoPlazaActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Condición de plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.condicionPlazaActual">
+                                                        {{historial.detalleAscenso.condicionPlazaActual}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.condicionPlazaActual"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </fieldset>
+                                
+                            </div>
+
+                            <div fxFlex="50%" >    
+                                <fieldset class="fieldset-border ng-tns-c382-17">
+                                    <legend>Datos de la plaza destino</legend>
+                                    <div fxLayout="column">
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Codigo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.codigoPlazaDestino">
+                                                        {{historial.detalleAscenso.codigoPlazaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.codigoPlazaDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Regimen Lboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.regimenLaboralDestino">
+                                                        {{historial.detalleAscenso.regimenLaboralDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.regimenLaboralDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Centro de trabajo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.centroTrabajoDestino">
+                                                        {{historial.detalleAscenso.centroTrabajoDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.centroTrabajoDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Modalidad educativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.modalidadEducativaDestino">
+                                                        {{historial.detalleAscenso.modalidadEducativaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.modalidadEducativaDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Nivel Educativo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.nivelEducativaDestino">
+                                                        {{historial.detalleAscenso.nivelEducativaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.nivelEducativaDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Area Curricular</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.areaCurricularDestino">
+                                                        {{historial.detalleAscenso.areaCurricularDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.areaCurricularDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.cargoDestino">
+                                                        {{historial.detalleAscenso.cargoDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.cargoDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Jornada Laboral</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.jornadaLaboralDestino">
+                                                        {{historial.detalleAscenso.jornadaLaboralDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.jornadaLaboralDestino"> </p>
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo Cargo</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.tipoCargoDestino">
+                                                        {{historial.detalleAscenso.tipoCargoDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.tipoCargoDestino"> </p> 
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Categoria Remunerativa</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.categoriaRemunerativaDestino">
+                                                        {{historial.detalleAscenso.categoriaRemunerativaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.categoriaRemunerativaDestino"> </p>   
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">tipo de Plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.tipoPlazaDestino">
+                                                        {{historial.detalleAscenso.tipoPlazaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.tipoPlazaDestino"> </p>   
+                                                </div>                              
+                                            </div>
+
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                                fxFlex.xs="100%">  
+                                                <div class="form-group">
+                                                    <label for="" class="label">Condición de plaza</label>
+                                                    <p class="form-control-static p1" *ngIf="historial.detalleAscenso.condicionPlazaDestino">
+                                                        {{historial.detalleAscenso.condicionPlazaDestino}}</p>
+                                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleAscenso.condicionPlazaDestino"> </p>   
+                                                </div>                              
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </fieldset>                            
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+            </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+
+

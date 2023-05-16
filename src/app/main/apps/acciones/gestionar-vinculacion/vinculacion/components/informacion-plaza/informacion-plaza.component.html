@@ -1,0 +1,305 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Información completa de la plaza</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                <fieldset class="fieldset-border">
+                    <legend>Datos de la Plaza</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Código de Plaza</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.codigo_plaza">
+                                        {{plaza.codigo_plaza}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.codigo_plaza">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Régimen Laboral</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_regimen_laboral">
+                                        {{plaza.descripcion_regimen_laboral}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_regimen_laboral">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de Plaza</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_tipo_plaza">
+                                        {{plaza.descripcion_tipo_plaza}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_tipo_plaza">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Cargo</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_cargo">
+                                        {{plaza.descripcion_cargo}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_cargo">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Jornada Laboral</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_jornada_laboral">
+                                        {{plaza.descripcion_jornada_laboral}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_jornada_laboral">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Condición</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_condicion">
+                                        {{plaza.descripcion_condicion}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_condicion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Área Curricular</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_area_curricular">
+                                        {{plaza.descripcion_area_curricular}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_area_curricular">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Especialidad</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_especialidad">
+                                        {{plaza.descripcion_especialidad}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_especialidad">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Vigencia Inicio</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.vigencia_inicio">
+                                        {{plaza.vigencia_inicio_str}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.vigencia_inicio">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">vigencia Fin</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.vigencia_fin">
+                                        {{plaza.vigencia_fin_str}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.vigencia_fin">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Vacante</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.motivo_vacancia">
+                                        {{plaza.motivo_vacancia}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.motivo_vacancia">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos del Centro de Trabajo</legend>
+                    <div fxLayout="column">
+                        
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Código Modular</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.codigo_modular">
+                                        {{plaza.codigo_modular}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.codigo_modular">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Centro de Trabajo</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.institucion_educativa">
+                                        {{plaza.institucion_educativa}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.institucion_educativa">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Instancia</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.instancia">
+                                        {{plaza.instancia}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.instancia">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Sub Instancia</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.sub_instancia">
+                                        {{plaza.sub_instancia}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.sub_instancia">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Modalidad Educativa</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.abreviatura_modalidad_educativa">
+                                        {{plaza.abreviatura_modalidad_educativa}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.abreviatura_modalidad_educativa">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Nivel Educativo</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.descripcion_nivel_educativo">
+                                        {{plaza.descripcion_nivel_educativo}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.descripcion_nivel_educativo">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de IE</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.tipo_institucion_educativa">
+                                        {{plaza.tipo_institucion_educativa}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.tipo_institucion_educativa">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de Gestión</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.gestion_institucion_educativa">
+                                        {{plaza.gestion_institucion_educativa}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.gestion_institucion_educativa">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Dependencia</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.dependencia_institucion_educativa">
+                                        {{plaza.dependencia_institucion_educativa}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.dependencia_institucion_educativa">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Modelo de servicio</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.modelo_servicio">
+                                        {{plaza.modelo_servicio}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.modelo_servicio">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de ruralidad</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.tipo_ruralidad">
+                                        {{plaza.tipo_ruralidad}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.tipo_ruralidad">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">EIB</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.eib">
+                                        {{plaza.eib}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.eib">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Forma de atención</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.forma_atencion">
+                                        {{plaza.forma_atencion}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.forma_atencion">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Lengua originaria</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.lengua_originaria">
+                                        {{plaza.lengua_originaria}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.lengua_originaria">NO REGISTRADO
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Frontera</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.frontera">
+                                        {{plaza.frontera}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.frontera">NO REGISTRADO
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">VRAEM</label>
+                                    <p class="form-control-static p1" *ngIf="plaza.vraem">
+                                        {{plaza.vraem}}</p>
+                                    <p class="form-control-static p1" *ngIf="!plaza.vraem">NO REGISTRADO
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+

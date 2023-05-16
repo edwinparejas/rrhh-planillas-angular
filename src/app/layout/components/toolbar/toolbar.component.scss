@@ -1,0 +1,68 @@
+@import "@minedu/scss/minedu";
+toolbar {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    z-index: 4;
+    background: #0073b7;
+    color: rgba(255, 255, 255, .8);
+    &.below {
+        z-index: 2;
+    }
+    .mat-toolbar {
+        position: relative;
+        background: inherit !important;
+        color: inherit !important;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        .logo-icon {
+            width: 38px;
+        }
+    }
+    
+    .user-button,
+    .regimen-button,
+    .info-panel-toggle-button {
+        min-width: 64px;
+        height: 64px;
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+    .titulo-modulo {
+        font-family: "Gotham-Medium", Helvetica, Arial, sans-serif;
+        font-size: 18px;
+        color: #fff !important;
+        padding: 10px 10px 7px;
+        font-weight: normal;
+        display: block;
+    }
+    .titulo-menu {
+        font-size: 26px;
+        padding: 5px;
+        font-weight: 700;
+    }
+    .navbar-toggle-button {
+        min-width: 56px;
+        height: 56px;
+        .secondary-text {
+            color: rgba(255, 255, 255, 0.54);
+        }
+    }
+    .mat-menu-toolbar {
+        background-color: #fff !important;
+    }
+    .toolbar-separator {
+        height: 64px;
+        width: 1px;
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+}
+
+.mat-menu-panel{
+    max-width: 100% !important;
+}

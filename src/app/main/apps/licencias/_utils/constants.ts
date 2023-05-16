@@ -1,0 +1,84 @@
+export enum TipoDocumentoIdentidadEnum {
+    DNI = 1,
+    CARNET_EXTRANJERIA = 2,
+    PASAPORTE = 3
+}
+
+export enum SituacionLaboralEnum { // catalogo
+    cesante = 2,
+    activo = 1,
+}
+
+
+export enum MotivoAccionEnum {
+    POR_ENFERMEDAD = 70,
+    POR_INCAPACIDAD_TEMPORAL= 82, 
+    POR_INCAPACIDAD_TERMPORAL_PARA_EL_TRABAJO = 83,
+    POR_MATERNIDAD = 85,
+    EXTENSION_LICENCIA_POR_MATERNIDAD = 86,
+    POR_ADOPCION = 59,
+    POR_FALLECIMIENTO_DE_PADRES_CONYUGE_E_HIJOS = 65,
+    POR_PATERNIDAD = 87,
+    POR_ENFERMEDAD_GRAVE_TERMINAL_O_POR_ACCIDENTE_GRAVE = 95,
+    POR_DESCANSO_PRE_Y_POST_NATAL = 68,
+    POR_GRAVIDEZ = 81,
+    POR_ENFERMEDAD_O_ACCIDENTE_O_INCAPACIDAD_TEMPORAL = 73,
+    POR_ASUMIR_REPRESENTACION_OFICIAL_DEL_ESTADO_PERUANO = 61,
+    POR_DESEMPENO_DE_CARGO_DE_CONSEJERO_REGIONAL_O_REGIDOR_MUNICIPAL = 69
+}
+
+export enum AccionEnum {
+    LICENCIA_CON_GOCE_DE_REMUNERACIONES = 28,
+    LICENCIA_SIN_GOCE_DE_REMUNERACIONES = 29
+}
+
+export enum GrupoAccionEnum {
+    LICENCIAS = 8
+}
+
+export enum EstadoLicenciaEnum {
+    REGISTRADO = 1,
+    PENDIENTE_DE_PROYECTO = 2,
+    EN_PROYECTO = 3,
+    RESOLUCION = 4,
+    ELIMINADO = 5,
+    ENVIADO = 6
+}
+
+export enum TipoCertificadoEnum {
+    CERTIFICADO_MEDICO_PARTICULAR = 1,
+    CERTIFICADO_DE_INCAPACIDAD_TEMPORAL_DE_TRABAJO = 2
+}
+
+export enum EntidadAtencionEnum {
+    ESSALUD = 1,
+    PARTICULAR = 2
+}
+
+export enum OrigenRegistroDSEnum {
+    REGISTRO_LICENCIA = 1,
+    GENERARACION_PROYECTO = 2
+}
+
+export enum GeneroEnum {
+    MASCULINO = 1,
+    FEMENINO = 2
+}
+
+export enum RegimenLaboralEnum {
+    LEY_29944 = 1,
+    LEY_30493 = 4,
+    LEY_30512 = 5
+}
+
+export enum TipoResolucionEnum {
+    RESOLUCION_DIRECTORAL = 1,
+    RESOLUCION_DIRECTORAL_REGIONAL = 2,
+    RESOLUCION_GERENCIAL_REGIONAL = 3,
+    RESOLUCION_JEFATURAL = 4
+}
+
+export enum OrigenEliminacionEnum {
+    REGISTRADO = 1,
+    ENVIADO = 2    
+}

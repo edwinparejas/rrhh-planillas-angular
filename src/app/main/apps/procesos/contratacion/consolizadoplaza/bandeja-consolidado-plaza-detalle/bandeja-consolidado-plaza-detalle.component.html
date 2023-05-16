@@ -1,0 +1,150 @@
+<div class="page-layout carded fullwidth inner-scroll p-0">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+             <!-- Inicio Breadcrumb -->
+             <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Listado de Plazas</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/bandejas/aprobacionespendientes']">Badeja de aprobación</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/consolidado/',idEtapaProceso]">Consolidado</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/consolidado/',idEtapaProceso]">Listado de Plazas</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="center start" fxFlex="45%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Instancia</span>
+                            <br>
+                            <span class="label-normal">{{ instancia }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="center start" fxFlex="45%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sub Instancia</span>
+                            <br>
+                            <span class="label-normal">{{ subinstancia }}</span>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <!-- <div class="panel">
+                <h4 class="panel-title">{{instancia}} / {{subinstancia}}</h4>
+            </div> -->
+            <div class="panel">
+                <minedu-informacion-proceso-etapa 
+                 [idProcesoEtapa]="idEtapaProceso" 
+                 [codSede]="codSedeCabecera">
+                </minedu-informacion-proceso-etapa>
+                xxxx : {{codSedeCabecera}}
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+                                    <mat-label>Código Modular</mat-label>
+                                    <input matInput formControlName="codigoCentroTrabajo" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                        placeholder="Código modular" maxlength="7" (keyup.enter)="handleBuscar()" />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                        Código de Plaza
+                                    </mat-label>
+                                    <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12" 
+                                        (keyup.enter)="handleBuscar()"
+					onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)"
+					uppercase/>
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('plazasPara')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('plazasPara')">
+                                        Plazas Para: 
+                                    </mat-label>
+                                    <mat-select formControlName="plazasPara" [(value)]="becario">
+                                        <mat-option value="-1">TODOS</mat-option>
+                                        <mat-option value="1">BECARIO</mat-option>
+                                        <mat-option value="0">CONTRATACIÓN DOCENTE</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleLimpiar()">
+                                <span class="material-icons">clear</span> Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                                <span class="material-icons">search</span> Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="panel-body">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div *ngIf="this.consolidadoPlaza?.codigo_estado === estadoConsolidadoPlaza.VALIDADO"
+                            mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleAprobarPlazas()"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4">done</span>APROBAR PLAZAS
+                            </button>
+                        </div>
+                        <div 
+			    *ngIf="this.consolidadoPlaza?.codigo_estado === estadoConsolidadoPlaza.VALIDADO"
+                            mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="warn" (click)="handleRechazarPlazas()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4" style="color: rgb(255, 255, 255);">close</span>RECHAZAR PLAZAS
+                            </button>
+                        </div>
+                    </div>
+                        <mat-tab-group (selectedTabChange)="handleSelectTab($event)">
+                            <mat-tab label="Plazas a convocar">
+                                <minedu-consolidado-plazas-convocar [etapaProceso]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza" ></minedu-consolidado-plazas-convocar>
+                            </mat-tab>
+                            <mat-tab label="Plazas observadas">
+                                <minedu-consolidado-plazas-observadas [etapaProceso]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza" ></minedu-consolidado-plazas-observadas>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                    <div class="panel-footer">
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-stroked-button (click)="handleRetornar()">
+                                    <span class="material-icons">keyboard_backspace</span>
+                                    RETORNAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

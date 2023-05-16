@@ -1,0 +1,88 @@
+<minedu-contenedor-bandeja
+    [idEtapaProceso]="idEtapaProceso"
+    [routerLinks]="routerLinks"
+    [tituloBandeja]='tituloBandeja'
+    >
+    <ng-container>
+        <div  class="panel">
+            <minedu-informacion-proceso-etapa 
+            [idProcesoEtapa]="idEtapaProceso" 
+            [codSede]="codSedeCabecera">
+            </minedu-informacion-proceso-etapa>
+        </div>
+        <minedu-criterio-busqueda-plazas
+            (eventSearch) = "handleSearch($event)"
+            [indiceSeleccionado]="selectTab"
+        >
+        </minedu-criterio-busqueda-plazas>
+        <!--    (eventAperturarPlazas) = "handleAperturarPlaza($event)"-->
+        <minedu-panel-validacionn30493
+            [validacionPlaza]="validacionPlaza"
+            [controlesActivos] = "controlesActivos"
+            (eventAperturarPlazas) = "handleAperturarPlaza($event)"
+            (eventPublicarPlazas) = "handlePublicarPlazas($event)"
+            (eventVerListadoPlazas) = "handleVerListadoPlazas($event)"
+            [idProcesoEtapa]="idEtapaProceso" 
+            [codSede]="codSedeCabecera"
+            >
+            <!-- [actualizarEstadoValidacion]="eventsSubject.asObservable()" -->
+        >
+        </minedu-panel-validacionn30493>
+        <ng-container>
+            <mat-tab-group [(selectedIndex)]="selectTab" (selectedTabChange)="handleSearch(this.request)">
+                <mat-tab label="Plazas Prepublicadas">
+                    <minedu-grilla-plazas30493
+                        (eventPaginator)="handPaginator($event)"
+                        (eventDelete)="handleSearch()"
+                        [codSedeCabecera]="this.codSedeCabecera"
+                        [dataSourceDocentes]="dataSourcePrepublicadas"
+                        (eventSearch) = "handleSearch($event)"
+                        [plazaBotonesGrillaActivos] = "this.plazaBotonesGrillaActivosPrepublicados" 
+                        [esResultadoFinal]="false"
+                        [indiceSeleccionado]="selectTab"
+                        >
+                    </minedu-grilla-plazas30493>
+                </mat-tab>
+                <mat-tab label="Plazas a Convocar">
+                    <minedu-grilla-plazas30493
+                        (eventPaginator)="handPaginator($event)"
+                        (eventDelete)="handleSearch()"
+                        [codSedeCabecera]="this.codSedeCabecera"
+                        [dataSourceDocentes]="dataSourceAConvocar"
+                        (eventSearch) = "handleSearch($event)"
+                        [plazaBotonesGrillaActivos] = "this.plazaBotonesGrillaActivosConvocados" 
+                        [esResultadoFinal]="false"
+                        [indiceSeleccionado]="selectTab"
+                        >
+                    </minedu-grilla-plazas30493>
+                </mat-tab>
+                <mat-tab label="Plazas Observadas">
+                    <minedu-grilla-plazas30493
+                        (eventPaginator)="handPaginator($event)"
+                        (eventDelete)="handleSearch()"
+                        [codSedeCabecera]="this.codSedeCabecera"
+                        [dataSourceDocentes]="dataSourceObservadas"
+                        (eventSearch) = "handleSearch($event)"
+                        [plazaBotonesGrillaActivos] = "this.plazaBotonesGrillaActivosObservados" 
+                        [esResultadoFinal]="false"
+                        [indiceSeleccionado]="selectTab"
+                        >
+                    </minedu-grilla-plazas30493>
+                </mat-tab>
+                <mat-tab label="Resultado Final">
+                    <minedu-grilla-plazas30493
+                        (eventPaginator)="handPaginator($event)"
+                        (eventDelete)="handleSearch()"
+                        [codSedeCabecera]="this.codSedeCabecera"
+                        [dataSourceDocentes]="dataSourceResultadoFinal"
+                        (eventSearch) = "handleSearch($event)"
+                        [plazaBotonesGrillaActivos] = "this.plazaBotonesGrillaActivosFinal" 
+                        [esResultadoFinal]="true"
+                        [indiceSeleccionado]="selectTab"
+                        >
+                    </minedu-grilla-plazas30493>
+                </mat-tab>
+            </mat-tab-group>
+        </ng-container>
+    </ng-container>
+</minedu-contenedor-bandeja>

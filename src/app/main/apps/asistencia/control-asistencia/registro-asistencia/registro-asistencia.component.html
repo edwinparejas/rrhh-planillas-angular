@@ -1,0 +1,530 @@
+<div class="page-layout carded fullwidth inner-scroll p-10" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+            <div class="panel mt-12">                
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%"
+                                            [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                                Tipo de
+                                                documento
+                                            </mat-label>
+                                            
+                                            <mat-select formControlName="idTipoDocumentoIdentidad" [value]="28">
+                                            <mat-option *ngFor="let item of combo.tiposDocumentoIdentidad"
+                                                    [value]="item.idCatalogoItem"  >
+                                                    {{item.descripcionCatalogoItem}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>                                     
+                                     
+                                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%"
+                                            [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                                Número de
+                                                documento</mat-label>
+                                            <input matInput formControlName="numeroDocumentoIdentidad" (keypress)="onKeyOnlyNumbers($event)"
+                                            [maxlength]="maximo" placeholder="Número de documento"
+                                            >
+                                            <mat-icon matSuffix class="icon-cursor" (click)="busquedaDocumento()">search
+                                            </mat-icon>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%"
+                                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                        <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%"
+                                          fxLayoutGap.xs="0">
+                                            <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                            [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                            <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                                Código de plaza
+                                            </mat-label>
+                                            <input matInput formControlName="codigoPlaza"
+                                                placeholder="Número de documento"
+                                            >
+                                            <mat-icon matSuffix class="icon-cursor" (click)="busquedaDocumento()">search
+                                            </mat-icon>
+                                        </mat-form-field>
+                                        </div>
+                                       
+                                        <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%"
+                                          fxLayoutGap.xs="0">
+                                            <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%">
+                                                <mat-label>Régimen laboral</mat-label>
+                                               
+                                                <mat-select formControlName="idRegimenLaboral">
+                                                    <mat-option value="-1">TODOS</mat-option>
+                                                    <mat-option *ngFor="let item of combo.regimenesLaborales"
+                                                        [value]="item.idRegimen">
+                                                        {{item.descripcionRegimen}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>  
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="90%"
+                                        fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                        <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="90%"
+                                        fxLayoutGap.xs="0">
+                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idCondicionLaboral')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idCondicionLaboral')">
+                                            Condición laboral
+                                        </mat-label>
+                                        
+                                        <mat-select formControlName="idCondicionLaboral">
+                                            <mat-option value="-1">TODOS</mat-option>
+                                            <mat-option *ngFor="let item of combo.condicionesLaborales"
+                                                [value]="item.idCatalogoItem">
+                                                {{item.descripcionCatalogoItem}}
+                                            </mat-option>
+                                        </mat-select>
+                                        </mat-form-field>
+                                     </div>
+                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="90%"
+                                         fxLayoutGap.xs="0">
+                                         <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                         [mineduFormFieldValidationState]="form.get('idSituacionLaboral')">
+                                         <mat-label [mineduFormRequiredLabel]="form.get('idSituacionLaboral')">
+                                             Situación laboral
+                                         </mat-label>
+                                      
+                                         <mat-select formControlName="idSituacionLaboral">
+                                            <mat-option value="-1">TODOS</mat-option>
+                                             <mat-option *ngFor="let item of combo.situacionesLaborales"
+                                                 [value]="item.idCatalogoItem">
+                                                 {{item.descripcionCatalogoItem}}
+                                             </mat-option>
+                                         </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                     </div>
+
+                                     <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%"
+                                     fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                     <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%"
+                                        fxLayoutGap.xs="0">
+                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoRegistro')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoRegistro')">
+                                        Tipo de registro
+                                        </mat-label>
+                                      
+                                        <mat-select formControlName="idTipoRegistro">
+                                            <mat-option value="-1">TODOS</mat-option>
+                                            <mat-option *ngFor="let item of combo.tiposRegistros"
+                                                [value]="item.idCatalogoItem">
+                                                {{item.descripcionCatalogoItem}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    </div>
+                                   
+                                     </div>
+                                </div>
+                            </div>                          
+                        </form>  
+
+                    </div>
+
+                    <div class="panel-footer">
+                        <div fxLayout="row" fxLayoutAlign="center center"
+                            *ngIf="permisoPassport.buttonBuscar">
+                            <div class="p-0" fxLayout="row">
+                                <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                    [working]="working">
+                                </minedu-button-clear>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <minedu-button-search [mineduForm]="form" (mineduOnClick)="handleBuscar(form)"
+                                    [working]="working">
+                                </minedu-button-search>
+                            </div>
+                        </div>
+                    </div>   
+            </div>
+        </div>
+    </div>
+
+   
+
+   
+
+    <div fxLayout="row" class="mb-10">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="20%"  fxLayoutAlign="start center"fxFlex.xs="100%"
+        fxLayoutGap="12px" fxLayoutGap.xs="0">
+    
+            <div fxLayout="row">
+                <button mat-stroked-button color="primary" class="" (click)="handleCargaMasiva()"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    *ngIf="permisoPassport.buttonReporteConsolidado">
+                    <span class="material-icons">publish</span> Carga masiva
+                </button>
+            </div>
+            <div fxLayout="row">
+                <button mat-stroked-button color="warn" class="" (click)="handleCrear()"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    *ngIf="permisoPassport.buttonReporteDetallado">
+                    <span class="material-icons">restore_from_trash</span> 
+                    Eliminar carga masiva
+                </button>
+            </div> 
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxFlex="80%"  fxLayoutAlign="end center"fxFlex.xs="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div  fxLayout="row">
+                <button mat-stroked-button color="primary" class="" (click)="handleVerReporteConsolidado()"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    *ngIf="permisoPassport.buttonReporteConsolidado">
+                    <span class="material-icons">description</span> Reporte Consolidado
+                </button>
+            </div>
+            <div  fxLayout="row">
+                <button mat-stroked-button color="primary" class="" (click)="ReporteDetallado()"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    *ngIf="permisoPassport.buttonReporteDetallado">
+                    <span class="material-icons">description</span> 
+                    Reporte de asistencia detallado
+                </button>
+            </div>
+            <div fxLayout="row">
+                <button mat-stroked-button color="primary"  *ngIf="permisoPassport.buttonExportar" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    (click)="handleExportar()" [disabled]="export"><span class="material-icons">get_app</span>
+                    Exportar</button>
+            </div>
+        </div>
+
+    </div>
+
+  
+    <table mat-table class="minedu-table box-shadow" [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+        <ng-container matColumnDef="registro">
+            <th mat-header-cell *matHeaderCellDef>N°</th>
+            <td mat-cell *matCellDef="let row;">{{row.registro}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="numeroDocumentoIdentidad">
+            <th mat-header-cell *matHeaderCellDef>DOCUMENTO</th>
+            <td mat-cell *matCellDef="let row;">{{row.numeroDocumentoIdentidad}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="apellidosNombres">
+            <th mat-header-cell *matHeaderCellDef>APELLIDOS Y NOMBRES </th>
+            <td mat-cell *matCellDef="let row">{{row.apellidosNombres}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="situacionLaboral">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>SITUACION LABORAL</th>
+            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                <p>{{row.situacionLaboral}}</p>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sinIncidencias">
+            <th mat-header-cell *matHeaderCellDef>SIN INCIDENCIAS</th>
+            <td mat-cell *matCellDef="let row;">
+                <mat-checkbox  [checked]="row.sinIncidencias"
+                (change)="handleSinIncidencia($event, row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="totalTardanza">
+            <th mat-header-cell *matHeaderCellDef  fxHide fxShow.gt-md>Tardanza (*) HH.MM</th>
+            <td mat-cell *matCellDef="let row;">
+                <div  fxLayout="row" *ngIf="!row.sinIncidencias">
+
+                    <div class="mat-icon-table"   fxFlex="50%" fxLayoutAlign="end center"  >
+                        <span class="mr-2">
+                            <span >{{row.horasTardanza}}.{{row.minutosTardanza}}</span>
+                        </span>
+                    </div>
+
+                    <div class="mat-icon-table"  fxFlex="50%" fxLayoutAlign="start center"  *ngIf="!row.sinIncidencias" >
+                        <button mat-flat-button  
+                          
+                            class="sidebar-toggle btn-sm"
+                            (click)="crearIncidencia(row, tardanzaEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">edit</mat-icon>
+                        </button>
+                    </div>
+                </div>
+              
+                <p *ngIf="row.sinIncidencias">0</p>
+               
+            </td>        
+        </ng-container>
+    
+        <ng-container matColumnDef="totalPermisoSinGoce">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>PERMISO SIN GOCE (*) HH.MM </th>
+            <td mat-cell *matCellDef="let row;">
+                <div fxLayout="row">
+                    
+                    <div class="mat-icon-table"  fxFlex="50%" fxLayoutAlign="end center"  >
+                        <span class="mr-2">
+                            <span *ngIf="!row.sinIncidencias">{{row.horasPermisoSinGoce}}.{{row.minutosPermisoSinGoce}}</span>
+                        </span> 
+                    </div>
+
+                    <div class="mat-icon-table"   fxFlex="50%"  *ngIf="!row.sinIncidencias"  fxLayoutAlign="star center" >
+                        <button mat-flat-button 
+                          
+                            class="sidebar-toggle btn-sm"                             
+                            (click) ="crearIncidencia(row, permisoSinEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">edit</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <p *ngIf="row.sinIncidencias">0</p>
+            </td>        
+        </ng-container>
+         && event.checked
+        <ng-container matColumnDef="totalPermisoConGoce">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>PERMISO CON GOCE (*) HH.MM </th>
+            <td mat-cell *matCellDef="let row;">
+                <div fxLayout="row" *ngIf="!row.sinIncidencias">
+                    <div class="mat-icon-table"  fxFlex="50%" fxLayoutAlign="end center" >
+                        <span class="mr-2">
+                            <span *ngIf="!row.sinIncidencias">{{row.horasPermisoConGoce}}.{{row.minutosPermisoConGoce}}</span>
+                        </span> 
+                    </div>
+                    <div class="mat-icon-table"  *ngIf="!row.sinIncidencias"  fxFlex="50%" fxLayoutAlign="start center"  >
+                        <button mat-flat-button 
+                           
+                            class="sidebar-toggle btn-sm"                  
+                            (click) ="crearIncidencia(row, permisoConEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">edit</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <p *ngIf="row.sinIncidencias">0</p>
+            </td>        
+        </ng-container>
+        <ng-container matColumnDef="totalInasistenciaInjustificada">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>INASISTENCIAS INJUSTIFICADAS</th>
+            <td mat-cell *matCellDef="let row;">
+                <div fxLayout="row" *ngIf="!row.sinIncidencias" >
+                    <div class="mat-icon-table"  fxFlex="50%" fxLayoutAlign="end center"  >
+                        <span class="mr-2" >
+                            <span *ngIf="!row.sinIncidencias">
+                                {{ row.totalInasistenciaInjustificada }}
+                            </span>
+                        </span>                     
+                    </div>
+                    <div class="mat-icon-table"  *ngIf="!row.sinIncidencias" fxFlex="50%" fxLayoutAlign="start center" >
+                        <button mat-flat-button 
+                           
+                            class="sidebar-toggle btn-sm"               
+                            (click) ="crearIncidencia(row, inasistenciaEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">create</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <p *ngIf="row.sinIncidencias">0</p>
+            </td>        
+        </ng-container>
+        <ng-container matColumnDef="totalHuelgaParo">
+            <th mat-header-cell *matHeaderCellDef  fxHide fxShow.gt-md>Huelga/Paro</th>
+            <td mat-cell *matCellDef="let row;">
+                <div fxLayout="row" *ngIf="!row.sinIncidencias"  >
+                    <div class="mat-icon-table" fxFlex="50%" fxLayoutAlign="end center" >
+                        <span class="mr-2 "  >
+                           <span> {{ row.totalHuelgaParo }}</span>
+                        </span> 
+                     
+                    </div>
+                    <div class="mat-icon-table"  *ngIf="!row.sinIncidencias" fxFlex="50%" fxLayoutAlign="start center" >
+                        <button mat-flat-button 
+                           
+                            class="sidebar-toggle btn-sm"
+                            (click)="crearIncidencia(row, huelgaEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">create</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <p *ngIf="row.sinIncidencias">0</p>
+            </td>            
+        </ng-container>
+
+        <ng-container matColumnDef="totalLicenciaSinGoce">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>LICENCIA SIN GOCE </th>
+            <td mat-cell *matCellDef="let row;">
+                <div fxLayout="row" *ngIf="!row.sinIncidencias">
+          
+                    <div class="mat-icon-table"  fxFlex="50%" fxLayoutAlign="end center" >
+                        <span class="mr-2"  >
+                            <span> {{ row.totalLicenciaSinGoce }}</span>
+                           
+                        </span>
+                    </div>
+                    <div class="mat-icon-table" *ngIf="!row.sinIncidencias"  fxFlex="50%" fxLayoutAlign="start center" >
+                        <button mat-flat-button 
+                           
+                            class="sidebar-toggle btn-sm"
+                            (click)="crearIncidencia(row, licenciaSinEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">create</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <p *ngIf="row.sinIncidencias">0</p>
+            </td>            
+        </ng-container>
+
+       
+
+        <ng-container matColumnDef="totalLicenciaConGoce">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>LICENCIA CON GOCE </th>
+            <td mat-cell *matCellDef="let row;">
+                <div fxLayout="row" *ngIf="!row.sinIncidencias">
+                    <div class="mat-icon-table"  fxFlex="50%" fxLayoutAlign="end center" >
+
+                        <span class="mr-2 pr-2">
+                            <span >{{ row.totalLicenciaConGoce }}</span>
+                        </span>
+
+                    </div>
+                    <div class="mat-icon-table"  *ngIf="!row.sinIncidencias" fxFlex="50%" fxLayoutAlign="start center" >
+                        <button mat-flat-button 
+                          
+                            class="sidebar-toggle btn-sm"
+                            (click)="crearIncidencia(row, licenciaConEnum)" 
+                            aria-label="Registrar asistencia" 
+                            matTooltip="Registrar asistencia">
+                            <mat-icon class="">create</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <p *ngIf="row.sinIncidencias">0</p>
+            </td>            
+        </ng-container>
+
+        <ng-container matColumnDef="totalVacaciones">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>VACACIONES</th>
+            <td mat-cell *matCellDef="let row"  fxHide fxShow.gt-md>
+                <div    fxLayoutAlign="center center" >
+                    {{row.totalVacaciones}}
+                </div> 
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+            <td mat-cell *matCellDef="let row; let  i = index;">
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="mat-icon-table">
+                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                            [style.display]=""
+                            (click)="handleVerInformacion(row)" aria-label="ver información" matTooltip="ver información">
+                            <mat-icon class="">info</mat-icon>
+                        </button>
+                    </div>                  
+                </div>
+            </td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="tipoRegistro">
+            <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Tipo de registro</th>
+            <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>{{row.tipoRegistro}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+            (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+        </tr>
+    </table>
+    <div class="no-results" *ngIf="!(dataSource?.loading | async)"
+        [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+        No se encontraron registros
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource?.loading | async">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+    <mat-paginator #paginator [length]="dataSource?.dataTotal" [pageIndex]="0" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+    
+<div fxLayout="row" fxLayoutAlign="end center" class="mb-12" style="margin-top: 12px;">
+    <div class="pl-6" fxLayout="row">
+        <button mat-raised-button color="primary" 
+                [@animate]="{ 
+                            value: '*',
+                            params: { delay: '300ms', scale: '.2' }
+                            }" 
+             
+                (click)="handleCerrar()" >
+            <span class="material-icons">
+                done</span>
+            Cerrar asistencia
+        </button>
+    </div>
+    <div class="pl-6" fxLayout="row">
+        <button mat-raised-button color="primary" 
+                [@animate]="{ 
+                            value: '*',
+                            params: { delay: '300ms', scale: '.2' }
+                            }" 
+               
+                (click)="handleGuardar()" >
+            <span class="material-icons">
+                save</span>
+            Guardar
+        </button>
+    </div>
+    <div class="pl-6" fxLayout="row">
+        <button mat-stroked-button color="primary" 
+                [@animate]="{ 
+                            value: '*',
+                            params: { delay: '300ms', scale: '.2' }
+                            }" 
+               
+                (click)="handleRetornar()" >
+            <span class="material-icons">
+                keyboard_return</span>
+            Retornar
+        </button>
+    </div>
+</div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+

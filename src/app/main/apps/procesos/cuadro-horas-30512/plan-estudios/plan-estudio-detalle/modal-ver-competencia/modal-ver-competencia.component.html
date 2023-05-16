@@ -1,0 +1,58 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{state.icon}}</mat-icon>
+                <span class="title dialog-title">{{state.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div class="page-layout carded fullwidth inner-scroll p-16">
+            <div class="page-layout carded left-sidebar inner-scroll">
+                <div class="content">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table mat-table class="minedu-table box-shadow" [dataSource]="state.grilla.competencias"
+                                [@animateStagger]="{value:'50'}">
+                                <ng-container matColumnDef="rowNum">
+                                    <th mat-header-cell *matHeaderCellDef>N°</th>
+                                    <td mat-cell *matCellDef="let row;">{{row.rowNum}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="codigoCompetenciaNivel">
+                                    <th mat-header-cell *matHeaderCellDef>Código</th>
+                                    <td mat-cell *matCellDef="let row;">{{row.codigoCompetenciaNivel}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="descripcionCompetenciaNivel">
+                                    <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                                    <td mat-cell *matCellDef="let row">{{row.descripcionCompetenciaNivel}}</td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="state.grilla.displayedColumns; sticky:true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: state.grilla.displayedColumns;"
+                                    (click)="selection.toggle(row)"
+                                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                    [@animate]="{value:'*',params:{y:'100%'}}">
+                                </tr>
+                            </table>
+                            <div class="no-results" *ngIf="!(state.grilla?.isLoading)"
+                                [style.display]="state.grilla?.competencias.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                *ngIf="(state.grilla?.isLoading)">
+                                <mat-spinner diameter="50"></mat-spinner>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

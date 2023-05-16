@@ -1,0 +1,47 @@
+@import "@minedu/scss/minedu";
+
+.app-modal-devolver-reportes {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    @include media-breakpoint("gt-xs") {
+        width: 50%;
+    }
+
+    .mat-dialog-container {
+        width: 100% !important;
+        padding: 0 !important;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .label {
+        font-weight: bold;
+    }
+
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    p {
+        margin: 6px 0;
+        color: rgba(0, 0, 0, 0.6);
+    }
+}

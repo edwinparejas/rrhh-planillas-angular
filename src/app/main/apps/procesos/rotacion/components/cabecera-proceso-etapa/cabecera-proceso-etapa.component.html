@@ -1,0 +1,111 @@
+<div fxLayout="column" fxFlex="100%" fxLayoutAlign="start start" *ngIf="proceso">
+
+    <div class="w-complete" fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+        <div *ngIf="proceso.esRolMonitor" fxLayout="row" fxLayout.lt-sm="column" fxFlex="25%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div class="form-group ml-10">
+                <p class="form-control-static" *ngIf="proceso.descripcionDre">
+                    <span class="strong">Instancia : </span> {{proceso.descripcionDre}}
+                </p>
+            </div>
+        </div>
+        <div *ngIf="proceso.esRolMonitor" fxLayout="row" fxLayout.lt-sm="column" fxFlex="25%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div class="form-group ml-10 ">
+                <p class="form-control-static" *ngIf="proceso.descripcionUgel">
+                    <span class="strong">Sub instancia : </span> {{proceso.descripcionUgel}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <section class="fieldset w-complete">
+        <h3>Proceso y Etapa</h3>
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Año</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.anioProceso">
+                                {{proceso.anioProceso}}</p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.anioProceso">No registrado</p>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Código</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.codigoProceso">
+                                {{proceso.codigoProceso}}
+                            </p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.codigoProceso">No registrado</p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Régimen laboral</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.regimenLaboral">
+                                {{proceso.regimenLaboral}}</p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.regimenLaboral">No registrado
+                            </p>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Proceso</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.maestroProceso">
+                                {{proceso.maestroProceso}}
+                            </p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.maestroProceso">No registrado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">N° convocatoria</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.numeroConvocatoria">
+                                {{proceso.numeroConvocatoria}}</p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.numeroConvocatoria">No registrado
+                            </p>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Etapa</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.etapaFase">
+                                {{proceso.etapaFase}}
+                            </p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.etapaFase">No registrado
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Fecha creación</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.fechaCreacionProceso">
+                                {{proceso.fechaCreacionProceso}}</p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.fechaCreacionProceso">No
+                                registrado
+                            </p>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <span class="strong">Estado</span>
+                            <p class="form-control-static" *ngIf="proceso && proceso.estadoProceso">
+                                {{proceso.estadoProceso}}</p>
+                            <p class="form-control-static" *ngIf="proceso && !proceso.estadoProceso">No registrado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

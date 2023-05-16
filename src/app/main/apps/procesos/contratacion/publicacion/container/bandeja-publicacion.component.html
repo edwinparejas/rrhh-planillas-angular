@@ -1,0 +1,245 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group>
+                        <mat-tab label="Publicación de plazas">
+                            <div class="panel-body">
+                                <fieldset class="fieldset-border mb-3">
+                                    <legend>Procesos y etapas </legend>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%"
+                                                fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Año</span>
+                                                        <br>
+                                                        <span class="label-normal">{{etapaResponse?.anio}} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Código</span>
+                                                        <br>
+                                                        <span class="label-normal">{{etapaResponse?.codigoProceso}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Proceso</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{etapaResponse?.descripcionTipoProceso}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Régimen Laboral</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{etapaResponse?.descripcionRegimenLaboral}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Etapa/Fase</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{etapaResponse?.descripcionEtapaFase}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="etapaResponse?.codigoRegimenLaboral === regimenLaboral.LEY_30512"
+                                                    fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Nivel educativo</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{etapaResponse?.descripcionNivelEducativo}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="etapaResponse?.codigoRegimenLaboral === regimenLaboral.LEY_30512 && etapaResponse?.descripcionCargosConvocados != null"
+                                                    fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Cargos convocados</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{etapaResponse?.descripcionCargosConvocados}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Convocatoria</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{etapaResponse?.descripcionNumeroConvocatoria}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Fecha creación</span>
+                                                        <br>
+                                                        <span class="label-normal">{{etapaResponse?.fechaCreacion}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <br>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Criterios de búsqueda</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form [formGroup]="form">
+                                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                                fxLayoutGap.lt-md="0">
+                                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+
+                                                    <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%"
+                                                        [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                                            Código de plaza</mat-label>
+                                                        <input matInput formControlName="codigoPlaza"
+                                                            placeholder="Código de plaza" maxlength="12"
+                                                            (keyup.enter)="buscarPlazas()"
+                                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                        <mat-icon matSuffix class="icon-cursor"
+                                                            (click)="busquedaPlazaPersonalizada()">
+                                                            search
+                                                        </mat-icon>
+                                                    </mat-form-field>
+
+                                                    <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+                                                        <mat-label>
+                                                            Código modular</mat-label>
+                                                        <input matInput formControlName="codigoCentroTrabajo"
+                                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                            placeholder="Código modular" maxlength="7"
+                                                            (keyup.enter)="buscarPlazas()">
+                                                        <mat-icon matSuffix class="icon-cursor"
+                                                            (click)="busquedaCentroTrabajoPersonalizada()">search
+                                                        </mat-icon>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div class="p-0" fxLayout="row">
+                                                <button mat-stroked-button (click)="handleLimpiar()">
+                                                    <span class="material-icons">clear</span> Limpiar
+                                                </button>
+                                            </div>
+                                            <div class="pl-6" fxLayout="row">
+                                                <button mat-raised-button color="primary" class="ml-4"
+                                                    (click)="handleBuscar()">
+                                                    <span class="material-icons">search</span> Buscar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                                    <div fxLayoutAlign="start start" fxFlex="85%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Estado de plazas: </span>
+                                            <span
+                                                *ngIf="consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.PENDIENTE"
+                                                class="badge badge-warning badge-width">
+                                                {{consolidadoPlaza?.descripcionEstadoConsolidado}}</span>
+                                            <span
+                                                *ngIf="consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.RECHAZADO"
+                                                class="badge badge-danger badge-width">
+                                                {{consolidadoPlaza?.descripcionEstadoConsolidado}}</span>
+                                            <span
+                                                *ngIf="consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.VALIDADO"
+                                                class="badge badge-info badge-width">
+                                                {{consolidadoPlaza?.descripcionEstadoConsolidado}}</span>
+                                            <span
+                                                *ngIf="consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.APROBADO"
+                                                class="badge badge-success badge-width">
+                                                {{consolidadoPlaza?.descripcionEstadoConsolidado}}</span>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" fxFlex="15%">
+                                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                                            <button
+                                                *ngIf="consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.PENDIENTE || consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.RECHAZADO"
+                                                [disabled]="working" mat-raised-button color="primary"
+                                                (click)="handleEnviar()" class="ml-4"
+                                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                                    class="material-icons">send</span>
+                                                Enviar plazas validadas</button>
+                                        </div>
+                                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                                            <button
+                                                *ngIf="consolidadoPlaza?.codigoEstadoConsolidado === estadoConsolidadoPlaza.APROBADO && consolidadoPlaza?.esPublicado != true"
+                                                mat-raised-button color="primary" (click)="handlePublicar()"
+                                                class="ml-4"
+                                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                                    class="material-icons">public</span>
+                                                Publicar</button>
+                                        </div>
+                                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                                            <span *ngIf="consolidadoPlaza?.esPublicado === true"
+                                                class="badge badge-info badge-width">
+                                                {{consolidadoPlaza?.descripcionPublicado}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-body">
+                    <mat-tab-group (selectedTabChange)="handleSelectTab($event)">
+                        <mat-tab label="Plazas prepublicadas">
+                            <minedu-plazas-publicacion [etapa]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza"
+                                [resumenPlazas]="resumenPlazas">
+                            </minedu-plazas-publicacion>
+                        </mat-tab>
+                        <mat-tab label="Plazas a convocar">
+                            <minedu-plazas-convocar [etapa]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza">
+                            </minedu-plazas-convocar>
+                        </mat-tab>
+                        <mat-tab label="Plazas observadas">
+                            <minedu-plazas-observadas [etapa]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza">
+                            </minedu-plazas-observadas>
+                        </mat-tab>
+                        <mat-tab label="Resultado final">
+                            <minedu-plazas-resultado-final [etapa]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza"
+                                [resumenPlazas]="resumenPlazas"></minedu-plazas-resultado-final>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()"><span
+                                    class="material-icons">keyboard_backspace</span>
+                                RETORNAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+<div *ngIf="accionPersonalForm && getControlValue(accionPersonalForm, 'idMotivoAccion')!==-1">
+    <fieldset *ngFor="let num of [1,2]" [formGroup]="getDatosServidorForm(num)" class="fieldset-border">
+        <legend>Datos Servidor {{num}}</legend>
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-md="0">
+                <!-- Inicio Tipo de Documento -->
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="getDatosServidorForm(num)?.get('idTipoDocumentoIdentidad')">
+                    <mat-label [mineduFormRequiredLabel]="getDatosServidorForm(num)?.get('idTipoDocumentoIdentidad')">
+                        Tipo de Documento
+                    </mat-label>
+                    <mat-select (selectionChange)="limpiarDataTipoNumDoc($event,getDatosServidorForm(num), num)"
+                        formControlName="idTipoDocumentoIdentidad">
+                        <mat-option *ngFor="let item of tipoDocumentoList" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="getDatosServidorForm(num)?.get('idTipoDocumentoIdentidad')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <!-- Fin Tipo de Documento-->
+                <!-- Inicio Numero de Documento-->
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="getDatosServidorForm(num)?.get('numeroDocumentoIdentidad')">
+                    <mat-label [mineduFormRequiredLabel]="getDatosServidorForm(num)?.get('numeroDocumentoIdentidad')">
+                        Número de documento
+                    </mat-label>
+                    <input matInput formControlName="numeroDocumentoIdentidad" placeholder="Número de documento"
+                        [maxLength]="getDatosServidorForm(num)?.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                        (keydown.enter)="busquedaPersonalizadaServidorPublicoEnter(getDatosServidorForm(num), num)"
+                        uppercase>                    
+
+                    <mat-icon matSuffix class="icon-cursor"
+                        (click)="busquedaPersonalizadaServidorPublico(getDatosServidorForm(num), num)">search
+                    </mat-icon>
+                    <mat-error>
+                    </mat-error>
+                </mat-form-field>
+                <!-- Fin Numero de Documento-->
+                <!-- Inicio Informe escalafonario-->
+                <div [formGroup]="getDatosServidorForm(num)?.get('informeEscalafonario')"
+                    formGroupName="informeEscalafonario" fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="getDatosServidorForm(num)?.get('informeEscalafonario').get('numeroInformeEscalafonario')">
+                        <mat-label
+                            [mineduFormRequiredLabel]="getDatosServidorForm(num)?.get('informeEscalafonario').get('numeroInformeEscalafonario')">
+                            Informe Escalafonario
+                        </mat-label>
+                        <input matInput formControlName="numeroInformeEscalafonario" placeholder="Informe Escalafonario"
+                            maxlength="200" uppercase
+                            (keyup.enter)="handleBuscarInformeEscalafonarioBtn(getDatosServidorForm(num))">
+                        <mat-icon matSuffix class="icon-cursor"
+                            (click)="handleBuscarInformeEscalafonarioBtn(getDatosServidorForm(num))">
+                            search
+                        </mat-icon>
+
+                    </mat-form-field>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="0%" fxFlex.xs="100%"
+                    *ngIf="getControlValue(getDatosServidorForm(num)?.get('informeEscalafonario'),'documentoInformeEscalafonario') as documentoInformeEscalafonario">
+                    <div>
+                        <button type="button" mat-stroked-button color="primary" class="ml-4" style="margin-top: 8px;"
+                            (click)="handleVerDocumentoSustento(documentoInformeEscalafonario)">
+                            <span class="material-icons">description</span>
+                        </button>
+                    </div>
+                </div>
+                <div fxLayoutAlign="center start" fxFlex="100%" fxFlex.xs="24.5%"
+                    *ngIf="getControlValue(getDatosServidorForm(num)?.get('informeEscalafonario'),'fechaInformeEscalafonario') as fechaInformeEscalafonario">
+                    <div class="m-5">
+                        <label class="label" for="">Fecha informe escalafonario</label><br />
+                        <p class="label-normal">
+                            {{fechaInformeEscalafonario | date:'dd/MM/yyyy h:mm:ss a'}}
+                        </p>
+                    </div>
+                </div>
+                <!-- Fin Informe escalafonario -->
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-md="0">
+                <div *ngIf="getControlValue(getDatosServidorForm(num)?.get('persona'),'nombreCompleto') as nombreCompleto"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Apellidos y Nombres</label><br />
+                        <p class="label-normal">{{ nombreCompleto }}</p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(getDatosServidorForm(num)?.get('persona'),'estadoCivil') as estadoCivil"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Estado Civil</label><br />
+                        <p class="label-normal">{{ estadoCivil }}</p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(getDatosServidorForm(num)?.get('persona'),'sexo') as sexo"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Sexo</label><br />
+                        <p class="label-normal">{{sexo}}</p>
+                    </div>
+                </div>
+                <div *ngIf="getControlValue(getDatosServidorForm(num)?.get('persona'),'fechaNacimiento') as fechaNacimiento"
+                    fxLayoutAlign="start start" fxFlex="24.5%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Fecha de Nacimiento</label><br />
+                        <p class="label-normal">{{ fechaNacimiento }}</p>
+                    </div>
+                </div>
+                <!-- Inicio Informe escalafonario -->
+                <div *ngIf="getControlValue(getDatosServidorForm(num)?.get('informeEscalafonario'),'aniosTiempoServicio') as aniosTiempoServicio"
+                    fxLayoutAlign="start start" style="padding-left: 30px;" fxFlex="100%" fxFlex.xs="24.5%">
+                    <div class="form-group">
+                        <label class="label" for="">Tiempo de Servicios</label><br />
+                        <p class="label-normal">
+                            {{aniosTiempoServicio }}
+                        </p>
+                    </div>
+                </div>
+                <!-- Fin Informe escalafonario -->
+            </div>
+        </div>
+    </fieldset>
+</div>

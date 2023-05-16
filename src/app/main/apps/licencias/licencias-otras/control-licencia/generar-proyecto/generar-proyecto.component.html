@@ -1,0 +1,224 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Acción de personal</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Grupo de acción</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.descripcionGrupoAccion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Acción</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.descripcionAccion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Motivo de acción</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.descripcionMotivoAccion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div fxFlex="100%">
+                            <form [formGroup]="form">
+                                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                    [mineduFormFieldValidationState]="form.get('idTipoResolucion')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoResolucion')">Tipo
+                                        resolución
+                                    </mat-label>
+                                    <mat-select formControlName="idTipoResolucion">
+                                        <mat-option *ngFor="let item of comboLists.listTipoResolucion"
+                                            [value]="item.value">
+                                            {{item.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('idTipoResolucion')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Días acumulados en el año</legend>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div>
+                    <span class="label">Días acumulados en el año</span>
+                    <br>
+                    <span class="label-normal">{{licencia?.licenciaBienestarSocial.diasAcumuladosAnual}} </span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos de licencia</legend>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha inicio</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.fechaInicio}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha fin</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.fechaFin}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo descanso</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.licenciaBienestarSocial?.descripcionTipoDescanso}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Anotaciones</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.anotaciones}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cantidad días</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.cantidadDias}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">A cargo del sector</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.licenciaBienestarSocial?.diasCargoMinedu}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">A cargo de Essalud</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.licenciaBienestarSocial?.diasCargoEssalud}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div *ngIf="licencia?.licenciaBienestarSocial?.fechaProbableParto != null">
+                            <span class="label">Fecha Probable de parto</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.licenciaBienestarSocial?.fechaProbableParto}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+        </fieldset>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos Certificado</legend>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Entidad de atención</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.detalleCertificado?.nombreEntidadAtencion}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo certificado</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.detalleCertificado?.descripcionTipoCertificado}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">N° Certificado</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.detalleCertificado?.numeroCertificado}} </span>
+                        </div>
+                    </div>                    
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de emisión</span>
+                            <br>
+                            <span class="label-normal">{{licencia?.detalleCertificado?.fechaEmision}} </span>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <br>
+        </fieldset>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Documento de sustento</legend>
+            <minedu-documentos-sustento [data]="documentosSustento" [soloLectura]="false"
+                [listTiposSustento]="comboLists.listTiposSustento"
+                [listTiposTipoFormato]="comboLists.listTiposTipoFormato" [origenRegistro]="origenRegistro">
+            </minedu-documentos-sustento>
+            <br>
+        </fieldset>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button *ngIf="!generado" color="primary" (click)="handleGenerar()"><span
+                class="material-icons">description</span> GENERAR PROYECTO</button>
+        <button mat-stroked-button color="primary" (click)="handleEnviar()"
+            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span class="material-icons">send</span> ENVIAR
+            ACCIONES GRABADAS</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> CANCELAR</button>
+    </div>
+
+
+</div>

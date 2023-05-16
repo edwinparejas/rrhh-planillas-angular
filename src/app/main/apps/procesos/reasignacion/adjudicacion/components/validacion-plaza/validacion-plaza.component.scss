@@ -1,0 +1,230 @@
+@import "src/@minedu/scss/minedu";
+
+.minedu-validacion-plaza{
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width:400px;
+    }  
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            >h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+    width: 100%;
+    padding: 2px;
+    .remove {
+        color: #dd3333;
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+    .mat-raised-button.mat-primary {
+        background-color: #0073b7;
+        border-color: #0073b7;
+    }
+    .mat-stroked-button.mat-primary {
+        color: #0073b7;
+    }
+    .mat-flat-button.mat-primary {
+        background-color: #0073b7;
+    }
+    .mat-stroked-button:not([disabled]).mat-primary {
+        border-color: #0073b7;
+        background-color: #fff;
+    }
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336;
+        background-color: #fff;
+    }
+    button .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+    button.btn-sm {
+        line-height: 24px;
+        min-width: 27px;
+        padding: 0;
+    }
+    button.btn-sm .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+    button.btn-sm .mat-icon {
+        height: 20px;
+        width: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+    .btn-icon .mat-button-wrapper .material-icons {
+        font-size: 22px !important;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+    }
+
+    .mat-table {
+        font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
+        border-spacing: 0;
+        .mat-row {
+            align-items: unset !important;
+            border-style: none !important; 
+            border: 1px solid #ddd !important;
+        }
+    }
+
+    td.mat-cell,
+    td.mat-footer-cell{
+        font-size: 11px !important;
+        padding: 0 10px 0 10px;
+        border-bottom-style: none !important;
+    }
+
+    tr.mat-header-row{
+        min-height: 36px !important;
+        height: 40px !important;
+    }
+
+    .mat-header-cell{
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #fff !important;
+        background-color: #0073B7 !important;
+        padding: 0 10px 0 10px;
+    }
+
+    .mat-cell:first-child{
+        border-left: 1px solid #ddd;
+    }
+
+    th {
+        border: 1px solid #ddd
+    }
+
+    tr.mat-row {
+        border: 1px solid #ddd !important;
+    }
+    .mat-row.hovered {
+        background: #ECECEE;
+    }
+
+    .mat-row.selected{
+        background: #e5e5e5;
+    }
+    .mat-header-cell:not(:last-child),
+    .mat-cell:not(:last-child){
+        border-right: 1px solid #ddd;
+    }
+    th.mat-header-cell:first-of-type,
+    td.mat-cell:first-of-type,
+    td.mat-footer-cell:first-of-type{
+        padding-left: 10px;
+    }
+    th.mat-header-cell:last-of-type,
+    td.mat-cell:last-of-type,
+    td.mat-footer-cell:last-of-type {
+        padding-right: 10px;
+    }
+    
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .mat-column-numero {
+            flex: 0 1 50px;
+        }
+        .mat-column-campo {
+            flex: 0 1 250px;
+        }
+        .mat-column-datoOriginal {
+            flex: 0 1 400px;
+        }
+        .mat-column-datoActualizado {
+            flex: 0 1 400px;
+        }
+        
+    }
+    .mat-dialog-container {
+        padding: 0;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+
+            .mat-toolbar-row {
+                height: 48px;
+            }
+        }
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+    .mat-raised-button.mat-primary {
+        background-color: #0073b7!important;
+        border-color: #0073b7!important;
+    }
+    .mat-stroked-button.mat-primary {
+        color: #0073b7!important;
+    }
+    .mat-flat-button.mat-primary {
+        background-color: #0073b7!important;
+    }
+    .mat-stroked-button:not([disabled]).mat-primary {
+        border-color: #0073b7!important;
+        background-color: #fff!important;
+    }
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336;
+        background-color: #fff;
+    }
+    button .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+    .titulo-dialog {
+        font-family: "Roboto-light", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 16px;
+        height: 50px !important;
+    }
+}

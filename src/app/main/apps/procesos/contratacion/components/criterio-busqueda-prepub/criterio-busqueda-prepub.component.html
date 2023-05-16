@@ -1,0 +1,103 @@
+<div class="panel">
+    <div class="panel-heading">
+	<h3 class="panel-title">Criterios de búsqueda</h3>
+    </div>
+    <div class="panel-body">
+	<form [formGroup]="form">
+	    <div 
+		fxLayout="row" fxLayout.lt-md="column"
+		fxFlex="100%" fxLayoutGap="12px" 
+		fxLayoutGap.lt-md="0">
+		<div
+		    fxLayout="row" fxLayout.xs="column"
+		    fxFlex="100%" fxFlex.xs="100%"
+		    fxLayoutGap="12px" fxLayoutGap.xs="0">
+		    <mat-form-field 
+			appearance="fill" fxFlex="25%" 
+			fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idInstancia')">
+			<mat-label 
+			    [mineduFormRequiredLabel]="form.get('idInstancia')">Instancia
+			</mat-label>
+			<mat-select formControlName="idInstancia">
+			    <mat-option 
+				*ngFor="let item of instancias" [value]="item.id_instancia">
+				{{ item.descripcion_instancia }}
+			    </mat-option>
+			</mat-select>
+			<mat-error>
+			    <minedu-form-field-validation-messages 
+				[mineduFormControl]="form.get('idInstancia')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+		    <mat-form-field 
+			appearance="fill" fxFlex="25%" 
+			fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('idSubinstancia')">
+			<mat-label 
+			    [mineduFormRequiredLabel]="form.get('idSubinstancia')">
+			    Sub Instancia
+			</mat-label>
+			<mat-select 
+			    formControlName="idSubinstancia">
+			    <mat-option 
+				*ngFor="let item of subinstancias" [value]="item.id_subinstancia">
+				{{ item.descripcion_subinstancia }}
+			    </mat-option>
+			</mat-select>
+			<mat-error>
+			    <minedu-form-field-validation-messages
+				[mineduFormControl]="form.get('idSubinstancia')">
+			    </minedu-form-field-validation-messages>
+			</mat-error>
+		    </mat-form-field>
+		    <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+			<mat-label> Código modular</mat-label>
+			<input 
+			    matInput formControlName="codigoCentroTrabajo" 
+			    onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+			    placeholder="Código modular" maxlength="7" 
+			    (keyup.enter)="buscarPlazasContratacion()" />
+			<mat-icon 
+			    matSuffix class="icon-cursor" 
+			    (click)="busquedaCentroTrabajoPersonalizada()">
+			    search
+			</mat-icon>
+		    </mat-form-field>
+		    <mat-form-field 
+			appearance="fill" fxFlex="20%" 
+			fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+			<mat-label 
+			    [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+			    Código de plaza</mat-label>
+			<input 
+			    matInput formControlName="codigoPlaza" 
+			    placeholder="Código de plaza" maxlength="12"
+			    onkeyup="javascript:this.value=this.value.toUpperCase();"
+			    (keyup.enter)="buscarPlazasContratacion()" 
+			    onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (charCode >= 65 && charCode <= 90)" />
+			<mat-icon 
+			    matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+			    search
+			</mat-icon>
+		    </mat-form-field>
+		</div>
+	    </div>
+	</form>
+    </div>
+    <div class="panel-footer">
+	<div fxLayout="row" fxLayoutAlign="center center">
+	    <div class="p-0" fxLayout="row">
+		<button mat-stroked-button (click)="handleLimpiar()">
+		    <span class="material-icons">clear</span>
+		    Limpiar
+		</button>
+	    </div>
+	    <div class="pl-6" fxLayout="row">
+		<button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+		    <span class="material-icons">search</span>
+		    Buscar
+		</button>
+	    </div>
+	</div>
+    </div>
+</div>

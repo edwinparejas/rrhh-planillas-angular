@@ -1,0 +1,145 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">{{this.modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos personales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" 
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento de identidad</span><br>
+                            <span class="label-normal">{{this.modal.info?.numeroDocumentoIdentidad}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Primer apellido</span><br>
+                            <span class="label-normal">{{this.modal.info?.primerApellido}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Segundo apellido</span><br>
+                            <span class="label-normal">{{this.modal.info?.segundoApellido}}</span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nombres</span><br>
+                            <span class="label-normal">{{this.modal.info?.nombres}}</span>
+                        </div>
+                    </div>
+                   
+                </div>               
+            </div> 
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de ingreso</span><br>
+                            <span class="label-normal">{{this.modal.info?.fechaIngreso}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span><br>
+                            <!-- <span class="label-normal">{{this.modal.info?.sexo}}</span> -->
+                        </div>
+                   </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Cese</span><br>
+                            <span class="label-normal">{{this.modal.info?.fechaCese}}</span>
+                        </div>
+                    </div> 
+
+                </div>
+            </div>
+
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos laborales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código de plaza</span><br>
+                            <span class="label-normal">{{this.modal.info?.codigoPlaza}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Régimen Laboral</span><br>
+                            <span class="label-normal">{{this.modal.info?.regimenLaboral}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Condición Laboral</span><br>
+                            <span class="label-normal">{{this.modal.info?.condicionLaboral}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Situación Laboral</span><br>
+                            <span class="label-normal">{{this.modal.info?.situacionLaboral}}</span>
+                        </div>
+                    </div>
+                     
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" 
+                    fxLayoutGap.xs="0">
+                 
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Jornada Laboral</span><br>
+                            <span class="label-normal">{{this.modal.info?.jornadaLaboral}}</span>
+                        </div>
+                    </div>
+                   
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cargo</span><br>
+                            <span class="label-normal">{{this.modal.info?.cargo}}</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>      
+        </fieldset>
+      
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CERRAR</button>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="h3"> {{title}}</span>
+                <span fxLayout="row">
+                    <mat-icon color="accent" class="s-18">home</mat-icon> Inicio / Personal / Asistencia / {{breadcrumb}}
+                </span>
+            </div>           
+            <div fxLayout="row" class="mb-10">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

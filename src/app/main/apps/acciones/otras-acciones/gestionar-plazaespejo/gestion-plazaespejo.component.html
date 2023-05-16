@@ -1,0 +1,107 @@
+<minedu-contenedor-actividad>
+    <mat-tab-group #plazaEspejoTab (selectedTabChange)="seleccionOptionAtencion($event)">
+        <mat-tab label="Pendientes">
+            <ng-template matTabContent>
+                <minedu-criterio-busqueda (onEventBuscar)="buscarActividadPendientes($event)">
+                </minedu-criterio-busqueda>
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <div class="p-0" fxLayout="row">
+                        <button (click)="exportarActividadPendientes()" mat-stroked-button color="primary" class="ml-4"
+                            [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' }}">
+                            <span class="material-icons">get_app</span>
+                            EXPORTAR
+                        </button>
+                    </div>
+                </div>
+                <minedu-grilla-actividad (loadData)="cargaActividadPendientesPage($event)"
+                    [loading]="grillaPendientes.loading" [source]="grillaPendientes.gridSource"
+                    [definition]="grillaPendientes.gridDefinition">
+                    <ng-template libTemplate="tpl-documento" let-data>
+                        {{data.tipoDocumento}}:{{data.numeroDocumento}}
+                    </ng-template>
+                    <ng-template libTemplate="tpl-nombreCompleto" let-data>
+                        {{data.primerApellido}}
+                        {{data.segundoApellido}},&nbsp;
+                        {{data.nombres}}
+                    </ng-template>
+                    <ng-template libTemplate="tpl-acciones" let-data>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <div class="mat-icon-table">
+                                <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                    aria-label="Atender" matTooltip="Atender" (click)="handleGoAtencion(data)">
+                                    <mat-icon class="">check_circle</mat-icon>
+                                </button>
+                            </div>
+                            <div class="mat-icon-table">
+                                <button (click)="handleObservar(data?.idActividad)" mat-stroked-button color="primary"
+                                    class="sidebar-toggle btn-sm ml-2" aria-label="Observar" matTooltip="Observar">
+                                    <mat-icon class="">visibility</mat-icon>
+                                </button>
+                            </div>
+                            <div class="mat-icon-table">
+                                <button (click)="descargarResolucion(data)" mat-stroked-button color="primary"
+                                    class="sidebar-toggle btn-sm ml-2" aria-label="Ver" matTooltip="Ver">
+                                    <mat-icon class="">picture_as_pdf</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </minedu-grilla-actividad>
+            </ng-template>
+
+        </mat-tab>
+        <mat-tab label="Realizados">
+            <ng-template matTabContent>
+                <minedu-criterio-busqueda (onEventBuscar)="buscarActividadRealizados($event)">
+                </minedu-criterio-busqueda>
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <div class="p-0" fxLayout="row">
+                        <button (click)="cargarExportarActividadRealizados()" mat-stroked-button color="primary"
+                            class="ml-4" [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' }}">
+                            <span class="material-icons">get_app</span>
+                            EXPORTAR
+                        </button>
+                    </div>
+                </div>
+                <minedu-grilla-actividad (loadData)="cargaActividadRealizadosPage($event)"
+                    [loading]="grillaRealizados.loading" [source]="grillaRealizados.gridSource"
+                    [definition]="grillaRealizados.gridDefinition">
+                    <ng-template libTemplate="tpl-documento" let-data>
+                        {{data.tipoDocumento}}:{{data.numeroDocumento}}
+                    </ng-template>
+                    <ng-template libTemplate="tpl-nombreCompleto" let-data>
+                        {{data.primerApellido}}
+                        {{data.segundoApellido}},&nbsp;
+                        {{data.nombres}}
+                    </ng-template>
+                    <ng-template libTemplate="tpl-acciones" let-data>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <div class="mat-icon-table">
+                                <button (click)="handleGoVerAtencion(data)" mat-stroked-button color="primary"
+                                    class="sidebar-toggle btn-sm ml-2" aria-label="Ver" matTooltip="Ver">
+                                    <mat-icon class="">info</mat-icon>
+                                </button>
+                            </div>
+                            <div *ngIf="data.idEstadoActividad == EstadoActividadEnum.RECHAZADO" class="mat-icon-table">
+                                <button (click)="handleVerObservado(data?.idActividad)" mat-stroked-button
+                                    color="primary" class="sidebar-toggle btn-sm ml-2" aria-label="Ver motivo"
+                                    matTooltip="Ver motivo">
+                                    <mat-icon class="">visibility</mat-icon>
+                                </button>
+                            </div>
+                            <div class="mat-icon-table">
+                                <button (click)="descargarResolucion(data)" mat-stroked-button color="primary"
+                                    class="sidebar-toggle btn-sm ml-2" aria-label="Ver" matTooltip="Ver">
+                                    <mat-icon class="">picture_as_pdf</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </minedu-grilla-actividad>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</minedu-contenedor-actividad>

@@ -1,0 +1,251 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+        <div class="panel mt-12">
+            <div class="panel-body">
+                <div fxLayout="column" fxLayout.lt-md="column" fxLayoutAlign="center center" class="mr-10 ml-10">
+                    <div fxLayout="column" fxLayoutAlign="center center">
+                        <h1>REPORTE CONSOLIDADO DE INASISTENCIAS, TARDANZAS Y PERMISOS SIN GOCE</h1>     
+                        <h2>Periodo:  {{descripcionMes}}  - {{anio}} </h2>             
+                    </div>               
+                </div>
+
+                <div fxLayout="column" fxLayout.lt-md="column" fxLayoutAlign="start start" class="mr-10 pl-10">                    
+                    <div fxLayout="column" fxLayoutAlign="start start" class="mr-10 pl-10">              
+                        <h2>Centro de trabajo:  {{this.nombreCentroTrabajo}}  </h2>             
+                    </div>                               
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end center" class="mb-10 mr-10 ml-10">                    
+                    <div fxLayout="row" fxLayoutAlign="end center">
+    
+                        <!-- <div class="pl-6 pr-6"  fxLayoutAlign="end center">
+                            <button mat-stroked-button color="primary" [@animate]="{
+                                    value: '*',
+                                    params: { delay: '300ms', scale: '.2' }
+                                }" (click)="handleImprimir()">
+                                <span class="material-icons">get_app</span>
+                                Imprimir
+                            </button>
+                        </div>     -->
+    
+                        <div class="pl-6 pr-6"  fxLayoutAlign="end center">
+                            <button mat-stroked-button color="primary" [@animate]="{
+                                    value: '*',
+                                    params: { delay: '300ms', scale: '.2' }
+                                }" (click)="handleExportar()">
+                                <span class="material-icons">get_app</span>
+                                Exportar
+                            </button>
+                        </div>
+    
+                    </div>      
+                </div>
+
+                <div fxLayout="column" class="animated fadeIn fast">
+            
+                        <table mat-table class="minedu-table box-shadow" #table [dataSource]="dataSource"
+                         [@animateStagger]="{ value: '50' }" mineduPerfectScrollbar>
+
+                            <ng-container matColumnDef="registro">
+                                <th mat-header-cell *matHeaderCellDef>Nro</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{ row.registro }}</p>
+                                </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="numeroDocumentoIdentidad">
+                                <th mat-header-cell *matHeaderCellDef>Documento</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{ row.numeroDocumentoIdentidad }}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="apellidosNombres">
+                                <th mat-header-cell *matHeaderCellDef>Apellidos y Nombres</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{ row.apellidosNombres }}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="descripcionRegimen">
+                                <th mat-header-cell *matHeaderCellDef>RÉGIMEN LABORAL</th>
+                                <td mat-cell *matCellDef="
+                                    let row;
+                                    let i = descripcionRegimen
+                                ">
+                                    <p>{{ row.descripcionRegimen }}</p>
+                                </td>
+                            </ng-container>
+                   
+                            <ng-container matColumnDef="descripcionCargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="
+                                    let row;
+                                    let i = descripcionCargo
+                                ">
+                                    <p>{{ row.descripcionCargo }}</p>
+                                </td>
+                            </ng-container>
+                      
+                            <ng-container matColumnDef="condicionLaboral">
+                                <th mat-header-cell *matHeaderCellDef>CONDICION LABORAL</th>
+                                <td mat-cell *matCellDef=" let row;">
+                                    <p>{{ row.condicionLaboral }}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada Laboral</th>
+                                <td mat-cell *matCellDef="
+                                    let row; ">
+                                    <p>{{ row.jornadaLaboral }}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="horasTardanza">
+                                <th mat-header-cell *matHeaderCellDef>TARDANZAS HORAS(*)</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <div fxLayout="row" style="align-items: center;"
+                                        *ngIf="!row.sinIncidencias">
+                                        <div class="mat-icon-table" *ngIf="row.horasTardanza>0">
+                                            <p>
+                                                {{ row.horasTardanza }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="row.sinIncidencias">0</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="minutosTardanza">
+                                <th mat-header-cell *matHeaderCellDef>TARDANZAS MINUTOS(*)</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <div fxLayout="row" style="align-items: center;"
+                                        *ngIf="!row.sinIncidencias">
+                                        <div class="mat-icon-table" *ngIf="row.minutosTardanza>0">
+                                            <p>
+                                            {{ row.minutosTardanza }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="row.sinIncidencias">0</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="horasPermisoSinGoce">
+                                <th mat-header-cell *matHeaderCellDef>PERMISO SG HORAS(*)</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <div fxLayout="row" style="align-items: center;"
+                                        *ngIf="!row.sinIncidencias">
+                                        <div class="mat-icon-table" *ngIf="row.horasPermisoSinGoce>0">
+                                            <p>
+                                                {{ row.horasPermisoSinGoce }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="row.sinIncidencias">0</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="minutosPermisoSinGoce">
+                                <th mat-header-cell *matHeaderCellDef>PERMISO SG MINUTOS(*)</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <div fxLayout="row"  *ngIf="!row.sinIncidencias">
+                                        <div class="mat-icon-table" *ngIf="row.minutosPermisoSinGoce>0">
+                                            <p>
+                                               {{row.minutosPermisoSinGoce}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="row.sinIncidencias">0</p>
+                                </td>
+                            </ng-container>
+                      
+                            <ng-container matColumnDef="totalInasistenciaInjustificada">
+                                <th mat-header-cell *matHeaderCellDef>Inasistencia Injustificada</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <div fxLayout="row" 
+                                        *ngIf="!row.sinIncidencias">
+                                        <div class="mat-icon-table">
+                                            <p style="padding-right: 10px"
+                                                *ngIf="row.totalInasistenciaInjustificada>0">
+                                                {{ row.totalInasistenciaInjustificada }}</p>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="row.sinIncidencias">0</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalHuelgaParo">
+                                <th mat-header-cell *matHeaderCellDef>Huelga / Paro</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <div fxLayout="row" 
+                                        *ngIf="!row.sinIncidencias">
+                                        <div class="mat-icon-table">
+                                            <p style="padding-right: 10px" *ngIf="row.totalHuelgaParo>0">
+                                                {{ row.totalHuelgaParo }}</p>
+                                        </div>
+                                    </div>
+                                    <p *ngIf="row.sinIncidencias">0</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalLicenciaSinGoce">
+                                <th mat-header-cell *matHeaderCellDef>LICENCIA SG	</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row.totalLicenciaSinGoce }}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sinIncidencias">
+                                <th mat-header-cell *matHeaderCellDef>Sin incidencia</th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <mat-checkbox [checked]="row.sinIncidencias" disabled>
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                                (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+                        </table>
+                        <div class="no-results" *ngIf="!(dataSource?.loading | async)"
+                            [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource?.loading | async">
+                            <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+                        <mat-paginator #paginatorReporteConsolidado  [length]="dataSource?.dataTotal"
+                        [length]="dataSource?.dataTotal"
+                       [pageIndex]="0" [pageSize]="20" [pageSizeOptions]="[20, 50, 100, 200]"></mat-paginator>
+                       <div fxLayout="column" fxLayoutAlign="start start" class="mb-10">
+                           <span style="color: #e54304">
+                            (*) Hora y minuto cronológico
+                           </span>
+                           <span style="color: #e54304">
+                            (**) El registro de color rojo indica que se realizó una modificación luego de ser devuelto por compensaciones.
+                           </span>
+                        </div>
+                    
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-12" style="margin-top: 12px;">
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-stroked-button color="primary"
+                            [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' } }"
+                            (click)="handleRetornar()">
+                            <span class="material-icons">
+                                keyboard_return</span>
+                            Retornar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

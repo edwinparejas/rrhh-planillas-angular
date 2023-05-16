@@ -1,0 +1,72 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>Servidor Público</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Régimen Laboral</span>&nbsp;
+                <br>
+                <span class="label-normal">
+                    {{sancion?.regimenLaboral | noRegistrado}}
+                </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Centro de Trabajo</span>
+                <br>
+
+                <span class="label-normal">
+                    {{sancion?.centroTrabajo | noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Situación Laboral</span>
+                <br>
+                <span class="label-normal">
+                    {{sancion?.situacionLaboral | noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Condición Laboral</span>
+                <br>
+                <span class="label-normal">{{sancion?.condicionLaboral | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Código Plaza</span>
+                <br>
+                <span class="label-normal">{{sancion?.codigoPlaza | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Tipo Cargo</span>
+                <br>
+                <span class="label-normal">{{sancion?.tipoCargo | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Cargo</span>
+                <br>
+                <span class="label-normal">{{sancion?.cargo | noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Jornada Laboral</span>
+                <br>
+                <span class="label-normal">{{sancion?.jornadaLaboral | noRegistrado}}</span>
+            </div>
+        </div>
+
+    </div>
+</fieldset>

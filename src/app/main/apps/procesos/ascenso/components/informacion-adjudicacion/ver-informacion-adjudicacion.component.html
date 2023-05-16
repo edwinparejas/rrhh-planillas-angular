@@ -1,0 +1,253 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Información completa del postulante</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-10 pb-0 m-0" fusePerfectScrollbar>
+        <div class="panel-body">
+            <fieldset class="fieldset-border mb-3">
+                <legend>Servidor Publico</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Documento de identidad</span>&nbsp;
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.documentoIdentidad}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Primer apellido</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.primerApellido}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Segundo apellido</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.segundoApellido}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nombres</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.nombres}} </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">sexo</span>
+                            <br>
+                            <span class="label-normal">{{adjudicacion?.sexo}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de nacimiento</span>
+                            <br>
+                            <span class="label-normal">{{adjudicacion?.fechaNacimiento}} </span>
+                        </div>
+                    </div> 
+                </div>
+             
+            </fieldset>
+            <fieldset class="fieldset-border mb-3">
+                <legend>Datos Laborales (actual)</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Codigo de plaza</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.codigoPlaza}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Regimen laboral</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.regimenLaboral}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Tipo cargo</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.tipoCargo}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">cargo</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.cargo}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Condicion laboral</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.condicionLaboral}} </span>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>    
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Jornada laboral</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.jornadaLaboral}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">categoria remunerativa</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.categoriaRemunerativa}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">centro de trabajo</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.centroTrabajo}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">instancia</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.areaCurricular}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Sub instancia</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.descripcionSubinstancia}} </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modalidad educativa</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.jornadaLaboral}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nivel educativo</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.nivelEducativo}} </span>
+                                </div>
+                            </div>
+                         
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+       
+            <fieldset class="fieldset-border mb-3">
+                <legend>Informacion del proceso</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Grupo de competencia</span>
+                                    <br>
+                                    <span> {{adjudicacion?.grupoCompetencia}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Puntaje PUN</span>
+                                    <br>
+                                    <span> {{adjudicacion?.puntajePun}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Puntaje trayectoria profesional</span>
+                                    <br>
+                                    <span> {{adjudicacion?.puntajeTrayectoria}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Bonificacion por discapacidad</span>
+                                    <br>
+                                    <span> {{adjudicacion?.bonificacionDiscapacidad}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Escala obtenida</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.escalaObtenida}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Puntaje final</span>
+                                    <br>
+                                    <span class="label-normal">{{adjudicacion?.puntajeFinal}} </span>
+                                </div>
+                            </div>
+                         
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">close</span> Cerrar</button>
+    </div>
+</div>

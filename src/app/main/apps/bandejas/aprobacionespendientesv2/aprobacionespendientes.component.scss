@@ -1,0 +1,149 @@
+minedu-aprobacionespendientes {
+    width: 100%;
+    padding: 2px;
+    .remove {
+        color: #dd3333;
+    }
+    .content {
+        width: 100%;
+        .panel {
+            margin-bottom: 15px;
+            background-color: #fff;
+            border: 0;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            .panel-heading {
+                padding: 8px 15px;
+                border-bottom: 1px solid transparent;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                background-color: #0073b7;
+                > h3.panel-title {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 15px;
+                    color: #fff;
+                }
+            }
+            .panel-body {
+                padding: 15px 15px 0;
+            }
+            .panel-footer {
+                padding: 10px 15px;
+                background-color: #fff;
+                border-top: 1px solid #ddd;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+        }
+        .mat-raised-button.mat-primary {
+            background-color: #0073b7 !important;
+            border-color: #0073b7 !important;
+        }
+        .mat-stroked-button.mat-primary {
+            color: #0073b7 !important;
+        }
+        .mat-flat-button.mat-primary {
+            background-color: #0073b7 !important;
+        }
+        .mat-stroked-button:not([disabled]).mat-primary {
+            border-color: #0073b7 !important;
+            background-color: #fff !important;
+        }
+        .mat-stroked-button:not([disabled]).mat-warn {
+            border-color: #f44336;
+            background-color: #fff;
+        }
+        button .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm {
+            line-height: 24px;
+            min-width: 27px;
+            padding: 0;
+        }
+        button.btn-sm .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm .mat-icon {
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+        .btn-icon .mat-button-wrapper .material-icons {
+            font-size: 22px !important;
+        }
+        .minedu-table {
+            flex: 1 1 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            .mat-column-registro {
+                flex: 0 1 50px;
+            }
+            .mat-column-descripcionProcesoAprobacion {
+                flex: 0 1 200px;
+            }
+            .mat-column-nivelAprobacion {
+                flex: 0 1 90px;
+            }
+            .mat-column-instanciaSolicitante {
+                flex: 0 1 120px;
+            }            
+            .mat-column-subinstanciaSolicitante {
+                flex: 0 1 120px;
+            }
+            .mat-column-tipoDocumentoSolicitante {
+                flex: 0 1 120px;
+            }
+            .mat-column-numeroDocumentoIdentidadSolicitante {
+                flex: 0 1 90px;
+            }
+            .mat-column-fechaSolicitud {
+                flex: 0 1 90px;
+            }
+            .mat-column-instanciaAprobador {
+                flex: 0 1 90px;
+            }
+            .mat-column-subInstanciaAprobador {
+                flex: 0 1 120px;
+            }
+            .mat-column-fechaAprobacionRechazo {
+                flex: 0 1 120px;
+            }
+            .mat-column-estadoAprobacion {
+                flex: 0 1 100px;
+            }
+            .mat-column-acciones {
+                flex: 0 1 120px;
+                width: 120px;
+            }           
+        }
+        .box-shadow {
+            -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+                0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+                0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+        .mat-dialog-actions {
+            padding: 0px !important;
+            display: flex;
+            flex-wrap: wrap;
+            min-height: auto !important;
+            align-items: center;
+            margin-bottom: 0px !important;
+        }
+        .space-white {
+            background: white !important;
+        }
+        .mat-dialog-container {
+            padding: 0px !important;
+        }
+    }
+}

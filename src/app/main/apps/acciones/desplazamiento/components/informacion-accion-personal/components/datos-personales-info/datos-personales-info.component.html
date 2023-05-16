@@ -1,0 +1,48 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>{{titulo}}Datos Personales</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Documento de Identidad</span>&nbsp;
+                <br>
+                <span class="label-normal">{{servidorPublico?.documentoIdentidad| noRegistrado}}
+                    <span>:</span>
+                    {{servidorPublico?.numeroDocumentoIdentidad| noRegistrado}}</span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Apellidos y Nombres</span>
+                <br>
+                <span class="label-normal">
+                    {{servidorPublico?.primerApellido}}
+                    {{servidorPublico?.segundoApellido}}
+                    {{servidorPublico?.nombre}}
+                </span>
+
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Estado Civil</span>
+                <br>
+                <span class="label-normal">{{servidorPublico?.estadoCivil| noRegistrado}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Sexo</span>
+                <br>
+                <span class="label-normal">{{servidorPublico?.sexo| noRegistrado}} </span>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Fecha de Nacimiento</span>
+                <br>
+                <span class="label-normal">{{servidorPublico?.fechaNacimiento |
+                    date:"dd/MM/yyyy"| noRegistrado}}</span>
+            </div>
+        </div>
+    </div>
+</fieldset>

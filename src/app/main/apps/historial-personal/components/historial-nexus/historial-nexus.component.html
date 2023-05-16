@@ -1,0 +1,118 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Ver Historial Nexus</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                
+            <fieldset class="fieldset-border">
+                <legend>Acción de Personal</legend>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                        
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="" class="label">Código de Plaza</label>
+                                <p class="form-control-static p1" >
+                                    {{historial.codigo_plaza}}</p>                               
+                            </div>
+                        </div>
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="" class="label">Región</label>
+                                <p class="form-control-static p1">
+                                    {{historial.region}}</p>
+                            </div>
+                        </div>
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="" class="label">Unidad Ejecutora</label>
+                                <p class="form-control-static p1" >
+                                    {{historial.unidad_ejecutora}}</p>
+                            </div>
+                        </div>
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">      
+                            <div class="form-group">
+                                <label for="" class="label">Órgano Intermedio</label>
+                                <p class="form-control-static p1" >
+                                    {{historial.ugel}}</p>
+                            </div>              
+                        </div>
+                    </div>
+
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                        
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="40%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="" class="label">Institución Educativa</label>
+                                <p class="form-control-static p1" >
+                                    {{historial.institucion_educativa}}</p>                               
+                            </div>
+                        </div>
+                            
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="" class="label">Modalidad</label>
+                                <p class="form-control-static p1" >
+                                    {{historial.modalidad_educativa}}</p>
+                            </div>
+                        </div>
+
+                        <div class="ml-4" fxLayoutAlign="start start" fxFlex="20%" fxFlex.lt-md="100%"
+                            fxFlex.xs="100%">      
+                            <div class="form-group">
+                                <label for="" class="label">Nivel Educativo</label>
+                                <p class="form-control-static p1" >
+                                    {{historial.nivel_educativo}}</p>
+                            </div>                
+                        </div>
+                    </div>
+                    
+                </div>
+            </fieldset>
+                
+            <br>
+
+            <fieldset class="fieldset-border">
+                
+                <form [formGroup]="form" >
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                            fxLayoutGap.xs="0">
+                            <mat-form-field appearance="none" fxFlex="100%" fxFlex.xs="100%"
+                                [mineduFormFieldValidationState]="form.get('textoHistorial')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('textoHistorial')">
+                                </mat-label>
+                                <textarea matInput formControlName="textoHistorial" rows="20"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+
+            </fieldset>
+        </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+

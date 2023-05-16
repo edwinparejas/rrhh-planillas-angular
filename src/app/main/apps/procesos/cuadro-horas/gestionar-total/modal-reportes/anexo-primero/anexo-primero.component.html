@@ -1,0 +1,1706 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+        <div class="panel mt-12">
+
+            <div class="m-20">
+                <fieldset class="fieldset-border">
+                    <form [formGroup]="form" autocomplete="off">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                      
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupr">
+                                        <mat-form-field 
+                                        appearance="fill" 
+                                        fxFlex="100%"
+                                       
+                                        [mineduFormFieldValidationState]="form.get('codigoModular')"
+                                        >
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">Codigo Modular
+                                        </mat-label>
+                                        <input matInput formControlName="codigoModular"
+                                        [readonly]="esIEPredeterminado"
+                                        (keypress)="btnBuscar($event)" 
+                                        uppercase
+                                        >
+                                        <button 
+                                        [disabled]="esIEPredeterminado"
+                                        type="button" matSuffix mat-button mat-icon-button
+                                        (click)="busquedaCentroTrabajoPersonalizada()">
+                                        <span class="material-icons">search</span>
+                                    </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoModular')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+ 
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <label for="">Insititución Educativa</label>
+                                        <p class="form-control-static">{{centroTrabajoHeader.descripcionInstitucionEducativa}}</p>
+                                    </div>
+                                </div>
+                              
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <div class="form-group">
+                                        <label for="">UGEL</label>
+                                        <p class="form-control-static">{{centroTrabajoHeader.descripcionUgel}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <div class="form-group">
+                                        <label for="">DRE</label>
+                                        <p class="form-control-static">{{centroTrabajoHeader.descripcionDRE}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                      
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="">Modalidad de servicio de atención</label>
+                                        <p class="form-control-static">{{ centroTrabajoHeader.descripcionModalidadEducativa }}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <div class="form-group">
+                                            <label for="">Nivel educativo</label>
+                                            <p class="form-control-static">{{ centroTrabajoHeader.descripcionNivelEducativo }}</p>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="">Plan de estudios</label>
+                                        <p class="form-control-static">{{ descripcionPlanEstudio     }}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('anio')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('anio')">Año
+                                        </mat-label>
+                                        <input matInput
+                                        [readonly]="esIEPredeterminado"
+                                         formControlName="anio" (keypress)="soloNumeros($event)" uppercase>
+                                         
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('anio')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                        <!-- <label for="">Año fiscal</label>
+                                        <p class="form-control-static">{{ centroTrabajoHeader.anio }}</p> -->
+                                    </div>
+                                </div>
+                              
+                             
+                         
+                    </div>
+                    </form>
+                </fieldset>
+            </div>
+
+             
+
+            <div class="m-20">
+                <div class="panel-footer" fxLayout="row" fxLayoutAlign="center center">
+                    <div fxLayout="row" fxLayoutAlign="center center" class="mb-2">
+                        <div mat-dialog-actions fxLayout="row">
+                            <button type="button" [disabled]="!flgBuscar" mat-raised-button color="primary" class="ml-4" (click)="buscar()">
+                                <span class="material-icons">search</span> Buscar</button>
+                        </div>
+                        <div mat-dialog-actions class="p-0 ml-4" fxLayout="row">
+                            <button  [disabled]="esIEPredeterminado"
+                                     type="button" 
+                                     mat-raised-button 
+                                     (click)="limpiar()">
+                                     <span class="material-icons">clear</span>Limpiar</button>
+                        </div>
+                    </div>
+                  </div> 
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10 mr-20 ml-20">
+                <div class="pl-6" fxLayout="row">
+                    <button type="button" [disabled]="!flgBuscar" mat-raised-button color="primary" class="ml-4" (click)="handleExportar()">
+                            <span class="material-icons">get_app</span>
+                        Exportar
+                    </button>
+                    &nbsp;
+                    <button mat-stroked-button color="primary"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleRetornar()">
+                    <span class="material-icons">arrow_left</span>
+                Ir a Reporteador
+            </button>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo1">
+                <div class="content">
+                <table  class="minedu-table" >
+                    <tr>
+                        <td style="text-align:right ; font-weight: bold; width: 100%;" >
+                           N=Nº horas de clases mínimas según plan de estudios
+                           
+                       </td>
+                         
+                    </tr>
+                    <tr>
+                        <td style="text-align:right ; font-weight: bold; width: 100%;" >
+                           N= {{getNUmeroHoraMinimas()}}  {{ descripcionPlanEstudio }}
+                           
+                       </td>
+                         
+                    </tr>
+                    <!-- <div   style="margin-left:20px;width:100%;background-color: red; float: right;">100</div> -->
+                </table> 
+            </div>
+                <div class="content">
+                    <p>
+                        <label for="">Variables de Elaboración del Cuadro de Distribución de Horas Pedagógicas
+                            </label>
+                        </p>
+                </div>
+                <div class="content">
+                    <div class="">
+                       
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo1VariablesDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="variable">
+                                <th mat-header-cell *matHeaderCellDef>Variable</th>
+                                <td mat-cell *matCellDef="let row" class="aleft">
+                                    <p *ngIf="row.tittle">{{row.tittle}}</p>
+                                    <p *ngIf="!row.tittle">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado1">
+                                <th mat-header-cell *matHeaderCellDef>Grado 1°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.primer">{{row.primer}}</p>
+                                    <p *ngIf="!row.primer">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado2">
+                                <th mat-header-cell *matHeaderCellDef>Grado 2°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.segundo">{{row.segundo}}</p>
+                                    <p *ngIf="!row.segundo">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado3">
+                                <th mat-header-cell *matHeaderCellDef>Grado 3°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.tercer">{{row.tercer}}</p>
+                                    <p *ngIf="!row.tercer">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado4">
+                                <th mat-header-cell *matHeaderCellDef>Grado 4°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.cuarto">{{row.cuarto}}</p>
+                                    <p *ngIf="!row.cuarto">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado5">
+                                <th mat-header-cell *matHeaderCellDef>Grado 5°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.quinto">{{row.quinto}}</p>
+                                    <p *ngIf="!row.quinto">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef>Total</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.total">{{row.total}}</p>
+                                    <p *ngIf="!row.total">N/A</p>
+                                </td>
+                               
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo1Variables"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo1Variables;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="m-20" *ngIf="esAnexo1">
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Cargos Presupuestados en la IE/Centro
+                            </label>
+                        </p>
+                </div>
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo1CargosDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>Nº</th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngIf="row.registro">{{row.registro}}</p>
+                                <p *ngIf="!row.registro">N/A</p>
+                            </td>
+                           
+                        </ng-container>
+                            <ng-container matColumnDef="cargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="let row"  class="aleft">
+                                    <p *ngIf="row.descripcionCargo">{{row.descripcionCargo}}</p>
+                                    <p *ngIf="!row.descripcionCargo">N/A</p>
+                                </td>
+                              
+                            </ng-container>
+                            <ng-container matColumnDef="regimenContrato">
+                                <th mat-header-cell *matHeaderCellDef>Régimen laboral</th>
+                                <td mat-cell *matCellDef="let row"  class="aleft">
+                                    <p *ngIf="row.abreviaturaRegimenLaboral">{{row.abreviaturaRegimenLaboral}}</p>
+                                    <p *ngIf="!row.abreviaturaRegimenLaboral">N/A</p>
+                                </td>
+                                
+                            </ng-container>
+                            <ng-container matColumnDef="area">
+                                <th mat-header-cell *matHeaderCellDef>Área</th>
+                                <td mat-cell *matCellDef="let row"  class="aleft">
+                                    <p *ngIf="row.descripcionAreaDesempenioLaboral">{{row.descripcionAreaDesempenioLaboral}}</p>
+                                    <p *ngIf="!row.descripcionAreaDesempenioLaboral">N/A</p>
+                                </td>
+                              
+                            </ng-container>
+                            <ng-container matColumnDef="codigoEventual">
+                                <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                <td mat-cell *matCellDef="let row"  class="aleft">
+                                    <p *ngIf="row.codigoPlaza">{{row.codigoPlaza}}</p>
+                                    <p *ngIf="!row.codigoPlaza">N/A</p>
+                                </td>
+                                
+                            </ng-container>
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.jornadaLaboral"  class="aleft">{{row.jornadaLaboral}}</p>
+                                    <p *ngIf="!row.jornadaLaboral">N/A</p>
+                                </td>
+                              
+                            </ng-container>
+                            <ng-container matColumnDef="horasDictado">
+                                <th mat-header-cell *matHeaderCellDef>Horas de dictado</th>
+                                <td mat-cell *matCellDef="let row"  class="aright">
+                                    <p *ngIf="row.horaSesionAprendizaje">{{row.horaSesionAprendizaje}}&nbsp;</p>
+                                    <p *ngIf="!row.horaSesionAprendizaje">0&nbsp;</p>
+                                </td>
+                                 
+                                
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo1Cargos"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo1Cargos;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+                         
+                        </table>
+                       <table  class="minedu-table" >
+                            <tr>
+                                <td style="text-align:right ; font-weight: bold; width: 80%;" >
+                                    TOTAL Z<sub>0</sub>= Nº Horas de Dictado:   
+                               </td>
+                                <td style="text-align:right ; font-weight: bold;width: 20%;">
+                                    {{getTotalDetalle1_G2()}}   &nbsp;
+                                </td>
+                            </tr>
+                         
+                        </table> 
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="m-20" *ngIf="esAnexo1">
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Disponibilidad Presupuestal para Contratos Eventuales
+                            
+                            </label>
+                        </p>
+                </div>
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo1CargosEventualDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>Nº</th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngIf="row.registro">{{row.registro}}</p>
+                                <p *ngIf="!row.registro">N/A</p>
+                            </td>
+                          
+                        </ng-container>
+                            <ng-container matColumnDef="cargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionCargo">{{row.descripcionCargo}}</p>
+                                    <p *ngIf="!row.descripcionCargo">N/A</p>
+                                </td>
+                              
+                            </ng-container>
+                            <ng-container matColumnDef="regimenContrato">
+                                <th mat-header-cell *matHeaderCellDef>Régimen de contrato</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.abreviaturaRegimenLaboral">{{row.abreviaturaRegimenLaboral}}</p>
+                                    <p *ngIf="!row.abreviaturaRegimenLaboral">N/A</p>
+                                </td>
+                               
+                            </ng-container>
+                            <ng-container matColumnDef="area">
+                                <th mat-header-cell *matHeaderCellDef>Área</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionAreaDesempenioLaboral">{{row.descripcionAreaDesempenioLaboral}}</p>
+                                    <p *ngIf="!row.descripcionAreaDesempenioLaboral">N/A</p>
+                                </td>
+                                
+                            </ng-container>
+                            <ng-container matColumnDef="codigoEventual">
+                                <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.codigoPlaza">{{row.codigoPlaza}}</p>
+                                    <p *ngIf="!row.codigoPlaza">N/A</p>
+                                </td>
+                                 
+                            </ng-container>
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.jornadaLaboral">{{row.jornadaLaboral}}</p>
+                                    <p *ngIf="!row.jornadaLaboral">N/A</p>
+                                </td>
+                                
+                            </ng-container>
+                            <ng-container matColumnDef="horasDictado">
+                                <th mat-header-cell *matHeaderCellDef>Horas de dictado</th>
+                                <td mat-cell *matCellDef="let row" class="aright">
+                                    <p *ngIf="row.horaSesionAprendizaje">{{row.horaSesionAprendizaje}}&nbsp;</p>
+                                    <p *ngIf="!row.horaSesionAprendizaje">0&nbsp;</p>
+                                </td>
+                                 
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo1Cargos_G2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo1Cargos_G2;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+                          
+                        </table>
+                        <table  class="minedu-table" >
+                            <tr>
+                                <td style="text-align:right ; font-weight: bold; width: 80%;" >
+                                    TOTAL Z<sub>1</sub>= Nº Horas de Dictado:   :   
+                               </td>
+                                <td style="text-align:right ; font-weight: bold;width: 20%;">
+                                    {{getTotalDetalle1_G3()}}   &nbsp;
+                                </td>
+                            </tr>
+                            
+                           
+
+                        </table> 
+                        <table  class="minedu-table" >
+                        <tr>
+                            <td style="  font-weight: bold; width: 50%;" >
+                              (*) Las horas de clase corresponden a horas pedagógicas
+                           </td>
+                            <td style="  font-weight: bold;width: 50%;">
+                               (**) Si Z < (Z<sub>0</sub>+Z<sub>1</sub>) se debe determinar excedencia
+                               <br>
+                               (**) Si Z > (Z<sub>0</sub>+Z<sub>1</sub>) existe metas por atender
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo2">
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Distribución de Horas Pedagógicas por Grados, según Plan de Estudios :  {{ descripcionPlanEstudio }}
+                            
+                            </label>
+                        </p>
+                </div>
+               
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo2DataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="areaCurricular">
+                                <th mat-header-cell *matHeaderCellDef>Area curricular</th>
+                                <td mat-cell *matCellDef="let row" class="aleft">
+                                    <p *ngIf="row.descripcionAreaCurricular">&nbsp;{{row.descripcionAreaCurricular}}</p>
+                                    <p *ngIf="!row.descripcionAreaCurricular"></p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="primeroHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalPrimero">{{row.totalPrimero}}</p>
+                                    <p *ngIf="!row.totalPrimero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="primeroSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionPrimero">{{row.numeroSeccionPrimero}}</p>
+                                    <p *ngIf="!row.numeroSeccionPrimero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="primeroTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasPrimero">{{row.totalHorasPrimero}}</p>
+                                    <p *ngIf="!row.totalHorasPrimero"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="segundoHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalSegundo">{{row.totalSegundo}}</p>
+                                    <p *ngIf="!row.totalSegundo"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="segundoSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionSegundo">{{row.numeroSeccionSegundo}}</p>
+                                    <p *ngIf="!row.numeroSeccionSegundo"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="segundoTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasSegundo">{{row.totalHorasSegundo}}</p>
+                                    <p *ngIf="!row.totalHorasSegundo"> </p>
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="terceroHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalTercero">{{row.totalTercero}}</p>
+                                    <p *ngIf="!row.totalTercero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="terceroSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionTercero">{{row.numeroSeccionTercero}}</p>
+                                    <p *ngIf="!row.numeroSeccionTercero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="terceroTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasTercero">{{row.totalHorasTercero}}</p>
+                                    <p *ngIf="!row.totalHorasTercero"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="cuartoHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalCuarto">{{row.totalCuarto}}</p>
+                                    <p *ngIf="!row.totalCuarto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cuartoSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionCuarto">{{row.numeroSeccionCuarto}}</p>
+                                    <p *ngIf="!row.numeroSeccionCuarto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cuartoTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasCuarto">{{row.totalHorasCuarto}}</p>
+                                    <p *ngIf="!row.totalHorasCuarto"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="quintoHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalQuinto">{{row.totalQuinto}}</p>
+                                    <p *ngIf="!row.totalQuinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="quintoSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionQuinto">{{row.numeroSeccionQuinto}}</p>
+                                    <p *ngIf="!row.numeroSeccionQuinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="quintoTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasQuinto">{{row.totalHorasQuinto}}</p>
+                                    <p *ngIf="!row.totalHorasQuinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="totalParcial">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalParcial">{{row.totalParcial}}</p>
+                                    <p *ngIf="!row.totalParcial"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="numeroSeccionParcial">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionParcial">{{row.numeroSeccionParcial}}</p>
+                                    <p *ngIf="!row.numeroSeccionParcial"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="totalHorasParcial">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasParcial">{{row.totalHorasParcial}}</p>
+                                    <p *ngIf="!row.totalHorasParcial"></p>
+                                </td>
+                            </ng-container>
+ 
+                             <!-- Header row first group -->
+<ng-container matColumnDef="header-row-zero-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="1"> 
+
+</th>
+</ng-container>                             
+<ng-container matColumnDef="header-row-primero-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 1º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-segundo-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 2º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-tercero-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 3º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-cuarto-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 4º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-quinto-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 5º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-total-group">
+    <th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> Total Parcial</th>
+    </ng-container> 
+                            <tr mat-header-row 
+                            *matHeaderRowDef="['header-row-zero-group','header-row-primero-group', 'header-row-segundo-group','header-row-tercero-group', 'header-row-cuarto-group', 'header-row-quinto-group','header-row-total-group']"></tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo2;" (click)="selection.toggle(row)"
+                               
+                            [ngClass]="{ highlight: row.descripcionAreaCurricular ==='TOTAL GENERAL' }"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}"
+                              >
+                            </tr>
+
+                        </table>
+
+                        <br>
+                        <table class="minedu-table" style="font-size:11px;font-family: Roboto, Helvetica Neue, sans-serif; width: 20%   !important;border: 1px solid #ccc;  ">
+                            <tbody>
+                              <tr *ngFor="let data of horasLibreDisponibilidad;" >
+                                <td style="margin-left: 50px!important;">&nbsp;&nbsp;&nbsp;
+                                <label>{{data.item}} </label></td>
+                                <td>
+                                    <label>
+
+                                   {{data.descripcionAreaCurricular}} &nbsp;({{data.totalHLD}} horas) </label></td>
+                              </tr>
+                              <tr >
+                              
+                                <td style= "margin-left: 50px!important; border-top: 1px solid #ccc;  "  >
+                                    &nbsp;&nbsp;&nbsp; <label></label> </td>
+                                        <td style= "margin-left: 50px!important; border-top: 1px solid #ccc;  "  >&nbsp;<label>{{totalHorasLibreDisponibilidad}}  HORAS </label></td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo3">
+                
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Cuadro de Distribución de Horas Pedagógicas por Grados, según Plan de Estudios
+                            
+                            </label>
+                        </p>
+                </div>
+                <div class="content">
+                    
+                    <div class="" style="width:70%!important;">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo3DataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="textoUnico">
+                                <th mat-header-cell *matHeaderCellDef>Area curricular</th>
+                                <td mat-cell *matCellDef="let row" 
+                                    [attr.rowspan]="getRowSpan2(row,1)"
+                                    [style.display]="row.tdVisible ? '' : 'none'"
+                                    >
+                                    <p style="text-align:left ;margin-left: 10px;;"  *ngIf="row.textoUnico">Codigo Plaza: {{row.codigoPlaza}}</p>
+                                    <p style="text-align:left ;margin-left: 10px;" *ngIf="row.textoUnico">Titular: {{row.titular}}</p>
+                                    <p style="text-align:left ;margin-left: 10px;" *ngIf="row.textoUnico">Codigo Modular: {{row.codigoModular}}</p>
+                                    <p style="text-align:left ;margin-left: 10px;" *ngIf="row.textoUnico">Espec. Titulo: {{row.descripcionAreaCurricular}}</p>
+                                    <p style="text-align:left ;margin-left: 10px;" *ngIf="row.textoUnico">Esc. Magisterial: {{row.escalaMagisterial}}</p>
+                                    <p style="text-align:left ;margin-left: 10px;" *ngIf="row.textoUnico">Tiempo Servicios: {{row.tiempoServicio}}</p>
+                                    <!-- <p style="text-align:left ;margin-left: 10px;" *ngIf="row.textoUnico">Observaciones: {{row.observacion}}</p> -->
+                                    
+                                    <p *ngIf="!row.textoUnico"></p>
+                                </td>
+
+                                <td mat-footer-cell *matFooterCellDef><p ></p> </td>
+                                   
+                            </ng-container>
+
+                            <ng-container matColumnDef="primero">
+                                <th mat-header-cell *matHeaderCellDef>1º</th>
+                                <td mat-cell *matCellDef="let row" style="width:4%!important;">
+                                    <p *ngIf="row.primero">{{row.primero}}</p>
+                                    <p *ngIf="!row.primero"></p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef><p ></p> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="segundo">
+                                <th mat-header-cell *matHeaderCellDef>2º.</th>
+                                <td mat-cell *matCellDef="let row" style="width:4%!important;">
+                                    <p *ngIf="row.segundo">{{row.segundo}}</p>
+                                    <p *ngIf="!row.segundo"></p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef><p ></p> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="tercero">
+                                <th mat-header-cell *matHeaderCellDef>3º</th>
+                                <td mat-cell *matCellDef="let row" style="width:4%!important;">
+                                    <p *ngIf="row.tercero">{{row.tercero}}</p>
+                                    <p *ngIf="!row.tercero"></p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef><p ></p> </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="cuarto">
+                                <th mat-header-cell *matHeaderCellDef>4º</th>
+                                <td mat-cell *matCellDef="let row" style="width:4%!important;">
+                                    <p *ngIf="row.cuarto">{{row.cuarto}}</p>
+                                    <p *ngIf="!row.cuarto"></p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef><p    style=" float:right;" >TOTAL: </p> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="quinto">
+                                <th mat-header-cell *matHeaderCellDef>5º</th>
+                                <td mat-cell *matCellDef="let row" style="width:4%!important;">
+                                    <p *ngIf="row.quinto">{{row.quinto}}</p>
+                                    <p *ngIf="!row.quinto"></p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef><p ></p> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="totalAsignado">
+                                <th mat-header-cell *matHeaderCellDef>Total Asginado</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalAsignado">{{row.totalAsignado}}</p>
+                                    <p *ngIf="!row.totalAsignado"> </p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef> 
+                                    <p class="text-center"> {{getTotalHoraAsignada()}} HORAS </p>
+                                     
+                                    </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="descripcionAreaCurricular">
+                                <th mat-header-cell *matHeaderCellDef> Area Curricular.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionAreaCurricular">{{row.descripcionAreaCurricular}}</p>
+                                    <p *ngIf="!row.descripcionAreaCurricular"></p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef><p>  </p> </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada Laboral</th>
+                                <td mat-cell *matCellDef="let row"
+                                [attr.rowspan]="getRowSpan2(row,1)"
+                                [style.display]="row.tdVisible ? '' : 'none'"
+                                >
+                                    <p *ngIf="row.jornadaLaboral">{{row.jornadaLaboral}}</p>
+                                    <p *ngIf="!row.jornadaLaboral">0 HORAS</p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef> 
+                                    <p class="text-center"> {{getTotalHoraJornada()}} HORAS </p>
+                                     
+                                    </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo3"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo3;" (click)="selection.toggle(row)"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}"
+                              >
+                            </tr>
+                            <tr mat-footer-row *matFooterRowDef="displayedColumnsAnexo3"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo4">
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Plazas Excedentes Ocupadas y/o Vacantes por Reubicar
+                            </label>
+                    </p>
+                </div>
+                
+
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo4DataSource" 
+                        [@animateStagger]="{value:'50'}">
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>Nro</th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngIf="row.registro">{{row.registro}}</p>
+                                <p *ngIf="!row.registro">N/A</p>
+                            </td>
+                        </ng-container>
+                            <ng-container matColumnDef="cargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_cargo">{{row.descripcion_cargo}}</p>
+                                    <p *ngIf="!row.descripcion_cargo">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="regimenLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Regimen laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_regimen_laboral">{{row.descripcion_regimen_laboral}}</p>
+                                    <p *ngIf="!row.descripcion_regimen_laboral">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="area">
+                                <th mat-header-cell *matHeaderCellDef>Área</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_area_curricular">{{row.descripcion_area_curricular}}</p>
+                                    <p *ngIf="!row.descripcion_area_curricular">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="codigoPlaza">
+                                <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.codigo_plaza">{{row.codigo_plaza}}</p>
+                                    <p *ngIf="!row.codigo_plaza">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_jornada_laboral">{{row.descripcion_jornada_laboral}}</p>
+                                    <p *ngIf="!row.descripcion_jornada_laboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo4"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo4;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="" style="font-weight: bold ; float:right">
+                        TOTAL NRO PLAZAS EXCEDENTES: {{totalPlazaExcedente}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo5">
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Resumen del Cuadro de Distribucion de Horas Pedagógicas
+                            </label>
+                    </p>
+                </div>
+                <div class="content">
+                    <div class="" style="width:40%!important;">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo5CabeceraDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="titulo">
+                                <th mat-header-cell *matHeaderCellDef>Total de horas pegagógicas</th>
+                                <td mat-cell *matCellDef="let row"  >
+                                    <p *ngIf="row.descripcion_cargo"  style=" float:left;">Total de horas pedagógicas a cargo del personal: {{row.descripcion_cargo}}&nbsp;</p>
+                                    <p *ngIf="!row.descripcion_cargo"   style=" float:right;">0&nbsp;</p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef> 
+                                <div  style=" float:right;">Total Horas:</div>    
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.hora_sesion_aprendizaje"   style=" float:right;">{{row.hora_sesion_aprendizaje}}&nbsp;</p>
+                                    <p *ngIf="!row.hora_sesion_aprendizaje"  style=" float:right;">0&nbsp;</p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef>
+                                   
+                                    <p   style=" float:right;"> {{getTotalCabecera5()}}  </p>
+                                        </td>
+                            </ng-container>
+                            
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo5Cabecera"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo5Cabecera;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr> 
+                            <tr mat-footer-row *matFooterRowDef="displayedColumnsAnexo5Cabecera"></tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="m-20" *ngIf="esAnexo5">
+                <div class="content">
+                    <p>
+                        <label for="">
+                            Resumen de Horas Pedagógicas por Área
+                            </label>
+                    </p>
+                </div>
+                <div class="content">
+                    <div class=""  style="width:40%!important;">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo5DetalleDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="areaCurricular">
+                                <th mat-header-cell *matHeaderCellDef>Área curricular</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_area_curricular"  style=" float:left;">{{row.descripcion_area_curricular}}&nbsp;</p>
+                                    <p *ngIf="!row.descripcion_area_curricular"  style=" float:right;">&nbsp;</p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef> 
+                                    <div  style=" float:right;">Total Horas</div>    
+                                    </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.hora_dictado"  style=" float:right;">{{row.hora_dictado}}&nbsp;</p>
+                                    <p *ngIf="!row.hora_dictado"  style=" float:right;"> 0&nbsp;</p>
+                                </td>
+                                <td mat-footer-cell *matFooterCellDef>
+                                <p  style=" float:right;">
+                                   {{getTotalDetalle5()}} 
+                                </p>
+                                      
+                                        </td>
+                            </ng-container>
+                            
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo5Detalle"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo5Detalle;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+                            <tr mat-footer-row *matFooterRowDef="displayedColumnsAnexo5Detalle"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+        <div class="panel mt-12">
+
+            <div class="m-20">
+                <fieldset class="fieldset-border">
+                    <legend>
+                        {{title}}
+                    </legend>
+                    <form [formGroup]="form" autocomplete="off">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                      
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupr">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('codigoModular')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">Codigo Modular
+                                        </mat-label>
+                                        <input matInput formControlName="codigoModular"
+                                        (keypress)="btnBuscar($event)" uppercase>
+                                        <button type="button" type="button" matSuffix mat-button mat-icon-button
+                                        >
+                                        
+                                        <span class="material-icons">search</span>
+                                    </button>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoModular')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+ 
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <label for="">Instancia</label>
+                                        <p class="form-control-static">{{centroTrabajoHeader.descripcionDRE}}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <label for="">Sub instancia</label>
+                                        <p class="form-control-static">{{centroTrabajoHeader.descripcionUgel}}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="50" fxFlex.xs="100%">
+                                    <div class="form-groupd">
+                                        <label for="">Tipo de centro de trabajo</label>
+                                        <p class="form-control-static">{{ centroTrabajoHeader.descripcionTipoCentroTrabajo }}</p>
+                                    </div>
+                                </div>
+                      
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="">Modalidad</label>
+                                        <p class="form-control-static">{{ centroTrabajoHeader.descripcionModalidadEducativa }}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="">Nivel educativo</label>
+                                        <p class="form-control-static">{{ centroTrabajoHeader.descripcionNivelEducativo }}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="">Plan de estudios</label>
+                                        <p class="form-control-static">{{ centroTrabajoHeader.descripcionModeloServicioEducativo     }}</p>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('anio')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('anio')">Año
+                                        </mat-label>
+                                        <input matInput formControlName="anio" (keypress)="soloNumeros($event)" uppercase>
+                                         
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('anio')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                        
+                                    </div>
+                                </div>
+                              
+                             
+                         
+                    </div>
+                    </form>
+                </fieldset>
+            </div>
+
+             
+
+      
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10 mr-20 ml-20">
+                <div class="pl-6" fxLayout="row">
+                    <button type="button" [disabled]="!flgBuscar" mat-raised-button color="primary" class="ml-4" (click)="handleExportar()">
+                        <span class="material-icons">picture_as_pdf</span>
+                        VER PDF
+                    </button>
+                    &nbsp;
+                    <button mat-stroked-button color="primary"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleRetornar()">
+                    <span class="material-icons">arrow_left</span>
+                Ir a Reporteador
+            </button>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo1">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo1VariablesDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="variable">
+                                <th mat-header-cell *matHeaderCellDef>Variable</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.tittle">{{row.tittle}}</p>
+                                    <p *ngIf="!row.tittle">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado1">
+                                <th mat-header-cell *matHeaderCellDef>Grado 1°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.primer">{{row.primer}}</p>
+                                    <p *ngIf="!row.primer">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado2">
+                                <th mat-header-cell *matHeaderCellDef>Grado 2°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.segundo">{{row.segundo}}</p>
+                                    <p *ngIf="!row.segundo">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado3">
+                                <th mat-header-cell *matHeaderCellDef>Grado 3°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.tercer">{{row.tercer}}</p>
+                                    <p *ngIf="!row.tercer">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado4">
+                                <th mat-header-cell *matHeaderCellDef>Grado 4°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.cuarto">{{row.cuarto}}</p>
+                                    <p *ngIf="!row.cuarto">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="grado5">
+                                <th mat-header-cell *matHeaderCellDef>Grado 5°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.quinto">{{row.quinto}}</p>
+                                    <p *ngIf="!row.quinto">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="total">
+                                <th mat-header-cell *matHeaderCellDef>Total</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.total">{{row.total}}</p>
+                                    <p *ngIf="!row.total">N/A</p>
+                                </td>
+                            </ng-container>
+
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo1Variables"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo1Variables;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="m-20" *ngIf="esAnexo1">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo1CargosDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>Nº</th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngIf="row.registro">{{row.registro}}</p>
+                                <p *ngIf="!row.registro">N/A</p>
+                            </td>
+                        </ng-container>
+                            <ng-container matColumnDef="cargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionCargo">{{row.descripcionCargo}}</p>
+                                    <p *ngIf="!row.descripcionCargo">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="regimenContrato">
+                                <th mat-header-cell *matHeaderCellDef>Régimen de contrato</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.abreviaturaRegimenLaboral">{{row.abreviaturaRegimenLaboral}}</p>
+                                    <p *ngIf="!row.abreviaturaRegimenLaboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="area">
+                                <th mat-header-cell *matHeaderCellDef>Área</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionAreaDesempenioLaboral">{{row.descripcionAreaDesempenioLaboral}}</p>
+                                    <p *ngIf="!row.descripcionAreaDesempenioLaboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="codigoEventual">
+                                <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.codigoPlaza">{{row.codigoPlaza}}</p>
+                                    <p *ngIf="!row.codigoPlaza">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.jornadaLaboral">{{row.jornadaLaboral}}</p>
+                                    <p *ngIf="!row.jornadaLaboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="horasDictado">
+                                <th mat-header-cell *matHeaderCellDef>Horas de dictado</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.horaSesionAprendizaje">{{row.horaSesionAprendizaje}}</p>
+                                    <p *ngIf="!row.horaSesionAprendizaje">N/A</p>
+                                </td>
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo1Cargos"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo1Cargos;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="m-20" *ngIf="esAnexo1">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo1CargosEventualDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>Nº</th>
+                            <td mat-cell *matCellDef="let row">
+                                <p *ngIf="row.registro">{{row.registro}}</p>
+                                <p *ngIf="!row.registro">N/A</p>
+                            </td>
+                        </ng-container>
+                            <ng-container matColumnDef="cargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionCargo">{{row.descripcionCargo}}</p>
+                                    <p *ngIf="!row.descripcionCargo">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="regimenContrato">
+                                <th mat-header-cell *matHeaderCellDef>Régimen de contrato</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.abreviaturaRegimenLaboral">{{row.abreviaturaRegimenLaboral}}</p>
+                                    <p *ngIf="!row.abreviaturaRegimenLaboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="area">
+                                <th mat-header-cell *matHeaderCellDef>Área</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionAreaDesempenioLaboral">{{row.descripcionAreaDesempenioLaboral}}</p>
+                                    <p *ngIf="!row.descripcionAreaDesempenioLaboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="codigoEventual">
+                                <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.codigoPlaza">{{row.codigoPlaza}}</p>
+                                    <p *ngIf="!row.codigoPlaza">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.jornadaLaboral">{{row.jornadaLaboral}}</p>
+                                    <p *ngIf="!row.jornadaLaboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="horasDictado">
+                                <th mat-header-cell *matHeaderCellDef>Horas de dictado</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.horaSesionAprendizaje">{{row.horaSesionAprendizaje}}</p>
+                                    <p *ngIf="!row.horaSesionAprendizaje">N/A</p>
+                                </td>
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo1Cargos"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo1Cargos;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo2">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo2DataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="areaCurricular">
+                                <th mat-header-cell *matHeaderCellDef>Area curricular</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionAreaCurricular">{{row.descripcionAreaCurricular}}</p>
+                                    <p *ngIf="!row.descripcionAreaCurricular"></p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="primeroHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalPrimero">{{row.totalPrimero}}</p>
+                                    <p *ngIf="!row.totalPrimero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="primeroSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionPrimero">{{row.numeroSeccionPrimero}}</p>
+                                    <p *ngIf="!row.numeroSeccionPrimero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="primeroTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasPrimero">{{row.totalHorasPrimero}}</p>
+                                    <p *ngIf="!row.totalHorasPrimero"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="segundoHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalSegundo">{{row.totalSegundo}}</p>
+                                    <p *ngIf="!row.totalSegundo"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="segundoSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionSegundo">{{row.numeroSeccionSegundo}}</p>
+                                    <p *ngIf="!row.numeroSeccionSegundo"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="segundoTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasSegundo">{{row.totalHorasSegundo}}</p>
+                                    <p *ngIf="!row.totalHorasSegundo"> </p>
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="terceroHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalTercero">{{row.totalTercero}}</p>
+                                    <p *ngIf="!row.totalTercero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="terceroSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionTercero">{{row.numeroSeccionTercero}}</p>
+                                    <p *ngIf="!row.numeroSeccionTercero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="terceroTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasTercero">{{row.totalHorasTercero}}</p>
+                                    <p *ngIf="!row.totalHorasTercero"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="cuartoHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalCuarto">{{row.totalCuarto}}</p>
+                                    <p *ngIf="!row.totalCuarto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cuartoSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionCuarto">{{row.numeroSeccionCuarto}}</p>
+                                    <p *ngIf="!row.numeroSeccionCuarto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="cuartoTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasCuarto">{{row.totalHorasCuarto}}</p>
+                                    <p *ngIf="!row.totalHorasCuarto"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="quintoHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalQuinto">{{row.totalQuinto}}</p>
+                                    <p *ngIf="!row.totalQuinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="quintoSeccion">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionQuinto">{{row.numeroSeccionQuinto}}</p>
+                                    <p *ngIf="!row.numeroSeccionQuinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="quintoTotal">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasQuinto">{{row.totalHorasQuinto}}</p>
+                                    <p *ngIf="!row.totalHorasQuinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="totalParcial">
+                                <th mat-header-cell *matHeaderCellDef>Horas Asig.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalParcial">{{row.totalParcial}}</p>
+                                    <p *ngIf="!row.totalParcial"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="numeroSeccionParcial">
+                                <th mat-header-cell *matHeaderCellDef>N° Secc.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.numeroSeccionParcial">{{row.numeroSeccionParcial}}</p>
+                                    <p *ngIf="!row.numeroSeccionParcial"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="totalHorasParcial">
+                                <th mat-header-cell *matHeaderCellDef>Total Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalHorasParcial">{{row.totalHorasParcial}}</p>
+                                    <p *ngIf="!row.totalHorasParcial"></p>
+                                </td>
+                            </ng-container>
+ 
+                              
+<ng-container matColumnDef="header-row-zero-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="1"> 
+
+</th>
+</ng-container>                             
+<ng-container matColumnDef="header-row-primero-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 1º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-segundo-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 2º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-tercero-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 3º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-cuarto-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 4º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-quinto-group">
+<th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> 5º</th>
+</ng-container>
+<ng-container matColumnDef="header-row-total-group">
+    <th mat-header-cell *matHeaderCellDef [style.text-align]="center" [attr.colspan]="3"> Total Parcial</th>
+    </ng-container> 
+                            <tr mat-header-row 
+                            *matHeaderRowDef="['header-row-zero-group','header-row-primero-group', 'header-row-segundo-group','header-row-tercero-group', 'header-row-cuarto-group', 'header-row-quinto-group','header-row-total-group']"></tr>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo2"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo2;" (click)="selection.toggle(row)"
+                               
+                            [ngClass]="{ highlight: row.descripcionAreaCurricular ==='TOTAL GENERAL' }"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}"
+                              >
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo3">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo3DataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="textoUnico">
+                                <th mat-header-cell *matHeaderCellDef>Area curricular</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.textoUnico">{{row.textoUnico}}</p>
+                                    <p *ngIf="!row.textoUnico"></p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="primero">
+                                <th mat-header-cell *matHeaderCellDef>1º</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.primero">{{row.primero}}</p>
+                                    <p *ngIf="!row.primero"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="segundo">
+                                <th mat-header-cell *matHeaderCellDef>2º.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.segundo">{{row.segundo}}</p>
+                                    <p *ngIf="!row.segundo"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="tercero">
+                                <th mat-header-cell *matHeaderCellDef>3º</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.tercero">{{row.tercero}}</p>
+                                    <p *ngIf="!row.tercero"></p>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="cuarto">
+                                <th mat-header-cell *matHeaderCellDef>4º</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.cuarto">{{row.cuarto}}</p>
+                                    <p *ngIf="!row.cuarto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="quinto">
+                                <th mat-header-cell *matHeaderCellDef>5º</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.quinto">{{row.quinto}}</p>
+                                    <p *ngIf="!row.quinto"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="totalAsignado">
+                                <th mat-header-cell *matHeaderCellDef>Total Asginado</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.totalAsignado">{{row.totalAsignado}}</p>
+                                    <p *ngIf="!row.totalAsignado"> </p>
+                                </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="descripcionAreaCurricular">
+                                <th mat-header-cell *matHeaderCellDef> Area Curricular.</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcionAreaCurricular">{{row.descripcionAreaCurricular}}</p>
+                                    <p *ngIf="!row.descripcionAreaCurricular"></p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada Laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.jornadaLaboral">{{row.jornadaLaboral}}</p>
+                                    <p *ngIf="!row.jornadaLaboral"></p>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo3"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo3;" (click)="selection.toggle(row)"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}"
+                              >
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo4">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo4DataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="cargo">
+                                <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_cargo">{{row.descripcion_cargo}}</p>
+                                    <p *ngIf="!row.descripcion_cargo">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="regimenLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Regimen laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_regimen_laboral">{{row.descripcion_regimen_laboral}}</p>
+                                    <p *ngIf="!row.descripcion_regimen_laboral">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="area">
+                                <th mat-header-cell *matHeaderCellDef>Área</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_area_curricular">{{row.descripcion_area_curricular}}</p>
+                                    <p *ngIf="!row.descripcion_area_curricular">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="codigoPlaza">
+                                <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.codigo_plaza">{{row.codigo_plaza}}</p>
+                                    <p *ngIf="!row.codigo_plaza">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_jornada_laboral">{{row.descripcion_jornada_laboral}}</p>
+                                    <p *ngIf="!row.descripcion_jornada_laboral">N/A</p>
+                                </td>
+                            </ng-container>
+                            
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo4"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo4;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-20" *ngIf="esAnexo5">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo5CabeceraDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="titulo">
+                                <th mat-header-cell *matHeaderCellDef>Total de horas pegagógicas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_cargo">Total de horas pedagógicas a cargo del personal: {{row.descripcion_cargo}}</p>
+                                    <p *ngIf="!row.descripcion_cargo">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.hora_sesion_aprendizaje">{{row.hora_sesion_aprendizaje}}</p>
+                                    <p *ngIf="!row.hora_sesion_aprendizaje">N/A</p>
+                                </td>
+                            </ng-container>
+                            
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo5Cabecera"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo5Cabecera;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="m-20" *ngIf="esAnexo5">
+                <div class="content">
+                    <div class="">
+                        <table mat-table class="minedu-table" 
+                        [dataSource]="anexo5DetalleDataSource" 
+                        [@animateStagger]="{value:'50'}">
+                            <ng-container matColumnDef="areaCurricular">
+                                <th mat-header-cell *matHeaderCellDef>Área curricular</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.descripcion_area_curricular">{{row.descripcion_area_curricular}}</p>
+                                    <p *ngIf="!row.descripcion_area_curricular">N/A</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totalHoras">
+                                <th mat-header-cell *matHeaderCellDef>Horas</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p *ngIf="row.hora_dictado">{{row.hora_dictado}}</p>
+                                    <p *ngIf="!row.hora_dictado">N/A</p>
+                                </td>
+                            </ng-container>
+                            
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAnexo5Detalle"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAnexo5Detalle;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,58 @@
+<div>
+    <mat-toolbar mat-dialog-title class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span >{{ nombreCabecera }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close Dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-4 pb-0 m-0">
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <div *ngIf="!working">
+            <form autocomplete="off" novalidate [formGroup]="form">
+                <div class="panel-body" fxLayout="column" class="mb-10 mr-20 ml-20">
+                    <fieldset class="fieldset-border mt-0 mb-12">
+                        <legend>Detallar Observación (*)</legend>
+                        <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="12px">
+                            <div fxFlex.gt-sm="100%">
+                                <mat-form-field appearance="fill" fxFlex="100%" [mineduFormFieldValidationState]="form.get('observaciones')">
+                                    <textarea style="height: 100px;" matInput formControlName="observaciones" placeholder="observaciones" uppercase >
+                                    </textarea>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('observaciones')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+                        <div fxLayout.lt-sm="column" fxFlex="100%" >
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="12px" fxLayoutAlign="end center">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="end center">
+                                    <minedu-button-save [mineduForm]="form" (mineduOnClick)="handelObservar()"
+                                        [working]="working">
+                                    </minedu-button-save>
+                                </div>
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="end center">
+                                    <button mat-stroked-button color="primary" (click)="handleCancelar()">
+                                        <span class="material-icons">cancel</span>Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

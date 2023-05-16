@@ -1,0 +1,228 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Registrar Nuevo Postulante</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+            <form [formGroup]="form">
+                <fieldset class="fieldset-border">
+                    <legend>Servidor Público</legend>
+                    <div fxLayout="row wrap">
+                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="12px">
+                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumento')">Tipo Documento
+                                </mat-label>
+                                <mat-select formControlName="idTipoDocumento" (selectionChange)="selectTipoDocumento($event.value)" [(ngModel)]="selectedTipoDoc">
+                                    <mat-option value="-1">--TODOS--</mat-option>
+                                    <mat-option *ngFor="let item of comboLists.listTipoDocumento" [value]="item.value">
+                                        {{ item.label }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idTipoDocumento')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                <mat-label [mineduFormRequiredLabel]="form.get('numDocumento')">Número de Documento
+                                </mat-label>
+                                <input matInput formControlName="numDocumento" [(ngModel)]="numeroDocumento" (keyup.enter)="handleBuscar()" (keyup.backspace)="limpiarCampos()" (keyup.delete)="limpiarCampos()" (keyup)="validatexto()" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    (keypress)="maxLengthnumeroDocumentoIdentidad==8? validaNumericos($event):true" [maxlength]="maxLengthnumeroDocumentoIdentidad">
+                                <mat-error>
+                                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('numDocumento')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <button mat-raised-button color="primary" (click)="handleBuscar()">
+                                    <span class="material-icons">search</span> BUSCAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="column" *ngIf="ShowServidorPublico">
+                        <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+                            <legend>Datos Personales</legend>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Documento de identidad</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.numeroDocumentoIdentidad }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Primer Apellido</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.primerApellido }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Segundo Apellido</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.segundoApellido }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nombres</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.nombres }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Sexo</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionGenero }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+                            <legend>Datos Laborales</legend>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código de Plaza</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.codigoPlaza }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Régimen Laboral</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionRegimenLaboral }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Cargo</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionCargo }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Condición Laboral</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionCondicionLaboral }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Situación Laboral</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionSituacionLaboral }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Escala Remunerativa</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionCategoriaRemunerativa }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código Modular</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.codigoModular }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Centro de Trabajo</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.institucionEducativa }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Instancia</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionDre }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Sub Instancia</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionUgel }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de Plaza</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.descripcionTipoPlaza }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Vigencia Inicio</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.fechaInicioVinculacion }}</span>
+                                    </div>
+                                </div>
+                                <div fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Vigencia Fin</span>
+                                        <br>
+                                        <span class="label-normal">{{ servidorPublico?.fechaFinVinculacion }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <br>
+                </fieldset>
+            </form>
+        </div>
+        <br>
+        <div fxLayout="column" class="mt-2 mb-2" *ngIf="ShowServidorPublico">
+            <mat-checkbox [(ngModel)]="cumpleNormaTecnica">Según norma técnica vigente, se ha verificado que la persona no cuenta con impedimento para ser postulante (*).</mat-checkbox>
+        </div>
+        <br>
+        <mat-tab-group *ngIf="ShowServidorPublico">
+            <mat-tab label="1. Datos de Postulación">
+                <minedu-registro-expediente-postulante-encargatura #registroExpedientePostulante>
+                </minedu-registro-expediente-postulante-encargatura>
+            </mat-tab>
+            <mat-tab label="2. Plaza a postular" *ngIf="codigoEtapa != etapaEnum.RatificacionCargo">
+                <minedu-registro-plaza-postulante-encargatura #registroPlazaPostulante [idEtapaProceso]="idEtapaProceso" [idDesarrolloProceso]="idDesarrolloProceso">
+                </minedu-registro-plaza-postulante-encargatura>
+            </mat-tab>
+
+            <mat-tab label="3. Informe Escalafonario" *ngIf="codigoEtapa != etapaEnum.RatificacionCargo">
+                <minedu-registro-informe-escalafonario-postulante-encargatura #registroInformeEscalafonario [idEtapaProceso]="idEtapaProceso" [idDesarrolloProceso]="idDesarrolloProceso" [idTipoDocumento]="selectedTipoDoc" [numeroDocumentoIdentidad]="numeroDocumento">
+                </minedu-registro-informe-escalafonario-postulante-encargatura>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxFlex="100%" fxLayoutAlign="space-between center">
+        <span>(*) Dato Obligatorio</span>
+        <div fxLayout="row" fxLayoutGap="3px" fxLayoutAlign="end center">
+            <button mat-raised-button color="primary" (click)="handleSave()" *ngIf="ShowServidorPublico">
+                <span class="material-icons">save</span> GUARDAR
+            </button>
+            <button mat-raised-button (click)="handleCancel()">
+                <span class="material-icons">cancel</span> CANCELAR
+            </button>
+        </div>
+    </mat-dialog-actions>
+</div>

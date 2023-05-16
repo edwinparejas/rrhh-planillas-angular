@@ -1,0 +1,89 @@
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Proceso y Etapa</h3>
+    </div>
+    <div class="panel-body">
+        <!-- <ng-container *ngIf="verInstancia">
+            <div fxLayout="row wrap">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                    <div fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Instancia</span>
+                            <br>
+                            <span class="label-normal">{{ desarrolloProcesoEncargatura?.descripcionDre }}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sub instancia</span>
+                            <br>
+                            <span class="label-normal">{{ desarrolloProcesoEncargatura?.descripcionUgel }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container> -->
+        <div fxLayout="row wrap">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Año</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.anio }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Código</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.codigoProceso }}</span>
+                    </div>
+                </div>
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Régimen Laboral</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.descripcionRegimenLaboral }}</span>
+                    </div>
+                </div>
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Proceso</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.descripcionProceso }}</span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">N° de convocatoria</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.descripcionNumeroConvocatoria }}</span>
+                    </div>
+                </div>
+                <div fxFlex="20%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Etapa</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.descripcionEtapa }}</span>
+                    </div>
+                </div>
+                <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Fecha de Creación</span>
+                        <br>
+                        <span class="label-normal">{{ etapaProcesoEncargatura?.fechaCreacionEtapa }}</span>
+                    </div>
+                </div>
+                <!-- <div fxFlex="30%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Estado</span>
+                        <br>
+                        <span class="label-normal">{{ desarrolloProcesoEncargatura?.descripcionEstadoDesarrollo }}</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

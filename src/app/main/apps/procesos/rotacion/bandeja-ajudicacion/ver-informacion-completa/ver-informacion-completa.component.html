@@ -1,0 +1,202 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Ver Información Completa</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-10 pb-0 m-0">
+        <div class="panel-body" *ngIf="item">
+            <fieldset class="fieldset-border mb-3">
+                <legend>Servidor Público</legend>
+                <div fxLayout="column">
+                    <fieldset class="fieldset-border" *ngIf="spublico">
+                        <legend>Datos personales</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                            fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                fxLayoutGap="12px">
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Documento</span>&nbsp;
+                                        <br />
+                                        <span>{{ spublico.tipoDocumentoIdentidad }}:
+                                            {{spublico.numeroDocumentoIdentidad}} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Primer apellido</span>
+                                        <br />
+                                        <span>{{ spublico.primerApellido }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Segundo apellido</span>
+                                        <br />
+                                        <span>{{ spublico.segundoApellido }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Nombres</span>
+                                        <br />
+                                        <span>{{ spublico.nombres }} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                    <div>
+                                        <span style="font-weight: bold">Sexo</span>
+                                        <br />
+                                        <span>{{ spublico.generoPersona }} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </fieldset>
+                    <br />
+                    <fieldset class="fieldset-border" *ngIf="spublico && spublico.tieneAdjudicacion == 1" >
+                        <!-- *ngIf="spublico && spublico.tieneAdjudicacion == 1" -->
+                        <legend>Datos laborales (adjudicado)</legend>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">                              
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Codigo Plaza</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.codigoPlaza }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Regimen Laboral</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.regimenLaboral }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Cargo</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.cargo }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Condicion Laboral</span>
+                                            <br />
+                                            <span>{{ spublico.condicionLaboral }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Situacion Laboral</span>
+                                            <br />
+                                            <span>{{ spublico.situacionLaboral }} </span>
+                                        </div>
+                                    </div>                                  
+                                </div> 
+                            </div>    
+                        </div>   
+                        <br/>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">                              
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Jornada Laboral</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.jornadaLaboral }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Grupo Ocupacional</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.grupoOcupacional }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Categoria Remunerativa</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.categoriaremunerativa }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Codigo Modular</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.codigoModular }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Centro de Trabajo</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.centroTrabajo }} </span>
+                                        </div>
+                                    </div>                                  
+                                </div> 
+                            </div>    
+                        </div>                     
+                        <br/>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">                              
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Modalidad Educativa</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.modalidad }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Nivel Educativo</span>
+                                            <br />
+                                            <span>{{ informacionServidorPublico.nivelEducativo }} </span>
+                                        </div>
+                                    </div>
+                                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                        <div>
+                                            <span style="font-weight: bold">Vigencia Inicio</span>
+                                            <br />
+                                            <span>{{ spublico.vigenciaInicio | date:'shortDate'}} </span>
+                                        </div>
+                                    </div>                                                                                       
+                                </div> 
+                            </div>    
+                        </div> 
+                        <br />                                   
+                    </fieldset>
+                    <fieldset class="fieldset-border" *ngIf="spublico && spublico.tieneAdjudicacion == 0">                  
+                        <legend>Datos laborales (adjudicado)</legend>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Sin Adjudicacion</span>
+                                <br />
+                                
+                            </div>
+                        </div> 
+                        <br />
+                    </fieldset>
+                    <br />
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-stroked-button color="primary" (click)="handleCancel()">
+            <span class="material-icons">close</span> Cerrar
+        </button>
+    </div>
+</div>

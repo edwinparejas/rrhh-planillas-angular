@@ -1,0 +1,160 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h2>Gestionar maestro sistema pensionario</h2>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon>Inicio</a></li>
+                            <li><a [routerLink]="['/ayni/personal/inicio']">Compensaciones</a></li>
+                            <li class="active"><a>Gestionar maestro sistema pensionario</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->          
+            <div fxLayout="row">
+                <div class="page-layout carded fullwidth inner-scroll p-10" mineduPerfectScrollbar>
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10"  fxLayoutGap="5px" style="padding-bottom: 10px;">
+                        <div class="pl-6" fxLayout="row">
+                            <!-- <button mat-raised-button color="primary" class="" (click)="handleCrear()"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" *ngIf="permisoGeneral?.nuevoProceso">
+                                <span class="material-icons">add_circle</span> Nuevo Proceso
+                            </button> -->
+                            <button mat-raised-button color="primary" class="" (click)="handleCrear()"
+                    
+                         >
+                            <span class="material-icons">add_circle</span> Nuevo
+                        </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-stroked-button color="primary" 
+                                (click)="handleExportar()" [disabled]="export"><span class="material-icons">get_app</span>
+                                Exportar</button>
+                        </div>
+                    </div>
+                    <div ngClass.lt-lg="scroll-grid-lt-lg">
+                        <table mat-table class="minedu-table" [dataSource]="dataSource">
+                            <ng-container matColumnDef="index">
+                                <th mat-header-cell *matHeaderCellDef>N°</th>
+                                <td mat-cell *matCellDef="let row; index as i">{{paginator.pageSize * paginator.pageIndex + i + 1}}</td>
+                            </ng-container>
+                
+                    
+                            <ng-container matColumnDef="sistema">
+                                <th mat-header-cell *matHeaderCellDef>sistema pensionario</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>I{{row.sistema}}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="codigo_afp">
+                                <th mat-header-cell *matHeaderCellDef>código afp</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.codigo_afp}}</p>
+                                </td>
+                            </ng-container>
+                    
+                            <ng-container matColumnDef="descripcion_afp">
+                                <th mat-header-cell *matHeaderCellDef>descripción afp</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.descripcion_afp}}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="ruc">
+                                <th mat-header-cell *matHeaderCellDef>número ruc</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.ruc}}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="telefono">
+                                <th mat-header-cell *matHeaderCellDef>teléfono</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.telefono}}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="departamento">
+                                <th mat-header-cell *matHeaderCellDef>departamento</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.departamento}}</p>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="direccion">
+                                <th mat-header-cell *matHeaderCellDef>dirección</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.direccion}}</p>
+                                </td>
+                            </ng-container>
+                            
+                    
+                            <ng-container matColumnDef="estado">
+                                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span class="h6 p-4" [ngClass]="
+                                        {'green-600':row.estado === true,
+                                        'red-500' :row.estado === false}
+                                     ">
+                                        {{row.estado?'activo':'inactivo'}}</span>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="motivo_anulacion">
+                                <th mat-header-cell *matHeaderCellDef>motivo anulación</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{row.motivo_anulacion}}</p>
+                                </td>
+                            </ng-container>
+                    
+                            <ng-container matColumnDef="opciones">
+                                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                <td mat-cell *matCellDef="let row; let  i = index;">
+                                    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                                        <div class="mat-icon-table">
+                                            <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                                (click)="handleModificar(row)"
+                                                aria-label="Modificar" matTooltip="Modificar">
+                                                <mat-icon class="">create</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="mat-icon-table">
+                                            <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                                 (click)="handleEliminar(row, i)"
+                                                aria-label="Eliminar" matTooltip="Eliminar">
+                                                <mat-icon class="">restore_from_trash</mat-icon>
+                                            </button>
+                                        </div>
+                 
+                                    </div>
+                                </td>
+                            </ng-container>
+                    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                               (mouseover)="row.hovered = true"
+                                (mouseout)="row.hovered = false">
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="no-results" 
+                        [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                        No se encontraron registros
+                    </div>
+                    <!-- <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div> -->
+                    <mat-paginator #paginator  [pageIndex]="0" [pageSize]="10" fxLayoutAlign="center center"
+                        [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

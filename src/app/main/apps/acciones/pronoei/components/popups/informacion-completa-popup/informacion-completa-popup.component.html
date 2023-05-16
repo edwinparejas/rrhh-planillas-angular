@@ -1,0 +1,399 @@
+<div class="dialog-content-wrapper">
+
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Informacion Completa</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-10 pb-0 m-0" fusePerfectScrollbar>
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+            <fieldset class="fieldset-border">
+                <legend>Acción Personal</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Régimen Laboral</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.regimenGrupoAccion?.descripcionRegimenLaboral)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Grupo de Acción</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.regimenGrupoAccion?.descripcionGrupoAccion)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Acción</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.regimenGrupoAccion?.descripcionAccion)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Motivo Acción
+                            </label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.regimenGrupoAccion?.descripcionMotivoAccion)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend>Datos Promotor Educativo Comunitario</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Documento de Identidad</label>
+                            <br />
+                            <p class="label-normal">
+                                {{
+                                (pronoeiData$|async)?.persona?.descTipoDocumentoIdentidad +': '+
+                                (pronoeiData$|async)?.persona?.numeroDocumentoIdentidad
+                                }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Primer Apellido</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.primerApellido)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Segundo Apellido</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.segundoApellido)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Nombres</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.nombres)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Estado Civil</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.descripcionEstadoCivil)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Sexo</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.descripcionGenero)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Fecha de Nacimiento</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.fechaNacimientoStr)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend>Datos del PRONOEI</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Código modular</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.codigoModular)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Centro de trabajo</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.centroTrabajo)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Instancia</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descDre)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Sub instancia</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descUgel)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Modalidad Educativa</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descModalidadEducativa)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Nivel Educativo</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descNivelEducativo)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Tipo de Gestión</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descTipoGestion)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Dependencia</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descDependencia)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Departamento</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.departamento)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Provincia</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.provincia)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Distrito</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.distrito)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Centro poblado</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.centroPoblado)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Zona</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.institucionEducativa?.descripcionZona)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset-border">
+                <legend>Datos de la acción</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Fecha de Inicio</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.fechaInicioStr)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Fecha Fin</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.fechaFinStr)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Propina en S/.</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.propina | currency:'':'')}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="100%" fxFlex.xs="100%">
+                        <div [formGroup]="form" class="form-group mb-8">
+                            <mat-checkbox formControlName="checkImpedimento">
+                                Se ha verificado que la persona no cuenta con impedimento vigente para la
+                                vinculación según la norma técnica.
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                    <!-- <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Tipo de resolución
+                            </label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.descripcionTipoResolucion)}}
+                            </p>
+                        </div>
+                    </div> -->
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend>Datos de Formacion Academica Alcanzada</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Nivel Educativo</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.descripcionNvlEducativo)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Situación Académica</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.descripcionSitAcademica)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Grado alcanzado</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.gradoAlcanzado)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend>Datos de contacto</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Celular</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.celular)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Teléfono Fijo </label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.telefono)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label">Correo electrónico</label>
+                            <br />
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.persona?.email)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend>Anotaciones</legend>
+
+                <div fxLayout="row wrap">
+                    <div fxFlex="100%">
+                        <div class="form-group">
+                            <p class="label-normal">
+                                {{esRegistrado((pronoeiData$|async)?.anotaciones)}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="matDialogRef.close()" style="right: 7px">
+            <span class="material-icons">block</span> CERRAR
+        </button>
+    </div>
+</div>

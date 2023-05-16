@@ -1,0 +1,94 @@
+<div class="m-20">
+    <fieldset class="fieldset-border">
+        <legend>Proceso y etapa</legend>
+        <div fxLayout="row" fxLayout.lt-md="column">
+
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label for="">Año</label>
+                            <p class="form-control-static" *ngIf="mineduForm && mineduForm.anio">{{mineduForm.anio}}</p>
+                            <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.anio">No registrado</p>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label for="">Código</label>
+                            <p class="form-control-static" *ngIf="mineduForm && mineduForm.codigo">{{mineduForm.codigo}}
+                            </p>
+                            <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.codigo">No registrado</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Proceso</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.proceso">{{mineduForm.proceso}}
+                        </p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.proceso">No registrado</p>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Régimen laboral</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.regimenLaboral">
+                            {{mineduForm.regimenLaboral}}</p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.regimenLaboral">No registrado
+                        </p>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Etapa/Fase</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.etapaFase">
+                            {{mineduForm.etapaFase}}
+                        </p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.etapaFase">No registrado
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Convocatoria</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.convocatoria">
+                            {{mineduForm.convocatoria}}</p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.convocatoria">No registrado
+                        </p>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Fecha creación</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.fechaCreacion">
+                            {{mineduForm.fechaCreacion}}</p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.fechaCreacion">No registrado</p>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Cargos convocados</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.cargoConvocado">
+                            {{mineduForm.cargoConvocado}}</p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.cargoConvocado">No registrado
+                        </p>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="50%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label for="">Estado</label>
+                        <p class="form-control-static" *ngIf="mineduForm && mineduForm.estado">{{mineduForm.estado}}</p>
+                        <p class="form-control-static" *ngIf="!mineduForm || !mineduForm.estado">No registrado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

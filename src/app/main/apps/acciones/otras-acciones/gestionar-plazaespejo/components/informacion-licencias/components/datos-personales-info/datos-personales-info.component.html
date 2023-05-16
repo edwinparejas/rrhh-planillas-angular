@@ -1,0 +1,56 @@
+<fieldset class="fieldset-border mb-3">
+    <legend>Datos Personales</legend>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="100%" fxLayoutGap=".5%" fxLayoutGap.lt-sm="0">
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Documento de Identidad</span>&nbsp;
+                <br>
+                <ng-container
+                    *ngIf="licencia?.documentoIdentidad && licencia?.numeroDocumentoIdentidad; else docIdentidad">
+                    <span class="label-normal">{{licencia?.documentoIdentidad| noRegistrado}}
+                        <span>:</span>
+                        {{licencia?.numeroDocumentoIdentidad | noRegistrado}}</span>
+                </ng-container>
+                <ng-template #docIdentidad>
+                    <span class="label-normal">{{null | noRegistrado}}</span>
+                </ng-template>
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Apellidos y Nombres</span>
+                <br>
+                <ng-container *ngIf="licencia?.primerApellido && licencia?.segundoApellido && licencia?.nombre; else apeNombres">
+                    <span class="label-normal">
+                        {{licencia?.primerApellido}}
+                        {{licencia?.segundoApellido}},&nbsp;
+                        {{licencia?.nombre}}
+                    </span>
+                </ng-container>
+                <ng-template #apeNombres>
+                    <span class="label-normal">{{null | noRegistrado}}</span>
+                </ng-template>
+
+            </div>
+        </div>
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Fecha de Nacimiento</span>
+                <br>
+                <span class="label-normal">
+                    {{licencia?.fecNacimiento | noRegistrado}}
+                </span>
+
+            </div>
+        </div>
+
+        <div fxFlex="24.5%" fxFlex.xs="100%">
+            <div>
+                <span class="label">Sexo</span>
+                <br>
+                <span class="label-normal">{{licencia?.sexo | noRegistrado}}</span>
+            </div>
+        </div>
+
+    </div>
+</fieldset>

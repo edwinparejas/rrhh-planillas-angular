@@ -1,0 +1,50 @@
+<div class="panel-body">
+    <br>
+    <form [formGroup]="formInformeEscalafonarioPostular">
+        <fieldset class="fieldset-border">
+            <legend>Informe Escalafonario</legend>
+            <div fxLayout="row wrap">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="12px">
+                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                        <mat-label [mineduFormRequiredLabel]="formInformeEscalafonarioPostular.get('numeroInformeEscalafonario')">Número Informe Escalafonario</mat-label>
+                        <input matInput formControlName="numeroInformeEscalafonario"
+                        (keyup.backspace)="limpiarDataInforme()"
+                        (keyup.delete)="limpiarDataInforme()">
+                    </mat-form-field>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <button mat-raised-button  color="primary" (click)="handleBuscar()" ><span class="material-icons">search</span> Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row wrap" *ngIf="informe">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                    <div fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Número informe escalafonario</span>
+                            <br>
+                            <span class="label-normal">{{informe?.numeroInformeEscalafonario}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="35%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha informe escalafonario</span>
+                            <br>
+                            <span class="label-normal">{{informe?.fechaInformeEscalafonario | date:'dd/MM/yyyy h:mm:ss a'}}</span>
+                        </div>
+                    </div>
+                    <div fxFlex="35%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento Informe Escalafonario</span>
+                            <br>
+                            <button mat-stroked-button color="primary" 
+                            matTooltip="Descargar"
+                            (click)="handleVerDocumentoSustento()">
+                                <span class="material-icons">picture_as_pdf</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

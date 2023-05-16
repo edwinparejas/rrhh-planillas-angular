@@ -1,0 +1,590 @@
+<div  class="page-layout carded fullwidth inner-scroll p-16" >
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+          
+            <div fxLayout="row">
+                <router-outlet></router-outlet>
+                <div class="content" mineduPerfectScrollbar>
+                    <div fxLayout="column" class="pl-2 pr-2">
+                        <div fxLayout="column" fxLayoutAlign="start center" class="panel">
+                            <h1></h1>
+                            <h2>Periodo:
+                  
+                                -
+               
+                            </h2>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                            <div class="pl-6" fxLayout="row">
+                                <button mat-stroked-button color="primary" [@animate]="{
+                                        value: '*',
+                                        params: { delay: '300ms', scale: '.2' }
+                                    }" (click)="handleExportar()" >
+                                    <span class="material-icons">get_app</span>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="100%" class="animated fadeIn fast">
+                            <div fxLayout="column" fxFlex="100%" class="table-shadow">
+                                <table mat-table class="minedu-table box-shadow"  [dataSource]="" [@animateStagger]="{ value: '50' }" mineduPerfectScrollbar>
+                                    <ng-container matColumnDef="registro">
+                                        <th mat-header-cell *matHeaderCellDef>Nro</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{ row.registro }}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="numeroDocumentoIdentidad">
+                                        <th mat-header-cell *matHeaderCellDef>Documento</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{ row.numeroDocumentoIdentidad }}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="apellidosNombres">
+                                        <th mat-header-cell *matHeaderCellDef>Apellidos y Nombres</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{ row.apellidosNombres }}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="descripcionRegimenLaboral">
+                                        <th mat-header-cell *matHeaderCellDef>RÉGIMEN LABORAL</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{ row.descripcionRegimenLaboral }}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="descripcionCargo">
+                                        <th mat-header-cell *matHeaderCellDef> Cargo</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{ row.descripcionCargo }}</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="_1">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    1
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <p>{{ row._1 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_2">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    2
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._2 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_3">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    3
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._3 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_4">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    4
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._4 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_5">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    5
+                                                </div>
+                                                <div>
+                                                
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._5 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_6">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    6
+                                                </div>
+                                                <div>
+                                                
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._6 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_7">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    7
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._7 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_8">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    8
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._8 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_9">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    9
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._9 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_10">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    10
+                                                </div>
+                                                <div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._10 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_11">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    11
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._11 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_12">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    12
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._12 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_13">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    13
+                                                </div>
+                                                <div>
+                                                
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._13 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_14">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    14
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._14 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_15">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    15
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._15 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_16">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    16
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._16 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_17">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    17
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._17 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_18">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    18
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._18 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_19">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    19
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._19 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_20">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    20
+                                                </div>
+                                                <div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._20 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_21">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    21
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._21 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_22">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    22
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._22 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_23">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    23
+                                                </div>
+                                                <div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._23 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_24">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    24
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._24 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_25">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    25
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._25 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_26">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    26
+                                                </div>
+                                                <div>
+                                               
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._26 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_27">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    27
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._27 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_28">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    28
+                                                </div>
+                                                <div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._28 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_29">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    29
+                                                </div>
+                                                <div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._29 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_30">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    30
+                                                </div>
+                                                <div>
+                                            
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._30 }}</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="_31">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            <div fxLayout="column">
+                                                <div>
+                                                    31
+                                                </div>
+                                                <div>
+                                                 
+                                            </div>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <p>{{ row._31 }}</p>
+                                        </td>
+
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="">
+                                    </tr>
+
+                                    <tr mat-row *matRowDef=" let row; columns: " (click)="selection.toggle(row)" [ngClass]="{
+                                        hovered: row.hovered,
+                                        selected: selection.isSelected(row)
+                                    }" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" 
+                                        [@animate]="{ value: '*', params: { y: '100%' }}">
+                                    </tr>
+                                </table>
+                                <div class="no-results" [style.display]="">
+                                    No se encontraron registros
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container">
+                                    <mat-spinner diameter="50"></mat-spinner>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <mat-paginator #paginatorReporteDetallado class="mat-paginator-sticky"
+                            
+                            [pageIndex]="0" [pageSize]="20" [pageSizeOptions]="[20, 50, 100, 200]"></mat-paginator>
+                        <div fxLayout="row" fxFlex="100%" class="animated fadeIn fast" style="background-color: white;">
+                            <div fxLayout="column" fxFlex="100%" class="panel-footer">
+                                <fieldset class="fieldset-border">
+                                    <legend><small>Leyenda de incidencias</small></legend>
+                                    <table class="table-leyenda">
+                                        <tbody>
+                                            <tr>
+                                                <td>A: Día laborado</td>
+                                                <td><span style="color: #e54304">I: Inasistencia injustificada</span></td>
+                                                <td><span style="color: #28a745">J: Inasistencia justificada</span><br>(licencia CG, permiso CG y vacaciones)</td>
+                                                <td><span style="color: #007bff">L: Licencia sin goce de remuneraciones</span></td>
+                                                <td><span style="color: #7951b3">P: Permiso sin goce de remuneraciones</span></td>
+                                                <td><span style="color: #b0091f">T: Tardanza</span></td>
+                                                <td><span style="color: #00695C">H: Huelga o paro</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-12" style="margin-top: 12px;">
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-stroked-button color="primary"
+                                [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' } }"
+                                 (click)="handleRetornar()">
+                                <span class="material-icons">
+                                    keyboard_return</span>
+                                Retornar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

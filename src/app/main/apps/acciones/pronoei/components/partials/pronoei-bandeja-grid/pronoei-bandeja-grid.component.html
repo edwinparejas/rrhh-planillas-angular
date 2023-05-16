@@ -1,0 +1,183 @@
+<div class="content-table" ngClass.lt-lg="scroll-grid">
+    <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}"
+        mineduPerfectScrollbar>
+
+        <ng-container matColumnDef="seleccione">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+            </th>
+            <!-- 
+            [disabled]="[2,3,4,5].includes(row.codigoEstadoPronoei)" -->
+            <td mat-cell *matCellDef="let row; let i = indice;">
+                <mat-checkbox [checked]="selection.isSelected(row)" (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="accion">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Acción
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                <p *ngIf="row.descripcionAccion"> {{row.descripcionAccion}}</p>
+                <p *ngIf="!row.descripcionAccion"></p>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="documento">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Documento
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                <p *ngIf="row.tipoDocumentoIdentidad"> {{row.tipoDocumentoIdentidad}}: {{row.numeroDocumentoIdentidad}}
+                </p>
+                <p *ngIf="!row.tipoDocumentoIdentidad"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="apellidos_nombres">
+            <mat-header-cell *matHeaderCellDef>Apellidos y Nombres
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.nombres"> {{ row.primerApellido }} {{ row.segundoApellido }}, {{row.nombres}} </p>
+                <p *ngIf="!row.nombres"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="codigo_modular">
+            <mat-header-cell *matHeaderCellDef>Código modular
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.codigoModular"> {{ row.codigoModular }} </p>
+                <p *ngIf="!row.codigoModular"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="centro_trabajo">
+            <mat-header-cell *matHeaderCellDef>Centro de trabajo
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.centroTrabajo"> {{ row.centroTrabajo }} </p>
+                <p *ngIf="!row.centroTrabajo"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="zona">
+            <mat-header-cell *matHeaderCellDef>Zona
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.codigoZona"> {{ row.descripcionZona }} </p>
+                <p *ngIf="!row.codigoZona"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha_inicio">
+            <mat-header-cell *matHeaderCellDef>Fecha inicio
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.fechaInicio"> {{row.fechaInicioStr}} </p>
+                <p *ngIf="!row.fechaInicio"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha_fin">
+            <mat-header-cell *matHeaderCellDef>Fecha fin
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.fechaFin"> {{row.fechaFinStr}} </p>
+                <p *ngIf="!row.fechaFin"></p>
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="estado">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Estado</mat-header-cell>
+            <mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                <div *ngIf="row.codigoEstadoPronoei" class="campo-estado p-4" [ngClass]="{
+                    'green-600':row.codigoEstadoPronoei === 1,
+                    'red-500':row.codigoEstadoPronoei === 2,
+                    'blue-500':row.codigoEstadoPronoei === 3,
+                    'primary-400':row.codigoEstadoPronoei === 4,
+                    'yellow-600':row.codigoEstadoPronoei === 5
+                }"> {{row.descripcionEstadoPronoei}}</div>
+
+                <div class="campo-estado p-4" *ngIf="!row.descripcionEstadoPronoei">No registrado</div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="situacion_resolucion">
+            <mat-header-cell *matHeaderCellDef>Situación resolución
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <p *ngIf="row.descripcionEstadoResolucion"> {{ row.descripcionEstadoResolucion }} </p>
+                <p *ngIf="!row.descripcionEstadoResolucion"></p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let row;let i = index">
+                <div *ngIf="(maestroPermiso$|async) as maestroPermiso" fxLayout="row" fxLayoutAlign="space-between center">
+
+                    <div class="mat-icon-table" *ngIf="[2,3,4,5].includes(row.codigoEstadoPronoei)">
+                        <button (click)="verInfo(row)" mat-stroked-button color="primary"
+                            class="sidebar-toggle btn-sm ml-2" aria-label="Ver información"
+                            matTooltip="Ver información">
+                            <mat-icon class="">info</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="mat-icon-table" *ngIf="row.codigoEstadoPronoei == 1">
+                        <button *ngIf="maestroPermiso?.editarRegistro" (click)="modificar(row)" mat-stroked-button color="primary"
+                            class="sidebar-toggle btn-sm ml-2" aria-label="Modificar" matTooltip="Modificar">
+                            <mat-icon class="">edit</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="mat-icon-table" *ngIf="row.codigoEstadoPronoei == 1">
+                        <button *ngIf="maestroPermiso?.eliminarRegistro" type="button" mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                            (click)="handleEliminar(row, i)" aria-label="Eliminar" matTooltip="Eliminar">
+                            <mat-icon class="">restore_from_trash</mat-icon>
+                        </button>
+                    </div>
+
+
+                    <div class="mat-icon-table" *ngIf="row.codigoEstadoPronoei == 1">
+                        <button *ngIf="maestroPermiso.generarProyecto" (click)="handleNewProject(row)" mat-stroked-button color="primary"
+                            class="sidebar-toggle btn-sm" aria-label="Generar proyecto resolución"
+                            matTooltip="Generar proyecto resolución">
+                            <mat-icon class="">settings</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="mat-icon-table" *ngIf="[4,5].includes(row.codigoEstadoPronoei)">
+                        <button (click)="descargarResolucion(row)" mat-stroked-button color="primary"
+                            class="sidebar-toggle btn-sm" aria-label="Ver proyecto resolución"
+                            matTooltip="Ver proyecto resolución">
+                            <!-- <mat-icon class="">description</mat-icon> -->
+                            <mat-icon class="">picture_as_pdf</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+            (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+    </table>
+    <div class="no-results" *ngIf="!(dataSource.loading | async)"
+        [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+        No se encontraron registros
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource.loading | async">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+</div>
+<mat-paginator class="minedu-table" #paginator [length]="dataSource?.dataTotal" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>

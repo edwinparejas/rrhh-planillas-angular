@@ -1,0 +1,213 @@
+@import "@minedu/scss/minedu";
+:host {
+    width: 100%;
+       padding: 2px;
+}
+
+app-bandeja-mensual {
+    width: 100%;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    h3,
+    .h3 {
+        font-size: 16px;
+    }  
+    .center {
+        .content-card {                
+
+            @include media-breakpoint(xs) {               
+                &.current-selected {
+                    .toolbar {
+                        padding-left: 16px !important;                       
+                    }
+                    .content {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }  
+
+    
+        .panel {
+            margin-bottom: 15px;
+            background-color: #fff;
+            border: 0;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            .panel-heading {
+                padding: 8px 15px;
+                border-bottom: 1px solid transparent;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                background-color: #0073b7;
+                > h3.panel-title {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 15px;
+                    color: #fff;
+                }
+            }
+            .panel-body {
+                padding: 15px 15px 0;
+            }
+            .panel-footer {
+                padding: 10px 15px;
+                background-color: #fff;
+                border-top: 1px solid #ddd;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+        }
+        .ml-2 {
+            margin-left: 2px;
+        }
+        .pl-2 {
+            padding-left: 2px;
+        }
+        .pl-6 {
+            padding-left: 6px;
+        }
+        .pr-2 {
+            padding-right: 2px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+        .mb-15 {
+            margin-bottom: 15px;
+        }
+        .mat-raised-button {
+            border: 1px solid #ccc;
+            line-height: 34px;
+        }
+        .mat-raised-button.mat-primary {
+            background-color: #0073b7;
+            border-color: #0073b7;
+        }
+        .mat-raised-button.mat-primary[disabled]{
+            background-color: #0073b7 !important;
+            border-color: #0073b7 !important;
+            color: #fff !important;
+        }
+        .mat-stroked-button.mat-primary {
+            color: #0073b7;
+        }
+        .mat-flat-button.mat-primary {
+            background-color: #0073b7;
+        }
+        .mat-stroked-button:not([disabled]).mat-primary {
+            border-color: #0073b7;
+            background-color: #fff;
+        }
+        .mat-stroked-button:not([disabled]).mat-warn {
+            border-color: #f44336;
+            background-color: #fff;
+        }
+        button .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm {
+            line-height: 24px;
+            min-width: 27px;
+            padding: 0;
+        }
+        button.btn-sm .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm .mat-icon {
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+        .btn-icon .mat-button-wrapper .material-icons {
+            font-size: 22px !important;
+        }
+        .minedu-table {
+                     /*begin personalizacion*/
+           .mat-cell, .mat-footer-cell {
+            font-size: 11px !important;
+        }
+        .mat-header-cell{
+            font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #fff !important;
+            background-color: #0073B7 !important;
+            padding: 0 5px 0 10px; 
+        }
+        .mat-row:nth-of-type(odd) {
+            background:  #F8F9FA;
+          }
+
+            // .mat-column-registro {
+            //     flex: 0 1 10px;
+            //     width: 10px;
+            // } 
+           
+            .mat-column-index {
+                flex: 0 1 20px;
+                width: 20px;
+            }        
+
+            .mat-icon-table {
+                width: 30px;
+            }          
+            // .mat-column-registro {
+            //     flex: 0 1 60px;
+            //     width: 60px;
+            //     text-align: left;
+            // }
+            .mat-column-descripcionMes {
+                flex: 0 1 250px;
+                width: 250px;
+                text-align: left;
+            }
+           
+            .mat-column-descripcion {
+                flex: 0 1 450px;
+                width: 450px;
+                text-align: left;
+            }    
+            .mat-column-estadoControlAsistencia {
+                flex: 0 1 150px;
+                width: 150px;
+                
+            }    
+                
+            .mat-column-fechaRemitido {
+                flex: 0 1 100px;
+                width: 100px;
+                text-align: left;
+            }
+            .mat-column-fechaDevuelto {
+                flex: 0 1 100px;
+                width: 100px;
+                text-align: left;
+            }
+            .mat-column-fechaAprobado {
+                flex: 0 1 100px;
+                width: 100px;
+                text-align: left;
+            }       
+            .mat-column-acciones {
+                flex: 0 1 150px;
+                width: 150px;
+                text-align: left;
+            }       
+        
+        .box-shadow {
+            -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+    }
+}

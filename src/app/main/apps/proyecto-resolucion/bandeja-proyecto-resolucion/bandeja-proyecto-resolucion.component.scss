@@ -1,0 +1,199 @@
+@import "@minedu/scss/minedu.scss";
+@import "@minedu/scss/comun.scss";
+
+minedu-bandeja-proyecto-resolucion {
+    width: 100%;
+    padding: 2px;
+    .remove {
+        color: #dd3333;
+    }
+    .content {
+        width: 100%;
+        .ml-2 {
+            margin-left: 2px;
+        }
+        .pl-2 {
+            padding-left: 2px;
+        }
+        .pl-6 {
+            padding-left: 6px;
+        }
+        .pr-2 {
+            padding-right: 2px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+        .mb-15 {
+            margin-bottom: 15px;
+        }
+        .panel {
+            margin-bottom: 15px;
+            background-color: #fff;
+            border: 0;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            .panel-heading {
+                padding: 8px 15px;
+                border-bottom: 1px solid transparent;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                background-color: #0073b7;
+                >h3.panel-title {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    font-size: 15px;
+                    color: #fff;
+                }
+            }
+            .panel-body {
+                padding: 15px 15px 0;
+            }
+            .panel-footer {
+                padding: 10px 15px;
+                background-color: #fff;
+                border-top: 1px solid #ddd;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+        }
+        .mat-raised-button {
+            border: 1px solid #ccc;
+            line-height: 34px;
+        }
+        .mat-raised-button.mat-primary {
+            background-color: #0073b7;
+            border-color: #0073b7;
+        }
+        .mat-stroked-button.mat-primary {
+            color: #0073b7;
+        }
+        .mat-flat-button.mat-primary {
+            background-color: #0073b7;
+        }
+        .mat-stroked-button:not([disabled]).mat-primary {
+            border-color: #0073b7;
+            background-color: #fff;
+        }
+        .mat-stroked-button:not([disabled]).mat-warn {
+            border-color: #f44336;
+            background-color: #fff;
+        }
+        button .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm {
+            line-height: 24px;
+            min-width: 27px;
+            padding: 0;
+        }
+        button.btn-sm .mat-button-wrapper .material-icons {
+            font-size: 16px;
+        }
+        button.btn-sm .mat-icon {
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+        .btn-icon .mat-button-wrapper .material-icons {
+            font-size: 22px !important;
+        }
+        .no-results{                  
+            min-width: 1500px;
+        }
+        .minedu-table {
+            flex: 1 1 auto;
+            min-width: 1500px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            .mat-column-select {
+                flex: 0 1 50px;
+            }
+            .mat-column-registro {
+                flex: 0 1 40px;
+                text-align: center;
+            }
+            .mat-column-tipoResolucion {
+                flex: 0 1 140px;
+            }         
+            .mat-column-numeroProyecto {
+                text-align: center;
+            }
+            .mat-column-fechaProyecto {
+                flex: 0 1 90px;
+                text-align: center;
+            }
+            .mat-column-regimenLaboral {
+                flex: 0 1 200px;
+            }
+            .mat-column-grupoAccion {
+                flex: 0 1 200px;
+            }   
+            .mat-column-accion {
+                flex: 0 1 200px;
+            }   
+            .mat-column-motivoAccion {
+                flex: 0 1 200px;
+            }   
+            .mat-column-estado {
+                flex: 0 1 80px;
+                text-align: left;
+            }
+            .mat-column-mandatoJudicial {
+                text-align: center;
+            }            
+            .mat-column-acciones {
+                flex: 0 1 80px;
+            }
+            
+        }
+        .box-shadow {
+            -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        }
+        .mat-dialog-actions {
+            padding: 0px !important;
+            display: flex;
+            flex-wrap: wrap;
+            min-height: auto !important;
+            align-items: center;
+            margin-bottom: 0px !important;
+        }
+        .space-white {
+            background: white !important;
+        }
+    }
+    .enProyecto {
+        background-color: #ff9800;
+        // border-radius: 5px;
+        width: 100px;
+        text-align: center;
+        color: white;
+        padding: 4px;
+        font-size: 9px;
+    }
+    .ConResolucion {
+        background-color: green;
+        // border-radius: 5px;
+        width: 100px;
+        text-align: center;
+        color: white;
+        padding: 4px;
+        font-size: 9px;
+    }
+    .eliminado {
+        background-color: red;
+        // border-radius: 5px;
+        width: 100px;
+        text-align: center;
+        color: white;
+        padding: 4px;
+        font-size: 9px;
+    }
+}

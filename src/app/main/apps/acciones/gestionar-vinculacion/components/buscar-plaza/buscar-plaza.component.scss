@@ -1,0 +1,174 @@
+@import "@minedu/scss/minedu";
+
+.buscar-plaza-form-dialog{
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }
+    @include media-breakpoint("gt-xs") {
+        width: 1300px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .minedu-table {
+        min-width: 1920px;
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .mat-column-index {
+            flex: 0 1 80px;
+        }
+        .mat-column-nro {
+            flex: 0 1 40px;
+        }
+        .mat-column-codigoPlaza {
+            flex: 0 1 150px;
+        }
+        .mat-column-codigoCentroTrabajo {
+            flex: 0 1 150px;
+        }
+        .mat-column-descripcionInstitucionEducativa {
+            flex: 0 1 200px;
+        }
+        .mat-column-anexoCentroTrabajo {
+            flex: 0 1 100px;
+        }
+        .mat-column-abreviaturaModalidadEducativa {
+            flex: 0 1 100px;
+        }
+        .mat-column-descripcionNivelEducativo {
+            flex: 0 1 150px;
+        }
+        .mat-column-descripcionRegimenLaboral {
+            flex: 0 1 250px;
+        }
+        .mat-column-descripcionCargo {
+            flex: 0 1 250px;
+        }
+        .mat-column-descripcionAreaCurricular {
+            flex: 0 1 100px;
+        }
+        .mat-column-jornadaLaboral {
+            flex: 0 1 100px;
+        }
+        .mat-column-descripcionMotivoVacancia {
+            flex: 0 1 150px;
+        }
+        .mat-column-descripcionTipoPlaza {
+            flex: 0 1 100px;
+        }
+        /*begin personalizacion*/
+        .badge {
+            width: 90px !important;
+            display: flex;
+            flex: 0 1 100px;
+            text-align: center !important;
+        }
+        .mat-cell,
+        .mat-footer-cell {
+            font-size: 11px !important;
+            padding:0 5px;
+        }
+        .mat-header-cell {
+            font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #fff !important;
+            background-color: #0073b7 !important;
+            padding: 5px 5px 5px 10px;
+        }
+        .mat-row:nth-of-type(odd) {
+            background: #f8f9fa;
+        }
+        /*end personalizacion*/
+        .mat-cell:first-of-type,
+        .mat-header-cell:first-of-type,
+        .mat-footer-cell:first-of-type {
+            padding-left: 15px;
+        }
+        .mat-cell:last-of-type,
+        .mat-header-cell:last-of-type,
+        .mat-footer-cell:last-of-type {
+            padding-right: 15px;
+        }
+        .mobile-label {
+            display: none;
+        }
+        .mat-table {
+            overflow: auto;
+            max-height: 800px;
+            overflow-x: scroll;
+        }
+        @media (max-width: 700px) {
+            .mobile-label {
+                width: 100px;
+                display: inline-block;
+                font-weight: bold;
+                margin-right: 10px;
+            }
+            .mat-header-row {
+                display: none;
+                min-width: 750px;
+            }
+            .mat-cell {
+                width: 100%;
+            }
+            .mat-row {
+                flex-direction: column;
+                align-items: start;
+                text-align: left;
+                max-height: 480px;
+            }
+        }
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+    .mat-raised-button.mat-primary {
+        background-color: #0073b7 !important;
+        border-color: #0073b7 !important;
+    }
+    .mat-stroked-button.mat-primary {
+        color: #0073b7 !important;
+    }
+    .mat-flat-button.mat-primary {
+        background-color: #0073b7 !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-primary {
+        border-color: #0073b7 !important;
+        background-color: #fff !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336;
+        background-color: #fff;
+    }
+    button .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+
+    .instruccionesSeleccionar{
+        font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-style: italic;
+        font-weight: bold;
+        // text-transform: uppercase;
+        color: #0073b7 !important;
+        // background-color: #0073b7 !important;
+        padding: 0px 20px 0px 5px;
+}
+}

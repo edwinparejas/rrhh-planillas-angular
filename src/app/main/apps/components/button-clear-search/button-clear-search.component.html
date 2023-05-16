@@ -1,0 +1,6 @@
+<button type="button" mat-raised-button [disabled]="working" *ngIf="working">
+    <span class="material-icons">clear</span> Limpiar
+</button>
+<button type="button" mat-raised-button (click)="onClickChild($event)" *ngIf="!working">
+    <span class="material-icons">clear</span> Limpiar
+</button>

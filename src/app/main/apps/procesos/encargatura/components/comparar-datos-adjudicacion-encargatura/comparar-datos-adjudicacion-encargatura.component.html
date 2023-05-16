@@ -1,0 +1,31 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Actualización de datos</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <mat-tab-group >
+            <mat-tab label="Datos del servidor público">
+                <minedu-comparar-datos-servidor-publico-adjudicacion-encargatura 
+                [idAdjudicacion]="idAdjudicacion"
+                [currentSession]="currentSession"
+                (handleEvent)="handleAccion($event)">
+                </minedu-comparar-datos-servidor-publico-adjudicacion-encargatura>
+            </mat-tab>
+            <mat-tab label="Datos de la plaza">                
+                <minedu-comparar-datos-plaza-adjudicacion-encargatura  
+                [idPlazaEncargaturaDetalle]="idPlazaEncargaturaDetalle"
+                [currentSession]="currentSession"
+                (handleEvent)="handleAccion($event)">
+                </minedu-comparar-datos-plaza-adjudicacion-encargatura>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-dialog-content>
+</div>

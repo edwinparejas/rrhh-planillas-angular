@@ -1,0 +1,65 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button  (click)="matDialogRef.close()"  aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+   
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form autocomplete="off" novalidate [formGroup]="form">
+            <fieldset class="fieldset-border">
+                <legend>Motivo de devolución</legend>
+                <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="center center" *ngIf="modal.action === 'create'">                    
+                    <div class="ml-4"  *ngIf="modal.info" fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <label class="label" for="">Devuelto por:</label>
+                        <p class="form-control-static">
+                            {{this.usuarioObservador}}
+                        </p>
+                        <p class="form-control-static">
+                            {{this.rolUsuarioObservador}}
+                        </p>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">               
+                    <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <mat-label>Detalle del motivo de devolución</mat-label>
+                        <mat-form-field appearance="fill">
+                            <textarea max-rows="8"  matInput type="text"   name="observacion" formControlName="observacion" matTextareaAutosize
+                            [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                        </mat-form-field>
+                    </div>
+                </div> 
+            </fieldset>
+        </form>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <mat-divider></mat-divider>
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">                
+            <div fxLayout="row" fxLayout.lt-md="row" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+             
+                    <button mat-raised-button color="primary" (click)="handleSaveReporte()">
+                        <span class="material-icons">save</span> Guardar
+                    </button>
+
+                    <minedu-button-cancel
+                    (mineduOnCancel)="handleCancelar()" > 
+                    </minedu-button-cancel>
+                
+              
+            </div>
+            <!-- <div fxLayout="row" fxLayout.lt-md="row" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+               
+            </div> -->
+        </div>
+    </div>
+
+</div>
+
+
+

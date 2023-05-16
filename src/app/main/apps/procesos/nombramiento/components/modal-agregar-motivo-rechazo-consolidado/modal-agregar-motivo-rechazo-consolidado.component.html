@@ -1,0 +1,48 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div class="panel">
+            <div class="panel-body">
+
+                <form autocomplete="off" novalidate [formGroup]="form">
+                    <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                        <div fxLayout="column" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+
+                                    <div fxLayoutAlign="start start" fxFlex="75%" fxFlex.xs="100%">
+                                        <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%">
+                                            <mat-label >Detalle motivo de rechazo</mat-label>
+                                            <input matInput placeholder="Descripción" formControlName="detalleMotivoRechazo">
+                                        </mat-form-field>
+                                    </div> 
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <p class="text-danger">(*) Datos obligatorios</p>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <div>
+            <minedu-button-save [mineduForm]="form" (mineduOnClick)="handleGrabar()" [working]="working">
+            </minedu-button-save>
+        </div>
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

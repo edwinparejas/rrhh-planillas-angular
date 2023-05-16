@@ -1,0 +1,142 @@
+<!-- Inicio Breadcrumb -->
+<div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="30%">
+            <h3 class="titulo">Calificaciones</h3>
+        </div>
+        <div fxFlex="70%">
+            <ol class="breadcrumb pull-right">
+                <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Personal</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Desarrollo de procesos</a></li>
+                <li><a [routerLink]="['/ayni/personal/procesospersonal/procesos/encargatura']"> Encargatura</a></li>
+                <li class="active"><a (click)="irCalificacion()">Calificaciones</a></li>    
+
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- Fin Breadcrumb -->
+<div class="page-layout carded fullwidth inner-scroll p-0">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <minedu-cabecera-desarrollo-proceso-encargatura #CabeceraDesarrolloProcesoEncargatura [idDesarrolloProceso]="idDesarrolloProceso"></minedu-cabecera-desarrollo-proceso-encargatura>
+            <div class="panel">           
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row wrap">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label>Tipo de Documento</mat-label>
+                                    <mat-select formControlName="codigoTipoDocumentoIdentidad" 
+                                    (selectionChange)="selectTipoDocumento($event.value)">
+                                        <mat-option value="-1">--TODOS--</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listTipoDocumento"
+                                            [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label>Número de Documento</mat-label>
+                                    <input matInput formControlName="numeroDocumentoIdentidad"
+                                    (keyup.enter)="handleBuscar()"
+                                    (keyup)="validatexto()"
+                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    (keypress)="maxLengthnumeroDocumentoIdentidad==8? validaNumericos($event):true"
+                                    [maxlength]="maxLengthnumeroDocumentoIdentidad">
+                                    <mat-icon matSuffix class="cursor-pointer"
+                                    (click)="busquedaPersonalizada()">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroDocumentoIdentidad')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">Código Modular</mat-label>
+                                    <input matInput formControlName="codigoModular"
+                                    minlength="6" maxlength="7" (keyup.enter)="handleBuscar()"
+                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                    <mat-icon matSuffix class="cursor-pointer" (click)="busquedaCentroTrabajoPersonalizada()">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoModular')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">Código de Plaza</mat-label>
+                                    <input matInput formControlName="codigoPlaza"
+                                    minlength="12" maxlength="12" (keyup.enter)="handleBuscar()"
+                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" />
+                                    <mat-icon matSuffix class="cursor-pointer" (click)="busquedaPlazaPersonalizada()">search</mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('codigoPlaza')"></minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select formControlName="codigoEstadoCalificacion">
+                                        <mat-option value="-1">--TODOS--</mat-option>
+                                        <mat-option *ngFor="let item of comboLists.listEstado" [value]="item.value">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div appearance="fill" fxFlex="25%" fxFlex.xs="100%"></div>
+                                <div appearance="fill" fxFlex="25%" fxFlex.xs="100%"></div>
+                                <div appearance="fill" fxFlex="25%" fxFlex.xs="100%"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleLimpiar()"><span
+                                class="material-icons">clear</span> LIMPIAR</button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span
+                                class="material-icons">search</span> BUSCAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">    
+                <div class="panel-body">
+                    <mat-tab-group (selectedTabChange)="handleSelectTab($event)">
+                        <mat-tab [label]="label.resultadoPreliminar">
+                            <minedu-pestana-calificacion-encargatura #pestanaResultadoPreliminar [selectedTabIndex]="0"
+                                [idEtapaProceso]="idEtapaProceso" [codigoResultadoCalificacion]="1"
+                                [codigoEtapa]="codigoEtapa" [idDesarrolloProceso]="idDesarrolloProceso"
+                                [controlesActivos]="controlesActivos"
+                                [currentSession]="currentSession">
+                            </minedu-pestana-calificacion-encargatura>
+                        </mat-tab>
+                        <mat-tab [label]="label.resultadoFinal">
+                            <minedu-pestana-calificacion-encargatura #pestanaResultadoFinal [selectedTabIndex]="1"
+                                [idEtapaProceso]="idEtapaProceso" [codigoResultadoCalificacion]="2"
+                                [codigoEtapa]="codigoEtapa" [idDesarrolloProceso]="idDesarrolloProceso"
+                                [controlesActivos]="controlesActivos"
+                                [currentSession]="currentSession">
+                            </minedu-pestana-calificacion-encargatura>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="6px" fxLayoutAlign="end center"
+                        fxLayoutAlign.xs="stretch">
+                        <button mat-stroked-button (click)="handleGoAscenso()"><span
+                                class="material-icons">arrow_back</span> Retornar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,276 @@
+<div [formGroup]="form">
+<fieldset class="fieldset-border">
+    <legend>Datos del Fallecido</legend>
+    <div fxLayout="row wrap"  fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" >
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-radio-group formControlName="idTipoSubsidio" 
+                    (change)="tipoFallecidoselect($event)" name="idTipoSubsidio">
+                    <mat-radio-button name="opciones" [value]="1" >Familiar Directo</mat-radio-button>
+                    <mat-radio-button name="opciones" [value]="2" [checked]="true">Titular</mat-radio-button>
+                </mat-radio-group>
+                 
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('actaDefuncion')">
+                <mat-label [mineduFormRequiredLabel]="form.get('actaDefuncion')">N° Acta Defunción</mat-label>
+                    <input matInput 
+                        maxlength="20"
+                        formControlName="actaDefuncion" 
+                        placeholder="Acta Defunción" 
+                        (keypress)="onKeyPress($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('actaDefuncion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>  
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <minedu-datepicker label="Fecha de Defunción" *ngIf="!tipoFallecidoFamiliar"
+                    [mineduFormControl]="form.get('fechaDefuncion')"
+                    [formControl]="form.get('fechaDefuncion')"
+                    >
+                </minedu-datepicker>
+            </div> 
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+               
+            </div> 
+        </div>
+        
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" *ngIf="tipoFallecidoFamiliar">
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Fecha de Defunción</label>
+                    <p class="form-control-static" *ngIf="form.get('fechaDefuncion').value">
+                        {{form.get('fechaDefuncion').value | date: 'dd/MM/yyyy' }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('fechaDefuncion').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Documento</label>
+                    <p class="form-control-static" *ngIf="form.get('numeroDocumentoIdentidadDefuncion').value">
+                        {{ form.get('descripcionTipoDocumentoIdentidadDefuncion').value +" "+ form.get('numeroDocumentoIdentidadDefuncion').value }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('numeroDocumentoIdentidadDefuncion').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Apellidos y Nombres</label>
+                    <p class="form-control-static" *ngIf="form.get('nombresDefuncion').value">
+                        {{form.get('primerApellidoDefuncion').value+" "+form.get('segundoApellidoDefuncion').value+" "+ form.get('nombresDefuncion').value }}</p>
+                    <p class="form-control-static" *ngIf="!form.get('nombresDefuncion').value">No registrado</p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Parentesco</label>
+                    <p class="form-control-static" *ngIf="form.get('parentescoDefuncion').value!=null">
+                        {{form.get('parentescoDefuncion').value}}</p>
+                    <p class="form-control-static" *ngIf="form.get('parentescoDefuncion').value==null">No registrado</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap"  fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" >
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('numeroInformeCalculo')" >
+                <mat-label [mineduFormRequiredLabel]="form.get('numeroInformeCalculo')">Número Informe Cálculo</mat-label>
+                    <input matInput 
+                        formControlName="numeroInformeCalculo" 
+                        placeholder="Número Informe Escalafonario" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressnumeroInformeCalculo($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroInformeCalculo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <button type="button" mat-stroked-button color="primary"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    (click)="handleBuscarInformeCalculo()" 
+                    color="accent"
+                    [disabled]="true">
+                    <span class="material-icons">description</span>
+                        BUSCAR
+                    </button>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <minedu-datepicker label="Fecha de inicio"
+                    [mineduFormControl]="form.get('fechaBeneficio')"
+                    [formControl]="form.get('fechaBeneficio')"
+                    >
+                </minedu-datepicker>
+            </div>  
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo"
+                        (change)="selectConInformeCalculo()" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>                  
+                </div>
+            </div> 
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" *ngIf="tipoFallecidoFamiliar">
+                <mat-label [mineduFormRequiredLabel]="form.get('importeBeneficio')" >Importe del Beneficio</mat-label>
+                    <input matInput 
+                        formControlName="importeBeneficio" 
+                        placeholder="Importe del beneficio" 
+                        [maxLength]="7"
+                        (keypress)="onKeyPressImporteBeneficio($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('importeBeneficio')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>                           
+        </div>
+        <div class="panel panel-primary" style="width: 100%;" >
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-2" style="width: 100%;" *ngIf="!tipoFallecidoFamiliar"> 
+                <div mat-dialog-actions class="p-0" fxLayout="row" >
+                    <button  mat-stroked-button color="primary" class="ml-4" 
+                    (click)="handleAgregar($event)" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">add_circle</span>AGREGAR
+                    </button>
+                    <br/>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="content" mineduPerfectScrollbar>
+                    <div class="content-table" style="overflow-x: auto;">
+                        <div fxLayout="row" fxLayout.lt-md="column" *ngIf="!tipoFallecidoFamiliar">
+                            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" 
+                                style="width: 130%">
+                                <ng-container matColumnDef="numero">
+                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" fxFlex.xs="100%">
+                                        <span class="mobile-label">N°:</span>
+                                        {{ row.numero }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="parentesco">
+                                    <mat-header-cell *matHeaderCellDef>Parentesco</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="mobile-label">Parentesco:</span> 
+                                            {{ row.parentescoTexto }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipoDocumento">
+                                <mat-header-cell *matHeaderCellDef>Tipo de Documento</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" >
+                                        <div >
+                                            <span class="mobile-label">Tipo de Documento:</span> 
+                                            {{ row.tipoDocumentoIdentidadTexto }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="documento">
+                                    <mat-header-cell *matHeaderCellDef>Nro Documento</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index" fxFlex.xs="100%">
+                                        <div >
+                                            <span class="mobile-label">Nro Documento:</span> 
+                                            {{ row.numeroDocumentoIdentidad }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="estadoRENIEC">
+                                    <mat-header-cell *matHeaderCellDef>Estado RENIEC</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div>
+                                            <span class="mobile-label">Estado RENIEC:</span> 
+                                            {{ row.estadoReniecTexto }}
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="nombres">
+                                    <mat-header-cell *matHeaderCellDef>Apellidos y Nombre</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div >
+                                            <span class="mobile-label">Apellidos y Nombre:</span> 
+                                            {{ row.nombres }}
+                                        </div>
+                                       
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="importeBeneficio">
+                                    <mat-header-cell *matHeaderCellDef>Monto único S/.</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        <div >
+                                            <span class="mobile-label">Monto único S/.:</span> 
+                                            {{ row.importeBeneficio | currency:'':''}}
+                                        </div>
+                                       
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="acciones">
+                                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let  i = index;">
+                                        <div fxLayout="row" fxLayoutAlign="start start">
+                                            <div class="mat-icon-table" >
+                                                <button mat-stroked-button color="primary"
+                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                    aria-label="Editar"
+                                                    matTooltip="Editar"
+                                                    (click)="handleEditarBeneficiario(row)">
+                                                    <mat-icon class="">edit</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div class="mat-icon-table" >
+                                                <button mat-stroked-button color="primary"
+                                                    class="sidebar-toggle btn-sm ml-2" 
+                                                    aria-label="Eliminar"
+                                                    matTooltip="Eliminar"
+                                                    (click)="handleEliminarBeneficiario(row,i)">
+                                                    <mat-icon class="">delete</mat-icon>
+                                                </button>
+                                            </div>
+                                           
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true">
+                                </mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                            </mat-table>
+                        </div>
+                        <div *ngIf="!tipoFallecidoFamiliar">
+                            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                No se encontraron registros
+                            </div>
+                        </div>
+                        <div #divpaginator>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+</div>

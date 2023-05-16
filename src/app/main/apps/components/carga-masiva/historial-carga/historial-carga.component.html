@@ -1,0 +1,166 @@
+<div class="content">
+    <div fxLayout="column" class="pl-2 pr-2">
+
+        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+            <div mat-dialog-actions fxLayout="row">
+                <button mat-stroked-button color="primary" (click)="exportarHistorial()" class="ml-4"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                        class="material-icons">get_app</span> Exportar</button>
+            </div>
+        </div>
+
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Cargas masivas procesados</legend>
+            <div fxLayout="column" fxFlex="100%" class="content-table scroll-grid">
+
+                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                    <ng-container matColumnDef="index">
+                        <th mat-header-cell *matHeaderCellDef>Nro</th>
+                        <td mat-cell *matCellDef="let row; let i = index;">
+                            <p>{{row.registro}}</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idCarga">
+                        <th mat-header-cell *matHeaderCellDef class="d-none">idCarga</th>
+                        <td mat-cell *matCellDef="let row" class="d-none">
+                            <p *ngIf="row.idCarga">{{row.idCarga}}</p>
+                            <p *ngIf="!row.idCarga">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idFormato">
+                        <th mat-header-cell *matHeaderCellDef class="d-none">idFormato</th>
+                        <td mat-cell *matCellDef="let row" class="d-none">
+                            <p *ngIf="row.idFormato">{{row.idFormato}}</p>
+                            <p *ngIf="!row.idFormato">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="formato">
+                        <th mat-header-cell *matHeaderCellDef>Formato</th>
+                        <td mat-cell *matCellDef="let row">
+                            <p *ngIf="row.formato">{{row.formato}}</p>
+                            <p *ngIf="!row.formato">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombreArchivo">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Nombre de Archivo</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.nombreArchivo">{{row.nombreArchivo}}</p>
+                            <p *ngIf="!row.nombreArchivo">No registrado</p>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="usuario">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Usuario</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.usuario">{{row.usuario}}</p>
+                            <p *ngIf="!row.usuario">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaCarga">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Fecha de Carga</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.fechaCarga">{{row.fechaCarga | date:'dd/MM/yyyy'}}</p>
+                            <p *ngIf="!row.fechaCarga">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="registrosCorrectos">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Registros Correctos</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.registrosCorrectos">{{row.registrosCorrectos}}</p>
+                            <p *ngIf="!row.registrosCorrectos">{{row.registrosCorrectos}}</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="registrosErrados">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Registros con Errores</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.registrosErrados">{{row.registrosErrados}}</p>
+                            <p *ngIf="!row.registrosErrados">{{row.registrosErrados}}</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Estado</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p class="text-truncate badge" [ngClass]="{
+                                        'orange-500':row.codigoEstado == EstadoCargaMasiva.EnProcesoCarga,                                             
+                                        'green-600':row.codigoEstado == EstadoCargaMasiva.Cargado,
+                                        'orange-600':row.codigoEstado == EstadoCargaMasiva.EnProcesoValidacion,
+                                        'green-700':row.codigoEstado == EstadoCargaMasiva.Validado,
+                                        'orange-700':row.codigoEstado == EstadoCargaMasiva.ProcesandoCarga,
+                                        'green-800':row.codigoEstado == EstadoCargaMasiva.Procesado,
+                                        'red-600':row.codigoEstado == EstadoCargaMasiva.Anulado,
+                                        'red-500':row.codigoEstado == EstadoCargaMasiva.CargadoConError,
+                                        'red-700':row.codigoEstado == EstadoCargaMasiva.ValidadoConError}"
+                                *ngIf="row.idEstado">
+                                {{row.estado}}
+                            </p>
+                            <p *ngIf="!row.estado">No registrado</p>
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef>Acción</th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-stroked-button color="primary" class="btn-sm ml-4" matTooltip="Ver detalle"
+                                *ngIf="row.codigoEstado != EstadoCargaMasiva.Procesado"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="ver(row )">
+                                <mat-icon class="">visibility</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; "></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+                <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                    [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                    *ngIf="dataSource.loading | async">
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <div fxLayout="row" fxFlex="100%">
+                    <div fxLayout="column" fxFlex="90%" fxFlex.xs="100%" fxLayoutAlign="center center">
+                        <mat-paginator #paginatorCargaMasivaHistorial class="mat-paginator-sticky"
+                            [length]="dataSource.totalRegistros" [pageIndex]="this.globals.paginatorPageIndex"
+                            [pageSize]="this.globals.paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]"
+                            showFirstLastButtons></mat-paginator>
+                    </div>
+                    <div fxLayout="column" fxFlex="10%" fxFlex.xs="100%" fxLayoutAlign="center end">
+                        <mat-label><strong>Total Registro:&nbsp;</strong> {{ dataSource.totalRegistros }} </mat-label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="animated fadeIn" [hidden]="!verDetalle">
+            <mat-tab-group detalle mat-align-tabs="start start" class="animated fadeIn fast">
+                <mat-tab det1 label="Detalle Carga Procesada">
+                    <minedu-archivo-carga class="animated fadeIn fast" (cerrarDetalleCarga)="cerrar($event)">
+                    </minedu-archivo-carga>
+                </mat-tab>
+                <mat-tab det3 disabled>
+                    <ng-template mat-tab-label>
+                        <button mat-icon-button (click)="cerrar_carga()">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+    </div>
+</div>

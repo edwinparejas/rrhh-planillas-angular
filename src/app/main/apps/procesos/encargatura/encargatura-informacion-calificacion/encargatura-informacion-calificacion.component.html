@@ -1,0 +1,156 @@
+<!-- Inicio Breadcrumb -->
+<div fxLayout="row" fxLayout.lt-md="column">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="30%">
+            <h3 class="titulo">Revisar Requisitos y Condiciones</h3>
+        </div>
+        <div fxFlex="70%">
+            <ol class="breadcrumb pull-right">
+                <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Personal</a></li>
+                <li><a [routerLink]="['/ayni/personal/inicio']"> Desarrollo de procesos</a></li>
+                <li><a [routerLink]="['/ayni/personal/procesospersonal/procesos/encargatura']"> Encargatura</a></li>
+                <li><a (click)="irCalificacion()"> Calificación</a></li>
+                <li class="active"><a (click)="irInformacionCalificacion()"> Revisar Requisitos y Condiciones</a></li>
+
+            </ol>
+        </div>
+    </div>
+</div>
+<!-- Fin Breadcrumb -->
+<div class="page-layout carded fullwidth inner-scroll p-0">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <div class="panel">
+                <div class="panel-body">                    
+                    <minedu-datos-postulante-encargatura [idPostulacion]="idPostulacion" [TituloSeccion]="TituloSeccion"></minedu-datos-postulante-encargatura>
+                    <div fxLayout="column">
+                        <div class="content mb-2">
+                            <mat-tab-group>
+                                <mat-tab *ngFor="let rubro of rubrosCalificacion; let j = index;" label="{{ j + 1 }}. {{ rubro.descripcionRubroCalificacion }}">
+                                    <div class="content-table">
+                                        <ng-container *ngIf="rubro.codigoTipoPuntaje == tipoPuntajeEnum.Cumple; else puntaje">
+                                            <mat-table class="minedu-table" [dataSource]="rubro['listaMaestroCriterioCalificacion']" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }">
+                                                <ng-container matColumnDef="codigoCriterio">
+                                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.codigoCriterio }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="descripcionCriterio">
+                                                    <mat-header-cell *matHeaderCellDef>{{ rubro.descripcionRubroCalificacion }}</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.descripcionCriterio }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="cumpleDocumento">
+                                                    <mat-header-cell *matHeaderCellDef>Cumple</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        <mat-checkbox [checked]="row.cumpleDocumento" [disabled]="true"></mat-checkbox>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayedColumnsCumple; sticky: true"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayedColumnsCumple"></mat-row>
+                                            </mat-table>
+                                        </ng-container>
+                                        <ng-template #puntaje>
+                                            <mat-table class="minedu-table" [dataSource]="rubro['listaMaestroCriterioCalificacion']" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }">
+                                                <ng-container matColumnDef="codigoCriterio">
+                                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.codigoCriterio }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="descripcionCriterio">
+                                                    <mat-header-cell *matHeaderCellDef>Criterio de Evaluacion</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.descripcionCriterio }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="puntajeMaximo">
+                                                    <mat-header-cell *matHeaderCellDef>Puntaje Maximo</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        {{ row.puntajeMaximo }}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="puntajeUnidad">
+                                                    <mat-header-cell *matHeaderCellDef>Puntaje Unidad</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        <ng-container *ngIf="isTrueSet(row.puntajeMaximoUnidad)">
+                                                            {{ row.puntajeMaximoUnidad }} puntos c/u
+                                                        </ng-container>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="acreditaDocument">
+                                                    <mat-header-cell *matHeaderCellDef>Acredita document</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        <ng-container *ngIf="!row.tieneSubCriterio && !row.esPuntajeTotalRubro">
+                                                            <ng-container *ngIf="row.esSeleccionExcluyente; else seleccionMultiple">
+                                                                <mat-radio-button [checked]="row.acreditaDocument" [disabled]="true"></mat-radio-button>
+                                                            </ng-container>
+                                                            <ng-template #seleccionMultiple>
+                                                                <mat-checkbox [checked]="row.acreditaDocument" [disabled]="true"></mat-checkbox>
+                                                            </ng-template>
+                                                        </ng-container>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="sustento">
+                                                    <mat-header-cell *matHeaderCellDef>Sustento</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        <ng-container *ngIf="row.acreditaDocument && !row.tieneSubCriterio">
+                                                            <span class="material-icons">picture_as_pdf</span>
+                                                        </ng-container>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="cantidadCertificad">
+                                                    <mat-header-cell *matHeaderCellDef>Cantidad Certificad</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        <input *ngIf="isTrueSet(row.puntajeMaximoUnidad)" class="text-box"  value="{{ row.cantidadUnidad }}">
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="puntajeObtenido">
+                                                    <mat-header-cell *matHeaderCellDef>Puntaje Obtenido</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                        <ng-container *ngIf="row.esPuntajeTotalRubro; else puntajeObtenido">
+                                                            <span class="puntaje" style="width: 100%; border: 0 !important;text-align: center;">{{ rubro.puntajeTotalRubro }}</span>
+                                                        </ng-container>
+                                                        <ng-template #puntajeObtenido>
+                                                            <input class="text-box" value="{{ row.puntajeObtenido }}" 
+                                                            [disabled]="true" 
+                                                            style="border: 0 !important;text-align: center;">
+                                                        </ng-template>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayedColumnsPuntaje; sticky: true"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayedColumnsPuntaje"></mat-row>
+                                            </mat-table>
+                                            <h3 class="text-center">
+                                                <strong>PUNTAJE FINAL DE LA EVALUACION DE EXPEDIENTE: <span class="puntaje">{{ rubro.puntajeTotalRubro }}</span> PUNTOS</strong>
+                                            </h3>
+                                        </ng-template>
+                                    </div>
+                                    <br>
+                                    <div class="mt-2" fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+                                        <div>
+                                            <span class="label">Anotaciones</span>
+                                            <br>
+                                            <span class="label-normal">{{ calificacion.anotacionesCalificacion || 'NO REGISTRADO' }}</span>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="mb-2" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutAlign.xs="stretch">
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column" fxLayoutGap="3px"></div>
+                        <div fxLayout="row" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="3px">
+                            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">arrow_back</span> RETORNAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

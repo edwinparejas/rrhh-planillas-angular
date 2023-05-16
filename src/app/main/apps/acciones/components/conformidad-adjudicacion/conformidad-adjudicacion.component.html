@@ -1,0 +1,276 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title"> Conformidad de adjudicación efectuada mediante proceso</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+            <fieldset class="fieldset-border">
+                <legend>Datos personales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Documento de identidad</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.numeroDocumentoIdentidad">
+                                    {{adjudicacion.numeroDocumentoIdentidad}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.numeroDocumentoIdentidad">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Primer apellido</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.primerApellido">
+                                    {{adjudicacion.primerApellido}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.primerApellido">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Segundo apellido</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.segundoApellido">
+                                    {{adjudicacion.segundoApellido}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.segundoApellido">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Nombres</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.nombres">{{adjudicacion.nombres}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.nombres">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Estado civil</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.estadoCivil">
+                                    {{adjudicacion.estadoCivil}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.estadoCivil">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Sexo</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.sexo">{{adjudicacion.sexo}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.sexo">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Fecha de nacimiento</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.fechaNacimiento">
+                                    {{adjudicacion.fechaNacimiento}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.fechaNacimiento">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border">
+                <legend>Datos laborales</legend>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Código de plaza</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.codigoPlaza">
+                                    {{adjudicacion.codigoPlaza}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.codigoPlaza">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Instancia de gestión educativa descentralizada</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.iged">{{adjudicacion.iged}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.iged">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Centro de trabajo</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.centroTrabajo">
+                                    {{adjudicacion.centroTrabajo}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.centroTrabajo">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Régimen laboral</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.regimenLaboral">
+                                    {{adjudicacion.regimenLaboral}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.regimenLaboral">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Tipo de plaza</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.tipoPlaza">{{adjudicacion.tipoPlaza}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.tipoPlaza">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Escala magisterial</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.escalaMagisterial">
+                                    {{adjudicacion.escalaMagisterial}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.escalaMagisterial">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Modalidad</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.modalidad">{{adjudicacion.modalidad}}
+                                </p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.modalidad">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Nivel educativo</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.nivelEducativo">
+                                    {{adjudicacion.nivelEducativo}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.nivelEducativo">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Área currícular</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.areaCurricular">
+                                    {{adjudicacion.areaCurricular}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.areaCurricular">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Cargo</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.cargo">{{adjudicacion.cargo}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.cargo">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Jornada laboral</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.jornadaLaboral">
+                                    {{adjudicacion.jornadaLaboral}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.jornadaLaboral">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Motivo de vacancia</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.motivoVacancia">
+                                    {{adjudicacion.motivoVacancia}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.motivoVacancia">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset-border mb-12">
+                <legend>Acción de personal</legend>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Grupo de acción</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.grupoAccion">
+                                    {{adjudicacion.grupoAccion}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.grupoAccion">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Acción</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.accion">{{adjudicacion.accion}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.accion">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Motivo acción</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.motivoAccion">
+                                    {{adjudicacion.motivoAccion}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.motivoAccion">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Mandato judicial</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.mandatoJudicial">
+                                    {{adjudicacion.mandatoJudicial}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.mandatoJudicial">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Fecha de inicio</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.fechaInicio">
+                                    {{adjudicacion.fechaInicio}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.fechaInicio">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group">
+                                <label for="">Fecha de término</label>
+                                <p class="form-control-static" *ngIf="adjudicacion.fechaTermino">
+                                    {{adjudicacion.fechaTermino}}</p>
+                                <p class="form-control-static" *ngIf="!adjudicacion.fechaTermino">NO REGISTRADO</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" type="button"
+            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}" (click)="handleEsConforme()"><span
+                class="material-icons">check_circle_outline</span>
+            Es conforme</button>
+        <button mat-stroked-button color="primary" type="button" class="ml-8 mr-8" (click)="handleNoConforme()"
+            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+            <span class="material-icons">highlight_off</span> No está conforme
+        </button>
+        <button mat-raised-button type="button" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+            (click)="dialogRefConfAdju.close()">
+            <span class="material-icons">close</span> Cerrar
+        </button>
+    </div>
+</div>

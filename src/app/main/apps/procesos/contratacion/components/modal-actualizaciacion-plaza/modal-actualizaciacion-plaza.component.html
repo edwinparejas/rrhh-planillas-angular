@@ -1,0 +1,73 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Actualización de datos</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-20 pb-0 m-0">
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <span>Se encontró diferencia de información en los siguientes campos:</span>
+        <!-- class="fieldset-border mt-0 mb-12" -->
+        <fieldset style="border: none">
+            <!-- <legend>Ver Listado de Documentos</legend> -->
+            <div class="content-table">
+                <div fxLayout="row">
+                    <mat-table class="minedu-table" #table [dataSource]="dataSourcePlazasModificadas" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" style="width: 100%">
+                        <ng-container matColumnDef="registro">
+                            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <p>{{ i + 1 }}</p>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="campo">
+                            <mat-header-cell *matHeaderCellDef>Campo</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{ row.campo }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="dataOriginal">
+                            <mat-header-cell *matHeaderCellDef>Data original</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{ row.dataOriginal }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="dataActualizada">
+                            <mat-header-cell *matHeaderCellDef>Data Actualizada</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index" align="center">
+                                {{ row.dataActualizada }}
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumnsDocumentosPublicados; sticky: true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsDocumentosPublicados" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                        </mat-row>
+                    </mat-table>
+                </div>
+                <div class="no-results" *ngIf="!(dataSourcePlazasModificadas.loading | async)" [style.display]="dataSourcePlazasModificadas.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSourcePlazasModificadas.loading | async">
+                    pageSize
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <mat-paginator #paginatorPlazasActualizadas class="mat-paginator-sticky" [length]="dataSourcePlazasModificadas.dataTotal" fxLayoutAlign="center center" [pageIndex]="paginatorPlazasActualizadasPageIndex" [pageSize]="paginatorPlazasActualizadasPageSize" [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </fieldset>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">create</span>ACTUALIZAR DATOS</button>
+        </div>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>CANCELAR</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,119 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <div class="mb-2">
+            <span class="minedu-note">La plaza cuenta con los siguientes registros.</span>
+        </div>
+        <br>
+
+        <div class="panel">
+
+            <div class="panel-body">
+
+                <div class="content" mineduPerfectScrollbar>
+                    <div class="content-table" ngClass.lt-lg="scroll-grid">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                                                
+                            <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+        
+                                <ng-container matColumnDef="seleccione">
+                                    <mat-header-cell *matHeaderCellDef>Sel.</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = indice;">                                        
+                                        <mat-radio-button [checked]="selection.isSelected(row)" (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null" [aria-label]="checkboxLabel(row)">
+                                        </mat-radio-button>                                        
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="codigoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Código Plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label"></span> {{row.codigo_plaza}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="regimenLaboral">
+                                    <mat-header-cell *matHeaderCellDef>Régimen Laboral</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label"> </span>{{row.descripcion_regimen_laboral}}
+                                    </mat-cell>
+                                </ng-container> 
+                                <ng-container matColumnDef="tipoPlaza">
+                                    <mat-header-cell *matHeaderCellDef>Tipo de plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label"> </span>{{row.descripcion_tipo_plaza}}
+                                    </mat-cell>
+                                </ng-container> 
+                                <ng-container matColumnDef="condicion">
+                                    <mat-header-cell *matHeaderCellDef>Condición</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label"> </span>{{row.descripcion_condicion}}
+                                    </mat-cell>
+                                </ng-container> 
+                                <ng-container matColumnDef="estadoPlaza">
+                                    <mat-header-cell *matHeaderCellDef >Estado plaza</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;" >
+                                        <span class="mobile-label"></span> {{row.descripcion_estado_plaza}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigenciaInicio">
+                                    <mat-header-cell *matHeaderCellDef >Vigencia inicio</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;" >
+                                        <span class="mobile-label"></span> {{row.vigencia_inicio_str}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="vigenciaFin">
+                                    <mat-header-cell *matHeaderCellDef >Vigencia Fin</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;" >
+                                        <span class="mobile-label"></span> {{row.vigencia_fin_str}}
+                                    </mat-cell>
+                                </ng-container>                                
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                                <mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
+                                (dblclick)="matDialogRef.close(selectedRow(row))"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                [@animate]="{value:'*',params:{y:'100%'}}">
+                            </mat-row>
+                            </table>
+                        
+                        </div>
+                        <div class="no-results" *ngIf="!(dataSource?.loading | async)"
+                                [style.display]="dataSource?.length === 0 ? '' : 'none'">
+                                No se encontraron registros 
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                *ngIf="dataSource?.loading | async">
+                                <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        
+
+    </div>
+
+    <div mat-dialog-actions class="panel-footer m-0 p-8" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+            (click)="handleSeleccionar()"><span class="material-icons">done</span>
+            SELECCIONAR</button>
+        <minedu-button-cancel (mineduOnCancel)="handleCancel()"></minedu-button-cancel>
+    </div>
+    
+</div>

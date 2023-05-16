@@ -1,0 +1,17 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+:host {
+    width: 100%;
+}
+
+minedu-cabecera-plaza-postulacion-encargatura {
+    width: 100%;
+    
+    .mb-2, .my-2 {
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .mt-2, .my-2 {
+        margin-top: 0.8rem !important;
+    }
+}

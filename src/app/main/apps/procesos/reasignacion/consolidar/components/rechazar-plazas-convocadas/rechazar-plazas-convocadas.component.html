@@ -1,0 +1,115 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="panel" fusePerfectScrollbar>
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Documento de identidad</span><br>
+                        <span class="label-normal">{{pro_apro}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos delsolicitante</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <label class="label">Nombre instancia solicitante</label><br>
+                            <span class="label-normal">{{inst_soli}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <label class="label">Usuario solicitante</label><br>
+                            <span class="label-normal">{{usua_soli}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <label class="label">Fecha de solicitud</label><br>
+                            <span class="label-normal">{{fech_soli}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos del Aprobador</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <label class="label">Nombre instancia aprobador</label><br>
+                            <span class="label-normal">{{inst_apro}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <label class="label">Usuario aprobador</label><br>
+                            <span class="label-normal">{{usua_apro}}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <label class="label">Fecha de aprobación/rechazo</label><br>
+                            <span class="label-normal">{{fech_apro}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Detalles del motivo de rechazo</legend>
+            <form class="parrafo" [formGroup]="form">
+                <ng-container [ngSwitch]="true" class="parrafo">
+                    <ng-container *ngSwitchCase="action === 'RECHAZAR'">
+                        <mat-form-field class="parrafo" appearance="fill">
+                            <mat-label>Motivo de rechazo</mat-label>
+                            <textarea matInput formControlName="motivoRechazo"
+                                placeholder="Debe de ingresar el motivo de rechazo..."></textarea>
+                        </mat-form-field>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="action === 'MOTIVO'">
+                        <mat-form-field class="parrafo-text" appearance="fill">
+                            <div>
+                                <span class="label-normal">{{motivo}}</span>
+                            </div>
+                        </mat-form-field>
+                    </ng-container>
+                </ng-container>
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="panel-footer">
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-stroked-button class="rechazar" (click)="aprobarRechazar('RECHAZAR')">
+                <span class="material-icons">close</span>
+                Rechazar
+            </button>
+            <button mat-stroked-button color="primary" (click)="handleCancel()">
+                <span class="material-icons">close</span>
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+
+</div>

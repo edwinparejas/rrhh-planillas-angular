@@ -1,0 +1,100 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Agregar Vacaciones Truncas</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="formVacaciones">
+            <fieldset class="fieldset-border">
+                <legend>Detalle Vacaciones Truncas</legend>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="formVacaciones.get('mesInicioVacacionesTruncas')" >
+                            <mat-label [mineduFormRequiredLabel]="formVacaciones.get('mesInicioVacacionesTruncas')">Mes Inicio</mat-label>
+                            <mat-select formControlName="mesInicioVacacionesTruncas" >
+                                <mat-option *ngFor="let item of comboLists.listMesInicio" [value]="item.value">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formVacaciones.get('mesInicioVacacionesTruncas')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="formVacaciones.get('mesFinVacacionesTruncas')" >
+                            <mat-label [mineduFormRequiredLabel]="formVacaciones.get('mesFinVacacionesTruncas')">Mes Fin</mat-label>
+                            <mat-select formControlName="mesFinVacacionesTruncas">
+                                <mat-option *ngFor="let item of comboLists.listMesFin" [value]="item.value">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formVacaciones.get('mesFinVacacionesTruncas')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <minedu-datepicker mode="YEAR" label="Año" appearance="fill" fxFlex="50%" fxFlex.xs="100%"
+                            [mineduFormControl]="formVacaciones.get('anioVacacionesTruncas')" [formControl]="formVacaciones.get('anioVacacionesTruncas')"
+                            [max]="now"></minedu-datepicker>
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="formVacaciones.get('cantidadMeses')" >
+                            <mat-label [mineduFormRequiredLabel]="
+                            formVacaciones.get('cantidadMeses')
+                                ">Cantidad Meses</mat-label>
+                            <input matInput formControlName="cantidadMeses" placeholder="Cantidad Meses" maxlength="2"
+                             (keypress)="onKeyPresscantidadMeses($event)"/>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="
+                                formVacaciones.get('cantidadMeses')
+                                    ">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="formVacaciones.get('importeRemuneracionMensual')" >
+                            <mat-label [mineduFormRequiredLabel]="
+                            formVacaciones.get('importeRemuneracionMensual')
+                                ">Remuneración Mensual</mat-label>
+                            <input matInput formControlName="importeRemuneracionMensual" placeholder="Remuneración Mensual" 
+                                maxLength="7"
+                                uppercase 
+                                (keypress)="onKeyPressDecimal($event)"/>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="
+                                formVacaciones.get('importeRemuneracionMensual')
+                                    ">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="formVacaciones.get('importeBeneficio')" >
+                            <mat-label [mineduFormRequiredLabel]="
+                            formVacaciones.get('importeBeneficio')
+                                ">Monto a Pagar</mat-label>
+                            <input matInput formControlName="importeBeneficio" placeholder="Monto a Pagar" 
+                                maxLength="7" uppercase 
+                                (keypress)="onKeyPressDecimal($event)"/>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="
+                                formVacaciones.get('importeBeneficio')
+                                    ">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <br>
+        
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleGuardar()"><span class="material-icons">save</span> GUARDAR</button>
+        <button mat-raised-button (click)="cancelar()"><span class="material-icons">cancel</span> CANCELAR</button>
+    </mat-dialog-actions>
+</div>

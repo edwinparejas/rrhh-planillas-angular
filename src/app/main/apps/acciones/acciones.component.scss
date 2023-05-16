@@ -1,0 +1,69 @@
+@import "@minedu/scss/minedu";
+:host{
+    width: 100%;
+}
+
+minedu-acciones {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    
+    h3,
+    .h3 {
+        font-size: 16px;
+    }
+
+    .sidebar {
+
+        &:not(.locked-open) {
+            background: white;
+        }
+    }
+
+    .center {
+        .content-card {                
+
+            @include media-breakpoint(xs) {               
+                &.current-selected {
+                    .toolbar {
+                        padding-left: 16px !important;                       
+                    }
+                    .content {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }   
+
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            >h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }   
+    }   
+   
+    .box-shadow {
+        -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+}

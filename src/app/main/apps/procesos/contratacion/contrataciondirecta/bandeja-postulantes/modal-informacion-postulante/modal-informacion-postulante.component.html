@@ -1,0 +1,427 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-10 pb-0 m-0">
+        <fieldset class="fieldset-border">
+            <legend>Datos personales</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Documento: </label>
+                            <p class="form-control-static" *ngIf="postulante.numeroDocumentoCompleto">
+                                {{ postulante.numeroDocumentoCompleto }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Primer Apellido: </label>
+                            <p class="form-control-static" *ngIf="postulante.primerApellido">
+                                {{ postulante.primerApellido }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Segundo Apellido: </label>
+                            <p class="form-control-static" *ngIf="postulante.segundoApellido">
+                                {{ postulante.segundoApellido }}</p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Nombres: </label>
+                            <p class="form-control-static" *ngIf="postulante.nombres">
+                                {{ postulante.nombres }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Sexo: </label>
+                            <p class="form-control-static" *ngIf="postulante.descripcionGenero">
+                                {{ postulante.descripcionGenero }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Fecha de nacimiento: </label>
+                            <p class="form-control-static" *ngIf="postulante.fechaNacimiento">
+                                {{ postulante.fechaNacimiento }}</p>
+                        </div>
+                    </div>                        
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Edad: </label>
+                            <p class="form-control-static" *ngIf="postulante.edad">
+                                {{ postulante.edad }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Nacionalidad: </label>
+                            <p class="form-control-static" >
+                                {{ postulante.nacionalidad?postulante.nacionalidad:'PERUANO' }}
+                            </p>
+                            <!-- numeroDocumentoCompleto.split(':')[0].toString()=='DNI'?'PERUANO':''  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset><br>
+	<mat-checkbox 
+	   class="label-normal" 
+	   [disabled]="true"
+	   [checked]="postulante.cumpleNormaTecnica">
+	   Según norma técnica vigente, se ha verificado que la persona no cuenta con impedimento para ser postulante (*)
+	</mat-checkbox>
+        <mat-tab-group>
+            <mat-tab label="1. Expediente">
+                <fieldset class="fieldset-border">
+                    <legend>Datos del Expediente</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Número de Expediente: </label>
+                                    <p class="form-control-static" *ngIf="postulante.numeroExpediente">
+                                        {{ postulante.numeroExpediente }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Fecha de Inscripción: </label>
+                                    <p class="form-control-static" *ngIf="postulante.fechaExpediente">
+                                        {{ postulante.fechaExpediente }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="2. Plaza a Postular">
+                <fieldset class="fieldset-border">
+                    <legend>Datos de la Plaza a Postular</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código de Plaza</span><br>
+                                        <span class="label-normal">{{plaza?.codigoPlaza}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Régimen laboral</span><br>
+                                        <span class="label-normal">{{plaza?.regimenLaboral}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Cargo</span><br>
+                                        <span class="label-normal">{{plaza?.cargo}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Jornada Laboral</span><br>
+                                        <span class="label-normal">{{plaza?.jornadaLaboral}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Área Curricular</span><br>
+                                        <span class="label-normal">{{plaza?.areaCurricular}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Especialidad</span><br>
+                                        <span class="label-normal">{{plaza?.especialidad}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de plaza</span><br>
+                                        <span class="label-normal">{{plaza?.tipoPlaza}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Vigencia Inicio</span><br>
+                                        <span class="label-normal">{{plaza?.vigenciaInicio}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Vigencia Fin</span><br>
+                                        <span class="label-normal">{{plaza?.vigenciaFin}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Motivo de vacante</span><br>
+                                        <span class="label-normal">{{plaza?.motivoVacancia}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Código modular</span><br>
+                                        <span class="label-normal">{{plaza?.codigoCentroTrabajo}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Centro de trabajo</span><br>
+                                        <span class="label-normal">{{plaza?.institucionEducativa}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Instancia</span><br>
+                                        <span class="label-normal">{{plaza?.instancia}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Sub Instancia</span><br>
+                                        <span class="label-normal">{{plaza?.subInstancia}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Modalidad</span><br>
+                                        <span class="label-normal">{{plaza?.modalidad}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nivel Educativo</span><br>
+                                        <span class="label-normal">{{plaza?.nivelEducativo}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de IE</span><br>
+                                        <span class="label-normal">{{plaza?.tipoInstitucionEducativa}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de Gestiòn</span><br>
+                                        <span class="label-normal">{{plaza?.tipoGestion}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Dependencia</span><br>
+                                        <span class="label-normal">{{plaza?.dependencia}} </span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Modelo de Servicio</span><br>
+                                        <span class="label-normal">{{plaza?.modeloServicio}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Tipo de Ruralidad</span><br>
+                                        <span class="label-normal">{{plaza?.tipoRuralidad}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">EIB</span><br>
+                                        <span class="label-normal">{{plaza?.ieb ? 'SI' : 'NO'}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Forma de Atención</span><br>
+                                        <span class="label-normal">{{plaza?.formaAtencion}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Lengua Originaria</span><br>
+                                        <span class="label-normal">{{plaza?.lenguaOriginaria}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Frontera</span><br>
+                                        <span class="label-normal">{{plaza?.frontera ? 'SI' : 'NO'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="3. Vinculación Vigente" *ngIf="postulante.tieneVinculacion">
+                <fieldset class="fieldset-border">
+                    <legend>Vinculación Vigente</legend>
+                            <div class="content-table">
+                                    <mat-table 
+				         class="minedu-table" 
+					 #table 
+					 [dataSource]="dataSourcePlazasVinculadas" 
+					 [class.isMobile]="isMobile"
+                                        [@animateStagger]="{ value: '50' }">
+                                        <ng-container matColumnDef="registro">
+                                            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index;">
+                                                <p>{{ i + 1 }}</p>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="instancia">
+                                            <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.instancia }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="sub_instancia">
+                                            <mat-header-cell *matHeaderCellDef>Sub Instancia</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.sub_instancia }} -->
+                                                {{ row.subInstancia }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="centro_trabajo">
+                                            <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.centro_trabajo }} -->
+                                                {{ row.institucionEducativa }}
+
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="nivel_educativo">
+                                            <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.nivel_educativo }} -->
+                                                {{ row.nivelEducativo }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="codigo_plaza">
+                                            <mat-header-cell *matHeaderCellDef>Código de Plaza</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.codigo_plaza }} -->
+                                                {{ row.codigoPlaza }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="tipo_plaza">
+                                            <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.tipo_plaza }} -->
+                                                {{ row.tipoPlaza }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="regimen_laboral">
+                                            <mat-header-cell *matHeaderCellDef>Régimen Laboral</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.regimen_laboral }} -->
+                                                {{ row.regimenLaboral }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="condicion_laboral">
+                                            <mat-header-cell *matHeaderCellDef>Condición Laboral</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.condicion_laboral }} -->
+                                                {{ row.condicionLaboral }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="cargo">
+                                            <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.cargo }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="area_curricular">
+                                            <mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.area_curricular}} -->
+                                                {{ row.areaCurricular}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="jornada_laboral">
+                                            <mat-header-cell *matHeaderCellDef>Jornada Laboral</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.jornada_laboral}} -->
+                                                {{ row.jornadaLaboral}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fecha_inicio">
+                                            <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.fecha_inicio}} -->
+                                                {{ row.vigenciaInicio}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fecha_fin">
+                                            <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                <!-- {{ row.fecha_fin}} -->
+                                                {{ row.vigenciaFin}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumnsPlazas; sticky: true"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumnsPlazas" (mouseover)="row.hovered = true"
+                                            (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                                        </mat-row>
+                                    </mat-table>
+                                <div class="no-results" [style.display]="dataSourcePlazasVinculadas.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+                </fieldset>                            
+            </mat-tab> 
+        </mat-tab-group>
+    </div>
+    <!-- <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div> -->
+    <br>
+    <div class="panel-footer">
+        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10 pr-5">
+            <div mat-dialog-actions class="p-0" fxLayout="row">
+                <button mat-stroked-button (click)="handleCancelar()">
+                    <span class="material-icons">close</span>
+                    CERRAR
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>

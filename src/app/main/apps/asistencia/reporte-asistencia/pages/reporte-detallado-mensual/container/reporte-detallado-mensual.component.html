@@ -1,0 +1,620 @@
+<div class="page-layout carded left-sidebar inner-scroll">
+    <div class="center">
+        <div class="panel mt-12">
+            <div class="panel-body">
+                <div fxLayout="column" fxLayout.lt-md="column" fxLayoutAlign="center center" class="mb-10 mr-10 ml-10">
+                    <div fxLayout="column" fxLayoutAlign="center center">
+                        <h1>REPORTE DETALLADO DE INASISTENCIAS, TARDANZAS Y PERMISOS SIN GOCE</h1>     
+                        <h2>Periodo:  {{descripcionMes}}  - {{anio}} </h2>             
+                    </div>               
+                </div>
+
+                <div fxLayout="column" fxLayout.lt-md="column" fxLayoutAlign="start start" class="mr-10 pl-10">                    
+                    <div fxLayout="column" fxLayoutAlign="start start" class="mb-10 mr-10 pl-10">              
+                        <h2>Centro de trabajo:  {{this.nombreCentroTrabajo}}  </h2>             
+                    </div>                               
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end center" class="mb-10 mr-10 ml-10">                    
+                    <div fxLayout="row" fxLayoutAlign="end center">
+    
+                        <!-- <div class="pl-6 pr-6"  fxLayoutAlign="end center">
+                            <button mat-stroked-button color="primary" [@animate]="{
+                                    value: '*',
+                                    params: { delay: '300ms', scale: '.2' }
+                                }" (click)="handleImprimir()">
+                                <span class="material-icons">get_app</span>
+                                Imprimir
+                            </button>
+                        </div>     -->
+    
+                        <div class="pl-6 pr-6"  fxLayoutAlign="end center">
+                            <button mat-stroked-button color="primary" [@animate]="{
+                                    value: '*',
+                                    params: { delay: '300ms', scale: '.2' }
+                                }" (click)="handleExportar()">
+                                <span class="material-icons">get_app</span>
+                                Exportar
+                            </button>
+                        </div>
+    
+                    </div>      
+                </div>
+    
+                <div fxLayout="column" fxLayout.lt-md="column" class="mb-10 mr-10 ml-10">
+                    <table mat-table class="minedu-table"  [dataSource]="dataSource_1" 
+                            [@animateStagger]="{ value: '50' }" >
+                            
+                            <ng-container matColumnDef="registro">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>N°</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{ row.registro }}</p>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="numeroDocumentoIdentidad">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Documento</th>
+                                <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                    <p>{{ row.numeroDocumentoIdentidad }}</p>
+                                    <!-- <p class="text-truncate badge">{{ row.numeroDocumentoIdentidad }}</p> -->
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="apellidosNombres">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Apellidos y Nombres</th>
+                                <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                    <p class="text-truncate badge">{{ row.apellidosNombres }}</p>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="descripcionRegimenLaboral">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>RÉGIMEN LABORAL</th>
+                                <td mat-cell *matCellDef="let row"  fxHide fxShow.gt-md>
+                                   <!-- <p class="text-truncate badge">{{ row.descripcionRegimenLaboral }}</p>  -->
+                                   <p>{{ row.descripcionRegimenLaboral }}</p>    
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="descripcionCargo">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md> Cargo</th>
+                                <td mat-cell *matCellDef="let row"  fxHide fxShow.gt-md >
+                                    <p>{{ row.descripcionCargo }}</p>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="descripcionCondicionLaboral">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md> Condición laboral</th>
+                                <td mat-cell *matCellDef="let row"  fxHide fxShow.gt-md>
+                                    <p>{{ row.descripcionCondicionLaboral }}</p>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="jornadaLaboral">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md> Jornada laboral</th>
+                                <td mat-cell *matCellDef="let row"  fxHide fxShow.gt-md>
+                                    <p>{{ row.jornadaLaboral }}</p>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="_1">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            1
+                                        </div>
+                                        <div>
+                                            {{cabecera._1}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <p>{{ row._1 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_2">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            2
+                                        </div>
+                                        <div>
+                                            {{cabecera._2}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._2 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_3">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            3
+                                        </div>
+                                        <div>
+                                            {{cabecera._3}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._3 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_4">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            4
+                                        </div>
+                                        <div>
+                                            {{cabecera._4}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._4 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_5">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            5
+                                        </div>
+                                        <div>
+                                            {{cabecera._5}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._5 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_6">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            6
+                                        </div>
+                                        <div>
+                                            {{cabecera._6}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._6 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_7">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            7
+                                        </div>
+                                        <div>
+                                            {{cabecera._7}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._7 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_8">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            8
+                                        </div>
+                                        <div>
+                                            {{cabecera._8}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._8 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_9">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            9
+                                        </div>
+                                        <div>
+                                            {{cabecera._9}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._9 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_10">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            10
+                                        </div>
+                                        <div>
+                                            {{cabecera._10}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._10 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_11">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            11
+                                        </div>
+                                        <div>
+                                            {{cabecera._11}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._11 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_12">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            12
+                                        </div>
+                                        <div>
+                                            {{cabecera._12}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._12 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_13">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            13
+                                        </div>
+                                        <div>
+                                            {{cabecera._13}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._13 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_14">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            14
+                                        </div>
+                                        <div>
+                                            {{cabecera._14}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._14 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_15">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            15
+                                        </div>
+                                        <div>
+                                            {{cabecera._15}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._15 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_16">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            16
+                                        </div>
+                                        <div>
+                                            {{cabecera._16}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._16 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_17">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            17
+                                        </div>
+                                        <div>
+                                            {{cabecera._17}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._17 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_18">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            18
+                                        </div>
+                                        <div>
+                                            {{cabecera._18}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._18 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_19">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            19
+                                        </div>
+                                        <div>
+                                            {{cabecera._19}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._19 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_20">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            20
+                                        </div>
+                                        <div>
+                                            {{cabecera._20}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._20 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_21">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            21
+                                        </div>
+                                        <div>
+                                            {{cabecera._21}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._21 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_22">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            22
+                                        </div>
+                                        <div>
+                                            {{cabecera._22}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._22 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_23">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            23
+                                        </div>
+                                        <div>
+                                            {{cabecera._23}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._23 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_24">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            24
+                                        </div>
+                                        <div>
+                                            {{cabecera._24}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._24 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_25">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            25
+                                        </div>
+                                        <div>
+                                            {{cabecera._25}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._25 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_26">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            26
+                                        </div>
+                                        <div>
+                                            {{cabecera._26}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._26 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_27">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            27
+                                        </div>
+                                        <div>
+                                            {{cabecera._27}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._27 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_28">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            28
+                                        </div>
+                                        <div>
+                                            {{cabecera._28}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._28 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_29">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            29
+                                        </div>
+                                        <div>
+                                            {{cabecera._29}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;" >
+                                    <p>{{ row._29 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_30" >
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            30
+                                        </div>
+                                        <div>
+                                            {{cabecera._30}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._30 }}</p>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="_31"  *ngIf="_31">
+                                <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>
+                                    <div fxLayout="column">
+                                        <div>
+                                            31
+                                        </div>
+                                        <div>
+                                            {{cabecera._31}}
+                                        </div>
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let row;">
+                                    <p>{{ row._31 }}</p>
+                                </td>
+    
+                            </ng-container>
+    
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                                [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                                (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'80%'}}">
+                            </tr>
+                    </table>
+                    <div class="no-results" *ngIf="!(dataSource_1?.loading | async)"
+                            [style.display]="dataSource_1?.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource_1?.loading | async">
+                            <mat-spinner diameter="50"></mat-spinner>
+                    </div>   
+                    <div fxLayout="row" fxFlex="100%" class="animated fadeIn fast" style="background-color: white;" class="pl-6 pr-6">
+                        <div fxLayout="column" fxFlex="100%">
+                            <fieldset class="fieldset-border">
+                                <legend><small>Leyenda de incidencias</small></legend>
+                                <table class="table-leyenda">
+                                    <tbody>
+                                        <tr>
+                                            <td>A: Día laborado</td>
+                                            <td><span style="color: #e54304">I: Inasistencia injustificada</span></td>
+                                            <td><span style="color: #28a745">J: Inasistencia justificada</span><br>(licencia CG, permiso CG y vacaciones)</td>
+                                            <td><span style="color: #007bff">L: Licencia sin goce de remuneraciones</span></td>
+                                            <td><span style="color: #7951b3">P: Permiso sin goce de remuneraciones</span></td>
+                                            <td><span style="color: #b0091f">T: Tardanza</span></td>
+                                            <td><span style="color: #00695C">H: Huelga o paro</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>       
+                            <h6 style="color: #e50b04">(*) El registro de color rojo indica que se realizó una modificación luego de ser devuelto por compensaciones.</h6>                
+                        </div>                            
+                    </div>  
+                    <mat-paginator #paginatorReporteDetallado class="mat-paginator-sticky"
+                    [length]="dataSource_1?.dataTotal" [pageIndex]="0" [pageSize]="20" [pageSizeOptions]="[20, 50, 100, 200]"></mat-paginator>          
+                </div>
+
+            </div>
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                    <div class="pl-6 pr-6" fxLayout="row">
+                        <button mat-stroked-button color="primary"
+                            [@animate]="{ value: '*', params: { delay: '300ms', scale: '.2' } }"
+                            (click)="handleRetornar()">
+                            <span class="material-icons">
+                                keyboard_return</span>
+                            Retornar
+                         </button>
+                    </div>
+                </div>    
+            </div>         
+        </div>
+    </div>
+</div>

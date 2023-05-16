@@ -1,0 +1,176 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Búsqueda de documento de identidad</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Criterios de búsqueda</legend>
+            <form [formGroup]="form" *ngIf="!working">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%" [sisdaFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                            <mat-label [sisdaFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">Tipo de documento
+                            </mat-label>
+                            <mat-select formControlName="idTipoDocumentoIdentidad" (selectionChange)="selectTipoDocumento($event.value)">
+                                <mat-option *ngFor="let item of comboLists.listTipoDocumento" [value]="item.id_catalogo_item">
+                                    {{item.descripcion_catalogo_item}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <sisda-form-field-validation-messages [sisdaFormControl]="form.get('idTipoDocumentoIdentidad')">
+                                </sisda-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%" [sisdaFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                            <mat-label [sisdaFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">Número de documento
+                            </mat-label>
+                            <input matInput formControlName="numeroDocumentoIdentidad" placeholder="Número de documento" (keyup.enter)="buscarPersona()" (keypress)="maxLengthnumeroDocumentoIdentidad==8? validaNumericos($event):true" [maxlength]="maxLengthnumeroDocumentoIdentidad">
+                            <mat-error>
+                                <sisda-form-field-validation-messages [sisdaFormControl]="form.get('numeroDocumentoIdentidad')">
+                                </sisda-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%" [sisdaFormFieldValidationState]="form.get('primerApellido')">
+                            <mat-label [sisdaFormRequiredLabel]="form.get('primerApellido')">Primer apellido
+                            </mat-label>
+                            <input matInput uppercase formControlName="primerApellido" placeholder="Primero apellido" (keypress)="validaLetras($event)" maxlength="30">
+                            <mat-error>
+                                <sisda-form-field-validation-messages [sisdaFormControl]="form.get('primerApellido')">
+                                </sisda-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="30%" fxFlex.xs="100%" [sisdaFormFieldValidationState]="form.get('segundoApellido')">
+                            <mat-label [sisdaFormRequiredLabel]="form.get('segundoApellido')">Segundo apellido
+                            </mat-label>
+                            <input matInput uppercase formControlName="segundoApellido" placeholder="Segundo de documento" (keypress)="validaLetras($event)" maxlength="30">
+                            <mat-error>
+                                <sisda-form-field-validation-messages [sisdaFormControl]="form.get('segundoApellido')">
+                                </sisda-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" fxFlex="40%" fxFlex.xs="100%" [sisdaFormFieldValidationState]="form.get('nombres')">
+                            <mat-label [sisdaFormRequiredLabel]="form.get('nombres')">Nombres</mat-label>
+                            <input matInput uppercase formControlName="nombres" placeholder="Nombres" (keypress)="validaLetras($event)" maxlength="30">
+                            <mat-error>
+                                <sisda-form-field-validation-messages [sisdaFormControl]="form.get('nombres')">
+                                </sisda-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0" fxLayoutAlign="center center">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()"><span
+                                    class="material-icons">clear</span>
+                                LIMPIAR</button>
+                        </div>
+                        <div mat-dialog-actions class="" fxLayout="row" fxLayout="row" fxLayoutAlign="center center">
+                            <button mat-raised-button color="primary" (click)="handleBuscar()"><span
+                                    class="material-icons">search</span> BUSCAR</button>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+            </form>
+        </fieldset>
+        <span class="instruccionesSeleccionar">Doble click en una de las filas de la tabla para seleccionar el documento de identidad</span>
+
+        <div class="content">
+            <div class="content-table" style="overflow: auto;">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <mat-table class="sisda-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+
+                        <ng-container matColumnDef="nro">
+                            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">N°:</span> {{row.nroRegistro}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="numeroDocumentoIdentidadCompleto">
+                            <mat-header-cell *matHeaderCellDef>DOCUMENTO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">DOCUMENTO:</span> {{row.tipoDocumentoIdentidad}}: {{row.numeroDocumentoIdentidad}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="nombreCompleto">
+                            <mat-header-cell *matHeaderCellDef>APELLIDOS Y NOMBRES</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">APELLIDOS Y NOMBRES:</span> {{row.primerApellido}} {{row.segundoApellido}}, {{row.nombres}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="fechaNacimiento">
+                            <mat-header-cell *matHeaderCellDef>FECHA DE NACIMIENTO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">FECHA DE NACIMIENTO:</span> {{row.fechaNacimiento | date:'dd/MM/yyyy'}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="edad">
+                            <mat-header-cell *matHeaderCellDef>EDAD</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">EDAD:</span> {{row.edad}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="nacionalidad">
+                            <mat-header-cell *matHeaderCellDef>NACIONALIDAD</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">NACIONALIDAD:</span> {{row.nacionalidad}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="estadoCivil">
+                            <mat-header-cell *matHeaderCellDef>ESTADO CIVIL</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">ESTADO CIVIL:</span> {{row.estadoCivil}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="estado">
+                            <mat-header-cell *matHeaderCellDef>ESTADO</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <span class="mobile-label">ESTADO:</span> {{row.estado}}
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)" [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                        </mat-row>
+                    </mat-table>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center center">
+                    <div class="no-results" *ngIf="!(dataSource?.loading | async)" [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                        No se encontraron registros
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource?.loading | async">
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center">
+                <mat-paginator fxLayoutAlign="center center" #paginator class="mat-paginator-sticky" [length]="dataSource?.totalregistro" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <!-- <button mat-raised-button color="primary" (click)="handleSelect(form)"><span class="material-icons">ok</span>
+            SELECCIONAR</button> -->
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CERRAR</button>
+    </div>
+</div>

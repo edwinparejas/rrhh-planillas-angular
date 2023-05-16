@@ -1,0 +1,82 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <!--
+                <mat-icon class="mr-4">info</mat-icon>
+                -->
+                <span class="title dialog-title">{{ dialogTitle }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <form [formGroup]="form" *ngIf="!working">
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Situación</span>
+                            <br>
+                            <span class="label-normal">NO AJUDICADO</span>
+                        </div>
+                    </div>
+                </div>
+            </div> <br>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="form.get('idMotivoNoAdjudicacion')">
+                        <mat-label [mineduFormRequiredLabel]="form.get('idMotivoNoAdjudicacion')">
+                            Motivo
+                        </mat-label>
+                        <mat-select formControlName="idMotivoNoAdjudicacion">
+                            <mat-option *ngFor="let item of comboLists.listMotivo" [value]="item.value">
+                                {{item.label}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <minedu-form-field-validation-messages
+                                [mineduFormControl]="form.get('idMotivoNoAdjudicacion')">
+                            </minedu-form-field-validation-messages>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="form.get('observacionNoAdjudicacion')">
+                        <mat-label [mineduFormRequiredLabel]="form.get('observacionNoAdjudicacion')">Anotaciones
+                        </mat-label>
+                        <textarea matInput formControlName="observacionNoAdjudicacion" placeholder="observaciones"
+                            rows="4" maxlength="4000">
+                    </textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </form>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button color="primary" (click)="handleSave()"><span
+                    class="material-icons">save</span>
+                GUARDAR</button>
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span>
+                CANCELAR</button>
+        </div>
+    </div>

@@ -1,0 +1,157 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="form">
+            <div fxLayout="column" fxFlexAlign="flex-start" *ngIf="modal.action!=='info'">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                        <mat-form-field appearance="fill" fxFlex="100%"
+                            [mineduFormFieldValidationState]="form.get('motivoModificacion')">
+                            <mat-label [mineduFormRequiredLabel]="form.get('motivoModificacion')">
+                                Motivo de la modificación
+                            </mat-label>
+                            <textarea matInput formControlName="motivoModificacion"
+                                placeholder="Motivo de la modificación" maxlength="400" matTextareaAutosize
+                                [matAutosizeMinRows]="7" [matAutosizeMaxRows]="20"></textarea>
+                            <mat-error>
+                                <minedu-form-field-validation-messages
+                                    [mineduFormControl]="form.get('motivoModificacion')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <fieldset class="fieldset-border mt-0 mb-2">
+                    <legend>Documento de sustento</legend>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlexAlign="start start" fxLayoutGap="12px">
+                        <div fxFlex="33%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('idTipoDocumento')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumento')">
+                                    Tipo de documento
+                                </mat-label>
+                                <mat-select formControlName="idTipoDocumento">
+                                    <mat-option *ngFor="let item of combo.tiposDocumento"
+                                        [value]="item.idCatalogoItem">
+                                        {{item.descripcionCatalogoItem}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('idTipoDocumento')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="33%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('numeroDocumento')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumento')">
+                                    Número de documento
+                                </mat-label>
+
+                                <input matInput formControlName="numeroDocumento">
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('numeroDocumento')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="33%" fxFlex.xs="100%">
+                            <minedu-single-file-input [mineduFormControl]="form.get('adjuntarDocumento')"
+                                inputText="Adjuntar documento o arrastre aquí"
+                                removeButtonLabel="Eliminar documento adjunto"
+                                noFileText="Sin documento adjunto" (mineduUpload)="handleAdjunto($event)">
+                            </minedu-single-file-input>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div fxLayout="column" fxFlexAlign="flex-start" *ngIf="modal.action==='info'" class="mt-8">
+
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxFlex="100%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Motivo en la modificación</label>
+                            <p class="form-control-static" *ngIf="documentoModificatoria?.motivoModificacion">
+                                {{documentoModificatoria?.motivoModificacion}}
+                            </p>
+                            <p class="form-control-static" *ngIf="!documentoModificatoria?.motivoModificacion">
+                                No registrado
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <fieldset class="fieldset-border mt-4 mb-2"  *ngIf="documentoModificatoria?.descripcionTipoDocumentoSustento || documentoModificatoria?.numeroDocumento || documentoModificatoria?.codigoDocumentoSustento">
+                    <legend>Documento de Sustento</legend>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlexAlign="start start" fxLayoutGap="12px">
+
+                        <div fxFlex="33%" fxFlex.xs="100%" *ngIf="documentoModificatoria?.descripcionTipoDocumentoSustento">
+                            <div class="form-group">
+                                <label class="label" for="">Tipo de documento</label>
+                                <p class="form-control-static">
+                                    {{documentoModificatoria?.descripcionTipoDocumentoSustento}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxFlex="33%" fxFlex.xs="100%" *ngIf="documentoModificatoria?.numeroDocumento">
+                            <div class="form-group">
+                                <label class="label" for="">Número de Documento</label>
+                                <p class="form-control-static">
+                                    {{documentoModificatoria?.numeroDocumento}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div fxFlex="33%" fxFlex.xs="100%" *ngIf="documentoModificatoria?.codigoDocumentoSustento">
+                            <div class="form-group">
+                                <label class="label" for="">Documento adjunto</label>
+                                <p class="form-control-static">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="handleVerDocumentoSustento(documentoModificatoria?.codigoDocumentoSustento)"
+                                        aria-label="Ver sustento de modificación"
+                                        matTooltip="Ver sustento de modificación">
+                                        <mat-icon class="">picture_as_pdf</mat-icon>
+                                    </button>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+
+        <p class="text-danger" *ngIf="modal.action !== 'info'">(*) Datos obligatorios</p>
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <div *ngIf="modal.action === 'create'">
+            <minedu-button-save [mineduForm]="form" (mineduOnClick)="btnGuardar()" [working]="working">
+            </minedu-button-save>
+        </div>
+        <minedu-button-cancel *ngIf="modal.action !== 'info'" (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+        <button mat-raised-button *ngIf="modal.action === 'info'" (click)="handleCancelar()"><span class="material-icons">cancel</span> Cerrar</button>
+
+    </div>
+</div>

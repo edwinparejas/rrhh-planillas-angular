@@ -1,0 +1,92 @@
+@import "@minedu/scss/minedu";
+
+.modal-incidencia-dialog {
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }  
+    
+    @include media-breakpoint("gt-xs") {
+        width: 40%
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+ 
+    .label {
+        font-weight: bold;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .direccion {
+            position: relative;
+            cursor: pointer;
+            height: 84px;
+        }
+        .mat-column-position {
+            flex: 0 1 70px;
+            margin-right: 16px;
+        }
+        .mat-icon-table {
+            width: 30px;
+        }
+        .mat-column-registro {
+            margin-right: 10px;
+        }
+        .mat-column-fechaIncidencia {
+            margin-right: 10px;
+        }
+        .mat-column-horas {
+            margin-right: 10px;
+        }
+        .mat-column-minutos {
+            margin-right: 10px;
+        }
+        .mat-column-tipoRegistro {
+            margin-right: 10px;
+        }
+        .mat-column-acciones {
+            flex: 0 1 10%;
+            margin-right: 10px;
+        }
+        
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    p {
+        margin: 6px 0;
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+}

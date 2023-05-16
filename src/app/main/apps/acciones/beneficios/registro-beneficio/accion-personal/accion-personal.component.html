@@ -1,0 +1,80 @@
+<fieldset class="fieldset-border">
+    <legend>Acción de personal a realizar</legend>
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" >
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" [formGroup]="form">
+
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <div fxLayout="column" class="form-group">
+                    <mat-label [mineduFormRequiredLabel]="form.get('mandatoJudicial')">
+                        Por mandato judicial
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide"><label >NO</label></mat-label>                                            
+                        <mat-slide-toggle formControlName="mandatoJudicial"
+                        (change)="selectMandatoJudicial()" ><label >SI</label>
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%"
+                    [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">
+                        Régimen laboral
+                    </mat-label>
+                    <mat-select formControlName="idRegimenLaboral" (selectionChange)="selectRegimenLaboral($event.value)" >
+                        <mat-option *ngFor="let item of comboLists.listRegimenLaboral" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idRegimenLaboral')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%"
+                    [mineduFormFieldValidationState]="form.get('idAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idAccion')">
+                        Acción
+                    </mat-label>
+                    <mat-select formControlName="idAccion" (selectionChange)="selectAccion($event.value)" 
+                        [disabled]="form.get('idRegimenLaboral').value < 1">
+                        <mat-option *ngFor="let item of comboLists.listAccion" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%"
+                    [mineduFormFieldValidationState]="form.get('idMotivoAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idMotivoAccion')">
+                        Motivo acción
+                    </mat-label>
+                    <mat-select formControlName="idMotivoAccion" (selectionChange)="selectMotivoAccion($event.value)" 
+                                [disabled]="form.get('idAccion').value < 1">
+                        <mat-option *ngFor="let item of comboLists.listMotivoAccion" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idMotivoAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>       
+    </div>
+</fieldset>

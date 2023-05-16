@@ -1,0 +1,23 @@
+@import "../../../../../../../../@minedu/scss/minedu.scss";
+@import "../../../../../../../../@minedu/scss/comun.scss";
+
+
+#tab-group { height: 100%; }
+#tab-group mat-tab-body { flex-grow: 1;}
+
+.mat-dialog-container {
+    padding: 0;
+
+    .mat-toolbar { 
+        flex: 1 0 auto; min-height: initial;
+        .mat-toolbar-row { height: 48px;}
+    }
+
+    .toolbar-bottom { height: auto; }
+ }
+
+
+ .mat-stroked-button:not([disabled]).mat-warn {
+    border-color: #f44336 !important;
+    background-color: #fff;
+}

@@ -1,0 +1,21 @@
+
+
+<button type="button" mat-stroked-button color="primary" [disabled]="exporting" *ngIf="exporting">
+    <span class="material-icons">get_app</span> Exportando...
+</button>
+<button type="button" mat-stroked-button color="primary" (click)="onClickChild($event)" *ngIf="!exporting">
+    <span class="material-icons">get_app</span> Exportar
+</button>
+
+<!-- <button mat-stroked-button color="primary" *ngIf="!mineduForm.valid" [disabled]="!mineduForm.valid"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">get_app</span> Exportar
+</button>
+<button mat-stroked-button color="primary" *ngIf="mineduForm.valid && exporting" [disabled]="exporting"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">get_app</span> Exportando...
+</button>
+<button mat-stroked-button color="primary" (click)="onClickChild($event)" *ngIf="mineduForm.valid && !exporting"
+    [disabled]="exporting" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">get_app</span> Exportar
+</button> -->

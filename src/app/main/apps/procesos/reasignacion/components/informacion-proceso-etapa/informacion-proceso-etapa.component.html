@@ -1,0 +1,67 @@
+<div class="p-20">
+    <!-- <fieldset class="fieldset-border m-auto">
+        <legend>Proceso y Etapa </legend> -->
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Año</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.anio }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.codigoProceso }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="14%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Régimen Laboral</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.descripcionRegimenLaboral }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="12%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Proceso</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.descripcionTipoProceso }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="12%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">N° de Convocatoria</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.descripcionNumeroConvocatoria }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="12%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Etapa</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.descripcionEtapaFase }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="12%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Fecha de Creación</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.fechaCreacion }}</span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="12%" fxFlex.xs="100%">
+                        <div *ngIf="!consolidado">
+                            <span class="label">Estado</span>
+                            <br>
+                            <span class="label-normal">{{ etapaResponse?.descripcionEstadoEtapaProceso }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </fieldset> -->
+</div>

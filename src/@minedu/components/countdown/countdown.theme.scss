@@ -1,0 +1,17 @@
+@mixin minedu-countdown-theme($theme) {
+
+    $foreground: map-get($theme, foreground);
+
+    minedu-countdown {
+
+        .minedu-countdown {
+
+            .time {
+
+                .title {
+                    color: map-get($foreground, secondary-text);
+                }
+            }
+        }
+    }
+}

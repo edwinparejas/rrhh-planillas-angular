@@ -1,0 +1,291 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Realizar Calificación</h3>
+                    </div>
+                    <!-- <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion']">Contratación</a></li>
+                            <li class="active" *ngIf="fragmentoUrlRetornarComplemento === null"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/',fragmentoUrlRetornar,idEtapaProceso]">{{this.fragmentoUrlRetornar|titlecase}}</a></li>
+                            <li class="active"*ngIf="fragmentoUrlRetornarComplemento !== null"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/',fragmentoUrlRetornar, fragmentoUrlRetornarComplemento,idEtapaProceso]">{{this.fragmentoUrlRetornarComplemento|titlecase}}</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/contratacion/bandeja-incorporacion-plazas/bandeja-incorporacion/',idEtapaProceso]">Incorporar plazas</a></li>
+                        </ol>
+                    </div> -->
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <div class="panel">
+                <minedu-informacion-postulante-calificacion 
+		    [idPersona]="idPersona" 
+		    [tipo]="'postulanteContratacionDirecta'"
+		    [mostrarDetallesAdicionales]="true"
+                    (formValue)="handleDataPostulante($event)">
+		</minedu-informacion-postulante-calificacion>
+            </div>
+            <div class="panel">
+                <div class="p-20">
+                    <fieldset class="fieldset-border m-auto">
+                        <legend>Resultados de la PUN </legend>
+                        <div class="content" mineduPerfectScrollbar>
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayout.lt-md="column"
+                            fxLayoutAlign="space-between start" class="mb-10">
+                                <div xLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                    <div fxLayoutAlign="start" fxFlex="25%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Grupo de inscripción</span>
+                                            <br>
+                                            <span class="label-normal">{{ info?.grupoInscripcion }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayoutAlign="start" fxFlex="75%" fxFlex.xs="100%">
+                                        <div>
+                                            <span class="label">Orden de merito</span>
+                                            <br>
+                                            <span class="label-normal">{{ info?.ordenMerito }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-table" *ngIf="info != null">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <mat-table class="minedu-table" #table [dataSource]="dtSource[0]" [class.isMobile]="isMobile"
+                                    [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                    <ng-container matColumnDef="codigoCriterio">
+                                        <mat-header-cell *matHeaderCellDef class="mat-cell-center">N°</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index" class="mat-cell-center">
+                                            {{ row.codigoCriterio }}
+                                        </mat-cell>
+                                        <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="descripcionCriterio">
+                                        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index">
+                                            {{ row.descripcionCriterio }}
+                                        </mat-cell>
+                                        <mat-footer-cell *matFooterCellDef>
+                                            <span class="span-subtitulo" style="text-transform: uppercase;">
+                                                PUNTAJE TOTAL DE RESULTADOS PUN
+                                                <div style="margin-top: 5px;" *ngIf="info.puntajeFinal != null">
+                                                    PUNTAJE DESEMPATE
+                                                </div>
+                                            </span>
+                                        </mat-footer-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="puntajeObtenido">
+                                        <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje</mat-header-cell>
+                                        <mat-cell *matCellDef="let row; let i = index" class="mat-cell-center">
+                                            {{ row.puntajeObtenido == null ? row.puntajePUN : row.puntajeObtenido }}
+                                        </mat-cell>
+                                        <mat-footer-cell class="mat-cell-center" *matFooterCellDef>
+                                            <span class="span-subtitulo">
+                                                {{ CalcularPuntajeObtenidoPUN() |  number : '1.3' }}
+                                                <div style="margin-top: 5px;" *ngIf="info.puntajeFinal != null">
+                                                     {{ info.puntajeFinal }}
+                                                </div>
+                                            </span>
+                                        </mat-footer-cell>
+                                    </ng-container>
+                                    <mat-header-row *matHeaderRowDef="displayedColumnsResultadosPUN; sticky: true"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumnsResultadosPUN"
+                                        [ngClass]="{ hovered: row.hovered }"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                        [@animate]="{ value: '*', params: { y: '100%' } }">
+                                    </mat-row>
+                                    <mat-footer-row *matFooterRowDef="displayedColumnsResultadosPUN"></mat-footer-row>
+                                </mat-table>
+                            </div>
+                        </div>
+                        <br>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="p-20">
+                    <fieldset class="fieldset-border m-auto">
+                        <legend>Evaluación</legend>
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-tab-group *ngIf="info != null">
+                                        <div *ngFor="let r of rubro; let i = index;">  
+                                            <mat-tab label="{{ (i+1) }} - {{ r.descripcionRubro }}" *ngIf="r.idTipoPuntaje==1?true:this.activarDetalleCalificacionCompleto">
+                                                <div class="p-20">
+                                                    <div class="content-table">
+                                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                                            <mat-table class="minedu-table" #table [dataSource]="dtSource[i+1]" [class.isMobile]="isMobile"
+                                                                [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                                                <ng-container matColumnDef="codigoCriterio">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">N°</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let i = index;" class="mat-cell-center">
+                                                                        <p [ngClass]="{ 'span-subtitulo': row.tieneSubCriterio }">{{ row.codigoCriterio }}</p>
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="descripcionCriterio">
+                                                                    <mat-header-cell *matHeaderCellDef>{{  r.descripcionRubro }}</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let i = index">
+                                                                        <span [ngClass]="{ 'span-subtitulo': row.tieneSubCriterio }">
+                                                                            {{ row.descripcionCriterio }}
+                                                                        </span>
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef>
+                                                                        <span *ngIf="r.idTipoPuntaje == this.TipoPuntajeEnum.PUNTAJE || r.idTipoPuntaje == this.TipoPuntajeEnum.NO_APLICA" class="span-subtitulo" style="text-transform: uppercase;">PUNTAJE TOTAL DE {{ r.descripcionRubro }}</span>
+                                                                    </mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="puntaje">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        {{ row.puntajeObtenido == null ? row.puntajeTexto : row.puntajeObtenido }}
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="cumpleDocumento">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Cumple</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        <mat-checkbox style="margin-left: 0px;"
+                                                                            (change)="changeCumpleCheck($event, (i+1), j)"
+                                                                            [checked]="row.cumpleDocumento">
+                                                                        </mat-checkbox>
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="puntajeMaximo">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje Máximo</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        <span class="span-subtitulo">{{ row.puntajeMaximo }}</span>
+                                                                        <!-- <span class="span-subtitulo">{{ obtenerPuntajeMaximoGrilla(row) }}</span> -->
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef class="mat-cell-center">
+                                                                        <span *ngIf="r.idTipoPuntaje == this.TipoPuntajeEnum.PUNTAJE || r.idTipoPuntaje == this.TipoPuntajeEnum.NO_APLICA" class="span-subtitulo">{{ r.rubro }}</span>
+                                                                    </mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="descripcionUnidadMedida">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje Unidad</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        <span *ngIf="row.descripcionUnidadMedida != null">
+                                                                            {{ row.puntajeMaximoUnidad }} {{ row.descripcionUnidadMedida }}
+                                                                        </span>
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="acreditaDocumento">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Acredita Documento</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        <mat-checkbox style="margin-left: 0px;" *ngIf="verificarAcreditaDocumento(row)"
+                                                                            (change)="changeAcreditaDocumento($event, row, (i+1), j)"
+                                                                            [checked]="row.cumpleDocumento">
+                                                                        </mat-checkbox>
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="cantidad">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Cantidad</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        <mat-form-field style="min-width:60px;max-width:60px;" *ngIf="row.tieneCantidad">
+                                                                            <input matInput type="number" class="input_number" min="0" id="cantidad{{(i+1)}}{{j}}" 
+                                                                            [max]="row.maximaCantidad"
+                                                                            [value]="(row.cantidadUnidad == null ? 0 : row.cantidadUnidad)" (change)="changeCantidad($event, row, (i+1), j)"
+                                                                            [disabled]="!row.cumpleDocumento"
+                                                                            (onKeyUp)="changeCantidad($event, row, (i), j)"
+                                                                            >
+                                                                        </mat-form-field>
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+                                                                </ng-container>
+                                                                <ng-container matColumnDef="puntajeObtenido">
+                                                                    <mat-header-cell *matHeaderCellDef class="mat-cell-center">Puntaje Obtenido</mat-header-cell>
+                                                                    <mat-cell *matCellDef="let row; let j = index" class="mat-cell-center">
+                                                                        <input matInput type="number" style="text-align: center;" [value]="(row.puntajeObtenido == null ? 0 : row.puntajeObtenido)" [readonly]="true"
+                                                                        *ngIf="(row.puntajeMaximo != null && row.puntajeMaximo != 0)"
+                                                                        [ngClass]="{ 'span-subtitulo': row.puntajeObtenido > 0 }">
+                                                                    </mat-cell>
+                                                                    <mat-footer-cell class="mat-cell-center" *matFooterCellDef><span class="span-subtitulo">{{ CalcularPuntajeObtenido(r, i+1) }}</span></mat-footer-cell>
+                                                                </ng-container>
+                                                                <mat-header-row *matHeaderRowDef="displayedColumns[i+1]; sticky: true"></mat-header-row>
+                                                                <mat-row *matRowDef="let row; columns: displayedColumns[i+1]"
+                                                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                                                    [@animate]="{ value: '*', params: { y: '100%' } }">
+                                                                </mat-row>
+                                                                <mat-footer-row *matFooterRowDef="displayedColumns[i+1]"></mat-footer-row>
+                                                            </mat-table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-20" *ngIf="r.idTipoPuntaje == this.TipoPuntajeEnum.PUNTAJE || r.idTipoPuntaje == this.TipoPuntajeEnum.NO_APLICA">
+                                                    <div fxLayout="row" fxLayout.lt-sm="column" fxLayout.lt-md="column"
+                                                    fxLayoutAlign="center" class="mb-10">
+                                                        <div xLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                                            <div fxLayoutAlign="center" fxFlex="100%" fxFlex.xs="100%">
+                                                                <span style="font-weight:bold;">
+                                                                    PUNTAJE FINAL : {{ this.info.puntajeFinal == null ? 0 : this.info.puntajeFinal }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </mat-tab>
+                                        </div>
+                                    </mat-tab-group>
+                                </div>
+                            </div>
+                            <br>
+                            <div >
+                                <div fxLayout="row" fxLayout.lt-md="column">
+                                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                        fxLayoutGap.xs="0">
+                                        <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                            <mat-form-field appearance="fill" fxFlex>
+                                                <mat-label>Anotaciones</mat-label>
+                                                <textarea name="anotaciones" formControlName="anotaciones" matInput type="text" matTextareaAutosize
+                                                    [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                    </fieldset>
+                    <br>
+                    <!-- <div class="p-10">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                                fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                    <mat-form-field appearance="fill" fxFlex>
+                                        <mat-label>Anotaciones</mat-label>
+                                        <textarea name="anotaciones" formControlName="anotaciones" matInput type="text" matTextareaAutosize
+                                            [matAutosizeMinRows]="4" [matAutosizeMaxRows]="20" uppercase></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleGuardar()"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons">save</span>Guardar
+                            </button>
+                            <button mat-stroked-button class="ml-4" (click)="handleRetornar()">
+                                <span class="material-icons">keyboard_backspace</span>
+                                RETORNAR
+                            </button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

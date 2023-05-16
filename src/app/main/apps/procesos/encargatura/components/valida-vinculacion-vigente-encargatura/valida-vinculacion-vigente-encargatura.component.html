@@ -1,0 +1,158 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Vinculación Vigente</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <p>La persona {{ servidorPublico?.primerApellido }} {{ servidorPublico?.segundoApellido }} {{
+            servidorPublico?.nombres }}, cuenta con las siguientes vinculaciones vigentes:</p>
+        <div class="content-table" style="overflow: auto;">
+            <div fxLayout="row">
+                <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                    [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                    <ng-container matColumnDef="idServidorPublico">
+                        <mat-header-cell *matHeaderCellDef>Sel.</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Sel.</span>
+                            <mat-radio-button (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                            </mat-radio-button>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="instancia">
+                        <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Instancia:</span>
+                            {{ row.descripcionDre }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="subInstancia">
+                        <mat-header-cell *matHeaderCellDef>Sub Instancia</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Sub Instancia:</span>
+                            {{ row.descripcionUgel }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="centroTrabajo">
+                        <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Centro de Trabajo:</span>
+                            {{ row.institucionEducativa }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="modalidad">
+                        <mat-header-cell *matHeaderCellDef>Modalidad educativa</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Modalidad educativa:</span>
+                            {{ row.descripcionModalidadEducativa }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="nivelEducativo">
+                        <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Nivel Educativo:</span>
+                            {{ row.descripcionNivelEducativo }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="codigoPlaza">
+                        <mat-header-cell *matHeaderCellDef>Código de Plaza</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Código de Plaza:</span>
+                            {{ row.codigoPlaza }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="tipoPlaza">
+                        <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Tipo de Plaza:</span>
+                            {{ row.descripcionTipoPlaza }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="regimenLaboral">
+                        <mat-header-cell *matHeaderCellDef>Régimen Laboral</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Régimen Laboral:</span>
+                            {{ row.descripcionRegimenLaboral }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="condicionLaboral">
+                        <mat-header-cell *matHeaderCellDef>Condición Laboral</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Condición Laboral:</span>
+                            {{ row.descripcionCondicionLaboral }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="situacionLaboral">
+                        <mat-header-cell *matHeaderCellDef>Situación Laboral</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Situación Laboral:</span>
+                            {{ row.descripcionSituacionLaboral }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="cargo">
+                        <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Cargo:</span>
+                            {{ row.descripcionCargo }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="areaCurricular">
+                        <mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Área Curricular:</span>
+                            {{ row.descripcionAreaCurricular }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="especialidad">
+                        <mat-header-cell *matHeaderCellDef>Especialidad</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Especialidad:</span>
+                            {{ row.descripcionEspecialidad }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="jornadaLaboral">
+                        <mat-header-cell *matHeaderCellDef>Jornada Laboral</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Jornada Laboral:</span>
+                            {{ row.descripcionJornadaLaboral }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaInicio">
+                        <mat-header-cell *matHeaderCellDef>Fecha inicio</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Fecha inicio:</span>
+                            {{ row.fechaInicioVinculacion }}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="fechaFin">
+                        <mat-header-cell *matHeaderCellDef>Fecha fin</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index">
+                            <span class="mobile-label">Fecha fin:</span>
+                            {{ row.fechaFinVinculacion }}
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                </mat-table>
+            </div>
+            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                No se encontraron registros
+            </div>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center"
+        fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleSeleccionar()"><span
+                class="material-icons">check_circle</span> SELECCIONAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> CANCELAR</button>
+    </mat-dialog-actions>
+</div>

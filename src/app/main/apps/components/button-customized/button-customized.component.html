@@ -1,0 +1,25 @@
+<div *ngIf="!styleraised">
+    <button type="button" mat-stroked-button color="primary" *ngIf="!mineduForm.valid" [disabled]="!mineduForm.valid"><span
+            class="material-icons">{{icon}}</span> {{text}}
+    </button>
+    <button type="button" mat-stroked-button color="primary" *ngIf="mineduForm.valid && working" [disabled]="working">
+        <span class="material-icons">{{icon}}</span> {{textWorking}}...
+    </button>
+    <button type="button" mat-stroked-buttoncolor="primary" (click)="onClickChild($event)" *ngIf="mineduForm.valid && !working"
+        [disabled]="working">
+        <span class="material-icons">{{icon}}</span> {{text}}
+    </button>
+</div>
+
+<div *ngIf="styleraised">
+    <button type="button" mat-raised-button color="accent" *ngIf="!mineduForm.valid" [disabled]="!mineduForm.valid"><span
+            class="material-icons">{{icon}}</span> {{text}}
+    </button>
+    <button type="button" mat-raised-button color="accent" *ngIf="mineduForm.valid && working" [disabled]="working">
+        <span class="material-icons">{{icon}}</span> {{textWorking}}...
+    </button>
+    <button type="button" mat-raised-button color="accent" (click)="onClickChild($event)" *ngIf="mineduForm.valid && !working"
+        [disabled]="working">
+        <span class="material-icons">{{icon}}</span> {{text}}
+    </button>
+</div>

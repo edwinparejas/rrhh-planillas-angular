@@ -1,0 +1,226 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">description</mat-icon>
+                <span class="title dialog-title">Ver Información Desvinculación</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column">
+                <fieldset class="fieldset-border">
+                    <legend>Acción de Personal</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Grupo de Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.grupoAccion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.accion}}</p>                                    
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Acción</label>
+                                    <p class="form-control-static p1" >
+                                        {{historial.detalleCabecera.motivoAccion}}</p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </fieldset>
+
+                <div class="nexus">
+                    <span class="h6 p-4 historialnexus">
+                        HISTORIAL NEXUS
+                    </span>
+                </div>
+
+                <br>
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos Laborales</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Código de Plaza</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.codigoPlaza">
+                                        {{historial.detalleDesvinculacion.codigoPlaza}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.codigoPlaza"> </p>                                            
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tipo de Plaza</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.tipoPlaza">
+                                        {{historial.detalleDesvinculacion.tipoPlaza}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.tipoPlaza"> </p>   
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">IGED</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.iged">
+                                        {{historial.detalleDesvinculacion.iged}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.iged"> </p>  
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">centro Laboral</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.centroLaboral">
+                                        {{historial.detalleDesvinculacion.centroLaboral}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.centroLaboral"> </p>  
+                                </div>
+                            </div>
+                        </div>                      
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Modalidad</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.modalidad">
+                                        {{historial.detalleDesvinculacion.modalidad}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.modalidad"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Nivel Educativo</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.nivelEducativo">
+                                        {{historial.detalleDesvinculacion.nivelEducativo}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.nivelEducativo"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Cargo</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.cargo">
+                                        {{historial.detalleDesvinculacion.cargo}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.cargo"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Jornada Laboral</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.jornadaLaboral">
+                                        {{historial.detalleDesvinculacion.jornadaLaboral}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.jornadaLaboral"> </p>
+                                </div>
+                            </div>
+                        </div>  
+
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Categoria Remunerativa</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.categoriaRemuneativa">
+                                        {{historial.detalleDesvinculacion.categoriaRemuneativa}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.categoriaRemuneativa"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Motivo de Vacancia</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.motivoVacancia">
+                                        {{historial.detalleDesvinculacion.motivoVacancia}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.motivoVacancia"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">                                
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">                                
+                            </div>
+                        </div>  
+                        
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset-border">
+                    <legend>Datos de la Acción</legend>
+                    <div fxLayout="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Informe Escalafonario</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.numeroInformeEscalafonario">
+                                        {{historial.detalleDesvinculacion.numeroInformeEscalafonario}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.numeroInformeEscalafonario"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Fecha del Inf. Escalafonario</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.fechaInformeEscalafonario">
+                                        {{historial.detalleDesvinculacion.fechaInformeEscalafonario}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.fechaInformeEscalafonario"> </p>
+                                </div>
+                            </div>
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label for="" class="label">Tiempo de Servicios</label>
+                                    <p class="form-control-static p1" *ngIf="historial.detalleDesvinculacion.tiempoServicioInformeEscalafonario">
+                                        {{historial.detalleDesvinculacion.tiempoServicioInformeEscalafonario}}</p>
+                                    <p class="form-control-static p1 p25" *ngIf="!historial.detalleDesvinculacion.tiempoServicioInformeEscalafonario"> </p>                                  
+                                </div>
+                            </div>
+
+                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                fxFlex.xs="100%">
+                                
+                            </div>
+                            
+                        </div>
+                                              
+                        
+                    </div>
+                </fieldset>
+
+            </div>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        
+        <div class="pl-6">            
+            <button mat-raised-button (click)="handleCancelar()" style="right: 7px">
+                <span class="material-icons">block</span> CERRAR
+            </button>
+        </div>
+    </div>
+</div>
+

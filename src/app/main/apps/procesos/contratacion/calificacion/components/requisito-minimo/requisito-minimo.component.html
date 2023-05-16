@@ -1,0 +1,39 @@
+<div class="content" mineduPerfectScrollbar>
+    <div class="content-table">
+        <div fxLayout="row" fxLayout.lt-md="column">
+            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+                <ng-container matColumnDef="registro">
+                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">N°:</span> {{row?.codigoCriterio}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="descripcion">
+                    <mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label">DESCRIPCIÓN:</span> {{row?.descripcionCriterio}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="acreditaDocumento">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">
+                        <span class="mobile-label"></span>
+                        <div style="padding-left: 10px;"></div>
+                        <div style="padding-left: 10px;"></div>
+                        <mat-checkbox [(ngModel)]="data[i].acreditaDocumento" [disabled]="soloLectura == true"
+                            (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                            [checked]="data[i].acreditaDocumento" (ngModelChange)="calcularPuntajeFinal(row)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+                </mat-row>
+            </mat-table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title-toolbar">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <div fxLayout="row">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Motivo</span><br>
+                        <span class="label-normal">{{dataSource.data[0]?.motivoNoPublicacion}}</span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Detalle</span><br>
+                        <span class="label-normal">{{dataSource.data[0]?.detalleNoPublicacion}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Documentos de Sustento</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+                <table mat-table class="minedu-table mt-12 mb-12" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                    <ng-container matColumnDef="index">
+                        <th mat-header-cell *matHeaderCellDef>N°</th>
+                        <td mat-cell *matCellDef="let row; let i = index;" class="centerCellContent" >
+                            <p>{{i+1}}</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoDocumentoSustento">
+                        <th mat-header-cell *matHeaderCellDef>TIPO DOCUMENTO</th>
+                        <td mat-cell *matCellDef="let row">
+                            <p *ngIf="row.tipoDocumento">{{row.tipoDocumento}}</p>
+                            <p *ngIf="!row.tipoDocumento">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numeroDocumentoSustento">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>Nº DOCUMENTO</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            <p *ngIf="row.numeroDocumento">{{row.numeroDocumento}}</p>
+                            <p *ngIf="!row.numeroDocumento">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipoFormatoSustento">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>TIPO FORMATO</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            <p *ngIf="row.tipoFormatoSustento">{{row.tipoFormatoSustento}}</p>
+                            <p *ngIf="!row.tipoFormatoSustento">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numeroFolios">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs>FOLIOS</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs class="centerCellContent">
+                            <p class="mat-cell-text-center" *ngIf="row.numeroFolios">{{row.numeroFolios}}</p>
+                            <p class="mat-cell-text-center" *ngIf="!row.numeroFolios">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaEmision">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs class="centerCellContent" >FECHA EMISIÓN</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            <p class="mat-cell-text-center" *ngIf="row.fechaEmision">{{row.fechaEmision | date:'dd/MM/yyyy'}}</p>
+                            <p class="mat-cell-text-center" *ngIf="!row.fechaEmision">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaCreacion">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-xs class="centerCellContent" >FECHA REGISTRO</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                            <p class="mat-cell-text-center" *ngIf="row.fechaCreacion">{{row.fechaCreacion | date:'dd/MM/yyyy'}}</p>
+                            <p class="mat-cell-text-center" *ngIf="!row.fechaCreacion">No registrado</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="opciones">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                        <td mat-cell *matCellDef="let row; let  i = index;">
+                            <div style="padding-left: 10px;" fxLayout="row" fxLayoutAlign="start">
+                                <div>
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="informacionSustentoView(row)" aria-label="Informacion" matTooltip="Información de sustento">
+                                        <mat-icon class="">info</mat-icon>
+                                    </button>
+                                </div>
+                                <div *ngIf="row.codigoAdjuntoSustento">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm" (click)="handleVerAdjunto(row)"
+                                        aria-label="Ver documento de sustento" matTooltip="Ver documento de sustento">
+                                        <mat-icon class="">picture_as_pdf</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+                <div class="no-results" *ngIf="!(loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="loading | async">
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-24" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="handleCancelar()"><span class="material-icons">block</span>CERRAR</button>
+    </div>
+</div>

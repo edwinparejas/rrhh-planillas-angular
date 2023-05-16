@@ -1,0 +1,45 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Atención de Resoluciones Desplazamiento</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="pl-20 pr-20 pb-0 m-0" fusePerfectScrollbar>
+        <minedu-ver-informacion-accion-personal
+            [accionPersonal]="accionPersonal"></minedu-ver-informacion-accion-personal>
+        <minedu-atencion-plaza-espejo [form]="form" [actividadResolucion]="actividadResolucion"
+            [accionPersonal]="accionPersonal" [ver]="esVer"></minedu-atencion-plaza-espejo>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <ng-container *ngIf="!esVer">
+            <button [disabled]="!form.valid" mat-raised-button [color]="!form.valid?'grey':'primary'"
+                (click)="handleGenerar()">
+                <span class="material-icons">save</span>
+                Generar
+            </button>
+
+            <button mat-raised-button color="primary" class="ml-4"
+                (click)="handleObservar()">
+                <span class="material-icons">visibility</span>
+                Observar
+            </button>
+
+            <button mat-raised-button class="ml-4" (click)="handleLimpiar()">
+                <span class="material-icons">clear</span>
+                Limpiar
+            </button>
+        </ng-container>
+
+        <button mat-raised-button class="ml-4" (click)="matDialogRef.close()">
+            <span class="material-icons">keyboard_backspace</span>
+            Retornar
+        </button>
+    </div>
+</div>

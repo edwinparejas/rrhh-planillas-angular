@@ -1,0 +1,54 @@
+
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">wifi_tethering</mat-icon>
+                <span class="title dialog-title"> Solicitar Información</span>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <div class="mb-2">
+            <span class="minedu-note">LA ACCION POR SENTENCIA JUDICIAL REQUIERE DE AUTORIZACIÓN PARA GENERAR EL PROYECTO DE RESOLUCION</span>        
+        </div>
+        <br>
+        <mat-icon class="mr-4">wifi_tethering</mat-icon>
+        <br>
+        <div class="mb-2">
+            <span class="minedu-note">¿ESTÁ SEGURO DE QUE DESEA SOLICITAR AUTORIZACIÓN PARA LA ACCIÓN POR SENTENCIA JUDICIAL?</span>        </div>
+        <br>
+    </div>
+
+    <div class="panel-footer">
+        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%">
+            <div fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%">
+                <div fxLayout="row" fxLayoutAlign="center">
+
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button 
+                            color="primary" class="ml-4" (click)="handleConfirmar()">
+                            <span class="material-icons">check_circle_outline</span>
+                            SI
+                        </button>
+                    </div>
+            
+                    <div class="pl-6" fxLayout="row">
+                        <button mat-raised-button 
+                            class="ml-4" (click)="handleCancelConfirmacion()">
+                            <span class="material-icons">highlight_off</span>
+                            NO
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

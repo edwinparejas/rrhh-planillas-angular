@@ -1,0 +1,135 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+
+minedu-info-sustento{
+
+        table {
+            border-collapse: collapse;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .mat-table {
+            font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
+            border-spacing: 0;
+        }
+
+        td.mat-cell,
+        td.mat-footer-cell{
+            font-size: 11px !important;
+            padding: 0 10px 0 10px;
+        }
+
+        tr.mat-header-row{
+            min-height: 40px;
+            height: 40px !important;
+            color: white !important;
+            background: #0073b7 !important;
+        }
+
+        .mat-header-cell{
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff !important;
+            background-color: #0073B7 !important;
+            padding: 0 10px 0 10px; 
+        }
+
+        .mat-cell:first-child{
+            border-left: 1px solid #ddd;
+        }
+
+        th {
+            border: 1px solid #ddd
+        }
+
+        tr.mat-row {
+            border: 1px solid #ddd
+        }
+        .mat-row.hovered {
+            background: #ECECEE;
+        }
+
+        .mat-row.selected{
+            background: #e5e5e5;
+        }
+        .mat-header-cell:not(:last-child),
+        .mat-cell:not(:last-child){
+            border-right: 1px solid #ddd;
+        }
+        th.mat-header-cell:first-of-type,
+        td.mat-cell:first-of-type, 
+        td.mat-footer-cell:first-of-type{
+            padding-left: 10px;
+        }
+        th.mat-header-cell:last-of-type, 
+        td.mat-cell:last-of-type, 
+        td.mat-footer-cell:last-of-type {
+            padding-right: 10px;
+        }
+
+        .body.theme-default .mat-warn .mat-input-element{
+            caret-color:#3c4252 !important; 
+        } 
+
+        .mat-form-field-invalid .mat-input-element{
+            caret-color:#3c4252 !important; 
+        }
+
+        .minedu-table {
+            flex: 1 1 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, .12);
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+
+            .direccion {
+                position: relative;
+                cursor: pointer;
+                height: 84px;
+            }           
+            
+            .mat-column-descripcionTipoDocumento {
+                flex: 0 1 250px;            
+            }       
+            .mat-column-numeroDocumentoSustento {
+                flex: 0 1 250px;            
+            }       
+            .mat-column-fechaEmision {
+                flex: 0 1 250px;            
+            }       
+            .mat-column-descripcionTipoFormato {
+                flex: 0 1 250px;            
+            }       
+            .mat-column-numeroFolios {
+                flex: 0 1 250px;            
+            }       
+            .mat-column-fechaRegistro {
+                flex: 0 1 250px;            
+            }       
+           
+            .mat-column-opciones {
+                flex: 0 1 120px;
+                width: 120px;
+            }
+            .mat-header-cell, 
+            .mat-cell {
+                padding: 0 10px 0 10px; 
+            }
+            .mat-header-cell:not(:last-child),
+            .mat-cell:not(:last-child){
+                border-right: 1px solid rgb#ddd;
+            }     
+        }
+
+        .mat-th-detalle{
+                border-style: solid ;
+                border-width: 1px;
+                color: rgb(172, 173, 175);
+            }
+        .mat-table-detalle{
+            width: 100%;
+            border-collapse: collapse;
+        }
+}
+            

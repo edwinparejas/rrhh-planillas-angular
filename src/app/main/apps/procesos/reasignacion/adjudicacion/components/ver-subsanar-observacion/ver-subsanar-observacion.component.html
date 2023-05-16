@@ -1,0 +1,39 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Detalle subsanación de observación</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-10 pb-0 m-0">
+        <div class="panel-body" *ngIf="item">
+            <fieldset class="fieldset-border mb-3">
+                <legend>Detalle de subsanación </legend>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                            fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                <div>
+                                    <br />
+                                    <span>{{ item.detalleSubsanacion }} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-stroked-button color="primary" (click)="handleCancel()">
+            <span class="material-icons">close</span> Cerrar
+        </button>
+    </div>
+</div>

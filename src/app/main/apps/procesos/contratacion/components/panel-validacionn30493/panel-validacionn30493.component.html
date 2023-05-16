@@ -1,0 +1,36 @@
+<div class="panel">
+    <div class="panel-body" style="padding-bottom:15px;">   
+        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+            <div fxLayoutAlign="start start" fxFlex="85%" fxFlex.xs="100%">
+                <div style="font-weight: bold;">
+                    <label >Validación de Plazas: {{ validacionPlaza }}</label>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" fxFlex="15%">
+                <div mat-dialog-actions class="p-0" fxLayout="row">
+                    <button mat-stroked-button (click)="handleVerListadoPlazas()" color="primary" style="margin-right: 5px;"
+                        *ngIf="(validacionPlaza == 'APERTURADO' || validacionPlaza == 'PUBLICADO') "
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons" style="color: red; margin-right: 2px;">picture_as_pdf</span>Ver plazas publicadas
+                    </button>
+                </div>
+                <!-- *ngIf="controlesActivos.btnPublicarPlazas" -->
+                <div mat-dialog-actions class="p-0" fxLayout="row" >
+                    <button mat-stroked-button (click)="handlePublicarPlazas()" color="primary" style="margin-right: 5px;"
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">public</span>Publicar Plazas
+                    </button>
+                </div>
+                <!-- *ngIf="controlesActivos.btnAperturarPublicacion" -->
+                <!-- *ngIf="!soloLectura" -->
+                <div mat-dialog-actions class="p-0" fxLayout="row" >
+                    <button mat-stroked-button (click)="handleAperturarPlaza()" color="primary" 
+                        *ngIf="(validacionPlaza != 'APERTURADO' && validacionPlaza != 'PENDIENTE') "
+                        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                        <span class="material-icons">public</span>&nbsp;Aperturar Plaza
+                    </button>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

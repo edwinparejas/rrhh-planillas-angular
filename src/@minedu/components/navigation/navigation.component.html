@@ -1,0 +1,33 @@
+<div class="nav" [ngClass]="{'horizontal':layout === 'horizontal', 'vertical':layout === 'vertical'}">
+
+    <!-- Vertical Navigation Layout -->
+    <ng-container *ngIf="layout === 'vertical'">
+
+        <ng-container *ngFor="let item of navigation">
+
+            <minedu-nav-vertical-group *ngIf="item.type=='group'" [item]="item"></minedu-nav-vertical-group>
+            <minedu-nav-vertical-collapsable *ngIf="item.type=='collapsable'"
+                                           [item]="item"></minedu-nav-vertical-collapsable>
+            <minedu-nav-vertical-item *ngIf="item.type=='item'" [item]="item"></minedu-nav-vertical-item>
+
+        </ng-container>
+
+    </ng-container>
+    <!-- / Vertical Navigation Layout -->
+
+    <!-- Horizontal Navigation Layout -->
+    <ng-container *ngIf="layout === 'horizontal'">
+
+        <ng-container *ngFor="let item of navigation">
+
+            <minedu-nav-horizontal-collapsable *ngIf="item.type=='group'" [item]="item"></minedu-nav-horizontal-collapsable>
+            <minedu-nav-horizontal-collapsable *ngIf="item.type=='collapsable'"
+                                             [item]="item"></minedu-nav-horizontal-collapsable>
+            <minedu-nav-horizontal-item *ngIf="item.type=='item'" [item]="item"></minedu-nav-horizontal-item>
+
+        </ng-container>
+
+    </ng-container>
+    <!-- / Horizontal Navigation Layout -->
+
+</div>

@@ -1,0 +1,191 @@
+<div class="panel-body">
+    <div class="panel-libre">
+        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                fxLayoutGap.xs="0">
+                <div fxLayoutAlign="end center" fxFlex="100%" fxFlex.xs="100%">
+                    <button mat-stroked-button color="primary" class="ml-4">
+                    <!-- <button mat-stroked-button color="primary" (click)="handleExportar()" class="ml-4"> -->
+                        <span class="material-icons">get_app</span>
+                        EXPORTAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" mineduPerfectScrollbar>
+        <div class="content-table">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                    [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+
+                    <ng-container matColumnDef="registro">
+                        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">N°:</span>
+                            {{row?.registro}}
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="codigo_modular">
+                        <mat-header-cell *matHeaderCellDef>Codigo Modular
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Codigo Modular:</span>
+                            {{row.codigo_modular}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="centro_trabajo">
+                        <mat-header-cell *matHeaderCellDef>Centro de Trabajo
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Centro de Trabajo:</span>
+                            {{row.centro_trabajo}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="modalidad">
+                        <mat-header-cell *matHeaderCellDef>Modalidad
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Modalidad:</span>
+                            {{row.modalidad}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nivel_educativo">
+                        <mat-header-cell *matHeaderCellDef>Nivel Educativo
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Nivel Educativo:</span>
+                            {{row.nivel_educativo}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipo_gestion">
+                        <mat-header-cell *matHeaderCellDef>Tipo Gestión
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="tipo_gestion">Tipo Gestión:</span>
+                            {{row.modalidad}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="codigo_plaza">
+                        <mat-header-cell *matHeaderCellDef>Codigo Plaza
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Codigo Plaza:</span>
+                            {{row.codigo_plaza}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cargo">
+                        <mat-header-cell *matHeaderCellDef>Cargo
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Cargo:</span>
+                            {{row.cargo}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="area_curricular">
+                        <mat-header-cell *matHeaderCellDef>Area Curricular
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Area Curricular:</span>
+                            {{row.area_curricular}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="tipo_plaza">
+                        <mat-header-cell *matHeaderCellDef>Tipo Plaza
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Tipo Plaza:</span>
+                            {{row.tipo_plaza}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="vigencia_inicio">
+                        <mat-header-cell *matHeaderCellDef>Vigencia Inicio
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Vigencia Inicio:</span>
+                            {{row.vigencia_inicio}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="vigencia_fin">
+                        <mat-header-cell *matHeaderCellDef>Vigencia Fin
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row; let i = index;">
+                            <span class="mobile-label">Vigencia Fin:</span>
+                            {{row.vigencia_fin}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones" class="extra">
+                        <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                        <mat-cell *matCellDef="let row; let  i = index;">
+                            <span class="mobile-label">ACCIONES:</span>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div style="padding-left: 10px;"></div>
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                        aria-label="Ver información de Plazas" matTooltip="Ver información de Plazas">
+                                        <!-- matTooltip="Ver información completa" (click)="handleViewInfo(row.id_plaza)"> -->
+                                        <mat-icon class="">info</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                        aria-label="Ver Motivo de No Publicacion" matTooltip="Ver Motivo de No Publicacion">
+                                        <mat-icon class="">visibility</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                    </mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </mat-row>
+                </mat-table>
+            </div>
+            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                No se encontraron registros
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                *ngIf="dataSource.loading | async">pageSize
+                <mat-spinner diameter="50"></mat-spinner>
+            </div>
+            <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.totalregistro"
+                [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+                [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+            </mat-paginator>
+        </div>
+
+    </div>
+
+    <div>
+        <div fxLayoutAlign="start center" fxFlex="50%" fxFlex.xs="100%">
+            <div fxLayoutAlign="start center" fxFlex="50%" fxFlex.xs="100%">
+                <label class="label">Total de Plazas a Convocar:
+                    <span class="label-normal">{{dataSource.totalregistro}}</span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+</div>

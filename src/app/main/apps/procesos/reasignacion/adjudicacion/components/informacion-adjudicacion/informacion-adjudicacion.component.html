@@ -1,0 +1,422 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                
+                <mat-icon class="mr-4">info</mat-icon>
+               
+                <span class="title dialog-title">{{ dialogTitle }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+<!-- 
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos personales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Documento</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.numeroDocumentoIdentidad}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Apellidos y nombres</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.nombreCompleto}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Sexo</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionGenero}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos de centro de trabajo</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código modular</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.codigoModular}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Centro de trabajo</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionInstitucionEducativa}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">DRE</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionDre}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">UGEL</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionUgel}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Distrito</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionDistrito}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Modalidad</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.abreviaturaModalidadEducativa}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Nivel educativo</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionNivelEducativo}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Gestión</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionTipoGestionEducativa}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Zona</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.nombreZona}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">EIB</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.eib}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo IE</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionTipoGestionInstitucionEducativa}}
+                            </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Dependencia</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionDependencia}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <legend>Datos de la plaza</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Código de plaza</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.codigoPlaza}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Cargo</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionCargo}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Área curricular</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionAreaCurricular}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Jornada laboral</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.jornadaLaboral}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Tipo de plaza</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionTipoPlaza}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Motivo de vacante</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.descripcionMotivoVacancia}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Vigencia desde</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.vigenciaInicio}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Vigencia hasta</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.vigenciaFin}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Régimen laboral</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.abreviaturaRegimenLaboral}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label">Inicio Contrato</span>
+                            <br>
+                            <span class="label-normal">{{adjudicaciones?.vigenciaInicioContrato}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </fieldset> -->
+        <fieldset class="fieldset-border mb-3" *ngIf="spublico">
+            <legend>Datos personales</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%"
+                        fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Documento</span>&nbsp;
+                                <br />
+                                <span>{{ spublico.tipoDocumentoIdentidad }}:
+                                    {{spublico.numeroDocumentoIdentidad}} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Primer apellido</span>
+                                <br />
+                                <span>{{ spublico.primerApellido }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Segundo apellido</span>
+                                <br />
+                                <span>{{ spublico.segundoApellido }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Nombres</span>
+                                <br />
+                                <span>{{ spublico.nombres }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Sexo</span>
+                                <br />
+                                <span>{{ spublico.generoPersona }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset class="fieldset-border" *ngIf="plaza">
+            <legend>Datos laborales (adjudicado)</legend>
+            <div fxLayout="column">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Código plaza</span>&nbsp;
+                                <br />
+                                <span>{{ plaza.codigoPlaza }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Régimen laboral</span>
+                                <br />
+                                <span>{{ plaza.regimenLaboral }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Cargo</span>
+                                <br />
+                                <span>{{ plaza.cargo }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Condición laboral</span>
+                                <br />
+                                <span>{{ plaza.condicionPlaza }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Situación laboral</span>
+                                <br />
+                                <span>{{ spublico.situacionLaboral }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Escala remunerativa</span>
+                                <br />
+                                <!-- <span>{{ spublico.descripcionCategoriaRemunerativa }} </span> -->
+                                <span>{{ plaza.categoriaremunerativa }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Código modular</span>
+                                <br />
+                                <span>{{ plaza.codigoModular }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Centro de trabajo</span>
+                                <br />
+                                <span>{{ plaza.centroTrabajo }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Instancia</span>
+                                <br />
+                                <span>{{ plaza.instancia }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Sub Instancia</span>
+                                <br />
+                                <span>{{ plaza.subinstancia }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                    fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                        fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Tipo de Plaza</span>&nbsp;
+                                <br />
+                                <span>{{ plaza.tipoPlaza }} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                            <div>
+                                <span style="font-weight: bold">Vigencia Inicio</span>
+                                <br />
+                                <span>{{ plaza.vigenciaInicio | date: 'dd/MM/yyyy'}} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </fieldset>
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span>
+                CERRAR</button>
+        </div>
+    </div>

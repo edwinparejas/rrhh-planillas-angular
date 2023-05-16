@@ -1,0 +1,168 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Agregar Beneficiario</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="formPopup">
+            <fieldset class="fieldset-border">
+                <legend>Agregar Beneficiario</legend>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <p class="labelCenter"  fxFlex="100%">Parentesco</p>
+                        </div>
+                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%" [mineduFormFieldValidationState]="formPopup.get('idParentesco')" >
+                            <mat-label
+                                    [mineduFormRequiredLabel]="formPopup.get('idParentesco')">
+                                    Parentesco
+                                </mat-label>
+                            <mat-select formControlName="idParentesco" >
+                                <mat-option *ngFor="let item of comboLists.listParentesco" [value]="item.value">
+                                    {{ item.label }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <minedu-form-field-validation-messages [mineduFormControl]="formPopup.get('idParentesco')">
+                                </minedu-form-field-validation-messages>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" >
+                            <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" >
+                                <mat-label
+                                    [mineduFormRequiredLabel]="formPopup.get('idTipoDocumentoIdentidad')">
+                                    Tipo de
+                                    documento
+                                </mat-label>
+                                <mat-select formControlName="idTipoDocumentoIdentidad"
+                                    (selectionChange)="selectTipoDocumento($event.value)">
+                                    <mat-option
+                                        *ngFor="let item of comboLists.listTipoDocumentoIdentidad"
+                                        [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="formPopup.get('idTipoDocumentoIdentidad')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" >
+                            <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                            formPopup.get('numeroDocumentoIdentidad')">
+                            <mat-label [mineduFormRequiredLabel]="formPopup.get('numeroDocumentoIdentidad')">Número de documento</mat-label>
+                                <input matInput 
+                                    formControlName="numeroDocumentoIdentidad" 
+                                    placeholder="Número de documento" 
+                                    [maxLength]="formPopup.get('idTipoDocumentoIdentidad').value == 1 ? 8 : 12"
+                                    [readonly]="formPopup.get('idTipoDocumentoIdentidad').value == -1"
+                                    (keypress)="onKeyPressNumeroDocumento($event)"
+                                    uppercase />
+                                <button type="button" 
+                                    matSuffix mat-button
+                                    mat-icon-button (click)="handleValidarReniec($event)">
+                                    <mat-icon class="s-24">search</mat-icon>
+                                </button>
+                            
+                                <mat-error>
+                                    <minedu-form-field-validation-messages [mineduFormControl]="formPopup.get('numeroDocumentoIdentidad')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div> 
+                    </div>
+                    
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <p class="labelCenter"  fxFlex="100%">Estado RENIEC</p>
+                        </div>
+                        
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <p class="form-control-static" *ngIf="formPopup.get('idEstadoReniec').value">
+                                    {{formPopup.get('estadoRENIEC').value}} 
+                                </p>
+                                <p class="form-control-static" *ngIf="!formPopup.get('idEstadoReniec').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <p class="labelCenter"  fxFlex="100%">Nombres y Apellidos</p>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <div class="form-group" fxFlex="100%">
+                                <p class="form-control-static" *ngIf="formPopup.get('nombres').value">
+                                    {{formPopup.get('nombres').value +" "+formPopup.get('primerApellido').value+" "+formPopup.get('segundoApellido').value}} 
+                                </p>
+                                <p class="form-control-static" *ngIf="!formPopup.get('nombres').value">No registrado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <p class="labelCenter"  fxFlex="100%">Fecha de Nacimiento</p>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" >
+                            <minedu-datepicker label="Fecha de Nacimiento"
+                            [mineduFormControl]="formPopup.get('fechaNacimiento')"
+                            [formControl]="formPopup.get('fechaNacimiento')"
+                            [max]="untilDate"
+                            >
+                        </minedu-datepicker>
+                        </div>    
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <p class="labelCenter"  fxFlex="100%">Vigencia de Bonificación</p>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" >
+                            <minedu-datepicker label="Fecha de inicio"
+                            [mineduFormControl]="formPopup.get('fechaVigenciaBonificacion')"
+                            [formControl]="formPopup.get('fechaVigenciaBonificacion')"
+                            >
+                        </minedu-datepicker>
+                        </div>    
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                            <p class="labelCenter"  fxFlex="100%">Monto único</p>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%" >
+                            <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"  >
+                            <mat-label [mineduFormRequiredLabel]="formPopup.get('importeBeneficio')" >Monto único</mat-label>
+                                <input matInput 
+                                    formControlName="importeBeneficio" 
+                                    placeholder="Monto único" 
+                                    [maxLength]="7"
+                                    (keypress)="onKeyPressImporteBeneficio($event)"
+                                    uppercase />
+                                <mat-error>
+                                    <minedu-form-field-validation-messages [mineduFormControl]="formPopup.get('importeBeneficio')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>    
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <br>
+        
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch">
+        <button mat-raised-button color="primary" (click)="handleGuardar()"><span class="material-icons">save</span> GUARDAR</button>
+        <button mat-raised-button (click)="cancelar()"><span class="material-icons">cancel</span> CANCELAR</button>
+    </mat-dialog-actions>
+</div>

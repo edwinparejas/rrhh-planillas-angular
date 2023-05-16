@@ -1,0 +1,110 @@
+
+<form *ngIf="form" [formGroup]="form">
+    <fieldset *ngIf="form" class="fieldset-border">
+        <legend>ACCIÓN DE PERSONAL</legend>
+        <div fxLayout="column" class="pb-20">
+            <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap=".5%"
+                fxLayoutGap.lt-md="0">
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form?.get('idRegimenLaboral')">
+                    <mat-label [mineduFormRequiredLabel]="form?.get('idRegimenLaboral')">Régimen
+                        laboral
+                    </mat-label>
+                    <mat-select id="regimenLaboral" formControlName="idRegimenLaboral"
+                        (selectionChange)="grupoAccion($event.value)">
+                        <mat-option [value]="-1"> --SELECCIONE-- </mat-option>
+                        <mat-option *ngFor="let item of regimenLaboralList"
+                            [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form?.get('idRegimenLaboral')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form?.get('idGrupoAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form?.get('idGrupoAccion')">Grupo
+                        Acción
+                    </mat-label>
+                    <mat-select formControlName="idGrupoAccion"
+                        (selectionChange)="accion($event.value)">
+                        <mat-option [value]="-1"> --SELECCIONE-- </mat-option>
+                        <mat-option *ngFor="let item of grupoAccionList"
+                            [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form?.get('idGrupoAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form?.get('idAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form?.get('idAccion')">Acción
+                    </mat-label>
+                    <mat-select formControlName="idAccion"
+                        (selectionChange)="motivoAccion($event?.value)">
+                        <mat-option [value]="-1"> --SELECCIONE-- </mat-option>
+                        <mat-option *ngFor="let item of accionList" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form?.get('idAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                    [mineduFormFieldValidationState]="form?.get('idMotivoAccion')">
+                    <mat-label [mineduFormRequiredLabel]="form?.get('idMotivoAccion')">
+                        Motivo Acción
+                    </mat-label>
+                    <mat-select formControlName="idMotivoAccion"
+                        (selectionChange)="motivoAccionId($event.value)">
+                        <mat-option [value]="-1"> --SELECCIONE-- </mat-option>
+                        <mat-option *ngFor="let item of motivoAccionList"
+                            [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form?.get('idMotivoAccion')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+
+                <div fxFlex="24.5%" fxFlex.xs="100%">
+                    <mat-label [mineduFormRequiredLabel]="form?.get('porMandatoJudicial')">
+                        Por mandato judicial
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>
+                        <mat-slide-toggle formControlName="porMandatoJudicial">SI
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+
+                <div fxFlex="24.5%" fxFlex.xs="100%">
+                    <mat-label [mineduFormRequiredLabel]="form?.get('porProceso')">
+                        Por proceso
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>
+                        <mat-slide-toggle (change)="limpiarFormularios($event)" formControlName="porProceso">SI
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

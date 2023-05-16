@@ -1,0 +1,86 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Validación Encargatura Ratificada</span>
+            </div>
+            <button mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-dialog-content class="p-8 pb-0 m-0">
+        <form [formGroup]="form">
+            <div class="content-table">
+                <div fxLayout="row">
+                    <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile" [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                        <ng-container matColumnDef="rowNum">
+                            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">N°:</span>
+                                {{ row.rowNum }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="regimenLaboral">
+                            <mat-header-cell *matHeaderCellDef>Régimen Laboral</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Régimen Laboral:</span>
+                                {{ row.regimenLaboral }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="accion">
+                            <mat-header-cell *matHeaderCellDef>Acción</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Acción:</span>
+                                {{ row.accion }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="motivoAccion">
+                            <mat-header-cell *matHeaderCellDef>Motivo de Acción</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Motivo de Acción:</span>
+                                {{ row.motivoAccion }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="codigoPlaza">
+                            <mat-header-cell *matHeaderCellDef>Codigo de Plaza</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Codigo de Plaza:</span>
+                                {{ row.codigoPlaza }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="cargo">
+                            <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Cargo:</span>
+                                {{ row.cargo }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="fechaInicio">
+                            <mat-header-cell *matHeaderCellDef>Fecha inicio</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Fecha inicio:</span>
+                                {{ row.fechaInicio }}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="fechaFin">
+                            <mat-header-cell *matHeaderCellDef>Fecha fin</mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index">
+                                <span class="mobile-label">Fecha fin:</span>
+                                {{ row.fechaFin }}
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    </mat-table>
+                </div>
+                <div class="no-results" *ngIf="!(dataSource.loading | async)" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="end center" fxLayoutAlign.xs="stretch">
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">select</span> Seleccionar</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">cancel</span> Cancelar</button>
+    </mat-dialog-actions>
+</div>

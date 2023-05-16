@@ -1,0 +1,216 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{titulo}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-10 pb-0 m-0" fusePerfectScrollbar>
+        <div class="panel-body">
+            <fieldset class="fieldset-border mb-3">
+                <legend>Proceso y etapa</legend>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                        fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                            fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Año</span>
+                                    <br>
+                                    <span class="label-normal"> {{paramInit.anio}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span  class="label">Instancia</span>
+                                    <br>
+                                    <span  class="label-normal"> {{paramInit.instanciaText}}</span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span  class="label">Sub Instancia</span>
+                                    <br>
+                                    <span  class="label-normal">
+                                        {{paramInit.subInstanciaText}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span  class="label"> </span>
+                                    <br>
+                                    <span  class="label-normal">
+                                           </span>
+                                </div>
+                            </div>
+                             
+                        </div>
+                    </div>
+                </div>
+           
+            </fieldset> 
+            <fieldset class="fieldset-border mb-3">
+                <legend>Datos Laborales</legend> 
+                
+                <div fxLayout="row"  fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                     <span class="label">C&oacute;digo Modular</span>
+                                    <br>
+                                    <form [formGroup]="form">
+                                        <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+
+                                        <input matInput formControlName="codigoModular" (keypress)="keyPressBuscarCodigoModular($event)"
+                                                [maxlength]="7" placeholder="Número de documento" [readonly]="!esReadOnly"
+                                                >
+                                        <mat-icon matSuffix *ngIf="esReadOnly"  class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">search
+                                        </mat-icon>
+                                        </mat-form-field>
+                                    </form>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Centro de trabajo</span>
+                                    <br>
+                                    <span class="label-normal">{{centrotrabajo.INSTITUCION_EDUCATIVA}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Entidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_DRE}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Sub Entidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_UGEL}}  </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Tipo centro de trabajo</span>
+                                    <br>
+                                    <span class="label-normal"> {{ centrotrabajo.DESCRIPCION_TIPO_CENTRO_TRABAJO}} </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modalidad</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_MODALIDAD_EDUCATIVA}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Nivel educativo</span>
+                                    <br>
+                                    <span class="label-normal">{{ centrotrabajo.DESCRIPCION_NIVEL_EDUCATIVO}}  </span>
+                                </div>
+                            </div>
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modelo de Servicio</span>
+                                    <br>
+                                    <span class="label-normal">{{centrotrabajo.MODELO_SERVICIO}} </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- <div fxLayout="row" fxLayout.lt-md="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                <div>
+                                    <span class="label">Modelo de Servicio</span>
+                                    <br>
+                                    <span class="label-normal">{{centrotrabajo.MODELO_SERVICIO}} </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                </div> -->
+            </fieldset>
+            <fieldset class="fieldset-border mb-3">
+                <legend>Totales</legend> 
+            <div fxLayout="row"   fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Total Bolsa de Horas UGEL</span>
+                                <br>
+                                <span class="label-normal">{{resumen.numeroHoraAsignadaUgel}} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Total de Asignadas</span>
+                                <br>
+                                <span class="label-normal"> {{resumen.numeroHoraAsignada}}  </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Pendientes</span>
+                                <br>
+                                <span class="label-normal">{{resumen.numeroHoraRestante}} </span>
+                            </div>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                            <div>
+                                <span class="label">Asignadas</span>
+                                <br>
+                                <form [formGroup]="form2">
+                                    <mat-form-field appearance="fill" fxFlex="50%" fxFlex.xs="100%">
+
+                                    <input matInput formControlName="horaAsignada"   
+                                            [maxlength]="6" placeholder="Hora asignar"
+                                            (keypress)="soloNumeros($event)"
+                                            >
+                                    
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+        </div>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button  [disabled]="disabledBtn"  color="primary"  (click)="handleSave()"><span class="material-icons">save</span> Grabar</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">close</span> Retornar</button>
+
+
+    </div>
+</div>

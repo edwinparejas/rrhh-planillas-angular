@@ -1,0 +1,132 @@
+@import "@minedu/scss/minedu";
+@import "@minedu/scss/comun";
+:host {
+    width: 100%;
+}
+.busqueda-avanzada-dialog {
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width: 1200px;
+    }
+    
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+
+            font-size: 16px!important;
+            font-family: "Roboto-regular", Helvetica, Arial, sans-serif!important;
+           
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }  
+
+    .minedu-note{
+        font-style: italic;
+        font-weight: 700;
+        color: #0073B7;        
+    }
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .mat-icon-table{
+            width: 30px;
+        }                 
+        .mat-column-abreviatura{
+            flex: 0 1 200px;
+        }
+        .mat-column-descripcion{
+            flex: 0 1 300px;    
+        }
+        /*begin personalizacion*/
+        // .mat-header-row {
+        //      height: 25px !important;
+        //      min-height: 25px!important;
+        // }
+        .mat-cell, .mat-footer-cell {
+            font-size: 11px !important;
+            // padding: 5px 5px 5px 10px;
+        }
+        .mat-header-cell{
+            font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #fff !important;
+            background-color: #0073B7 !important;
+            justify-content: center;
+                // padding: 0px 5px 0px 10px;
+        }
+         .mat-row:nth-of-type(odd) {
+            background:  #F8F9FA;
+          }
+          /*end personalizacion*/
+
+        .mat-cell:first-of-type,
+        .mat-header-cell:first-of-type,
+        .mat-footer-cell:first-of-type {
+            justify-content: center;
+            padding-left: 0px;
+        }
+        .mat-cell:last-of-type,
+        .mat-header-cell:last-of-type,
+        .mat-footer-cell:last-of-type {
+            justify-content: center;
+            padding-right: 0px;
+        }
+        .mobile-label {
+            display: none;
+        }
+        .mat-table {
+            overflow: auto;
+            max-height: 800px;
+        }
+        @media(max-width: 700px) {
+            .mobile-label {
+                width: 100px;
+                display: inline-block;
+                // font-weight: bold;
+                margin-right: 10px;
+            }
+            .mat-header-row {
+                display: none;
+            }
+            .mat-cell {
+                width: 100%;
+            }
+            .mat-row {
+                flex-direction: column;
+                align-items: start;
+                text-align: left;
+                max-height: 595px;
+            }
+        }
+    }
+    .panel-body{
+        padding: 5px 15px;
+    }
+    
+}

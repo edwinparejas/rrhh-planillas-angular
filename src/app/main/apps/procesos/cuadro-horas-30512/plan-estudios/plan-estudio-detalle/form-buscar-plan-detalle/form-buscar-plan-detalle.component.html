@@ -1,0 +1,132 @@
+<div class="panel">
+    <div class="panel body">
+        <div class="panel-heading">
+            <h3 class="panel-title">Criterios de búsqueda</h3>
+        </div>
+        <div class="panel-body">
+            <form [formGroup]="form">
+                <div fxLayout="column">
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayoutAlign="start start" fxFlex="33.33%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('idAreaComponenteCurricular')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idAreaComponenteCurricular')">
+                                    Componente Curricular
+                                </mat-label>
+                                <mat-select formControlName="idAreaComponenteCurricular"
+                                    [disabled]="state.filterLists.componentesCurricular.loading">
+                                    <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                    <mat-option *ngFor="let item of state.filterLists.componentesCurricular.list"
+                                        [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('idAreaComponenteCurricular')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="33.33%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('idCarreraProgramaEstudios')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idCarreraProgramaEstudios')">
+                                    Carrera / Programa de Estudios
+                                </mat-label>
+                                <mat-select formControlName="idCarreraProgramaEstudios"
+                                    [disabled]="state.filterLists.carrerasProgramas.loading">
+                                    <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                    <mat-option *ngFor="let item of state.filterLists.carrerasProgramas.list"
+                                        [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('idCarreraProgramaEstudios')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="33.33%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('idCiclo')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idCiclo')">
+                                    Clico
+                                </mat-label>
+                                <mat-select formControlName="idCiclo" [disabled]="state.filterLists.ciclos.loading">
+                                    <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                    <mat-option *ngFor="let item of state.filterLists.ciclos.list" [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages [mineduFormControl]="form.get('idCiclo')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                        <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('idCursoModulo')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idCursoModulo')">
+                                    Área / Curso / Módulo
+                                </mat-label>
+                                <mat-select formControlName="idCursoModulo" [disabled]="state.filterLists.cursosModulo.loading">
+                                    <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                    <mat-option *ngFor="let item of state.filterLists.cursosModulo.list"
+                                        [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('idCursoModulo')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%">
+                            <mat-form-field appearance="fill" fxFlex="100%"
+                                [mineduFormFieldValidationState]="form.get('idFormacionProfesional')">
+                                <mat-label [mineduFormRequiredLabel]="form.get('idFormacionProfesional')">
+                                    Formación Académica
+                                </mat-label>
+                                <mat-select formControlName="idFormacionProfesional" [disabled]="state.filterLists.formacionesAcademico.loading">
+                                    <mat-option>--SELECCIONE UNA OPCIÓN--</mat-option>
+                                    <mat-option *ngFor="let item of state.filterLists.formacionesAcademico.list"
+                                        [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <minedu-form-field-validation-messages
+                                        [mineduFormControl]="form.get('idFormacionProfesional')">
+                                    </minedu-form-field-validation-messages>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.xs="100%"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div class="p-0" fxLayout="row">
+                    <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                        [working]="state.isLoading">
+                    </minedu-button-clear>
+                </div>
+                <div class="pl-6" fxLayout="row">
+                    <minedu-button-search [mineduForm]="form" (mineduOnClick)="handleBuscar()"
+                        [working]="state.isLoading">
+                    </minedu-button-search>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

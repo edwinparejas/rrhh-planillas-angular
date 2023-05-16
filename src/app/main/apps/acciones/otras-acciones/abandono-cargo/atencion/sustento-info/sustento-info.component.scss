@@ -1,0 +1,48 @@
+@import "src/@minedu/scss/minedu";
+minedu-sustento-info {
+    fieldset {
+        width: 700px;
+    }
+    .mat-dialog-container {
+        padding: 0 !important;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+        }
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+    .mat-raised-button.mat-primary {
+        background-color: #0073b7 !important;
+        border-color: #0073b7 !important;
+    }
+    .mat-stroked-button.mat-primary {
+        color: #0073b7 !important;
+    }
+    .mat-flat-button.mat-primary {
+        background-color: #0073b7 !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-primary {
+        border-color: #0073b7 !important;
+        background-color: #fff !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336;
+        background-color: #fff;
+    }
+    label {
+        font-weight: bold;
+    }
+    p.form-control-static {
+        margin: 5px 0px 15px 0px;
+    }
+}
+
+.mat-dialog-container {
+    padding: 0px !important;
+}

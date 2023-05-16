@@ -1,0 +1,85 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-10 pb-0 m-0">
+        <fieldset class="fieldset-border">
+            <legend>Sanciones Administrativas</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <mat-label>
+                        La persona {{datos.nombreCompleto}}, no puede ser registrado como postulante, ya que cuenta con las siguientes sanciones administrativas durante los últimos 5 años.
+                    </mat-label>
+                </div><br>
+                <div class="content">
+                    <div class="content-table">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <mat-table class="minedu-table" #table [dataSource]="dataSourceSancionesAdministrativas" [class.isMobile]="isMobile"
+                                [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                <ng-container matColumnDef="registro">
+                                    <mat-header-cell *matHeaderCellDef>Nro</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <p>{{ i + 1 }}</p>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="tipo_sancion">
+                                    <mat-header-cell *matHeaderCellDef>Tipo de Sanción</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.tipoSancion }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="resolucion">
+                                    <mat-header-cell *matHeaderCellDef>Resolución</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.numeroResolucion }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="fecha_inicio">
+                                    <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.fechaInicio | date: "dd/MM/yyyy" }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="fecha_fin">
+                                    <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.fechaFin | date: "dd/MM/yyyy" }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="dias">
+                                    <mat-header-cell *matHeaderCellDef>Días</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.diasSancion }}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="estado">
+                                    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index">
+                                        {{ row.estado ? 'VIGENTE' : 'NO VIGENTE' }}
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumnsSanciones; sticky: true"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumnsSanciones" (mouseover)="row.hovered = true"
+                                    (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                                </mat-row>
+                            </mat-table>
+                        </div>
+                        <div class="no-results" [style.display]="dataSourceSancionesAdministrativas.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+@import "@minedu/scss/minedu";
+
+.buscar-persona-form-dialog{
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width:1200px;
+    }
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            >h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }  
+
+    .minedu-note{
+        font-style: italic;
+        font-weight: 700;
+        color: #0073B7;        
+    }
+
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .direccion {
+            position: relative;
+            cursor: pointer;
+            height: 84px;
+        }           
+        .mat-column-documento {
+            flex: 0 1 150px;            
+        }
+        .mat-column-apellidosNombres {
+            flex: 0 1 280px;            
+        }
+        .mat-column-fechaNacimiento {
+            flex: 0 1 150px;            
+        }          
+        .mat-column-iged {
+            flex: 0 1 250px;            
+        }          
+        .mat-column-centroTrabajo {
+            flex: 0 1 250px;            
+        }          
+        .mat-column-regimenLaboral {
+            flex: 0 1 180px;            
+        }          
+        .mat-column-condicionLaboral {
+            flex: 0 1 150px;            
+        }          
+        .mat-column-estadoActual {
+            flex: 0 1 150px;            
+        }        
+        
+        .mat-header-cell, 
+        .mat-cell {
+            padding: 0 10px 0 10px; 
+        }
+        .mat-header-cell:not(:last-child),
+        .mat-cell:not(:last-child){
+            border-right: 1px solid #ddd;
+        }   
+    }
+}

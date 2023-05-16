@@ -1,0 +1,195 @@
+<fieldset class="fieldset-border">
+    <legend>Informe de Cálculo del Beneficio</legend>
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+        fxLayoutGap.lt-md="0" [formGroup]="form">
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0" >
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%" [mineduFormFieldValidationState]="
+                form.get('numeroInformeCalculo')">
+                <mat-label [mineduFormRequiredLabel]="form.get('numeroInformeCalculo')">Número Informe Cálculo</mat-label>
+                    <input matInput 
+                        formControlName="numeroInformeCalculo" 
+                        placeholder="Número Informe Escalafonario" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressnumeroInformeCalculo($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('numeroInformeCalculo')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+                <button type="button" mat-stroked-button color="primary"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                    (click)="handleBuscarInformeCalculo()" 
+                    color="accent"
+                    [disabled]="true">
+                    <span class="material-icons">description</span>
+                        BUSCAR
+                    </button>
+            </div>     
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <minedu-datepicker label="Fecha de inicio"
+                    [mineduFormControl]="form.get('fechaBeneficio')"
+                    [formControl]="form.get('fechaBeneficio')"
+                    >
+                </minedu-datepicker>
+            </div>  
+           
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div fxLayout="column">
+                    <mat-label [mineduFormRequiredLabel]="form.get('conInformeCalculo')">
+                        Con Informe de Cálculo
+                    </mat-label>
+                    <div>
+                        <mat-label ngClass="labelBeforeSlide">NO</mat-label>                                            
+                        <mat-slide-toggle formControlName="conInformeCalculo"
+                        (change)="selectConInformeCalculo()" [disabled]="true">SI
+                        </mat-slide-toggle>
+                    </div>                  
+                </div>
+            </div>  
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                   
+            </div>   
+                                     
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <mat-form-field appearance="fill" fxFlex="100%"
+                    [mineduFormFieldValidationState]="form.get('idTipoCreditoDevengado')">
+                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoCreditoDevengado')">
+                        Tipo Crédito
+                    </mat-label>
+                    <mat-select formControlName="idTipoCreditoDevengado" >
+                        <mat-option *ngFor="let item of comboLists.listTipoCreditoDevengado" [value]="item.value">
+                            {{item.label}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <minedu-form-field-validation-messages
+                            [mineduFormControl]="form.get('idTipoCreditoDevengado')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>      
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <minedu-datepicker label="Fecha de Inicio Crédito Devengado"
+                        [mineduFormControl]="form.get('fechaInicioCreditoDevengado')"
+                        [formControl]="form.get('fechaInicioCreditoDevengado')"
+                        >
+                    </minedu-datepicker>
+                </div>  
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                    <minedu-datepicker label="Fecha de Término Crédito Devengado"
+                        [mineduFormControl]="form.get('fechaFinCreditoDevengado')"
+                        [formControl]="form.get('fechaFinCreditoDevengado')"
+                        >
+                    </minedu-datepicker>
+                </div> 
+                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                   
+                </div> 
+                
+            
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <p class="form-control-static" fxFlex="10%">
+                    {{"(a) => "}}</p>
+                <mat-form-field appearance="fill" fxFlex="90%"  [mineduFormFieldValidationState]="
+                form.get('totalLiquidacionCreditoDevengado')">
+                
+                <mat-label [mineduFormRequiredLabel]="form.get('totalLiquidacionCreditoDevengado')">Total Liquidación</mat-label>
+                <p class="form-control-static" >
+                    {{"S/."}}</p>
+                    <input matInput 
+                        formControlName="totalLiquidacionCreditoDevengado" 
+                        placeholder="Total liquidación" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressDecimal($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('totalLiquidacionCreditoDevengado')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <p class="form-control-static" fxFlex="10%">
+                    {{"(b) => "}}</p>
+                <mat-form-field appearance="fill" fxFlex="90%"  [mineduFormFieldValidationState]="
+                form.get('pagadoCreditoDevengado')">
+                
+                <mat-label [mineduFormRequiredLabel]="form.get('pagadoCreditoDevengado')">Pagado</mat-label>
+                <p class="form-control-static" >
+                    {{"S/."}}</p>
+                    <input matInput 
+                        formControlName="pagadoCreditoDevengado" 
+                        placeholder="Pagado" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressDecimal($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('pagadoCreditoDevengado')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Total Deuda</label>
+                    <p class="form-control-static" >
+                        {{"(c=a-b) =>  S/."}} {{form.get('totalDeudaCreditoDevengado').value | currency:'':'' }}                        
+                    </p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                <p class="form-control-static" fxFlex="10%">
+                    {{"(d) => "}}</p>
+                <mat-form-field appearance="fill" fxFlex="90%"  [mineduFormFieldValidationState]="
+                form.get('interesesLegalesCreditoDevengado')">
+                
+                <mat-label [mineduFormRequiredLabel]="form.get('interesesLegalesCreditoDevengado')">Intereses Legales</mat-label>
+                <p class="form-control-static" >
+                    {{"S/."}}</p>
+                    <input matInput 
+                        formControlName="interesesLegalesCreditoDevengado" 
+                        placeholder="Intereses Legales" 
+                        [maxLength]="10"
+                        (keypress)="onKeyPressDecimal($event)"
+                        uppercase />
+                    <mat-error>
+                        <minedu-form-field-validation-messages [mineduFormControl]="form.get('interesesLegalesCreditoDevengado')">
+                        </minedu-form-field-validation-messages>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row" fxFlex="100%" fxFlex.lt-sm="100%"
+            fxLayoutGap="12px" fxLayoutGap.xs="0">
+            
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                <div class="form-group" fxFlex="100%" >
+                    <label for="">Por Pagar</label>
+                    <p class="form-control-static" >
+                        {{"(e=c+d) => S/."}} 
+                        {{form.get('porPagarCreditoDevengado').value  | currency:'':''}}
+                    </p>
+                </div>
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+               
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%" >
+                
+            </div>
+            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+               
+            </div>
+        </div>
+    </div>
+</fieldset>

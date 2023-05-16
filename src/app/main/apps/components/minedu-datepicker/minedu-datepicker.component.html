@@ -1,0 +1,31 @@
+
+<minedu-year-picker *ngIf="mode === 'YEAR'" 
+[label]="label"
+[formControl]="_yearPickerCtrl" 
+[max]="max" 
+[min]="min"
+[touchUi]="touchUi"
+[mineduFormControl]="mineduFormControl"
+>
+</minedu-year-picker>
+
+<minedu-month-picker *ngIf="_showMonthPicker" 
+ [label]="label" 
+ [formControl]="_monthPickerCtrl"
+ [max]="max" 
+ [min]="min" 
+ [mode]="mode"
+ [touchUi]="touchUi"
+ [mineduFormControl]="mineduFormControl">
+</minedu-month-picker>
+
+<minedu-regular-datepicker *ngIf="_showRegularDatepicker" 
+       [label]="label"
+       [requiredLabel]="requiredLabel"
+       [formControl]="_regularPickerCtrl"
+       [max]="max" 
+       [min]="min" 
+       [mode]="mode" 
+       [touchUi]="touchUi"
+       [mineduFormControl]="mineduFormControl">
+</minedu-regular-datepicker>

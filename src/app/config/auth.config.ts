@@ -1,0 +1,10 @@
+export const KONG_AUTH_TOKEN = 'kong_auth_token';
+export const PASSPORT_TOKEN = 'passport_token';
+export const PASSPORT_SESSION_DATA = 'passport_session_data';
+export const PASSPORT_USER_DATA = 'passport_user_data';
+export const PASSPORT_MENU = 'passport_menu';
+export const PASSPORT_MENU_SELECTED = 'passport_menu_selected';
+export const PASSPORT_ROL_SELECTED = 'passport_rol_selected';
+export const PASSPORT_ACCIONES_USUARIO = 'passport_acciones';
+export const PASSPORT_PARAM_RETORNO = 'param';
+export const INSTANCIA_SELECTED = 'instancia_selected';

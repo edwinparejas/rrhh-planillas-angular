@@ -1,0 +1,150 @@
+@import "@minedu/scss/core";
+.mat-dialog-container {
+    padding: 0px !important;
+}
+
+table {           
+    border-collapse: collapse;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}     
+
+.mat-table {
+    font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
+    border-spacing: 0;
+}    
+
+td.mat-cell,
+td.mat-footer-cell{
+    font-size: 11px !important;    
+    padding: 0 10px 0 10px; 
+}
+
+tr.mat-header-row{
+    min-height: 36px !important;
+    height: 40px !important;
+}
+
+.mat-header-cell{
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff !important;
+    background-color: #0073B7 !important;
+    padding: 0 10px 0 10px; 
+}
+
+.mat-cell:first-child{
+    border-left: 1px solid #ddd;
+} 
+
+th {
+    border: 1px solid #ddd
+}  
+
+tr.mat-row {
+    border: 1px solid #ddd
+}   
+.mat-row.hovered {
+    background: #ECECEE;
+} 
+
+.mat-row.selected{
+    background: #e5e5e5;
+} 
+th.mat-header-cell{
+    font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #fff !important;
+    background-color: #0073B7 !important;
+    padding: 0 5px 0 10px; 
+    border: 0px !important;
+}
+.mat-header-cell:not(:last-child),
+.mat-cell:not(:last-child){
+    border-right: 0px solid #ddd;
+    padding:5px;
+}
+th.mat-header-cell:first-of-type,
+td.mat-cell:first-of-type, 
+td.mat-footer-cell:first-of-type{
+    padding-left: 15px;
+}
+th.mat-header-cell:last-of-type, 
+td.mat-cell:last-of-type, 
+td.mat-footer-cell:last-of-type {
+    padding-right: 15px;
+}
+
+.minedu-table {
+    flex: 1 1 auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+    .mat-column-tipoDocumentoSustento {
+        flex: 0 1 250px;
+    }
+    .mat-column-numeroDocumentoSustento {
+        flex: 0 1 250px;
+    }
+    .mat-column-tipoFormatoSustento {
+        flex: 0 1 250px;
+    }
+    .mat-column-numeroFolios {
+        flex: 0 1 300px;
+    }
+    .mat-column-fechaEmision {
+        flex: 0 1 250px;
+    }
+    .mat-column-fechaRegistro {
+        flex: 0 1 250px;
+    }
+    .mat-column-acciones {
+        flex: 0 1 120px;
+    }    
+   
+}
+
+.mat-raised-button {
+    border: 1px solid #ccc;
+    line-height: 34px;
+}
+.mat-raised-button.mat-primary {
+    background-color: #0073b7 !important;
+    border-color: #0073b7 !important;
+}
+.mat-stroked-button.mat-primary {
+    color: #0073b7 !important;
+}
+.mat-flat-button.mat-primary {
+    background-color: #0073b7;
+}
+.mat-stroked-button:not([disabled]).mat-primary {
+    border-color: #0073b7;
+    background-color: #fff;
+}
+.mat-stroked-button:not([disabled]).mat-warn {
+    border-color: #f44336;
+    background-color: #fff;
+}
+button .mat-button-wrapper .material-icons {
+    font-size: 16px;
+}
+button.btn-sm {
+    line-height: 24px;
+    min-width: 27px;
+    padding: 0;
+}
+button.btn-sm .mat-button-wrapper .material-icons {
+    font-size: 16px;
+}
+button.btn-sm .mat-icon {
+    height: 20px;
+    width: 20px;
+    min-width: 20px;
+    min-height: 20px;
+}
+.btn-icon .mat-button-wrapper .material-icons {
+    font-size: 22px !important;
+}
+

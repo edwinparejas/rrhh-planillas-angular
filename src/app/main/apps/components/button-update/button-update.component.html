@@ -1,0 +1,11 @@
+<button type="button" mat-raised-button color="accent" *ngIf="!mineduForm.valid" [disabled]="!mineduForm.valid"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span class="material-icons">create</span> MODIFICAR
+</button>
+<button type="button" mat-raised-button color="accent" *ngIf="mineduForm.valid && working" [disabled]="working"
+    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">create</span> Modificando...
+</button>
+<button type="button" mat-raised-button color="accent" (click)="onClickChild($event)" *ngIf="mineduForm.valid && !working"
+    [disabled]="working" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <span class="material-icons">create</span> MODIFICAR
+</button>

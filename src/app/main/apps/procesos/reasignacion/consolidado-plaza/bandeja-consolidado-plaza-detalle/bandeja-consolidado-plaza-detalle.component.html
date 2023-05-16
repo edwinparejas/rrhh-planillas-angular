@@ -1,0 +1,133 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <div class="p-20">
+                    <div fxLayout="row" fxLayout.lt-md="column">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                <div fxLayoutAlign="center start" fxFlex="10%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Instancia</span>
+                                        <br>
+                                        <span class="label-normal">{{ consolidadoPlaza?.descripcion_dre }}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="10%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Sub instancia</span>
+                                        <br>
+                                        <span class="label-normal">{{ consolidadoPlaza?.descripcion_ugel}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Proceso y Etapa</h3>
+                </div>
+                <div class="panel-body">
+                    <minedu-informacion-proceso-etapa [idProcesoEtapa]="idEtapaProceso"></minedu-informacion-proceso-etapa>
+                </div>
+                <br>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+                <div class="panel-body">
+                    <form [formGroup]="form">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoCentroTrabajo')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoCentroTrabajo')">Código Modular</mat-label>
+                                    <input matInput formControlName="codigoCentroTrabajo" numbersOnly maxlength="7" minlength="6"
+                                        placeholder="Código modular" (keyup.enter)="handleBuscar()" />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoCentroTrabajo')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                        Código de Plaza
+                                    </mat-label>
+                                    <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" 
+                                        (keyup.enter)="handleBuscar()" maxlength="12" minlength="12" alphaNumeric uppercase />
+                                    <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">
+                                        search
+                                    </mat-icon>
+                                    <mat-error>
+                                        <minedu-form-field-validation-messages
+                                            [mineduFormControl]="form.get('codigoPlaza')">
+                                        </minedu-form-field-validation-messages>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleLimpiar()">
+                                <span class="material-icons">clear</span> Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                                <span class="material-icons">search</span> Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div *ngIf="this.consolidadoPlaza?.codigo_estado === estadoConsolidadoPlaza.VALIDADO"
+                            mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleAprobarPlazas()"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4">done</span>APROBAR PLAZAS
+                            </button>
+                        </div>
+                        <div *ngIf="this.consolidadoPlaza?.codigo_estado === estadoConsolidadoPlaza.VALIDADO"
+                            mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button color="primary" (click)="handleRechazarPlazas()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                                <span class="material-icons mr-4" style="color: red;">close</span>RECHAZAR PLAZAS
+                            </button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <mat-tab-group (selectedTabChange)="handleSelectTab($event)">
+                            <mat-tab label="Plazas a convocar">
+                                <minedu-consolidado-plazas-convocar [etapaProceso]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza"></minedu-consolidado-plazas-convocar>
+                            </mat-tab>
+                            <mat-tab label="Plazas observadas">
+                                <minedu-consolidado-plazas-observadas [etapaProceso]="etapaResponse" [consolidadoPlaza]="consolidadoPlaza"></minedu-consolidado-plazas-observadas>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                    <div class="panel-footer">
+                        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                <button mat-stroked-button (click)="handleRetornar()">
+                                    <span class="material-icons">keyboard_backspace</span>
+                                    RETORNAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

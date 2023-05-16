@@ -1,0 +1,303 @@
+<div class="content" mineduPerfectScrollbar>
+    <div fxLayout="column" class="pl-2 pr-2">
+        <div class="panel">
+
+            <!-- <router-outlet></router-outlet> -->
+
+            <div class="panel-body">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                        <minedu-datepicker mode="YEAR" label="Año"
+                                            [mineduFormControl]="form.get('anio')" [formControl]="form.get('anio')"
+                                            [max]="now"></minedu-datepicker>
+                                    </div>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoIdentidad')">
+                                            Tipo de
+                                            documento
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoDocumentoIdentidad"
+                                            (selectionChange)="selectTipoDocumento($event.value)">
+                                            <mat-option *ngFor="let item of comboLists.listTipoDocumento"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('numeroDocumentoIdentidad')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoIdentidad')">
+                                            Número de
+                                            documento</mat-label>
+                                        <input ngi matInput formControlName="numeroDocumentoIdentidad"
+                                            placeholder="Número de documento"
+                                            [maxlength]="maxLengthnumeroDocumentoIdentidad"
+                                            (keypress)="maxLengthnumeroDocumentoIdentidad==8? validaNumericos($event):true">
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPersonalizada()">search
+                                        </mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-label>Régimen
+                                            laboral
+                                        </mat-label>
+                                        <mat-select formControlName="idRegimenLaboral">
+                                            <mat-option *ngFor="let item of comboLists.listRegimenLaboral"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <!--
+                                    <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%">
+                                        <mat-label>
+                                            Primer apellido</mat-label>
+                                        <input matInput formControlName="primerApellido" placeholder="Primer apellido"
+                                            maxlength="60">
+
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%">
+                                        <mat-label>
+                                            Segundo apellido</mat-label>
+                                        <input matInput formControlName="segundoApellido" placeholder="Segundo apellido"
+                                            maxlength="60">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="16%" fxFlex.xs="100%">
+                                        <mat-label>
+                                            Nombres</mat-label>
+                                        <input matInput formControlName="nombres" placeholder="Nombres" maxlength="60">
+
+                                    </mat-form-field>
+                                    -->
+
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                    <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%">
+                                        <mat-label>
+                                            Código modular</mat-label>
+                                        <input matInput formControlName="codigoCentroTrabajo"
+                                            placeholder="Código modular" maxlength="10">
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajo()">search
+                                        </mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" fxFlex="24.5%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idSituacionLaboral')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idSituacionLaboral')">
+                                            Situación laboral
+                                        </mat-label>
+                                        <mat-select formControlName="idSituacionLaboral">
+                                            <mat-option *ngFor="let item of comboLists.listSituacionLaboral"
+                                                [value]="item.value">
+                                                {{item.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="mb-2"></div>
+                        </form>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <div class="p-0" fxLayout="row">
+                                <button mat-raised-button (click)="handleLimpiar()"><span
+                                        class="material-icons">clear</span>
+                                    Limpiar</button>
+                            </div>
+                            <div class="pl-6" fxLayout="row">
+                                <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()"><span
+                                        class="material-icons">search</span>
+                                    Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-2">
+                    <div mat-dialog-actions fxLayout="row">
+                        <button mat-stroked-button color="primary" (click)="handleExportar()"
+                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                class="material-icons">get_app</span> EXPORTAR</button>
+                    </div>
+                </div>
+
+                <div class="content" mineduPerfectScrollbar>
+                    <div class="content-table">
+                        <div fxLayout="row" fxLayout.lt-md="column">
+                            <mat-table class="minedu-table" #table [dataSource]="dataSource" [class.isMobile]="isMobile"
+                                [@animateStagger]="{value:'50'}" style="width: 100%" mineduPerfectScrollbar>
+
+                                <ng-container matColumnDef="registro">
+                                    <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">N°:</span> {{row.registro}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="numeroDocumentoIdentidadCompleto">
+                                    <mat-header-cell *matHeaderCellDef>DOCUMENTO</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">DOCUMENTO:</span> {{row.numeroDocumentoIdentidad}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="nombreCompleto">
+                                    <mat-header-cell *matHeaderCellDef>APELLIDOS Y NOMBRES</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">APELLIDOS Y NOMBRES:</span> {{row.nombreCompleto}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="regimenLaboral">
+                                    <mat-header-cell *matHeaderCellDef>RÉGIMEN LABORAL
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">RÉGIMEN LABORAL:</span> {{row.regimenLaboral}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="centroTrabajo">
+                                    <mat-header-cell *matHeaderCellDef>CENTRO DE TRABAJO
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">CENTRO DE TRABAJO:</span> {{row.centroTrabajo}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="descripcionSituacionLaboral">
+                                    <mat-header-cell *matHeaderCellDef>SITUACION LABORAL
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">SITUACION LABORAL:</span>
+                                        {{row.descripcionSituacionLaboral}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasSgRegistrado">
+                                    <mat-header-cell *matHeaderCellDef>LIC. SIN GOCE REGISTRADAS
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">LIC. SIN GOCE REGISTRADAS:</span>
+                                        {{row.cantidadDiasSgRegistrado}}
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="cantidadDiasSgEnProyecto">
+                                    <mat-header-cell *matHeaderCellDef>LIC. SIN GOCE EN PROYECTO
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">LIC. SIN GOCE EN PROYECTO:</span>
+                                        {{row.cantidadDiasSgEnProyecto}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasSgEnResolucion">
+                                    <mat-header-cell *matHeaderCellDef>LIC. SIN GOCE CON RESOLUCIÓN
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">LIC. SIN GOCE CON RESOLUCIÓN:</span>
+                                        {{row.cantidadDiasSgEnResolucion}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasSg">
+                                    <mat-header-cell *matHeaderCellDef>TOTAL DÍAS LIC. SIN GOCE
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">TOTAL DÍAS LIC. SIN GOCE:</span>
+                                        {{row.cantidadDiasSg}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasCgRegistrado">
+                                    <mat-header-cell *matHeaderCellDef>LIC. CON GOCE REGISTRADAS
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">LIC. CON GOCE REGISTRADAS:</span>
+                                        {{row.cantidadDiasCgRegistrado}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasCgEnProyecto">
+                                    <mat-header-cell *matHeaderCellDef>LIC. CON GOCE EN PROYECTO
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">LIC. CON GOCE EN PROYECTO:</span>
+                                        {{row.cantidadDiasCgEnProyecto}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasCgEnResolucion">
+                                    <mat-header-cell *matHeaderCellDef>LIC. CON GOCE CON RESOLUCIÓN
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">LIC. CON GOCE CON RESOLUCIÓN:</span>
+                                        {{row.cantidadDiasCgEnResolucion}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cantidadDiasCg">
+                                    <mat-header-cell *matHeaderCellDef>TOTAL DÍAS LIC. CON GOCE
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let i = index;">
+                                        <span class="mobile-label">TOTAL DÍAS LIC. CON GOCE:</span>
+                                        {{row.cantidadDiasCg}}
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="acciones">
+                                    <mat-header-cell *matHeaderCellDef>ACCIONES</mat-header-cell>
+                                    <mat-cell *matCellDef="let row; let  i = index;">
+                                        <span class="mobile-label">ACCIONES:</span>
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div style="padding-left: 10px;"></div>
+                                            <div class="mat-icon-table">
+                                                <button mat-stroked-button color="primary"
+                                                    class="sidebar-toggle btn-sm ml-2"
+                                                    aria-label="Gestionar lic. CG y lic. SG"
+                                                    (click)="handleGestionar(row, i)"
+                                                    matTooltip="Gestionar lic. CG y lic. SG">
+                                                    <mat-icon class="">book</mat-icon>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </mat-cell>
+
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                </mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                                    (click)="selection.toggle(row)"
+                                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false" matRipple
+                                    [@animate]="{value:'*',params:{y:'100%'}}">
+                                </mat-row>
+                            </mat-table>
+                        </div>
+                        <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                            [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                            No se encontraron registros
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                            *ngIf="dataSource.loading | async">pageSize
+                            <mat-spinner diameter="50"></mat-spinner>
+                        </div>
+                        <mat-paginator #paginator class="mat-paginator-sticky" [length]="dataSource.dataTotal"
+                            [pageIndex]="paginatorPageIndex" [pageSize]="paginatorPageSize"
+                            [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+@import "@minedu/scss/minedu";
+.vista-proyecto-dialog {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+    @include media-breakpoint("gt-xs") {
+        width: 500px;
+    }
+    .mat-dialog-container {
+        padding: 0;
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        line-height: 34px;
+    }
+    .mat-raised-button.mat-primary {
+        background-color: #0073b7 !important;
+        border-color: #0073b7 !important;
+    }
+    .mat-stroked-button.mat-primary {
+        color: #0073b7 !important;
+    }
+    .mat-flat-button.mat-primary {
+        background-color: #0073b7 !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-primary {
+        border-color: #0073b7 !important;
+        background-color: #fff !important;
+    }
+    .mat-stroked-button:not([disabled]).mat-warn {
+        border-color: #f44336;
+        background-color: #fff;
+    }
+    button .mat-button-wrapper .material-icons {
+        font-size: 16px;
+    }
+    .animated {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .fast {
+        -webkit-animation-duration: 0.4s;
+        animation-duration: 0.4s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+    .fieldset {
+        position: relative;
+        border: 1px solid rgba(0, 115, 183, 0.4) !important;
+        width: 100%;
+        margin-top: 10px;
+        padding-left: 5px;
+        padding-top: 10px;
+        padding-bottom: -20px;
+        color: #777777;
+        font-family: Helvetica, Arial, sans-serif;
+    }
+    .text-bold {
+        font-family: "Roboto-bold", Helvetica, Arial, sans-serif;
+    }
+    .fieldset h1 {
+        position: absolute;
+        top: 0;
+        font-size: 14px;
+        line-height: 1;
+        margin: -9px 0 0;
+        color: #337ab7 !important;
+        /* half of font-size */
+        background: #fff;
+        padding: 0 3px;
+    }
+}

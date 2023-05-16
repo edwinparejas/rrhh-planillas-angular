@@ -1,0 +1,291 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-10 pb-0 m-0">
+        <fieldset class="fieldset-border">
+            <legend>Datos personales</legend>
+            <div fxLayout="column" fxFlexAlign="flex-start">
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Documento: </label>
+                            <p class="form-control-static" *ngIf="postulante.documento">
+                                {{ postulante.documento }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Primer Apellido: </label>
+                            <p class="form-control-static" *ngIf="postulante.primerApellido">
+                                {{ postulante.primerApellido }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Segundo Apellido: </label>
+                            <p class="form-control-static" *ngIf="postulante.segundoApellido">
+                                {{ postulante.segundoApellido }}</p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Nombres: </label>
+                            <p class="form-control-static" *ngIf="postulante.nombres">
+                                {{ postulante.nombres }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Sexo: </label>
+                            <p class="form-control-static" *ngIf="postulante.descripcionGenero">
+                                {{ postulante.descripcionGenero }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Fecha de nacimiento: </label>
+                            <p class="form-control-static" *ngIf="postulante.fechaNacimiento">
+                                {{ postulante.fechaNacimiento }}</p>
+                        </div>
+                    </div>                        
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Edad: </label>
+                            <p class="form-control-static" *ngIf="postulante.edad">
+                                {{ postulante.edad }}
+                            </p>
+                        </div>
+                    </div>
+                    <div fxFlex="25%" fxFlex.xs="100%">
+                        <div class="form-group">
+                            <label class="label" for="">Nacionalidad: </label>
+                            <p class="form-control-static">
+                                {{ postulante.descripcionNacionalidad !=''?postulante.descripcionNacionalidad:'PERUANO' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset><br>
+	<mat-checkbox
+	    class="label-normal"
+	    [checked]="postulante.cumpleNormaTecnica"
+	    [disabled]="true">
+	    Según norma técnica vigente, se ha verificado que la persona no cuenta con impedimento para ser postulante (*)
+	</mat-checkbox>
+        <mat-tab-group>
+            <mat-tab label="1. Expediente">
+                <fieldset class="fieldset-border">
+                    <legend>Datos del Expediente</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Número de Expediente: </label>
+                                    <p class="form-control-static" *ngIf="postulante.numeroExpediente">
+                                        {{ postulante.numeroExpediente }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div fxFlex="25%" fxFlex.xs="100%">
+                                <div class="form-group">
+                                    <label class="label" for="">Fecha de Inscripción: </label>
+                                    <p class="form-control-static" *ngIf="postulante.fechaExpediente">
+                                        {{ postulante.fechaExpediente }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="2. Plaza a Postular">
+                <fieldset class="fieldset-border">
+                    <legend>Orden de prelación</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Modalidad Educativa</span><br>
+                                        <span class="label-normal">{{postulante?.modalidad}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Nivel Educativo</span><br>
+                                        <span class="label-normal">{{postulante?.nivelEducativo}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Área Curricular</span><br>
+                                        <span class="label-normal">{{postulante?.areaCurricular}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Especialidad</span><br>
+                                        <span class="label-normal">{{postulante?.descripcionEspecialidad}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset-border">
+                    <legend>Título</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start">
+                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0">
+                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Título</span><br>
+                                        <span class="label-normal">{{postulante?.titulo}}</span>
+                                    </div>
+                                </div>
+                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                    <div>
+                                        <span class="label">Fecha Expedición de Título</span><br>
+                                        <span class="label-normal">{{postulante?.fechaExpedicionTitulo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="3. Vinculación Vigente"
+		     *ngIf="postulante.tieneVinculacion">
+                <fieldset class="fieldset-border">
+                    <legend>Vinculación Vigente</legend>
+                    <div fxLayout="column" fxFlexAlign="flex-start">
+                        <div class="content">
+                            <div class="content-table">
+                                <div fxLayout="row" fxLayout.lt-md="column">
+                                    <mat-table class="minedu-table" #table [dataSource]="dataSourcePlazasVinculadas" [class.isMobile]="isMobile"
+                                        [@animateStagger]="{ value: '50' }" style="width: 100%" mineduPerfectScrollbar>
+                                        <ng-container matColumnDef="registro">
+                                            <mat-header-cell *matHeaderCellDef>Nro</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index;">
+                                                <p>{{ i + 1 }}</p>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="instancia">
+                                            <mat-header-cell *matHeaderCellDef>Instancia</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.instancia }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="sub_instancia">
+                                            <mat-header-cell *matHeaderCellDef>Sub Instancia</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.sub_instancia }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="centro_trabajo">
+                                            <mat-header-cell *matHeaderCellDef>Centro de Trabajo</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.centro_trabajo }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="modalidad">
+                                            <mat-header-cell *matHeaderCellDef>Modalidad</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.modalidad }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="nivel_educativo">
+                                            <mat-header-cell *matHeaderCellDef>Nivel Educativo</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.nivel_educativo }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="codigo_plaza">
+                                            <mat-header-cell *matHeaderCellDef>Codigo de Plaza</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.codigo_plaza }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="tipo_plaza">
+                                            <mat-header-cell *matHeaderCellDef>Tipo de Plaza</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.tipo_plaza }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="regimen_laboral">
+                                            <mat-header-cell *matHeaderCellDef>Regimen Laboral</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.regimen_laboral }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="condicion_laboral">
+                                            <mat-header-cell *matHeaderCellDef>Condición Laboral</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.condicion_laboral }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="cargo">
+                                            <mat-header-cell *matHeaderCellDef>Cargo</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.cargo }}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="area_curricular">
+                                            <mat-header-cell *matHeaderCellDef>Área Curricular</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.area_curricular}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="jornada_laboral">
+                                            <mat-header-cell *matHeaderCellDef>Jornada Laboral</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.jornada_laboral}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fecha_inicio">
+                                            <mat-header-cell *matHeaderCellDef>Fecha Inicio</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.fecha_inicio}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fecha_fin">
+                                            <mat-header-cell *matHeaderCellDef>Fecha Fin</mat-header-cell>
+                                            <mat-cell *matCellDef="let row; let i = index">
+                                                {{ row.fecha_fin}}
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumnsPlazas; sticky: true"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumnsPlazas" (mouseover)="row.hovered = true"
+                                            (mouseout)="row.hovered = false" matRipple [@animate]="{ value: '*', params: { y: '100%' } }">
+                                        </mat-row>
+                                    </mat-table>
+                                </div>
+                                <div class="no-results" [style.display]="dataSourcePlazasVinculadas.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>                            
+            </mat-tab> 
+        </mat-tab-group>
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <!-- <minedu-button-cancel (mineduOnCancel)="handleCancelar()"></minedu-button-cancel> -->
+        <minedu-button-return (mineduOnReturn)="handleCancelar()"></minedu-button-return>
+    </div>
+</div>

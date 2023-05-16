@@ -1,0 +1,468 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="center">
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h2>Cuadro de Asignación de Personal</h2>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon>Inicio</a></li>
+                            <li><a [routerLink]="['/ayni/personal/inicio']">Personal</a></li>
+                            <li class="active"><a>Reportes</a></li>
+                            <li class="active"><a>Cuadro de Asignación de Personal</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->          
+            <div fxLayout="row">
+                <div class="page-layout carded fullwidth inner-scroll p-10" mineduPerfectScrollbar>
+                    <div class="page-layout carded left-sidebar inner-scroll">
+                        <div class="center">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Criterios de búsqueda</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form autocomplete="off" novalidate [formGroup]="form">
+                                        <div fxLayout="column">
+                                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-md="100%"
+                                                fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%" class="text-truncate"
+                                                    [mineduFormFieldValidationState]="form.get('idInstancia')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">Instancia</mat-label>
+                                                    <mat-select formControlName="idInstancia">
+                                                        <mat-option value="-1">--SELECCIONAR--</mat-option>
+                                                        <mat-option *ngFor="let item of instancias" [value]="item.idInstancia">
+                                                            {{item.descripcionInstancia}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idInstancia')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                    
+                                                <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%" class="text-truncate"
+                                                    [mineduFormFieldValidationState]="form.get('idSubinstancia')" *ngIf="mostrarSubinstancia">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idSubinstancia')">Sub Instancia</mat-label>
+                                                    <mat-select formControlName="idSubinstancia">
+                                                        <mat-option value="-1">--SELECCIONAR--</mat-option>
+                                                        <mat-option *ngFor="let item of subinstancias" [value]="item.idSubinstancia">
+                                                            {{item.descripcionSubinstancia}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idSubinstancia')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+                    
+                                                <mat-form-field appearance="fill" fxFlex="33.3%" fxFlex.xs="100%" class="text-truncate"
+                                                    [mineduFormFieldValidationState]="form.get('idTipoCentroTrabajo')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('idTipoCentroTrabajo')">Tipo de Centro de
+                                                        Trabajo</mat-label>
+                                                    <mat-select formControlName="idTipoCentroTrabajo">
+                                                        <mat-option value="-1">--SELECCIONAR--</mat-option>
+                                                        <mat-option *ngFor="let item of tiposCentroTrabajo"
+                                                            [value]="item.idTipoCentroTrabajo">
+                                                            {{item.descripcionTipoCentroTrabajo}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('idTipoCentroTrabajo')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>                    
+                                            </div>
+                                            
+                                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxFlex.lt-md="100%"
+                                                fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                                <div *ngIf="mostrarModalidadNivelEducativo" fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.lt-md="100%" class="text-truncate">
+                                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                                        [mineduFormFieldValidationState]="form.get('idModalidadEducativa')">
+                                                        <mat-label [mineduFormRequiredLabel]="form.get('idModalidadEducativa')">Modalidad
+                                                            educativa
+                                                        </mat-label>
+                                                        <mat-select formControlName="idModalidadEducativa">
+                                                            <mat-option>--SELECCIONAR--</mat-option>
+                                                            <mat-option *ngFor="let item of modalidades"
+                                                                [value]="item.idModalidadEducativa">
+                                                                {{item.descripcionModalidadEducativa}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error>
+                                                            <minedu-form-field-validation-messages
+                                                                [mineduFormControl]="form.get('idModalidadEducativa')">
+                                                            </minedu-form-field-validation-messages>
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div *ngIf="mostrarModalidadNivelEducativo" fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.lt-md="100%" class="text-truncate">
+                                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                                        [mineduFormFieldValidationState]="form.get('idNivelEducativo')">
+                                                        <mat-label [mineduFormRequiredLabel]="form.get('idNivelEducativo')">Nivel
+                                                            educativo
+                                                        </mat-label>
+                                                        <mat-select formControlName="idNivelEducativo">
+                                                            <mat-option>--SELECCIONAR--</mat-option>
+                                                            <mat-option *ngFor="let item of nivelesEducativos"
+                                                                [value]="item.idNivelEducativo">
+                                                                {{item.descripcionNivelEducativo}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error>
+                                                            <minedu-form-field-validation-messages
+                                                                [mineduFormControl]="form.get('idNivelEducativo')">
+                                                            </minedu-form-field-validation-messages>
+                                                        </mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div *ngIf="mostrarInstitucionEducativa" fxLayoutAlign="start start" fxFlex="33.3%" fxFlex.lt-md="100%" class="text-truncate">
+                                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                                        [mineduFormFieldValidationState]="form.get('codigoCentroTrabajo')">
+                                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoCentroTrabajo')">Código modular</mat-label>
+                                                        <input matInput formControlName="codigoCentroTrabajo" placeholder="Código modular"
+                                                            maxlength="7" (keyup.enter)="buscarCentrotrabajo($event)">
+                                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPersonalizada(null)">search</mat-icon>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <mat-accordion>
+                                                <mat-expansion-panel [expanded]="false">
+                                                    <mat-expansion-panel-header>
+                                                        <mat-panel-title>
+                                                            <mat-icon class="sisda-stepper-icon">keyboard_arrow_down</mat-icon>Búsqueda avanzada
+                                                            <mat-icon class="sisda-stepper-icon">keyboard_arrow_down</mat-icon>
+                                                        </mat-panel-title>
+                                                    </mat-expansion-panel-header>
+
+                                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                                            fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                                [mineduFormFieldValidationState]="form.get('idRegimenLaboral')">
+                                                                <mat-label [mineduFormRequiredLabel]="form.get('idRegimenLaboral')">Régimen
+                                                                    laboral </mat-label>
+                                                                <mat-select formControlName="idRegimenLaboral">
+                                                                    <mat-option value="-1" selected>--TODOS--</mat-option>
+                                                                    <mat-option *ngFor="let item of regimenesLaborales"
+                                                                        [value]="item.idRegimenLaboral">
+                                                                        {{item.descripcionRegimenLaboral}}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                    <minedu-form-field-validation-messages
+                                                                        [mineduFormControl]="form.get('idRegimenLaboral')">
+                                                                    </minedu-form-field-validation-messages>
+                                                                </mat-error>
+                                                            </mat-form-field>
+
+                                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                                [mineduFormFieldValidationState]="form.get('idAreaDesempenioLaboral')">
+                                                                <mat-label [mineduFormRequiredLabel]="form.get('idAreaDesempenioLaboral')">Área
+                                                                    de desempeño laboral </mat-label>
+                                                                <mat-select formControlName="idAreaDesempenioLaboral">
+                                                                    <mat-option value="-1" selected>--TODOS--</mat-option>
+                                                                    <mat-option *ngFor="let item of areasDesempenioLaboral"
+                                                                        [value]="item.idAreaDesempenioLaboral">
+                                                                        {{item.descripcionAreaDesempenioLaboral}}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                    <minedu-form-field-validation-messages
+                                                                        [mineduFormControl]="form.get('idAreaDesempenioLaboral')">
+                                                                    </minedu-form-field-validation-messages>
+                                                                </mat-error>
+                                                            </mat-form-field>
+
+                                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                                [mineduFormFieldValidationState]="form.get('idTipoCargo')">
+                                                                <mat-label [mineduFormRequiredLabel]="form.get('idTipoCargo')">Tipo de cargo
+                                                                </mat-label>
+                                                                <mat-select formControlName="idTipoCargo">
+                                                                    <mat-option value="-1" selected>--TODOS--</mat-option>
+                                                                    <mat-option *ngFor="let item of tiposCargo" [value]="item.idTipoCargo">
+                                                                        {{item.descripcionTipoCargo}}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                    <minedu-form-field-validation-messages
+                                                                        [mineduFormControl]="form.get('idTipoCargo')">
+                                                                    </minedu-form-field-validation-messages>
+                                                                </mat-error>
+                                                            </mat-form-field>
+
+                                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                                [mineduFormFieldValidationState]="form.get('idCargo')">
+                                                                <mat-label [mineduFormRequiredLabel]="form.get('idCargo')">Cargo</mat-label>
+                                                                <mat-select formControlName="idCargo">
+                                                                    <mat-option value="-1" selected>--TODOS--</mat-option>
+                                                                    <mat-option *ngFor="let item of cargos" [value]="item.idCargo">
+                                                                        {{item.descripcionCargo}}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                    <minedu-form-field-validation-messages
+                                                                        [mineduFormControl]="form.get('idCargo')">
+                                                                    </minedu-form-field-validation-messages>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="panel-footer">
+                                    <div fxLayout="row" fxLayoutAlign="center center">
+                                        <div class="p-0" fxLayout="row">
+                                            <minedu-button-clear [mineduForm]="form" (mineduOnClick)="handleLimpiar()"
+                                                [working]="working">
+                                            </minedu-button-clear>
+                                        </div>
+                                        <div class="pl-6" fxLayout="row">
+                                            <minedu-button-search [mineduForm]="form" (mineduOnClick)="handleBuscar()"
+                                                [working]="working">
+                                            </minedu-button-search>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <mat-tab-group #tabs mat-align-tabs="start" style="background-color: white;">
+                        <mat-tab label="Reporte">
+                            <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none">
+
+                                <div fxLayout="row" fxLayoutAlign="end center" class="pt-8 pb-8" fxLayoutGap="5px">
+                                    <div class="pl-6" fxLayout="row">
+                                        <button mat-raised-button color="primary" class="" (click)="handleGenerarReporte()"
+                                            [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            *ngIf="dataSource?.data.length > 0">
+                                            <span class="material-icons">picture_as_pdf</span> Generar Reporte
+                                        </button>
+                                    </div>
+                                    <div class="pl-6" fxLayout="row">
+                                        <button mat-stroked-button color="primary" [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"
+                                            (click)="handleExportar()" [disabled]="export"><span class="material-icons">get_app</span>
+                                            Exportar</button>
+                                    </div>
+                                </div>
+
+                                <div ngClass.lt-lg="scroll-grid-lt-lg">
+                                    <table mat-table class="minedu-table" [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+                                        <ng-container matColumnDef="index">
+                                            <th mat-header-cell *matHeaderCellDef>N°</th>
+                                            <td mat-cell *matCellDef="let row;">{{row.registro || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+                                
+                                        <ng-container matColumnDef="tipoCargo">
+                                            <th mat-header-cell *matHeaderCellDef>Tipo de cargo</th>
+                                            <td mat-cell *matCellDef="let row">{{row.tipoCargo || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="codigoPlaza">
+                                            <th mat-header-cell *matHeaderCellDef>Código plaza</th>
+                                            <td mat-cell *matCellDef="let row">{{row.codigoPlaza || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="codigoCentroTrabajo">
+                                            <th mat-header-cell *matHeaderCellDef>Código Modular</th>
+                                            <td mat-cell *matCellDef="let row">{{row.codigoCentroTrabajo || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="centroTrabajo">
+                                            <th mat-header-cell *matHeaderCellDef>Centro de Trabajo</th>
+                                            <td mat-cell *matCellDef="let row">{{row.centroTrabajo || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cargo">
+                                            <th mat-header-cell *matHeaderCellDef>Cargo</th>
+                                            <td mat-cell *matCellDef="let row">{{row.cargo || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cargoConfianza">
+                                            <th mat-header-cell *matHeaderCellDef>Cargo confianza</th>
+                                            <td mat-cell *matCellDef="let row">{{row.cargoConfianza || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="tipoPlaza">
+                                            <th mat-header-cell *matHeaderCellDef>Tipo plaza</th>
+                                            <td mat-cell *matCellDef="let row">{{row.tipoPlaza || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="condicionPlaza">
+                                            <th mat-header-cell *matHeaderCellDef>Condición plaza</th>
+                                            <td mat-cell *matCellDef="let row">{{row.condicion || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="jornadaLaboral">
+                                            <th mat-header-cell *matHeaderCellDef>Jornada laboral</th>
+                                            <td mat-cell *matCellDef="let row">{{row.jornadaLaboral || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="documento">
+                                            <th mat-header-cell *matHeaderCellDef>Documento Identidad</th>
+                                            <td mat-cell *matCellDef="let row">{{row.tipoDocumentoIdentidad ? 
+                                                row.tipoDocumentoIdentidad + ": " + row.numeroDocumentoIdentidad : "NO REGISTRADO"}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="apellidosNombres">
+                                            <th mat-header-cell *matHeaderCellDef>Apellidos y nombres</th>
+                                            <td mat-cell *matCellDef="let row">{{row.nombres || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="regimenLaboral">
+                                            <th mat-header-cell *matHeaderCellDef>Régimen laboral</th>
+                                            <td mat-cell *matCellDef="let row">{{row.regimenLaboral || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="areaDesempenioLaboral">
+                                            <th mat-header-cell *matHeaderCellDef>Área de desempeño laboral</th>
+                                            <td mat-cell *matCellDef="let row">{{row.areaDesempenioLaboral || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+                                
+                                        <ng-container matColumnDef="condicionLaboral">
+                                            <th mat-header-cell *matHeaderCellDef>Condición laboral</th>
+                                            <td mat-cell *matCellDef="let row">{{row.condicionLaboral || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+                                
+                                        <ng-container matColumnDef="situacionLaboral">
+                                            <th mat-header-cell *matHeaderCellDef>Situación Laboral</th>
+                                            <td mat-cell *matCellDef="let row">{{row.situacionLaboral || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+                                
+                                        <ng-container matColumnDef="leyenda">
+                                            <th mat-header-cell *matHeaderCellDef>Leyenda</th>
+                                            <td mat-cell *matCellDef="let row">{{row.leyenda}} </td>
+                                        </ng-container>
+                                                    
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                                            (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="no-results" *ngIf="!(dataSource?.loading | async)" 
+                                    [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="dataSource?.loading | async">
+                                    <mat-spinner diameter="50"></mat-spinner>
+                                </div>
+                                <mat-paginator #paginatorReporte [length]="dataSource?.dataTotal" [pageIndex]="0" [pageSize]="10" fxLayoutAlign="center center"
+                                    [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+                            
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Historial">
+                            <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none" class="pt-12">
+
+                                <div ngClass.lt-lg="scroll-grid-lt-lg">
+                                    <table mat-table class="minedu-table" [dataSource]="dataSourceHistorial" [@animateStagger]="{value:'50'}">
+                                        <ng-container matColumnDef="index">
+                                            <th mat-header-cell *matHeaderCellDef>N°</th>
+                                            <td mat-cell *matCellDef="let row;">{{row.registro || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+                                
+                                        <ng-container matColumnDef="anio">
+                                            <th mat-header-cell *matHeaderCellDef>Año</th>
+                                            <td mat-cell *matCellDef="let row">{{row.anio || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="instancia">
+                                            <th mat-header-cell *matHeaderCellDef>Instancia</th>
+                                            <td mat-cell *matCellDef="let row">{{row.instancia || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="subinstancia">
+                                            <th mat-header-cell *matHeaderCellDef>Sub Instancia</th>
+                                            <td mat-cell *matCellDef="let row">{{row.subinstancia || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="tipoCentroTrabajo">
+                                            <th mat-header-cell *matHeaderCellDef>Tipo de Centro Trabajo</th>
+                                            <td mat-cell *matCellDef="let row">{{row.tipoCentroTrabajo || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="codigoModular">
+                                            <th mat-header-cell *matHeaderCellDef>Código Modular</th>
+                                            <td mat-cell *matCellDef="let row">{{row.codigoModular || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="fechaReporte">
+                                            <th mat-header-cell *matHeaderCellDef>Fecha Reporte</th>
+                                            <td mat-cell *matCellDef="let row">{{row.fechaReporte | date:'dd/MM/yyyy h:mm:ss a'  || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="usuario">
+                                            <th mat-header-cell *matHeaderCellDef>Usuario</th>
+                                            <td mat-cell *matCellDef="let row">{{row.usuarioReporte || 'NO REGISTRADO'}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="estado">
+                                            <th mat-header-cell *matHeaderCellDef>Estado</th>
+                                            <td mat-cell *matCellDef="let row">
+                                                <span *ngIf="row.estadoReporte" class="h6 p-4" [ngClass]="{
+                                                        'green-600':row.estadoReporte === 'PENDIENTE',
+                                                        'orange-500':row.estadoReporte === 'EN EJECUCION',
+                                                        'cyan-600':row.estadoReporte==='TERMINADO'}">
+                                                    {{row.estadoReporte || 'NO REGISTRADO'}}</span>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="reporte">
+                                            <th mat-header-cell *matHeaderCellDef>Reporte</th>
+                                            <td mat-cell *matCellDef="let row;">
+                                                <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5px">
+                                                    <div class="mat-icon-table">
+                                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                                            (click)="handleVerReporteCAP(row.codigoDocumentoGenerado)" aria-label="Ver Reporte"
+                                                            matTooltip="Ver Reporte">
+                                                            <mat-icon class="">picture_as_pdf</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedHistorialColumns; sticky:true"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedHistorialColumns;" (click)="selection.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}" (mouseover)="row.hovered = true"
+                                            (mouseout)="row.hovered = false" [@animate]="{value:'*',params:{y:'100%'}}">
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="no-results" *ngIf="!(loadingHistorial | async)" 
+                                    [style.display]="dataSourceHistorial?.data.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="loadingHistorial | async">
+                                    <mat-spinner diameter="50"></mat-spinner>
+                                </div>
+                                <mat-paginator #paginatorHistorial [length]="dataSourceHistorial?.data.length" [pageIndex]="0" [pageSize]="10" fxLayoutAlign="center center"
+                                    [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+
+                            </div>
+                        </mat-tab>
+
+                    </mat-tab-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

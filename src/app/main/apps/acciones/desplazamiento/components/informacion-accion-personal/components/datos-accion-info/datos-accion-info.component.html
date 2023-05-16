@@ -1,0 +1,267 @@
+<fieldset class="fieldset-border mb-3" fxLayoutGap="12px">
+    <legend>Datos de la Acción</legend>
+    <div fxLayout="row wrap" fxFlex="100%" fxLayoutGap="1%">
+
+        <fieldset class="fieldset-border mb-3" fxLayout.lt-md="column" fxFlex="49%"
+            [fxFlex]="accionPersonal?.datosAccion?.codigoAccion !== ASCENSOESCALAMAGISTERIAL?'49%':'100%'">
+            <legend>Datos de la Plaza Actual</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Codigo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.codigoPlaza| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Regimen Laboral</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.regimenLaborar| noRegistrado}} </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Centro de Trabajo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.centroTrabajo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Modalidad Educativa</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.modalidadEducativa| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Nivel Educativo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.nivelEducativo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Area Curricular</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.areaCurricular | noRegistrado}}
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Cargo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.cargo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Jornada Laboral</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.jornadaLaboral| noRegistrado}} </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Cargo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.tipoCargo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">{{categoriaRemu}}</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.categoriaRemunerativa| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.tipoPlaza| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Condicion de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaOrigen?.condicionPlaza| noRegistrado}} </span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset *ngIf="accionPersonal?.datosAccion?.codigoAccion !== ASCENSOESCALAMAGISTERIAL"
+            class="fieldset-border mb-3" fxLayout.lt-md="column" fxFlex="49%">
+            <legend>Datos de la Plaza de Destino</legend>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Codigo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.codigoPlaza| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Regimen Laboral</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.regimenLaborar| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Centro de Trabajo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.centroTrabajo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Modalidad Educativa</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.modalidadEducativa| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Nivel Educativo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.nivelEducativo| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Area Curricular</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.areaCurricular | noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Cargo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.cargo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Jornada Laboral</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.jornadaLaboral| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Cargo</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.tipoCargo| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">{{categoriaRemu}}</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.categoriaRemunerativa| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Tipo de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.tipoPlaza| noRegistrado}} </span>
+                    </div>
+                </div>
+                <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.xs="100%">
+                    <div>
+                        <span class="label">Condicion de Plaza</span>
+                        <br>
+                        <span class="label-normal">{{accionPersonal?.plazaDestino?.condicionPlaza| noRegistrado}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div fxFlex="100%" style="padding: 11px;" fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap.lt-md="0"
+            fxLayoutGap=".5%">
+            <div fxFlex="24.5%" fxFlex.xs="100%">
+                <div>
+                    <span class="label">Fecha de inicio</span>
+                    <br>
+                    <span class="label-normal">{{accionPersonal?.datosAccion?.fechaInicioAccion| date:"dd/MM/yyyy"|
+                        noRegistrado}}
+                    </span>
+                </div>
+            </div>
+            <div *ngIf="accionPersonal?.datosAccion?.fechaFinAccion as fechaFinAccion" fxFlex="24.5%" fxFlex.xs="100%">
+                <div>
+                    <span class="label">Fecha de término</span>
+                    <br>
+                    <span class="label-normal">{{fechaFinAccion|date:"dd/MM/yyyy"| noRegistrado}} </span>
+                </div>
+            </div>
+            <div fxFlex="24.5%" fxFlex.xs="100%">
+                <div>
+                    <span class="label">Estado</span>
+                    <br>
+                    <span class="label-normal">{{accionPersonal?.datosAccion?.estadoDesplazamientoDescripcion|
+                        noRegistrado}} </span>
+                </div>
+            </div>
+            <div *ngIf="accionPersonal?.datosAccion?.numeroProyectoResolucion as numeroProyectoResolucion"
+                fxFlex="24.5%" fxFlex.xs="100%">
+                <div>
+                    <span class="label">Número Resolución</span>
+                    <br>
+                    <span class="label-normal">{{numeroProyectoResolucion}}</span>&nbsp;
+                    <button type="button" mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                        aria-label="Número Resolución" matTooltip="Número Resolución"
+                        (click)="verDocumento(accionPersonal?.datosAccion?.documentoProyectoResolucion)">
+                        <span class="material-icons">description</span>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="accionPersonal?.datosAccion?.comentarioRechazo as comentarioRechazo" fxFlex="100%">
+                <div>
+                    <span class="label">MOTIVO RECHAZO</span>
+                    <br>
+                    <span class="label-normal">{{comentarioRechazo}} </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</fieldset>

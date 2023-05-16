@@ -1,0 +1,66 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{icon}}</mat-icon>
+                <span class="title dialog-title">{{dialogTitle}}</span>
+            </div>
+            <button mat-icon-button (click)="handleCancel()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+        <form [formGroup]="form" *ngIf="!working">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="form.get('idMotivoNoPublicacion')">
+                        <mat-label [mineduFormRequiredLabel]="form.get('idMotivoNoPublicacion')">Motivo</mat-label>
+                        <mat-select formControlName="idMotivoNoPublicacion">
+                            <mat-option *ngFor="let item of comboLists.comboMotivo" [value]="item.value">
+                                {{ item.label }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <minedu-form-field-validation-messages
+                                [mineduFormControl]="form.get('idMotivoNoPublicacion')">
+                            </minedu-form-field-validation-messages>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" fxFlex="75%" fxFlex.xs="100%"
+                        [mineduFormFieldValidationState]="form.get('detalleNoPublicacion')">
+                        <mat-label [mineduFormRequiredLabel]="form.get('detalleNoPublicacion')">Detalle
+                        </mat-label>
+                        <textarea matInput formControlName="detalleNoPublicacion" placeholder="Detalle" rows="4" maxlength="400">
+                    </textarea>
+                        <mat-error>
+                            <minedu-form-field-validation-messages
+                                [mineduFormControl]="form.get('detalleNoPublicacion')">
+                            </minedu-form-field-validation-messages>
+                        </mat-error>
+                    </mat-form-field>                    
+                </div>
+            </div>
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Documentos de sustento</legend>
+                <minedu-documentos-sustento [data]="documentosSustento" [soloLectura]="false"
+                    [listTiposSustento]="comboLists.listTiposSustento"
+                    [listTiposTipoFormato]="comboLists.listTiposFormato" [sustentoObligatorio]="false">
+                </minedu-documentos-sustento>
+            </fieldset>
+        </form>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="handleSave()"><span class="material-icons">save</span>
+            GUARDAR</button>
+        <button mat-raised-button (click)="handleCancel()"><span class="material-icons">block</span> CANCELAR</button>
+    </div>
+</div>

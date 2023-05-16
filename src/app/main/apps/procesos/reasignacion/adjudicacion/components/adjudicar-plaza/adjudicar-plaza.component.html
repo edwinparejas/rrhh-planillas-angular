@@ -1,0 +1,440 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group>
+                        <mat-tab label="Adjudicar plaza">
+                            <div class="panel-body">
+                                <fieldset class="fieldset-border mb-3" *ngIf="spublico">
+                                    <legend>Datos personales</legend>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%"
+                                                fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Documento</span>&nbsp;
+                                                        <br />
+                                                        <span>{{ spublico.tipoDocumentoIdentidad }}:
+                                                            {{spublico.numeroDocumentoIdentidad}} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Primer apellido</span>
+                                                        <br />
+                                                        <span>{{ spublico.primerApellido }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Segundo apellido</span>
+                                                        <br />
+                                                        <span>{{ spublico.segundoApellido }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Nombres</span>
+                                                        <br />
+                                                        <span>{{ spublico.nombres }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Sexo</span>
+                                                        <br />
+                                                        <span>{{ spublico.generoPersona }} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <br />
+                                <fieldset class="fieldset-border" *ngIf="plaza">
+                                    <legend>Datos laborales (actual)</legend>
+                                    <div fxLayout="column">
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                                fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Código plaza</span>&nbsp;
+                                                        <br />
+                                                        <span>{{ plaza.codigoPlaza }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Régimen laboral</span>
+                                                        <br />
+                                                        <span>{{ plaza.regimenLaboral }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Cargo</span>
+                                                        <br />
+                                                        <span>{{ plaza.cargo }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Condición laboral</span>
+                                                        <br />
+                                                        <span>{{ plaza.condicionPlaza }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Situación laboral</span>
+                                                        <br />
+                                                        <span>{{ spublico.situacionLaboral }} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                                fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Escala remunerativa</span>
+                                                        <br />
+                                                        <span>{{ spublico.descripcionCategoriaRemunerativa }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Código modular</span>
+                                                        <br />
+                                                        <span>{{ plaza.codigoModular }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Centro de trabajo</span>
+                                                        <br />
+                                                        <span>{{ plaza.centroTrabajo }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Instancia</span>
+                                                        <br />
+                                                        <span>{{ plaza.instancia }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Sub Instancia</span>
+                                                        <br />
+                                                        <span>{{ plaza.subinstancia }} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                                fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Tipo de Plaza</span>&nbsp;
+                                                        <br />
+                                                        <span>{{ plaza.tipoPlaza }} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold">Vigencia Inicio</span>
+                                                        <br />
+                                                        <span>{{ plaza.vigenciaInicio | date: 'dd/MM/yyyy'}} </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold"></span>
+                                                        <br />
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold"> </span>
+                                                        <br />
+                                                        <span> </span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="20%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span style="font-weight: bold"> </span>
+                                                        <br />
+                                                        <span> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </fieldset>
+                                <br />
+                                <fieldset class="fieldset-border mb-3">
+                                    <legend>Criterios de búsqueda</legend>
+                                    <form [formGroup]="form">
+
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                                fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%"
+                                                    [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                                        Código de plaza</mat-label>
+                                                    <input matInput formControlName="codigoPlaza"
+                                                        placeholder="Código de plaza" minlength="12" maxlength="12"
+                                                        alphaNumeric uppercase (keyup.enter)="busquedaPlazas()"
+                                                    >
+                                                    <mat-icon matSuffix class="icon-cursor"
+                                                        (click)="busquedaPlazaPersonalizada()">
+                                                        search
+                                                    </mat-icon>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('codigoPlaza')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+
+                                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoModular')">
+                                                    <mat-label [mineduFormFieldValidationState]="form.get('codigoModular')">Código modular</mat-label>
+                                                    <input matInput formControlName="codigoModular"
+                                                        placeholder="Código modular" minlength="6" maxlength="7"
+                                                        (keyup.enter)="busquedaCentroTrabajo($event)"
+                                                        numbersOnly>
+                                                    <mat-icon matSuffix class="icon-cursor"
+                                                        (click)="busquedaCentroTrabajoPersonalizada()">search
+                                                    </mat-icon>
+                                                    <mat-error>
+                                                        <minedu-form-field-validation-messages
+                                                            [mineduFormControl]="form.get('codigoModular')">
+                                                        </minedu-form-field-validation-messages>
+                                                    </mat-error>
+                                                </mat-form-field>
+
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <div fxLayout="row" fxLayoutAlign="center center">
+                                                <div mat-dialog-actions class="p-0" fxLayout="row">
+                                                    <minedu-button-clear-search [working]="working" (mineduOnClear)="handleLimpiar()">
+                                                    </minedu-button-clear-search>
+                                                </div>
+                                                <div mat-dialog-actions fxLayout="row">
+                                                    <minedu-button-search class="ml-4" (mineduOnClick)="handleBuscar()" [mineduForm]="form"
+                                                        [working]="working"></minedu-button-search>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                            <div class="panel-body">
+                                <div class="content" mineduPerfectScrollbar>
+                                    <div class="content-table">
+                                        <div fxLayout="row" fxLayout.lt-md="column">    
+                                            <table mat-table class="minedu-table" #table [dataSource]="dataSource"
+                                                 [@animateStagger]="{value:'50'}"
+                                                style="width: 100%" mineduPerfectScrollbar>
+
+                                                <ng-container matColumnDef="select">
+                                                    <mat-header-cell *matHeaderCellDef>SEL</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <mat-radio-group [(ngModel)]="selectedRow"
+                                                            (change)="radioSelected()">
+                                                            <mat-radio-button [value]="row"></mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="codigoModular">
+                                                    <mat-header-cell *matHeaderCellDef>CÓDIGO MODULAR
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <span class="mobile-label">CÓDIGO
+                                                            MODULAR:</span>{{row?.codigoModular}}
+                                                    </mat-cell>
+                                                </ng-container>       
+
+                                                <ng-container matColumnDef="centroTrabajo">
+                                                    <mat-header-cell *matHeaderCellDef>CENTRO DE TRABAJO
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <span class="mobile-label">CENTRO DE
+                                                            TRABAJO:</span>{{row?.centroTrabajo}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="modalidad">
+                                                    <mat-header-cell *matHeaderCellDef>MODALIDAD </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">
+                                                                MODALIDAD:</span>{{row?.modalidad}}
+                                                    </mat-cell>
+                                                </ng-container>           
+
+                                                <ng-container matColumnDef="nivelEducativo">
+                                                    <mat-header-cell *matHeaderCellDef>NIVEL EDUCATIVO
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> NIVEL
+                                                                EDUCATIVO:</span>{{row?.nivelEducativo}}
+                                                    </mat-cell>
+                                                </ng-container>            
+                                                
+                                                <ng-container matColumnDef="areaCurricular">
+                                                    <mat-header-cell *matHeaderCellDef>ÁREA CURRICULAR
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> ÁREA
+                                                                CURRICULAR:</span>{{row?.areaCurricular}}
+                                                    </mat-cell>
+                                                </ng-container>  
+
+                                                <ng-container matColumnDef="tipoGestion">
+                                                    <mat-header-cell *matHeaderCellDef>TIPO DE GESTIÓN
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> TIPO DE
+                                                                GESTIÓN:</span>{{row?.tipoGestion}}
+                                                    </mat-cell>
+                                                </ng-container>           
+
+                                                <ng-container matColumnDef="codigoPlaza">
+                                                    <mat-header-cell *matHeaderCellDef>CÓDIGO DE PLAZA
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">CÓDIGO DE PLAZA
+                                                                :</span>{{row?.codigoPlaza}}
+                                                    </mat-cell>
+                                                </ng-container>
+            
+                                                <ng-container matColumnDef="cargo">
+                                                    <mat-header-cell *matHeaderCellDef>CARGO </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">CARGO
+                                                                :</span>{{row?.cargo}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="jornadaLaboral">
+                                                    <mat-header-cell *matHeaderCellDef> JORNADA LABORAL
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> JORNADA
+                                                                LABORAL:</span>{{row?.jornadaLaboral}}
+                                                    </mat-cell>
+                                                </ng-container>           
+
+                                                <ng-container matColumnDef="tipoPlaza">
+                                                    <mat-header-cell *matHeaderCellDef> TIPO DE PLAZA</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">TIPO DE PLAZA
+                                                                :</span>{{row?.tipoPlaza}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="motivoVacancia">
+                                                    <mat-header-cell *matHeaderCellDef>MOTIVO DE VACANCIA
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="">
+                                                            <span class="mobile-label">MOTIVO DE VACANCIA
+                                                                :</span>{{row?.motivoVacancia}}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                
+                                                <ng-container matColumnDef="fechaVigenciaInicio">
+                                                    <mat-header-cell *matHeaderCellDef>VIGENCIA INICIO </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                            <!-- <minedu-datepicker *ngIf="dataSource.data[i].selected"
+                                                                [mineduFormControl]="formFecha.get('fechaInicio')"
+                                                                [formControl]="formFecha.get('fechaInicio')" style="width: 100%;"
+                                                                [min]="firstNextYearDay">
+                                                            </minedu-datepicker> -->
+                                                            <minedu-datepicker *ngIf="dataSource.data[i].selected"
+                                                            [mineduFormControl]="formFecha.get('fechaInicio')"
+                                                            [formControl]="formFecha.get('fechaInicio')" style="width: 100%;"
+                                                            [min]="row?.fechaInicioAccion">
+                                                        </minedu-datepicker>
+                                                        </mat-cell>
+                                                </ng-container>
+
+                                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                                </mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                    (click)="selection.toggle(row)"
+                                                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                                    matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                                </mat-row>
+                                            </table>
+                                        </div>
+                                        <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                                            [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                            No se encontraron registros
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                            *ngIf="dataSource.loading | async">pageSize
+                                            <mat-spinner diameter="50"></mat-spinner>
+                                        </div>
+                                        <mat-paginator #paginator class="mat-paginator-sticky" fxLayoutAlign="center center"
+                                            [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex"
+                                            [pageSize]="paginatorPageSize"
+                                            [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" style="width: 100%">
+                                <div mat-dialog-actions class="p-10" fxLayout="row" style="margin-right: 12px; width: 98%">
+                                    <span style="font-weight: bold">Total de plazas a adjudicar:
+                                        {{ dataSource?.totalregistro }}</span>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" (click)="handleAdjudicar()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                    class="material-icons">how_to_reg</span>
+                                ADJUDICAR PLAZA</button>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()" class="ml-4"><span
+                                    class="material-icons">keyboard_backspace</span>
+                                RETORNAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

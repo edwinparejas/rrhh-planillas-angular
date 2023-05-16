@@ -1,0 +1,226 @@
+<div class="page-layout carded fullwidth inner-scroll p-16">
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Desarrollo de Procesos de Rotación</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class="active"><a [routerLink]="['/ayni/personal/procesospersonal/procesos/rotacion']">Rotación</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <mat-tab-group>
+                    <mat-tab label="Plazas">
+                        <div class="panel-body">
+                            <minedu-cabecera-proceso-etapa [proceso]="proceso">
+                            </minedu-cabecera-proceso-etapa>
+
+                            <section class="fieldset mb-3">
+                                <h3>Criterios de búsqueda</h3>
+                                <form [formGroup]="form" autocomplete="off" novalidate>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                            fxLayoutGap="12px" fxLayoutGap.xs="0">
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                                    Código de plaza
+                                                </mat-label>
+                                                <input matInput placeholder="Código de plaza"
+                                                    formControlName="codigoPlaza" (keyup.enter)="busquedaPlazas()"
+                                                    alphaNumeric uppercase [minlength]="12" [maxlength]="12"  />
+                                                <button type="button" type="button"
+                                                    *ngIf="!form.get('codigoPlaza').invalid" matSuffix mat-button
+                                                    mat-icon-button (click)="busquedaPlazasDialog($event)">
+                                                    <mat-icon class="s-24">search</mat-icon>
+                                                </button>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('codigoPlaza')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')">
+                                                    Código de modular
+                                                </mat-label>
+                                                <input matInput placeholder="Código modular"
+                                                    formControlName="codigoModular"
+                                                    (keyup.enter)="busquedaCentroTrabajo($event)" numbersOnly
+                                                    maxlength="7" minlength="6" />
+                                                <button type="button" type="button"
+                                                    *ngIf="!form.get('codigoModular').invalid" matSuffix mat-button
+                                                    mat-icon-button (click)="buscarCentroTrabajoDialog($event)">
+                                                    <mat-icon class="s-24">search</mat-icon>
+                                                </button>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('codigoModular')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                                *ngIf="resultadoFinalVisible"
+                                                [mineduFormFieldValidationState]="form.get('idEstadoResultadoFinal')">
+                                                <mat-label
+                                                    [mineduFormRequiredLabel]="form.get('idEstadoResultadoFinal')">
+                                                    Estado
+                                                </mat-label>
+                                                <mat-select formControlName="idEstadoResultadoFinal">
+                                                    <mat-option *ngFor="let item of listResultadoFinal"
+                                                        [value]="item.value">
+                                                        {{ item.label }}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('idEstadoResultadoFinal')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div fxLayout="row" fxLayoutAlign="center center">
+                                            <div mat-dialog-actions class="p-0" fxLayout="row">
+                                                <minedu-button-clear-search [working]="working"
+                                                    (mineduOnClear)="handleLimpiar()">
+                                                </minedu-button-clear-search>
+                                            </div>
+                                            <div mat-dialog-actions fxLayout="row">
+                                                <minedu-button-search class="ml-4" (mineduOnClick)="handleBuscar()"
+                                                    [mineduForm]="form" [working]="working"></minedu-button-search>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+                            <div mat-dialog-actions class="p-10" fxLayout="row" fxLayoutAlign="space-between center">
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <span style="font-weight: bold">
+                                        Validación de plazas: &nbsp;                                        
+                                        <ng-container>                                            
+                                            <!-- <p class="badge badge-warning badge-width" *ngIf="plazaRotacion">
+                                                {{plazaRotacion.estadoValidacionPlaza}}</p>  -->
+                                                <ng-container [ngSwitch]="true" *ngIf="plazaRotacion">
+                                                    <ng-container
+                                                        *ngSwitchCase="plazaRotacion.idEstadoValidacionPlaza === estadoValidacionPlaza.PENDIENTE">
+                                                        <p class="badge badge-warning badge-width">
+                                                            {{plazaRotacion.estadoValidacionPlaza}}
+                                                        </p>
+                                                    </ng-container>
+                                                                                              
+                                                    <ng-container
+                                                        *ngSwitchCase="plazaRotacion.idEstadoValidacionPlaza === estadoValidacionPlaza.PUBLICADO">
+                                                        <p class="badge badge-primary badge-width">
+                                                            {{plazaRotacion.estadoValidacionPlaza}}
+                                                        </p>
+                                                    </ng-container>
+
+                                                    <ng-container
+                                                        *ngSwitchCase="plazaRotacion.idEstadoValidacionPlaza === estadoValidacionPlaza.APERTURADO">
+                                                        <p class="badge badge-dark badge-width">
+                                                            {{plazaRotacion.estadoValidacionPlaza}}
+                                                        </p>
+                                                    </ng-container>
+                                                
+                                                </ng-container> 
+                                                
+                                        </ng-container>
+                                    </span>
+                                </div>
+                                <div fxLayout="row" fxLayoutAlign="end center">
+                                    <div mat-dialog-actions style="justify-content: flex-end">
+
+                                        <div *ngIf="plazaRotacion?.esPublicado">
+                                        <!-- <div> -->
+                                            <!-- <button type="button" mat-raised-button (click)="handleListadoPlazas()" -->
+                                            <button type="button" mat-raised-button (click)="handleVerListadoPlazasPublicas()"
+                                                color="primary" class="ml-4">
+                                                <span class="material-icons">send</span>
+                                                Ver listado de plazas publicadas
+                                            </button>
+                                        </div>
+                                        <!--
+                                        <div *ngIf="!plazaRotacion?.esPublicado">
+                                            <button type="button" mat-raised-button
+                                                (click)="handleListadoPlazasPrepublicadas()" color="primary"
+                                                class="ml-4">
+                                                <span class="material-icons">send</span>
+                                                Ver listado de plazas pre publicadas
+                                            </button>
+                                        </div>
+                                        -->
+                                        <div *ngIf="!plazaRotacion?.esPublicado && esPublicar && permisoPlazaModel?.publicarPlazas == true">
+                                        <!-- <div> -->
+                                            <button mat-raised-button color="primary" type="button" class="ml-4"
+                                                (click)="handlePublicarPlazas()">
+                                                <span class="material-icons">public</span>
+                                                Publicar plazas
+                                            </button>
+                                        </div>
+                                        <!-- <div *ngIf="plazaRotacion?.esPublicado && esRolMonitor"> -->
+                                        <div *ngIf="plazaRotacion?.esPublicado">
+                                            <button mat-raised-button color="primary" type="button" class="ml-4"
+                                                (click)="handleAperturarPublicacion()">
+                                                <span class="material-icons">public</span>
+                                                Aperturar Publicación
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+
+                <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onTabChanged($event)" [selectedIndex]="0"
+                    animationDuration="0ms" dynamicHeight>
+                    <mat-tab label="Plazas rotación">
+                        <ng-template matTabContent>
+                            <minedu-bandeja-plazas-prepublicadas [form]="form" [btnBuscar]="btnBuscar.asObservable()"
+                                [permisoPlazaModel]="permisoPlazaModel">
+                            </minedu-bandeja-plazas-prepublicadas>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Plazas a convocar">
+                        <ng-template matTabContent>
+                            <minedu-bandeja-plazas-convocadas [form]="form" [btnBuscar]="btnBuscar.asObservable()"
+                                [permisoPlazaModel]="permisoPlazaModel">
+                            </minedu-bandeja-plazas-convocadas>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Plazas observadas">
+                        <ng-template matTabContent>
+                            <minedu-bandeja-plazas-observadas [form]="form" [btnBuscar]="btnBuscar.asObservable()"
+                                [permisoPlazaModel]="permisoPlazaModel">
+                            </minedu-bandeja-plazas-observadas>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Resultado final">
+                        <ng-template matTabContent>
+                            <minedu-bandeja-plazas-resultadosfinales [form]="form"
+                                [btnBuscar]="btnBuscar.asObservable()"></minedu-bandeja-plazas-resultadosfinales>
+                        </ng-template>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+                <br />
+                <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                    <div mat-dialog-actions class="p-0" fxLayout="row" style="margin-right: 12px">
+                        <minedu-button-return (mineduOnReturn)="handleRetornar()"></minedu-button-return>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

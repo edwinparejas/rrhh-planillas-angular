@@ -1,0 +1,187 @@
+<div class="page-layout carded fullwidth inner-scroll p-0" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <!-- Inicio Breadcrumb -->
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px" fxLayoutGap.xs="0">
+                    <div fxFlex="50%">
+                        <h3 class="titulo">Pre publicación de plazas</h3>
+                    </div>
+                    <div fxFlex="50%">
+                        <ol class="breadcrumb pull-right">
+                            <li><a [routerLink]="['/ayni/personal/inicio']"><mat-icon color="accent" class="s-18">home</mat-icon> Inicio</a></li>
+                            <li class=""><a [routerLink]="['/ayni/personal/procesospersonal/procesos/reasignacion']">Reasignación</a></li>
+                            <li class="active"><a>Pre publicación</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Breadcrumb -->
+            <minedu-cabecera-proceso-etapa [proceso]="etapa">
+            </minedu-cabecera-proceso-etapa>
+            
+            <div class="panel">
+                <div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Criterios de búsqueda</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form [formGroup]="form">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                fxLayoutGap.lt-md="0">
+                                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                    fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idInstancia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idInstancia')">
+                                            Instancia
+                                        </mat-label>
+                                        <mat-select formControlName="idInstancia" (selectionChange)="loadSubInstancia()">
+                                            <mat-option value="-1">--TODOS--</mat-option>
+                                            <mat-option *ngFor="let item of comboLists.listInstancia"
+                                                [value]="item.id">
+                                                {{item.descripcion_instancia}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%"
+                                        [mineduFormFieldValidationState]="form.get('idSubInstancia')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idSubInstancia')">
+                                            Sub Instancia
+                                        </mat-label>
+                                        <mat-select formControlName="idSubInstancia">
+                                            <mat-option value="-1">--TODOS--</mat-option>
+                                            <mat-option *ngFor="let item of comboLists.listSubInstancia"
+                                                [value]="item.id">
+                                                {{item.descripcion_subinstancia}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoModular')"> Código modular</mat-label>
+                                        <input matInput formControlName="codigoModular" numbersOnly
+                                            placeholder="Código modular" maxlength="7" minlength="6"/>
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaCentroTrabajoPersonalizada()">search</mat-icon>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoModular')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" fxFlex="25%" fxFlex.xs="100%" [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">Codigo de Plaza</mat-label>
+                                        <input matInput formControlName="codigoPlaza" placeholder="Código de plaza" maxlength="12" minlength="12"
+                                            alphaNumeric uppercase />
+                                        <mat-icon matSuffix class="icon-cursor" (click)="busquedaPlazaPersonalizada()">search</mat-icon>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('codigoPlaza')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div class="p-0" fxLayout="row">
+                            <button mat-raised-button (click)="handleLimpiar()">
+                                <span class="material-icons">clear</span>
+                                Limpiar
+                            </button>
+                        </div>
+                        <div class="pl-6" fxLayout="row">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handleBuscar()">
+                                <span class="material-icons">search</span>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayoutAlign="center" class="panel-libre">
+                <div fxLayoutAlign="start center" fxFlex="50%" fxFlex.xs="100%">
+                    <label class="label-estado" style="margin-right: 90px !important;">Validación de Plazas:
+                        <p class="badge badge-width" style="margin-bottom:-1px;width: auto !important;" [ngClass]="claseSegunEstado(codigoValidacionPLaza)" >{{ validacionPlaza }}</p>
+                    </label>
+                    <mat-progress-spinner
+                        mode="indeterminate"
+                        color="warn"
+                        value="100"
+                        style="display: inline-flex !important;left:3px;"
+                        *ngIf="ocultarLoader"
+                        diameter="20">
+                    </mat-progress-spinner>
+                </div>
+
+                <div fxLayoutAlign="end center" fxFlex="50%" fxFlex.xs="100%">
+                    <ng-container [ngSwitch]="true">
+                        <ng-container *ngSwitchCase="(validacionPlaza === 'PENDIENTE' || validacionPlaza === 'APERTURADO') && validacionPlaza!='PRE PUBLICANDO PLAZAS' && jobEjecutado">
+                            <button mat-raised-button color="primary" class="ml-4" (click)="handlePrePublicar()" 
+                            [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                                <span class="material-icons">public</span>
+                                Pre Publicar Plazas
+                            </button>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="validacionPlaza === 'PRE PUBLICADO'">
+                            <div>
+                                <button mat-raised-button color="primary" class="ml-4" (click)="handleVerPlazasPdf()">
+                                    <span class="material-icons">picture_as_pdf</span>
+                                    Ver Plazas Pre Publicadas
+                                </button>
+                            </div>
+                            <div>
+                                <button mat-raised-button color="primary" class="ml-4"
+                                    (click)="handleAperturarPrePublicar()">
+                                    <span class="material-icons">public</span>
+                                    Aperturar Pre Publicacion
+                                </button>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group (selectedTabChange)="onTabChanged($event)">
+                        <mat-tab label="Plazas Reasignacion">                  
+                            <div class="tabla-espacio">                        
+                                <div class="content-table">
+                                    <minedu-plazas-reasignacion-prepublicacion [form]="form" [btnBuscar]="btnBuscar.asObservable()" [procesoOrigen]="proceso" [reasignacion]="detalleReasignacion" (onBuscar)="handleRefrescar($event)" [selectedTabIndex]="selectedTabIndex"></minedu-plazas-reasignacion-prepublicacion>                            
+                                </div>                        
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Plazas Observadas">                    
+                            <div class="tabla-espacio">
+                                <div class="content-table">                    
+                                    <minedu-plazas-observadas-prepublicacion [form]="form" [btnBuscar]="btnBuscar.asObservable()" [procesoOrigen]="proceso" [reasignacion]="detalleReasignacion" (onBuscar)="handleRefrescar($event)" [selectedTabIndex]="selectedTabIndex"></minedu-plazas-observadas-prepublicacion>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+
+                <div class="panel-libre">
+                    <div class="panel-footer">
+                        <div fxLayoutAlign="end center" fxFlex="100%" fxFlex.xs="100%">
+                            <button mat-stroked-button color="primary" class="ml-4" (click)="handleRetornar()">
+                                <mat-icon class="">keyboard_backspace</mat-icon>
+                                RETORNAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

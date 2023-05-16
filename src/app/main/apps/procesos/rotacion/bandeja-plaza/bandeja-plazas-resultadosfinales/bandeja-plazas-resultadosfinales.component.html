@@ -1,0 +1,215 @@
+<div class="gridContainer">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div mat-dialog-actions class="p-0 mt-12" fxLayout="row">
+                <span style="font-weight: bold" class="ml-16">
+                    Fecha de publicación : &nbsp;
+                    <ng-container *ngIf="mostrarFecha === true">
+                        <p class="badge badge-warning badge-width" >
+                            {{plazaRotacion.fechaPublicacion}} </p>
+                    </ng-container>
+                </span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+            <div mat-dialog-actions class="p-0 mt-12" fxLayout="row">
+                <button mat-stroked-button color="primary" (click)="handleExportarPlazasResultadoFinal()" class="ml-4"
+                    style="margin-right: 12px" [@animate]="{value: '*',params: {delay: '300ms',scale: '.2'}}">
+                    <span class="material-icons">get_app</span>
+                    EXPORTAR
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="content">
+            <div class="content-table" style="overflow-x: auto;">
+                <div fxLayout="row" fxLayout.lt-md="column">
+                    <table mat-table class="minedu-table" #table [dataSource]="dataSourceResultadoFinal"
+                        [@animateStagger]="{ value: '50' }" style="width: 100%">
+
+                        <ng-container matColumnDef="registro">
+                            <th mat-header-cell *matHeaderCellDef>
+                                N°
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.numeroRegistro }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="codigoModular">
+                            <th mat-header-cell *matHeaderCellDef>
+                                CÓDIGO MODULAR
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.codigoModular }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="centroTrabajo">
+                            <th mat-header-cell *matHeaderCellDef>CENTRO DE
+                                TRABAJO
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.centroTrabajo }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="modalidad">
+                            <th mat-header-cell *matHeaderCellDef>MODALIDAD
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.modalidad}} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="nivelEducativo">
+                            <th mat-header-cell *matHeaderCellDef>NIVEL
+                                EDUCATIVO
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index">
+                                <p> {{ row.nivelEducativo}} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tipoGestion">
+                            <th mat-header-cell *matHeaderCellDef>TIPO DE
+                                GESTIÓN
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.tipoGestion }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="codigoPlaza">
+                            <th mat-header-cell *matHeaderCellDef>CÓDIGO DE
+                                PLAZA
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p>{{ row.codigoPlaza}} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="cargo">
+                            <th mat-header-cell *matHeaderCellDef>CARGO
+                            </th>
+                            <td mat-cell *matCellDef="let row; let i = index ">
+                                <p> {{ row.cargo}}</p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="grupoOcupacional">
+                            <th mat-header-cell *matHeaderCellDef>GRUPO OCUPACIONAL
+                            </th>
+                            <td mat-cell *matCellDef=" let row;let i = index">
+                                <p> {{ row.grupoOcupacional }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="categoriaRemunerativa">
+                            <th mat-header-cell *matHeaderCellDef>CATEGORÍA
+                                REMUNERATIVA
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index ">
+                                <p> {{ row.categoriaRemunerativa }}</p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="tipoPlaza">
+                            <th mat-header-cell *matHeaderCellDef>TIPO DE PLAZA
+                            </th>
+                            <td mat-cell *matCellDef=" let row; let i = index ">
+                                <p> {{ row.tipoPlaza }} </p>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fechaVigenciaInicio">
+                            <th mat-header-cell *matHeaderCellDef>VIGENCIA
+                                INICIO
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index">
+                                <p> {{ row.fechaVigenciaInicio }} </p>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="estadoResultadoFinal">
+                            <th mat-header-cell *matHeaderCellDef>Estado
+                            </th>
+                            <td mat-cell *matCellDef="let row;let i = index">
+                                <!-- <p> {{ row.idEstadoResultadoFinal }} </p> -->
+                                <ng-container [ngSwitch]="true">
+                                    <ng-container
+                                        *ngSwitchCase="row.idEstadoResultadoFinal === estadoCuadroResultadoFinal.PENDIENTE">
+                                        <p class="badge badge-warning badge-width">
+                                            {{row.estadoResultadoFinal}}
+                                        </p>
+                                    </ng-container>
+                                
+                                    <ng-container
+                                        *ngSwitchCase="row.idEstadoResultadoFinal === estadoCuadroResultadoFinal.DESIERTO">
+                                        <p class="badge badge-danger badge-width">
+                                            {{row.estadoResultadoFinal}} 
+                                        </p>
+                                    </ng-container>
+                                
+                                    <ng-container
+                                        *ngSwitchCase="row.idEstadoResultadoFinal === estadoCuadroResultadoFinal.ADJUDICADO">
+                                        <p class="badge badge-success badge-width">
+                                            {{row.estadoResultadoFinal}}
+                                        </p>
+                                    </ng-container>                                
+                                
+                                    <ng-container *ngSwitchDefault>
+                                        <p class="badge badge-default badge-width">
+                                            {{row.estadoResultadoFinal}}
+                                        </p>
+                                    </ng-container>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                            <td mat-cell *matCellDef=" let row; let i = index ">
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div class="mat-icon-table">
+                                        <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm ml-2"
+                                            (click)="handleVerInformacionPlaza(row)" aria-label="Ver información"
+                                            matTooltip="Ver información">
+                                            <mat-icon class="">info</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsPlazas;sticky: true">
+                        </tr>
+                        <tr mat-row *matRowDef="let row;columns: displayedColumnsPlazas"
+                            (click)=" selectionResultadoFinal.toggle(row)"
+                            [ngClass]="{ hovered: row.hovered,selected: selectionResultadoFinal.isSelected(row)}"
+                            (mouseover)=" row.hovered = true " (mouseout)="row.hovered = false"
+                            [@animate]="{value: '*',params: { y: '100%' }}">
+                        </tr>
+                    </table>
+                </div>
+                <div class="no-results" *ngIf="!(dataSourceResultadoFinal.loading | async)"
+                    [style.display]="dataSourceResultadoFinal.data.length === 0 ? '' : 'none'">
+                    No se encontraron registros
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                    *ngIf="dataSourceResultadoFinal.loading | async">
+                    <mat-spinner diameter="50"></mat-spinner>
+                </div>
+                <mat-paginator #paginatorResultadoFinal class="mat-paginator-sticky"
+                    [length]="dataSourceResultadoFinal.dataTotal" [pageIndex]="paginatorPageIndex"
+                    [pageSize]="paginatorPageSize" [pageSizeOptions]="[5,10,20,30,40,50,100]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10" style="width: 100%">
+        <div mat-dialog-actions class="p-10" fxLayout="row" style="margin-right: 12px; width: 98%">
+            <span style="font-weight: bold">Total de plazas:
+                {{ dataSourceResultadoFinal?.dataTotal }}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">{{modal.icon}}</mat-icon>
+                <span class="title dialog-title">{{modal.title}}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlex="100%">
+            <div class="content-table">
+                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+
+                    <ng-container matColumnDef="registro">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>N°</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.registro">{{row.registro}}</p>
+                            <p *ngIf="!row.registro">N/A</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaCreacion">
+                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Fecha de Creación</th>
+                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                            <p *ngIf="row.fechaCreacion">{{row.fechaCreacion | date:'dd/MM/yyyy' }}</p>
+                            <p *ngIf="!row.fechaCreacion">N/A</p>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                        <td mat-cell *matCellDef="let row;">
+                            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5px">
+                                <div class="mat-icon-table">
+                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                        (click)="btnDescarga(row)" aria-label="Ver Comite"
+                                        matTooltip="Ver Comite">
+                                        <mat-icon class="">picture_as_pdf</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="onSelect(row)"
+                        [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                        [@animate]="{value:'*',params:{y:'100%'}}">
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+    <div mat-dialog-actions class="panel-footer m-0" fxLayout="row" fxLayoutAlign="end center">
+        <minedu-button-cancel (mineduOnCancel)="btnCancelar()"></minedu-button-cancel>
+    </div>
+</div>

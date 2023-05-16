@@ -1,0 +1,235 @@
+export enum EstadoEtapaEnum {
+    EN_PROCESO = 1,
+    DESIERTO = 2,
+    CANCELADO = 3,
+    ELIMINADO = 4,
+    FINALIZADO = 5
+}
+
+export enum EstadoEtapaProcesoEnum {
+    PENDIENTE = 1,
+    INICIADO = 2,
+    FINALIZADO = 3,
+    CANCELADO = 4
+}
+
+export enum SituacionPlazasEnum {
+    PRE_PUBLICADA = 1,
+    A_CONVOCAR = 2,
+    OBSERVADA = 3,
+    PUBLICADO = 4,
+    INCORPORACION = 5
+}
+
+export enum CodigoCentroTrabajoMaestroEnum {
+    MINEDU = '000000'
+}
+
+export enum TablaTipoSedeEnum {
+    DRE = "TS001",
+    UGEL = "TS002",
+    IE = "TS004",
+    MINEDU = "TS005",
+    UNIVERSIDAD_INSTITUTO = "TS012",
+    SIN_SEDE = "TS013"
+}
+
+export enum TablaRolPassport {
+    ESPECIALISTA_DITEN = "AYNI_006",
+    RESPONSABLE_PERSONAL_DRE = "AYNI_004",
+    RESPONSABLE_PERSONAL_UGEL = "AYNI_004",
+    RESPONSABLE_PERSONAL_IEM = "AYNI_004", 
+    PRESIDENTE_COMITE_REASIGNACION_DRE = "AYNI_050",
+    PRESIDENTE_COMITE_REASIGNACION_UGEL = "AYNI_050",
+    MONITOR = "AYNI_019",
+    ROL_MONITOR = "SIN SEDE"
+}
+
+export enum NivelInstanciaCodigoEnum {
+    MINEDU = 1,
+    DRE = 2,
+    UGEL = 3,
+}
+
+export enum CentroTrabajoEnum {
+    MINEDU = '000000',
+}  
+
+export enum TipoCentroTrabajoCodigoEnum {
+    Minedu = 1,
+    SedeAdministrativaDRE = 2,
+    InstitucionEducativaDRE = 3,
+    InstitutoSuperiorDRE = 4,
+    SedeAdministrativaUGEL = 5,
+    InstitucionEducativaUgel = 6,
+    InstitutoSuperiorUgel = 7,
+    SedeCentroLaboralDre = 8,
+    SedeCentroLaboralUgel = 9,
+}
+
+export enum RegimenLaboralEnum {
+    LEY_29944 = 1,
+    LEY_30328 = 3,
+    LEY_30493 = 4,
+    LEY_30512 = 5
+}
+
+export enum ResultadoOperacionEnum{
+    NotFound=404,
+    UnprocessableEntity=422
+}
+
+export enum EstadoPostulacionEnum {
+    REGISTRADO = 1,
+    ELIMINADO = 2,
+    APROBADO = 3
+}
+
+export enum TipoFormatoPlazaEnum {
+    GENERAL = 1,
+    CONVOCADAS = 2
+}
+
+export enum EstadoCalificacionEnum {
+    PENDIENTE = 0,
+    NO_APTO = 1,
+    APTO = 2,
+    CON_RECLAMO = 3,
+    PUBLICADO = 4
+}
+
+export enum EstadoDocumentoEnum {
+	PENDIENTE = 1,
+	EN_PROGRESO = 2,
+	PDF_GENERADO = 3,
+	GENERANDO_PDF = 4,
+	PROCESO_CON_ERROR = 5
+}
+
+export enum EtapaFaseEnum {
+    UNICA = 1,
+    FASE1 = 2,
+    FASE2 = 3,
+    FASE3 = 4,
+    ETAPA_ESPECIAL = 5,
+    EVALUACION_DE_EXPEDIENTES = 6,
+    EVALUACION_PRESENCIAL = 7,
+    EVALUACION_CURRÍCULAR = 8,
+    EVALUACION_DE_CONOCIMIENTO = 9,
+    EVALUACION_PSICOLÓGICA = 10,
+    ENTREVISTA_PERSONAL = 11,
+
+    ETAPA_INTERREGIONAL = 22,
+    ETAPA_REGIONAL_GENERAL = 26,
+    ETAPA_REGIONAL_FASE_1 = 27,
+    ETAPA_REGIONAL_FASE_2 = 28
+}
+
+export enum TablaTipoDocumentoIdentidad {
+    DNI = 1,
+    PASAPORTE = 4,
+    CARNET_DE_EXTRANJERIA = 5,
+}
+
+export enum TablaEtapaPostulacion {
+    ETAPA_REGIONAL = 1,
+    ETAPA_INTERREGIONAL = 2
+}
+
+export enum GrupoDocumentoPublicadoEnum {
+    COMITE = 1,
+    CRONOGRAMA = 2,
+    // VALIDADAS = 1,
+    // PRELIMINAR = 2,
+    // FINAL = 3,
+    // PREPUBLICACIONBECARIOS = 4,
+    // PREPUBLICACIONDOCENTES = 5,
+    // PUBLICACION = 6,
+    // INCORPORACION = 7
+}
+
+export enum GrupoDocumentoReasignacionEnum {
+
+    CRONOGRAMA = 1,
+    PREPUBLICACION_PLAZAS = 2,
+    CONSOLIDADO_PLAZAS = 3,
+    PUBLICACION_PLAZAS = 4,
+    CALIFICACION_PRELIMINAR = 5,
+    CALIFICACION_FINAL = 6,
+    CUADRO_MERITOS = 7
+
+}
+
+export enum EstadoAdjudicacionEnum {
+    PENDIENTE = 1,
+    ADJUDICADO = 2,
+    NO_ADJUDICADO = 3,
+    OBSERVADO = 4
+}
+
+export enum EstadoSubsanacionEnum {
+    NO_ADJUDICADO = 1,
+    ADJUDICADO = 2
+}
+
+export enum EstadoValidacionPlazaEnum {
+    PENDIENTE = 1,
+    VALIDADO = 2,
+    PREPUBLICADO = 3,
+    RECHAZADO = 4,
+    APROBADO = 5,
+    PUBLICADO = 6,
+    APERTURADO = 7
+}
+export enum EstadoConsolidadoPlazaEnum {
+    PENDIENTE = 1,
+    VALIDADO = 2,
+    RECHAZADO = 3,
+    APROBADO = 4
+}
+export enum CodigoTipoOperacionSustentoEnum {
+    MOTIVO_NO_PUBLICACION = 1,
+    OTROS_DATOS_POSTULACION = 2
+}
+export enum OrigenRegistroEnum {
+    MODULO = 1,
+    WEB = 2
+}
+export enum CatalogoItemEnum {
+    CATALOGO_ITEM_ORDEN_PRIMERO = 1,
+    CATALOGO_ITEM_ORDEN_SEGUNDO = 2,
+    CATALOGO_ITEM_ORDEN_TERCERO = 3,
+    TIPOS_DOCUMENTOS_IDENTIDAD = 6,
+    TIPO_FORMATO_SUSTENTO = 33,
+    ESTADOS_POSTULANTE = 45,
+    ESTADOS_CONSOLIDADO = 18,
+    NACIONALIDADES = 19,
+    MOTIVO_NO_PUBLICACION = 105,
+    TIPO_DOCUMENTO_SUSTENTO = 20,
+    ESTADO_RESULTADO_FINAL = 103,
+    ESTADO_CALIFICACION = 107,
+    ESTADO_ADJUDICACION = 104,
+    MOTIVO_NO_CALIFICACION = 122,
+    RUBRO_CALIFICACION = 42,
+    MOTIVO_NO_ADJUDICACION = 102
+}
+
+export const MENSAJES = {
+    DURACION: 5000,
+    MENSAJE_EXITO: '"OPERACIÓN REALIZADA DE FORMA EXITOSA."',                                                                                      //M07 
+    MENSAJE_SELECCIONAR_MINIMO_UN_REGISTRO:'"SELECCIONE AL MENOS UN REGISTRO PARA PROCEDER CON LA OPERACIÓN."',
+    MENSAJE_ERROR_AL_PROCESAR_OPERACION:'"ERROR AL PROCESAR LA OPERACIÓN."',
+    MENSAJE_NO_ENCONTRO_DOCUMENTO_ADJUNTO:'"NO SE ENCONTRÓ DOCUMENTO ADJUNTO."',
+    MENSAJE_PROBLEMA_DOCUMENTO_ADJUNTO:'"HUBO UN PROBLEMA AL OBTENER EL DOCUMENTO ADJUNTO."',
+    MENSAJE_PROBLEMA_SOLICITUD:"HUBO UN PROBLEMA AL PROCESAR LA SOLICITUD",
+    MENSAJE_NO_ENCONTRO_INFORMACION_PARA_EXPORTAR: '"NO SE ENCONTRÓ INFORMACIÓN PARA EXPORTAR."',
+    MENSAJE_NO_ENCONTRO_INFORMACION_CRITERIOS_BUSQUEDA: '"NO SE ENCONTRÓ INFORMACIÓN PARA LOS CRITERIOS DE BÚSQUEDA INGRESADOS."',
+    MENSAJE_PROBLEMAS_INFORMACION_CRITERIOS_BUSQUEDA:'"OCURRIERON PROBLEMAS AL BUSCAR INFORMACIÓN PARA LOS CRITERIOS DE BÚSQUEDA INGRESADOS."',
+    MENSAJE_CONFIRMACION_PARA_GUARDAR_INFORMACION: '"¿ESTÁ SEGURO DE QUE DESEA GUARDAR LA INFORMACIÓN?"',                                        //M02
+    MENSAJE_CONFIRMACION_TRASLADAR_PLAZAS_A_OBSERVADAS:'¿ESTÁ SEGURO QUE DESEA TRASLADAR LAS PLAZAS A LA PESTAÑA “PLAZAS OBSERVADAS”?',          //M91
+    MENSAJE_CONFIRMACION_OBSERVAR_POSTULANTE: '"¿ESTÁ SEGURO QUE DESEA OBSERVAR AL POSTULANTE?"',                                                //M118
+    MENSAJE_CONFIRMACION_PUBLICACION_PRELIMINAR: '"¿ESTÁ SEGURO QUE DESEA PUBLICAR EL RESULTADO PRELIMINAR DE POSTULANTES?"',                    //M119
+    MENSAJE_CONFIRMACION_PUBLICACION_FINAL: '"¿ESTÁ SEGURO QUE DESEA PUBLICAR EL RESULTADO FINAL DE POSTULANTES?"',                              //M121
+    MENSAJE_CONFIRMACION_PUBLICACION_CUADRO_MERITO: '"¿ESTÁ SEGURO QUE DESEA PUBLICAR EL CUADRO DE MÉRITO DE POSTULANTES?"',                     
+    MENSAJE_ERROR_SERVIDOR:'"ERROR RECUPERANDO DATOS DEL SERVIDOR, POR FAVOR INTENTE DENTRO DE UNOS SEGUNDOS, GRACIAS."'
+}

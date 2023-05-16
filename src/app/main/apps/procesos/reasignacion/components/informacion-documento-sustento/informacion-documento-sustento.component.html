@@ -1,0 +1,151 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">info</mat-icon>
+                <span class="title dialog-title">Ver información de sustento</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxFlexAlign="flex-start" fxLayoutAlign="start none" *ngIf="documento">
+            <table class="table-informacion table-striped table-diten table-bordered">
+                <tbody>
+                    <tr>
+                        <th class="w-150">Tipo documento sustento</th>
+                        <td>{{ documento.tipoDocumentoSustento }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo formato sustento</th>
+                        <td>{{ documento.tipoFormatoSustento }} </td>
+                    </tr>
+                    <tr>
+                        <th>Número documento</th>
+                        <td>{{documento.numeroDocumentoSustento}}</td>
+                    </tr>
+                    <tr>
+                        <th>Folios</th>
+                        <td>{{documento.numeroFolios}}</td>
+                    </tr>
+                    <tr>
+                        <th>Entidad emisora</th>
+                        <td>{{documento.entidadEmisora}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha emisión</th>
+                        <td>{{documento.fechaEmision}}</td>
+                    </tr>                    
+                    <tr>
+                        <th>Sumilla</th>
+                        <td>{{documento.sumilla}}</td>
+                    </tr>                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+
+
+        <fieldset class="fieldset-border mt-0 mb-12">
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Tipo de documento</span>
+                            <br>
+                            <span class="label-normal">{{documento.tipoDocumentoSustento}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Número de documento</span>
+                            <br>
+                            <span class="label-normal">{{documento.numeroDocumentoSustento}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Entdad emisora</span>
+                            <br>
+                            <span class="label-normal">{{documento.entidadEmisora}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Tipo de formato</span>
+                            <br>
+                            <span class="label-normal">{{documento.tipoFormatoSustento}} </span>
+                        </div>
+                    </div>
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Fecha emisión</span>
+                            <br>
+                            <span class="label-normal">{{documento.fechaEmision | date: 'dd/MM/yyyy'}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">N° folios</span>
+                            <br>
+                            <span class="label-normal">{{documento.numeroFolios}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%" fxLayoutGap="12px"
+                    fxLayoutGap.xs="0">
+
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Sumilla</span>
+                            <br>
+                            <span class="label-normal">{{documento.sumilla}} </span>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="30%" fxFlex.xs="100%">
+                        <div>
+                        </div>
+                    </div>
+                    <div fxLayoutAlign="start start" fxFlex="40%" fxFlex.xs="100%">
+                        <div>
+                            <span class="label" style="font-weight: bold;">Documento escaneado</span>
+                            <br>
+                            <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                            aria-label="Descargar Documento escaneado" matTooltip="Descargar Documento escaneado"
+                            (click)="handleVerAdjunto(documento)">
+                            <mat-icon class="">picture_as_pdf</mat-icon>
+                            </button>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </fieldset>
+    </div> -->
+    
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button (click)="matDialogRef.close()"><span class="material-icons">block</span>
+            CANCELAR</button>
+    </div>
+</div>

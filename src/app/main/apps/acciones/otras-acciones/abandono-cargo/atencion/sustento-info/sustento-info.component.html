@@ -1,0 +1,81 @@
+<div>
+    <mat-toolbar mat-dialog-title class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span >{{ nombreCabecera }}</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close Dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div *ngIf="working" fxLayout="column" fxLayoutAlign="center center">
+            <mat-spinner [diameter]="50" style="margin: 0 auto;"></mat-spinner>
+            <span>Espere, estamos procesando tu solicitud</span>
+        </div>
+        <div *ngIf="!working">
+            <fieldset class="fieldset-border mt-0 mb-12">
+                <legend>Sustento</legend>
+                <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="12px">
+                    <div fxFlex.gt-sm="23%">
+                        <label>Tipo de Documento</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.tipoDocumentoSustento }}
+                        </p>
+                    </div>
+                    <div fxFlex.gt-sm="23%">
+                        <label>Número de Documento</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.numeroDocumentoSustento }}
+                        </p>
+                    </div>
+                    <div fxFlex.gt-sm="23%">
+                        <label>Entidad Emisora</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.entidadEmisora }}
+                        </p>
+                    </div>
+                    <div fxFlex.gt-sm="23%">
+                        <label>Tipo Formato</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.tipoFormatoSustento }}
+                        </p>
+                    </div>
+                </div>
+                <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="12px">
+                    <div fxFlex.gt-sm="23%">
+                        <label>Fecha Emisión</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.fechaEmision | date:'dd/MM/yyyy' }}
+                        </p>
+                    </div>
+                    <div fxFlex.gt-sm="23%">
+                        <label>Folios</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.numeroFolios }}
+                        </p>
+                    </div>
+                    <div fxFlex.gt-sm="23%">
+                        <label>Sumilla</label>
+                        <p class="form-control-static">
+                            {{ documentoSustento.sumilla }}
+                        </p>
+                    </div>
+                    <div fxFlex.gt-sm="23%">
+                        <label>Documento Escaneado</label>
+                        <div class="mat-icon-table">
+                            <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm"
+                                (click)="btnDescargarAdjunto(documentoSustento.codigoDocumentoSustento)" aria-label="Ver documento de sustento"
+                                matTooltip="Ver documento de sustento" *ngIf="documentoSustento.codigoDocumentoSustento">
+                                <mat-icon class="">picture_as_pdf</mat-icon>
+                                DESCARGAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

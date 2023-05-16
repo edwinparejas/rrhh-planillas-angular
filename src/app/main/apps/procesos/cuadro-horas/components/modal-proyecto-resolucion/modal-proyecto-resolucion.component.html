@@ -1,0 +1,468 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mr-4">search</mat-icon>
+                <span class="title dialog-title">Generar proyecto de resoluci&oacute;n</span>
+            </div>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0">
+        <div fxLayout="column" fxLayoutGap="5px">
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <form [formGroup]="form" fxFlex="100%">
+                    <fieldset class="fieldset-border">
+                        <legend>Datos de la acci&oacute;n</legend>
+                        <div fxLayout="column">
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                    fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="" class="label">R&eacute;gimen laboral</label>
+                                        <p class="form-control-static">{{ multipleRegimen }}</p>
+                                    </div>
+                                </div>
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                    fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="" class="label">Grupo de acci&oacute;n</label>
+                                        <p class="form-control-static"> {{ multipleGrupoAccion }}</p>
+                                    </div>
+                                </div>
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                    fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="" class="label">Acci&oacute;n</label>
+                                        <p class="form-control-static"> {{ multipleAccion }}</p>
+                                    </div>
+                                </div>
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"
+                                    fxFlex.xs="100%">
+                                    <div class="form-group">
+                                        <label for="" class="label">Motivo de acci&oacute;n</label>
+                                        <p class="form-control-static"> {{ multipleMotivo }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                    <mat-form-field appearance="fill" fxFlex="100%"
+                                        [mineduFormFieldValidationState]="form.get('idTipoResolucion')">
+                                        <mat-label [mineduFormRequiredLabel]="form.get('idTipoResolucion')">
+                                            Tipo de resoluci&oacute;n
+                                        </mat-label>
+                                        <mat-select formControlName="idTipoResolucion">
+                                            <mat-option>--SELECCIONE--</mat-option>
+                                            <mat-option *ngFor="let item of tiposDeResolucion"
+                                                [value]="item.idCatalogoItem">
+                                                {{item.descripcionCatalogoItem}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>
+                                            <minedu-form-field-validation-messages
+                                                [mineduFormControl]="form.get('idTipoResolucion')">
+                                            </minedu-form-field-validation-messages>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"></div>
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"></div>
+                                <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%"></div>
+                            </div>
+
+                        </div>
+                    </fieldset>
+
+                    <mat-tab-group principal mat-align-tabs="start start">
+                        <mat-tab p1 label="Documento de sustento">
+                            <fieldset class="fieldset-border">
+                                <legend>Documento de sustento</legend>
+                                <div fxLayout="column">
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('idTipoDocumentoSustento')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('idTipoDocumentoSustento')">
+                                                    Tipo de documento
+                                                </mat-label>
+                                                <mat-select formControlName="idTipoDocumentoSustento"
+                                                    style="padding-bottom: 5px;">
+                                                    <mat-option>--SELECCIONE--</mat-option>
+                                                    <mat-option *ngFor="let item of tiposDocumentoSustento"
+                                                        [value]="item.idCatalogoItem">
+                                                        {{item.descripcionCatalogoItem}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('idTipoDocumentoSustento')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('numeroDocumentoSustento')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('numeroDocumentoSustento')">
+                                                    Número de documento
+                                                </mat-label>
+                                                <input matInput formControlName="numeroDocumentoSustento" uppercase alphaNumeric
+                                                    style="padding-bottom: 5px;" [maxlength]="maximo">
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('numeroDocumentoSustento')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('entidadEmisora')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('entidadEmisora')">
+                                                    Entidad emisora
+                                                </mat-label>
+                                                <input matInput formControlName="entidadEmisora" uppercase alphaNumeric
+                                                    style="padding-bottom: 5px;" />
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('entidadEmisora')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <minedu-datepicker label="Fecha de emision"
+                                                [mineduFormControl]="form.get('fechaEmision')"
+                                                [formControl]="form.get('fechaEmision')">
+                                            </minedu-datepicker>
+                                            <mat-error>
+                                                <minedu-form-field-validation-messages
+                                                    [mineduFormControl]="form.get('fechaEmision')">
+                                                </minedu-form-field-validation-messages>
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('numeroFolios')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('numeroFolios')">
+                                                    Folios
+                                                </mat-label>
+                                                <input matInput type="number" formControlName="numeroFolios"
+                                                    style="padding-bottom: 7px;" />
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('numeroFolios')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('idTipoFormatoSustento')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('idTipoFormatoSustento')">
+                                                    Tipo de formato
+                                                </mat-label>
+                                                <mat-select formControlName="idTipoFormatoSustento"
+                                                    style="padding-bottom: 7px;">
+                                                    <mat-option>--SELECCIONE--</mat-option>
+                                                    <mat-option *ngFor="let item of tiposFormatoSustento"
+                                                        [value]="item.idCatalogoItem">
+                                                        {{item.descripcionCatalogoItem}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('idTipoFormatoSustento')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayoutAlign="start start" fxFlex="50%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('sumilla')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('sumilla')">
+                                                    Sumilla
+                                                </mat-label>
+                                                <input matInput formControlName="sumilla" uppercase alphaNumeric
+                                                    style="padding-bottom: 7px;" />
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('sumilla')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px">
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                            <minedu-single-file-input [mineduFormControl]="form.get('adjuntarDocumento')"
+                                                inputText="Adjuntar documento o arrastre aquí"
+                                                removeButtonLabel="Eliminar documento adjunto"
+                                                noFileText="Sin documento adjunto" (mineduUpload)="handleAdjunto($event)">
+                                            </minedu-single-file-input>
+                                        </div>
+
+                                        <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                            <mat-form-field appearance="fill" fxFlex="100%"
+                                                [mineduFormFieldValidationState]="form.get('vistoDeProyecto')">
+                                                <mat-label [mineduFormRequiredLabel]="form.get('vistoDeProyecto')">
+                                                    Mostar en el visto del proyecto
+                                                </mat-label>
+                                                <mat-select formControlName="vistoDeProyecto" style="padding: 0px;">
+                                                    <mat-option>--SELECCIONE--</mat-option>
+                                                    <mat-option value=1>SI</mat-option>
+                                                    <mat-option value=0>NO</mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <minedu-form-field-validation-messages
+                                                        [mineduFormControl]="form.get('vistoDeProyecto')">
+                                                    </minedu-form-field-validation-messages>
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <br>
+
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end start" fxFlex="100%">
+                                <minedu-button-add [mineduForm]="form" (onAddEvent)="agregarAGrillaTemporal()">
+                                </minedu-button-add>
+                            </div>
+                            <br>
+
+                            <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                                <table mat-table class="minedu-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+
+                                    <ng-container matColumnDef="tipoDocumentoSustento">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Tipo de documento</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.tipoDocumentoSustento">{{row.tipoDocumentoSustento}}</p>
+                                            <p *ngIf="!row.tipoDocumentoSustento">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="numeroDocumentoSustento">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Numero de documento</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.numeroDocumentoSustento">{{row.numeroDocumentoSustento}}</p>
+                                            <p *ngIf="!row.numeroDocumentoSustento">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaEmision">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Fecha de Emision</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.fechaEmision">{{row.fechaEmision | date: 'dd/MM/yyyy' }}</p>
+                                            <p *ngIf="!row.fechaEmision">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="tipoFormatoSustento">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Tipo de Formato</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.tipoFormatoSustento">{{row.tipoFormatoSustento }}</p>
+                                            <p *ngIf="!row.tipoFormatoSustento">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="numeroFolios">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Folios</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.numeroFolios">{{row.numeroFolios }}</p>
+                                            <p *ngIf="!row.numeroFolios">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="fechaCreacion">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Fecha de Registro</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.fechaCreacion">{{row.fechaCreacion | date: 'dd/MM/yyyy' }}</p>
+                                            <p *ngIf="!row.fechaCreacion">No registrado</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones">
+                                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5px">
+
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="primary" class="sidebar-toggle btn-sm"
+                                                        (click)="btnInformacion(row)" aria-label="Ver información"
+                                                        matTooltip="Ver información">
+                                                        <mat-icon class="">info</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                                        (click)="btnEliminar(row)" aria-label="Eliminar" matTooltip="Eliminar">
+                                                        <mat-icon class="">restore_from_trash</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm"
+                                                        (click)="btnDescargarAdjunto(row)" aria-label="Ver documento de sustento"
+                                                        matTooltip="Ver documento de sustento">
+                                                        <mat-icon class="">picture_as_pdf</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                        [ngClass]="{hovered: row.hovered}"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                        [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </tr>
+                                </table>
+                                <div class="no-results"
+                                    [style.display]="dataSource?.data.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+                            <br>
+                        </mat-tab>
+
+
+                        <mat-tab p2 label="Considerandos del proyecto">
+                            <fieldset class="fieldset-border">
+                                <form autocomplete="off" novalidate [formGroup]="formCons">
+                                    <div fxLayout="column">
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex>
+    
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                                <div class="form-group">
+                                                    <label for="" class="label">Sección</label>
+                                                    <p class="form-control-static">{{ seccion }}</p>
+                                                </div>
+                                            </div>
+    
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                                <div class="form-group">
+                                                    <label for="" class="label">Tipo Sección</label>
+                                                    <p class="form-control-static">{{ tipoSeccion }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="ml-4" fxLayoutAlign="start start" fxFlex="25%" fxFlex.lt-md="100%">
+                                                <div class="form-group">
+                                                    <mat-checkbox fxLayoutGap="12px"
+                                                        formControlName="sangria" name="sangria">Incluir sangría
+                                                    </mat-checkbox>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+    
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                                fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="100%" fxFlex.xs="100%">
+                                                    <mat-form-field appearance="fill" fxFlex="100%" fxFlex.xs="100%"
+                                                        [mineduFormFieldValidationState]="formCons.get('considerando')">
+                                                        <mat-label [mineduFormRequiredLabel]="formCons.get('considerando')">
+                                                            Considerando
+                                                        </mat-label>
+                                                        <textarea matInput formControlName="considerando"
+                                                            placeholder="Considerando" rows="5" maxlength="500">
+                                                        </textarea>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </form>
+                            </fieldset>
+                            <br>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end start" fxFlex="100%">
+                                <minedu-button-add [mineduForm]="formCons" (onAddEvent)="agregarConsiderandoAGrillaTemporal()">
+                                </minedu-button-add>
+                            </div>
+                            <br>
+
+                            <div fxLayout="column" fxLayoutAlign="start none" class="mb-20 mt-14">
+                                <table mat-table class="minedu-table" #table [dataSource]="dataSourceConsiderando" [@animateStagger]="{value:'50'}">
+
+                                    <ng-container matColumnDef="orden">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>N°</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.orden">{{row.orden}}</p>
+                                            <p *ngIf="!row.orden">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="seccion">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Sección</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.seccion">{{row.seccion}}</p>
+                                            <p *ngIf="!row.seccion">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="tipoSeccion">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Tipo</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.tipoSeccion">{{row.tipoSeccion}}</p>
+                                            <p *ngIf="!row.tipoSeccion">No registrado</p>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="considerando">
+                                        <th mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Considerando</th>
+                                        <td mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                                            <p *ngIf="row.considerando">{{row.considerando}}</p>
+                                            <p *ngIf="!row.considerando">No registrado</p>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones">
+                                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                        <td mat-cell *matCellDef="let row;">
+                                            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="5px">
+                                                <div class="mat-icon-table">
+                                                    <button mat-stroked-button color="warn" class="sidebar-toggle btn-sm ml-2"
+                                                        (click)="btnEliminarConsiderando(row)" aria-label="Eliminar" matTooltip="Eliminar">
+                                                        <mat-icon class="">restore_from_trash</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsConsiderando; sticky:true"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsConsiderando;"
+                                        [ngClass]="{hovered: row.hovered}"
+                                        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                        [@animate]="{value:'*',params:{y:'100%'}}">
+                                    </tr>
+                                </table>
+                                <div class="no-results"
+                                    [style.display]="dataSourceConsiderando?.data.length === 0 ? '' : 'none'">
+                                    No se encontraron registros
+                                </div>
+                            </div>
+    
+                        </mat-tab>
+
+                    </mat-tab-group>
+                    
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="panel-footer m-0 pr-12" fxLayout="row" fxLayoutAlign="end center">
+        <button type="button" mat-raised-button color="primary"
+            (click)="guardarDocumentoSustentoYGenerarProyectoResolucion()"
+            style="display: inline-block; background-color: rgb(0, 115, 183); border-left-color: rgb(0, 115, 183); border-right-color: rgb(0, 115, 183);">
+            <span class="material-icons">save</span> Generar proyecto
+        </button>
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">cancel</span> Cancelar
+        </button>
+    </div>
+
+</div>

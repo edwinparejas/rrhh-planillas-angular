@@ -1,0 +1,25 @@
+@import "@minedu/components/countdown/countdown.theme";
+@import "@minedu/components/material-color-picker/material-color-picker.theme";
+@import "@minedu/components/search-bar/search-bar.theme";
+@import "@minedu/components/shortcuts/shortcuts.theme";
+@import "@minedu/components/sidebar/sidebar.theme";
+@import "@minedu/components/widget/widget.theme";
+
+@mixin minedu-core-theme($theme) {
+
+    // Theming for Minedu core styles
+    @include colors-theme($theme);
+    @include cards-theme($theme);
+    @include material-theme($theme);
+    @include page-layouts-theme($theme);
+    @include typography-theme($theme);
+
+    // Theming for Minedu components
+    @include minedu-countdown-theme($theme);
+    @include minedu-search-bar-theme($theme);
+    @include minedu-shortcuts-theme($theme);
+    @include minedu-sidebar-theme($theme);
+    @include minedu-material-color-picker-theme($theme);
+    @include minedu-widget-theme($theme);
+}
+

@@ -1,0 +1,21 @@
+<minedu-accion-personal-info [accionPersonal]="accionPersonal"></minedu-accion-personal-info>
+
+<ng-container *ngIf="accionPersonal?.datosAccion?.codigoAccion === PERMUTA;else NoPermuta">
+    <minedu-datos-personales-info [titulo]="'Servidor 1: '" [servidorPublico]="accionPersonal?.servidorPublicoOrigen"></minedu-datos-personales-info>
+    <minedu-info-escalafonario [titulo]="'Servidor 1: '"(mostrarDocumentoEvent)="mostrarDocumento($event)" [servidorPublico]="accionPersonal?.servidorPublicoOrigen"></minedu-info-escalafonario>
+
+    <minedu-datos-personales-info [titulo]="'Servidor 2: '" [servidorPublico]="accionPersonal?.servidorPublicoDestino"></minedu-datos-personales-info>
+    <minedu-info-escalafonario [titulo]="'Servidor 2: '"(mostrarDocumentoEvent)="mostrarDocumento($event)" [servidorPublico]="accionPersonal?.servidorPublicoDestino"></minedu-info-escalafonario>
+
+</ng-container>
+
+<ng-template #NoPermuta>
+    <minedu-datos-personales-info [servidorPublico]="accionPersonal?.servidorPublicoOrigen"></minedu-datos-personales-info>
+    <minedu-info-escalafonario (mostrarDocumentoEvent)="mostrarDocumento($event)" [servidorPublico]="accionPersonal?.servidorPublicoOrigen"></minedu-info-escalafonario>
+</ng-template>
+
+
+<minedu-datos-accion-info (mostrarDocumentoEvent)="mostrarDocumento($event)" [accionPersonal]="accionPersonal"></minedu-datos-accion-info>
+<minedu-info-sustento (mostrarDocumentoEvent)="mostrarDocumento($event)" [accionPersonal]="accionPersonal"></minedu-info-sustento>
+<minedu-observacion-info [accionPersonal]="accionPersonal"></minedu-observacion-info>
+

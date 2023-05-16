@@ -1,0 +1,59 @@
+<div class="content" mineduPerfectScrollbar>
+    <!-- Inicio Breadcrumb -->
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="row wrap" fxLayout.xs="column" fxFlex="100%">
+            <div fxFlex="50%" fxFlex.xs="100%">
+                <!-- <h3 class="titulo">Aprobación - Acción Desplazamiento</h3> -->
+            </div>
+            <div fxFlex="50%" fxFlex.xs="100%">
+                <ol class="breadcrumb pull-right">
+                    <li><a [routerLink]="['/ayni/personal/inicio']">
+                            <mat-icon color="accent" class="s-18">home</mat-icon> Inicio
+                        </a></li>
+                    <li class="active">
+                        Aprobación - Acción Desplazamiento
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div fxLayout="column">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Aprobación - Acción Desplazamiento</h3>
+            </div>
+
+            <div class="panel-body">
+                <minedu-ver-informacion-accion-personal
+                    [accionPersonal]="accionPersonal"></minedu-ver-informacion-accion-personal>
+
+            </div>
+            <div class="panel-footer">
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <button mat-raised-button
+                        [disabled]="accionPersonal?.datosAccion?.codigoEstadoDesplazamiento !==PENDIENTE_AUTORIZACION"
+                        [color]="accionPersonal?.datosAccion?.codigoEstadoDesplazamiento !==PENDIENTE_AUTORIZACION?'accent':'primary'"
+                        (click)="handleAprobar()"><span class="material-icons">delete</span>
+                        Aprobar</button>
+
+                    <div fxLayout="row">
+                        <button mat-raised-button class="ml-4"
+                            [disabled]="accionPersonal?.datosAccion?.codigoEstadoDesplazamiento !==PENDIENTE_AUTORIZACION"
+                            [color]="accionPersonal?.datosAccion?.codigoEstadoDesplazamiento !==PENDIENTE_AUTORIZACION?'accent':'primary'"
+                            (click)="handleDesaprobar()"><span class="material-icons">close</span>
+                            Desaprobar</button>
+                    </div>
+
+                    <button mat-raised-button class="ml-4" (click)="handleCancelar()">
+                        <span class="material-icons">reply</span>
+                        Regresar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

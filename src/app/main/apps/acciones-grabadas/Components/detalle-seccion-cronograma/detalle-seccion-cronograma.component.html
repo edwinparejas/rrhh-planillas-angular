@@ -1,0 +1,16 @@
+<fieldset class="fieldset-border mb-2" fxLayout="row wrap" fxFlex="100%">
+    <legend>Detalle del cronograma</legend>
+    <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px" fxLayoutGap.lt-md="0" style="padding-bottom: 5px;">                
+        <div appearance="fill" fxFlex="100%" fxFlex.xs="100%">
+            <table style="overflow:auto;">
+                <tbody class="tamaniotexto">
+                    <tr *ngFor="let detalle of dataTable;let i = index">
+                        <td *ngFor="let data of detalle.dataObject" [ngStyle]="{'padding':'10px','font-weight':data.bold == 1 ? 'bold' : 'normal' ,'text-align':data.centrado == 1 ? 'center' : 'left' ,'border':data.border == 1 ? '1px solid' : '0px' }" [attr.colspan]="data.colspan">
+                            {{ data.valorCampo }}
+                        </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</fieldset>

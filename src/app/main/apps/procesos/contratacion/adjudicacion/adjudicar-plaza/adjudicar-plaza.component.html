@@ -1,0 +1,325 @@
+<div class="page-layout carded fullwidth inner-scroll p-16" mineduPerfectScrollbar>
+    <div class="page-layout carded left-sidebar inner-scroll">
+        <div class="content" mineduPerfectScrollbar>
+            <div class="panel">
+                <div class="panel-body">
+                    <mat-tab-group>
+                        <mat-tab label="Adjudicar plaza">
+                            <div class="panel-body">
+                                <fieldset class="fieldset-border mb-3">
+                                    <legend>Datos personales</legend>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-md="column" fxFlex="100%" fxLayoutGap="12px"
+                                            fxLayoutGap.lt-md="0">
+                                            <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%"
+                                                fxFlex.lt-sm="100%" fxLayoutGap="12px">
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Documento de identidad</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{calificacion?.numeroDocumentoIdentidadCompleto}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Primer apellido</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{calificacion?.primerApellido}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Segundo apellido</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{calificacion?.segundoApellido}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Nombres</span>
+                                                        <br>
+                                                        <span class="label-normal">{{calificacion?.nombres}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Grupo de inscripción</span>
+                                                        <br>
+                                                        <span
+                                                            class="label-normal">{{calificacion?.descripcionGrupoInscripcion}}</span>
+                                                    </div>
+                                                </div>
+                                                <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                    <div>
+                                                        <span class="label">Puntaje Final – PUN</span>
+                                                        <br>
+                                                        <span class="label-normal">{{calificacion?.puntajeTotal}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayout.lt-md="column">
+                                        <div fxLayout="row" fxLayout.lt-sm="column" fxFlex="100%" fxFlex.lt-sm="100%"
+                                            fxLayoutGap="12px">
+                                            <div fxLayoutAlign="start start" fxFlex="25%" fxFlex.xs="100%">
+                                                <div>
+                                                    <span class="label">Puntaje de desempate</span>
+                                                    <br>
+                                                    <span class="label-normal">{{calificacion?.puntajeDesempate}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="fieldset-border mb-3">
+                                    <legend>Criterios de búsqueda</legend>
+                                    <form [formGroup]="form">
+
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxFlex.xs="100%"
+                                                fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+
+                                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%"
+                                                    [mineduFormFieldValidationState]="form.get('codigoPlaza')">
+                                                    <mat-label [mineduFormRequiredLabel]="form.get('codigoPlaza')">
+                                                        Código de plaza</mat-label>
+                                                    <input matInput formControlName="codigoPlaza"
+                                                        placeholder="Código de plaza" maxlength="8"
+                                                        (keyup.enter)="buscarPlaza()"
+                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                    <mat-icon matSuffix class="icon-cursor"
+                                                        (click)="busquedaPlazaPersonalizada()">
+                                                        search
+                                                    </mat-icon>
+                                                </mat-form-field>
+
+                                                <mat-form-field appearance="fill" fxFlex="20%" fxFlex.xs="100%">
+                                                    <mat-label>
+                                                        Código modular</mat-label>
+                                                    <input matInput formControlName="codigoCentroTrabajo"
+                                                        placeholder="Código modular" maxlength="10"
+                                                        (keyup.enter)="buscarPlaza()"
+                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                    <mat-icon matSuffix class="icon-cursor"
+                                                        (click)="busquedaCentroTrabajoPersonalizada()">search
+                                                    </mat-icon>
+                                                </mat-form-field>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                            <div class="panel-body">
+                                <div class="content" mineduPerfectScrollbar>
+                                    <div class="content-table">
+                                        <div fxLayout="row" fxLayout.lt-md="column">
+                                            <mat-table class="minedu-table" #table [dataSource]="dataSource"
+                                                [class.isMobile]="isMobile" [@animateStagger]="{value:'50'}"
+                                                style="width: 100%" mineduPerfectScrollbar>
+                                                <ng-container matColumnDef="registro">
+                                                    <mat-header-cell *matHeaderCellDef>SEL</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <mat-radio-group [(ngModel)]="selectedRow"
+                                                            (change)="radioSelected()">
+                                                            <mat-radio-button [value]="row"></mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="codigoModular">
+                                                    <mat-header-cell *matHeaderCellDef>CÓDIGO MODULAR
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <span class="mobile-label">CÓDIGO
+                                                            MODULAR:</span>{{row?.codigoModular}}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="centroTrabajo">
+                                                    <mat-header-cell *matHeaderCellDef>CENTRO DE TRABAJO
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <span class="mobile-label">CENTRO DE
+                                                            TRABAJO:</span>{{row?.descripcionInstitucionEducativa}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="codigoPlaza">
+                                                    <mat-header-cell *matHeaderCellDef>CÓDIGO DE PLAZA
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">CÓDIGO DE PLAZA
+                                                                :</span>{{row?.codigoPlaza}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="modalidad">
+                                                    <mat-header-cell *matHeaderCellDef>MODALIDAD </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">
+                                                                MODALIDAD:</span>{{row?.abreviaturaModalidadEducativa}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="nivelEducativo">
+                                                    <mat-header-cell *matHeaderCellDef>NIVEL EDUCATIVO
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> NIVEL
+                                                                EDUCATIVO:</span>{{row?.descripcionNivelEducativo}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="tipoGestion">
+                                                    <mat-header-cell *matHeaderCellDef>TIPO DE GESTIÓN
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> TIPO DE
+                                                                GESTIÓN:</span>{{row?.descripcionTipoGestionEducativa}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="zona">
+                                                    <mat-header-cell *matHeaderCellDef>ZONA </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> ZONA:</span>{{row?.nombreZona}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="eib">
+                                                    <mat-header-cell *matHeaderCellDef> EIB</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">EIB :</span>{{row?.eib}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="cargo">
+                                                    <mat-header-cell *matHeaderCellDef>CARGO </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">CARGO
+                                                                :</span>{{row?.descripcionCargo}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="areaCurricular">
+                                                    <mat-header-cell *matHeaderCellDef>ÁREA CURRICULAR
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> ÁREA
+                                                                CURRICULAR:</span>{{row?.descripcionAreaCurricular}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="tipoPlaza">
+                                                    <mat-header-cell *matHeaderCellDef> TIPO DE PLAZA</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">TIPO DE PLAZA
+                                                                :</span>{{row?.descripcionTipoPlaza}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="jornadaLaboral">
+                                                    <mat-header-cell *matHeaderCellDef> JORNADA LABORAL
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> JORNADA
+                                                                LABORAL:</span>{{row?.jornadaLaboral}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="motivoVacancia">
+                                                    <mat-header-cell *matHeaderCellDef>MOTIVO DE VACANCIA
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">MOTIVO DE VACANCIA
+                                                                :</span>{{row?.descripcionMotivoVacancia}}
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="vigenciaDesde">
+                                                    <mat-header-cell *matHeaderCellDef>VIGENCIA DESDE </mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label">VIGENCIA DESDE :</span>
+                                                            <minedu-datepicker *ngIf="dataSource.data[i].selected"
+                                                                [mineduFormControl]="formFecha.get('fechaDesde')"
+                                                                [formControl]="formFecha.get('fechaDesde')"
+                                                                (ngModelChange)="configurarFechaFin()" label="">
+                                                            </minedu-datepicker>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="vigenciaHasta">
+                                                    <mat-header-cell *matHeaderCellDef> VIGENCIA HASTA</mat-header-cell>
+                                                    <mat-cell *matCellDef="let row; let i = index;">
+                                                        <p class="text-truncate">
+                                                            <span class="mobile-label"> VIGENCIA HASTA:</span>
+                                                            <minedu-datepicker *ngIf="dataSource.data[i].selected"
+                                                                [mineduFormControl]="formFecha.get('fechaHasta')"
+                                                                [formControl]="formFecha.get('fechaHasta')"
+                                                                [min]="minDate" label="">
+                                                            </minedu-datepicker>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                                </mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                    (click)="selection.toggle(row)"
+                                                    [ngClass]="{hovered: row.hovered, selected: selection.isSelected(row)}"
+                                                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"
+                                                    matRipple [@animate]="{value:'*',params:{y:'100%'}}">
+                                                </mat-row>
+                                            </mat-table>
+                                        </div>
+                                        <div class="no-results" *ngIf="!(dataSource.loading | async)"
+                                            [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+                                            No se encontraron registros
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container"
+                                            *ngIf="dataSource.loading | async">pageSize
+                                            <mat-spinner diameter="50"></mat-spinner>
+                                        </div>
+                                        <mat-paginator #paginator class="mat-paginator-sticky" fxLayoutAlign="center center"
+                                            [length]="dataSource.dataTotal" [pageIndex]="paginatorPageIndex"
+                                            [pageSize]="paginatorPageSize"
+                                            [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 100]" showFirstLastButtons>
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+                <div class="panel-footer">
+                    <div fxLayout="row" fxLayoutAlign="end center" class="mb-10">
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-raised-button color="primary" (click)="handleAdjudicarPlaza()" class="ml-4"
+                                [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}"><span
+                                    class="material-icons">how_to_reg</span>
+                                ADJUDICAR PLAZA</button>
+                        </div>
+                        <div mat-dialog-actions class="p-0" fxLayout="row">
+                            <button mat-stroked-button (click)="handleRetornar()" class="ml-4"><span
+                                    class="material-icons">keyboard_backspace</span>
+                                RETORNAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

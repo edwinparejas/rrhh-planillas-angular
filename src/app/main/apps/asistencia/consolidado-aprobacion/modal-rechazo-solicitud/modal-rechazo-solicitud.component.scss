@@ -1,0 +1,211 @@
+@import "@minedu/scss/minedu";
+
+.modal-motivo-devolucion-form-dialog{
+
+    @include media-breakpoint('xs') {
+        width: 100%;
+    }   
+
+    @include media-breakpoint('gt-xs') {       
+        width:1200px;
+    }
+    .panel {
+        margin-bottom: 15px;
+        background-color: #fff;
+        border: 0;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        .panel-heading {
+            padding: 8px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            background-color: #0073b7;
+            >h3.panel-title {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #fff;
+            }
+        }
+        .panel-body {
+            padding: 15px 15px 0;
+        }
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+    }
+
+    .mat-dialog-container {
+        padding: 0;       
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+
+            .mat-toolbar-row{
+                height: 48px;
+            }
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }  
+
+    .minedu-note{
+        font-style: italic;
+        font-weight: 700;
+        color: #0073B7;        
+    }
+
+    .mat-raised-button {
+        border: 1px solid #ccc;
+        
+        line-height: 34px;
+    }  
+        
+    .label {
+        font-weight: bold;
+    }   
+    
+    .form-group {
+        margin-bottom: 5px;
+    }
+        
+    p {
+        margin: 6px 0;
+        color: rgba(0, 0, 0, .6);
+    }
+
+    .minedu-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .mat-icon-table{
+            width: 30px;
+        }
+        .mat-column-select {
+            flex: 0 1 10px;
+            width: 10px;
+        }       
+      
+        .mat-column-codigoModular {
+            flex: 0 1 80px;
+            width: 80px;
+        }         
+        .mat-column-centroTrabajo {
+            flex: 0 1 300px;
+            width: 300px;
+        }
+        .mat-column-instancia {
+            flex: 0 1 150px;
+            width: 150px;
+        }
+        .mat-column-subInstancia {
+            flex: 0 1 150px;
+            width: 150px;
+        }                
+        .mat-column-tipoCentroTrabajo {
+            flex: 0 1 200px;  
+            width: 200px;          
+        }
+        .mobile-label {
+            display: none;
+        }        
+    }
+    table {           
+        border-collapse: collapse;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+    }     
+
+    .mat-table {
+        font-family: 'Roboto-regular', 'Helvetica Neue', 'Arial', sans-serif;
+        border-spacing: 0;
+    }    
+    
+    td.mat-cell,
+    td.mat-footer-cell{
+        font-size: 11px !important;    
+        padding: 0 10px 0 10px; 
+    }  
+    
+    tr.mat-header-row{
+        min-height: 36px !important;
+        height: 40px !important;
+    }
+
+    .mat-header-cell{
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #fff !important;
+        background-color: #0073B7 !important;
+        padding: 0 10px 0 10px; 
+    }
+
+    .mat-cell:first-child{
+        border-left: 1px solid #ddd;
+    } 
+
+    th {
+        border: 1px solid #ddd
+    }  
+
+    tr.mat-row {
+        border: 1px solid #ddd
+    }   
+
+    .mat-row.hovered {
+        background: #ECECEE;
+    }   
+    
+    .mat-row.selected{
+        background: #e5e5e5;
+    } 
+    .mat-header-cell:not(:last-child),
+    .mat-cell:not(:last-child){
+        border-right: 1px solid #ddd;
+    }
+    th.mat-header-cell:first-of-type,
+    td.mat-cell:first-of-type, 
+    td.mat-footer-cell:first-of-type{
+        padding-left: 10px;
+    }
+    th.mat-header-cell:last-of-type, 
+    td.mat-cell:last-of-type, 
+    td.mat-footer-cell:last-of-type {
+        padding-right: 10px;
+    }
+
+    @media(max-width: 700px) {
+        .mobile-label {
+            width: 150px;
+            display: inline-block;
+            font-weight: bold;
+            margin-right: 10px;
+        }        
+        td.mat-cell {
+            width: 100%;
+        }
+        tr.mat-row {
+            flex-direction: column;
+            align-items: start;
+            text-align: left;
+            max-height: 100px;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<ng-container *ngIf="!mineduFormControl.valid && (mineduFormControl.touched || mineduFormControl.dirty)">
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.required"> Este campo es requerido</ng-container>
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.minlength"> Longitud mínima permitida:
+        {{mineduFormControl.errors.minlength.requiredLength}}</ng-container>
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.maxlength"> Longitud máxima permitida:
+        {{mineduFormControl.errors.maxlength.requiredLength}}</ng-container>
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.pattern"> El valor de este campo es inválido
+    </ng-container>
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.email"> El correo electrónico ingresado es inválido
+    </ng-container>
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.min"> Longitud mínima permitida</ng-container>
+    <ng-container *ngIf="mineduFormControl.errors && mineduFormControl.errors.max"> Longitud máxima permitida</ng-container>
+
+</ng-container>
