@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { mineduAnimations } from '@minedu/animations/animations';
 import { ProcesosDataSource } from 'app/main/apps/gestion/gestion-proceso.component';
 import { tap } from 'rxjs/operators';
+import { ModalHaberesDescuentosComponent } from './modal-haberes-descuentos/modal-haberes-descuentos.component';
 
 @Component({
   selector: 'minedu-planilla-haberes',
@@ -46,7 +48,8 @@ export class PlanillaHaberesComponent implements OnInit,AfterViewInit {
       @ViewChild(MatPaginator, { static: true })
       paginator: MatPaginator;
 
-  constructor(    private formBuilder: FormBuilder,) {
+      dialogRef: any;
+  constructor(    private formBuilder: FormBuilder,private materialDialog: MatDialog) {
     
    }
 
@@ -103,7 +106,20 @@ export class PlanillaHaberesComponent implements OnInit,AfterViewInit {
     }
 }
 
-  handleCrear():void{}
+  handleCrear():void{
+    this.dialogRef = this.materialDialog.open(ModalHaberesDescuentosComponent, {
+        panelClass: 'minedu-modal-haberes-descuentos',
+        disableClose: true,
+        data: {
+          modal: {
+            icon: "save",
+            title: "Nuevo miembro de comité",
+            action: "create",
+            disabled: false
+          },
+        }
+      });
+  }
 
   handleExportar():void{}
 

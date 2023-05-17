@@ -1,0 +1,839 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Nuevo concepto</span>
+            </div>
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0 mb-20">
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab label="Detalle">
+                <form autocomplete="off" novalidate [formGroup]="form" fxLayout="column">
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Concepto</legend>
+
+                        <div fxFlex="100%" fxLayout="column">
+                            <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(25% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('regimenLaboral')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('regimenLaboral')
+                                        "
+                                        >Régimen laboral
+                                    </mat-label>
+                                    <mat-select
+                                        formControlName="regimenLaboral"
+                                    >
+                                        <mat-option value="-1"
+                                            >TODOS</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(25% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('codigo')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('codigo')
+                                        "
+                                        >Código
+                                    </mat-label>
+                                    <input
+                                        type="text"
+                                        name="codigo"
+                                        formControlName="codigo"
+                                        matInput
+                                        disabled
+                                        readonly="true"
+                                    />
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(50% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('descripcion')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('descripcion')
+                                        "
+                                        >Descripción
+                                    </mat-label>
+                                    <input
+                                        type="text"
+                                        name="descripcion"
+                                        formControlName="descripcion"
+                                        matInput
+                                        disabled
+                                        readonly="true"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(50% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('descripcionCorta')
+                                    "
+                                    class="mt-20"
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('descripcionCorta')
+                                        "
+                                        >Descripción corta
+                                    </mat-label>
+                                    <input
+                                        type="text"
+                                        name="descripcionCorta"
+                                        formControlName="descripcionCorta"
+                                        matInput
+                                        disabled
+                                        readonly="true"
+                                    />
+                                </mat-form-field>
+                                <fieldset
+                                    class="fieldset-border m-0 mb-8"
+                                    fxFlex="calc(50% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                >
+                                    <legend>Visualización</legend>
+                                    <div
+                                        fxLayout="row wrap"
+                                        fxLayout.lt-md="column"
+                                        fxFlex="100%"
+                                        fxLayoutGap="2px"
+                                        fxLayoutGap.lt-md="0"
+                                    >
+                                        <mat-checkbox
+                                            fxFlex="calc(50% - 2px)"
+                                            fxFlex.lt-md="100%"
+                                            formControlName="verEnBoleta"
+                                            >Ver en Boleta</mat-checkbox
+                                        >
+                                        <mat-form-field
+                                            appearance="fill"
+                                            fxFlex="calc(50% - 8px)"
+                                            fxFlex.lt-md="100%"
+                                            [mineduFormFieldValidationState]="
+                                                form.get('ordenPresentacion')
+                                            "
+                                        >
+                                            <mat-label
+                                                [mineduFormRequiredLabel]="
+                                                    form.get(
+                                                        'ordenPresentacion'
+                                                    )
+                                                "
+                                                >Orden Presentación
+                                            </mat-label>
+                                            <input
+                                                type="text"
+                                                name="ordenPresentacion"
+                                                formControlName="ordenPresentacion"
+                                                matInput
+                                                disabled
+                                                readonly="true"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('tipoConcepto')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('tipoConcepto')
+                                        "
+                                        >Tipo de Concepto
+                                    </mat-label>
+                                    <mat-select formControlName="tipoConcepto">
+                                        <mat-option value="-1"
+                                            >TODOS</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('grupoCalculo')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('grupoCalculo')
+                                        "
+                                        >Grupo Calculo
+                                    </mat-label>
+                                    <mat-select formControlName="grupoCalculo">
+                                        <mat-option value="-1"
+                                            >TODOS</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('prioridadCalculo')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('prioridadCalculo')
+                                        "
+                                        >Prioridad Cálculo
+                                    </mat-label>
+                                    <input
+                                        type="text"
+                                        name="prioridadCalculo"
+                                        formControlName="prioridadCalculo"
+                                        matInput
+                                        disabled
+                                        readonly="true"
+                                    />
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('grupoDescuento')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('grupoDescuento')
+                                        "
+                                        >Grupo Descuento
+                                    </mat-label>
+                                    <mat-select
+                                        formControlName="grupoDescuento"
+                                    >
+                                        <mat-option value="-1"
+                                            >TODOS</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get(
+                                            'prioridadDentroGrupoDescuento'
+                                        )
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get(
+                                                'prioridadDentroGrupoDescuento'
+                                            )
+                                        "
+                                        >Prioridad dentro del Grupo Descuento
+                                    </mat-label>
+                                    <input
+                                        type="text"
+                                        name="prioridadDentroGrupoDescuento"
+                                        formControlName="prioridadDentroGrupoDescuento"
+                                        matInput
+                                        disabled
+                                        readonly="true"
+                                    />
+                                </mat-form-field>
+                            </div>
+                            <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    class="mt-20"
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('fechaInicio')
+                                        "
+                                        >Fecha de inicio</mat-label
+                                    >
+                                    <input
+                                        matInput
+                                        [matDatepicker]="fechaInicio"
+                                        readonly
+                                        [formControl]="form.get('fechaInicio')"
+                                        (click)="fechaInicio.open()"
+                                        (focus)="fechaInicio.open()"
+                                    />
+                                    <mat-datepicker-toggle
+                                        matSuffix
+                                        [for]="fechaInicio"
+                                    ></mat-datepicker-toggle>
+                                    <mat-datepicker
+                                        #fechaInicio
+                                    ></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    class="mt-20"
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('fechaFin')
+                                        "
+                                        >Fecha de Fin</mat-label
+                                    >
+                                    <input
+                                        matInput
+                                        [matDatepicker]="fechaFin"
+                                        readonly
+                                        [formControl]="form.get('fechaFin')"
+                                        (click)="fechaFin.open()"
+                                        (focus)="fechaFin.open()"
+                                    />
+                                    <mat-datepicker-toggle
+                                        matSuffix
+                                        [for]="fechaFin"
+                                    ></mat-datepicker-toggle>
+                                    <mat-datepicker #fechaFin></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(20% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('estado')
+                                    "
+                                    class="mt-20"
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('estado')
+                                        "
+                                        >Estado
+                                    </mat-label>
+                                    <mat-select formControlName="estado">
+                                        <mat-option value="-1"
+                                            >TODOS</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                                <fieldset
+                                    class="fieldset-border m-0 mb-8"
+                                    fxFlex="calc(40% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                >
+                                    <legend>Planilla - Tipo Pago</legend>
+                                    <div
+                                        fxLayout="row wrap"
+                                        fxLayout.lt-md="column"
+                                        fxFlex="100%"
+                                        fxLayoutGap="2px"
+                                        fxLayoutGap.lt-md="0"
+                                        fxLayoutAlign="space-between center"
+                                    >
+                                        <mat-checkbox
+                                            *ngFor="
+                                                let item of listas.planillaTipoPago
+                                            "
+                                            [fxFlex]="
+                                                'calc(' +
+                                                100 /
+                                                    listas.planillaTipoPago
+                                                        .length -
+                                                10 +
+                                                '% - 10px)'
+                                            "
+                                            fxFlex.lt-md="100%"
+                                            formControlName="planillaTipoPago"
+                                            >{{
+                                                item.descripcion
+                                            }}</mat-checkbox
+                                        >
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                                <fieldset
+                                    class="fieldset-border mb-8"
+                                    fxFlex="calc(60% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                >
+                                    <legend>Tipo de Calculo</legend>
+                                    <div
+                                        fxLayout="row wrap"
+                                        fxLayout.lt-md="column"
+                                        fxFlex="100%"
+                                        fxLayoutGap="2px"
+                                        fxLayoutGap.lt-md="0"
+                                        fxLayoutAlign="space-between center"
+                                    >
+                                        <mat-radio-group
+                                            class="mb-20"
+                                            formControlName="tipoCalculo"
+                                        >
+                                            <mat-radio-button
+                                                *ngFor="
+                                                    let item of listas.tipoCalculo
+                                                "
+                                                [value]="item.id"
+                                                [fxFlex]="
+                                                    'calc(' +
+                                                    100 /
+                                                        listas.tipoCalculo
+                                                            .length -
+                                                    5 +
+                                                    '% - 10px)'
+                                                "
+                                                fxFlex.lt-md="100%"
+                                            >
+                                                {{ item.descripcion }}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                </fieldset>
+                                <fieldset
+                                    class="fieldset-border mb-8"
+                                    fxFlex="calc(30% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                >
+                                    <legend>Ingreso de Información</legend>
+                                    <div
+                                        fxLayout="row wrap"
+                                        fxLayout.lt-md="column"
+                                        fxFlex="100%"
+                                        fxLayoutGap="2px"
+                                        fxLayoutGap.lt-md="0"
+                                        fxLayoutAlign="space-between center"
+                                    >
+                                        <mat-checkbox
+                                            *ngFor="
+                                                let item of listas.ingresoInformacion
+                                            "
+                                            [fxFlex]="
+                                                'calc(' +
+                                                100 /
+                                                    listas.ingresoInformacion
+                                                        .length -
+                                                5 +
+                                                '% - 10px)'
+                                            "
+                                            fxFlex.lt-md="100%"
+                                            formControlName="ingresoInformacion"
+                                            class="mb-20"
+                                            >{{
+                                                item.descripcion
+                                            }}</mat-checkbox
+                                        >
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Marco Legal</legend>
+
+                        <div fxFlex="100%" fxLayout="column">
+                            <div
+                            fxLayout="row wrap"
+                            fxLayout.lt-md="column"
+                            fxFlex="100%"
+                            fxLayoutGap="8px"
+                            fxLayoutGap.lt-md="0"
+                        >
+                            <mat-form-field
+                                appearance="fill"
+                                fxFlex="calc(50% - 8px)"
+                                fxFlex.lt-md="100%"
+                                [mineduFormFieldValidationState]="
+                                    form.get('marcoLegal')
+                                "
+                            >
+                                <mat-label
+                                    [mineduFormRequiredLabel]="
+                                        form.get('marcoLegal')
+                                    "
+                                    >
+                                </mat-label>
+                                <input
+                                    type="text"
+                                    name="marcoLegal"
+                                    formControlName="marcoLegal"
+                                    matInput
+                                    disabled
+                                    readonly="true"
+                                />
+                            </mat-form-field>
+                            </div>
+
+
+
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Anotaciones</legend>
+
+                        <div fxFlex="100%" fxLayout="column">
+                            <div
+                            fxLayout="row wrap"
+                            fxLayout.lt-md="column"
+                            fxFlex="100%"
+                            fxLayoutGap="8px"
+                            fxLayoutGap.lt-md="0"
+                        >
+                            <mat-form-field
+                                appearance="fill"
+                                fxFlex="calc(50% - 8px)"
+                                fxFlex.lt-md="100%"
+                                [mineduFormFieldValidationState]="
+                                    form.get('anotaciones')
+                                "
+                            >
+                                <mat-label
+                                    [mineduFormRequiredLabel]="
+                                        form.get('anotaciones')
+                                    "
+                                    >
+                                </mat-label>
+                                <input
+                                    type="text"
+                                    name="anotaciones"
+                                    formControlName="anotaciones"
+                                    matInput
+                                    disabled
+                                    readonly="true"
+                                />
+                            </mat-form-field>
+                            </div>
+
+
+
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset-border mb-3">
+                        <legend>Equivalencia MCPP</legend>
+
+                        <div fxFlex="100%" fxLayout="column">
+                            <div
+                            fxLayout="row wrap"
+                            fxLayout.lt-md="column"
+                            fxFlex="100%"
+                            fxLayoutGap="8px"
+                            fxLayoutGap.lt-md="0"
+                        >
+                        <mat-form-field
+                        appearance="fill"
+                        fxFlex="calc(20% - 8px)"
+                        fxFlex.lt-md="100%"
+                        [mineduFormFieldValidationState]="
+                            form.get('equivalenciaCodigoMCPP')
+                        "
+                    >
+                        <mat-label
+                            [mineduFormRequiredLabel]="
+                                form.get('equivalenciaCodigoMCPP')
+                            "
+                            >Código
+                        </mat-label>
+                        <mat-select
+                            formControlName="equivalenciaCodigoMCPP"
+                        >
+                            <mat-option value="-1"
+                                >TODOS</mat-option
+                            >
+                        </mat-select>
+                    </mat-form-field>
+                            <mat-form-field
+                                appearance="fill"
+                                fxFlex="calc(80% - 8px)"
+                                fxFlex.lt-md="100%"
+                                [mineduFormFieldValidationState]="
+                                    form.get('equivalenciaDescripcionMCPP')
+                                "
+                            >
+                                <mat-label
+                                    [mineduFormRequiredLabel]="
+                                        form.get('equivalenciaDescripcionMCPP')
+                                    "
+                                    >
+                                </mat-label>
+                                <input
+                                    type="text"
+                                    name="equivalenciaDescripcionMCPP"
+                                    formControlName="equivalenciaDescripcionMCPP"
+                                    matInput
+                                    disabled
+                                    readonly="true"
+                                />
+                            </mat-form-field>
+                            </div>
+
+
+
+                        </div>
+                    </fieldset>
+                    <div fxLayout="row"  fxLayout.lt-md="column"    fxLayoutGap="8px">
+                        <fieldset class="fieldset-border mb-3" fxFlex="50" fxFlex.xs="100">
+                            <legend>Equivalencia SUNAT</legend>
+    
+                            <div fxFlex="100%" fxLayout="column">
+                                <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                            <mat-form-field
+                            appearance="fill"
+                            fxFlex="calc(40% - 8px)"
+                            fxFlex.lt-md="100%"
+                            [mineduFormFieldValidationState]="
+                                form.get('equivalenciaCodigoSUNAT')
+                            "
+                        >
+                            <mat-label
+                                [mineduFormRequiredLabel]="
+                                    form.get('equivalenciaCodigoSUNAT')
+                                "
+                                >Código
+                            </mat-label>
+                            <mat-select
+                                formControlName="equivalenciaCodigoSUNAT"
+                            >
+                                <mat-option value="-1"
+                                    >TODOS</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                                <mat-form-field
+                                    appearance="fill"
+                                    fxFlex="calc(60% - 8px)"
+                                    fxFlex.lt-md="100%"
+                                    [mineduFormFieldValidationState]="
+                                        form.get('equivalenciaDescripcionSUNAT')
+                                    "
+                                >
+                                    <mat-label
+                                        [mineduFormRequiredLabel]="
+                                            form.get('equivalenciaDescripcionSUNAT')
+                                        "
+                                        >
+                                    </mat-label>
+                                    <input
+                                        type="text"
+                                        name="equivalenciaDescripcionSUNAT"
+                                        formControlName="equivalenciaDescripcionSUNAT"
+                                        matInput
+                                        disabled
+                                        readonly="true"
+                                    />
+                                </mat-form-field>
+                                </div>
+    
+    
+    
+                            </div>
+                        </fieldset>
+                        <fieldset class="fieldset-border mb-3" fxFlex="50" fxFlex.xs="100">
+                            <legend>Clasificador de Gasto</legend>
+    
+                            <div fxFlex="100%" fxLayout="column">
+                                <div
+                                fxLayout="row wrap"
+                                fxLayout.lt-md="column"
+                                fxFlex="100%"
+                                fxLayoutGap="8px"
+                                fxLayoutGap.lt-md="0"
+                            >
+                            <mat-form-field
+                            appearance="fill"
+                            fxFlex="calc(40% - 8px)"
+                            fxFlex.lt-md="100%"
+                            [mineduFormFieldValidationState]="
+                                form.get('clasificadorGasto')
+                            "
+                        >
+                            <mat-label
+                                [mineduFormRequiredLabel]="
+                                    form.get('clasificadorGasto')
+                                "
+                                >Clasificador
+                            </mat-label>
+                            <mat-select
+                                formControlName="clasificadorGasto"
+                            >
+                                <mat-option value="-1"
+                                    >TODOS</mat-option
+                                >
+                            </mat-select>
+                        </mat-form-field>
+                                </div>
+    
+    
+    
+                            </div>
+                        </fieldset>
+                    </div>
+                 
+                </form>
+            </mat-tab>
+            <mat-tab label="Formulas">Content 2</mat-tab>
+            <mat-tab label="Afectaciones">Content 3</mat-tab>
+        </mat-tab-group>
+
+        <!-- <div fxLayout="column" fxLayoutGap="5px">
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Tipo de Documento</label>
+                        <p class="form-control-static">{{ documento }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Número de Documento</label>
+                        <p class="form-control-static wrap-break">{{ numeroDocumento }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Entidad Emisora</label>
+                        <p class="form-control-static wrap-break">{{ entidadEmisora }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Fecha de Emisión</label>
+                        <p class="form-control-static">{{ fechaEmision | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Folios</label>
+                        <p class="form-control-static">{{ folios }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Tipo de Formato</label>
+                        <p class="form-control-static">{{ tipoFormato }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxFlex="100%">
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="33%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Sumilla</label>
+                        <p class="form-control-static wrap-break">{{ sumilla }}</p>
+                    </div>
+                </div>
+
+                <div class="ml-4" fxLayoutAlign="start start" fxFlex="66%" fxFlex.lt-md="100%" fxFlex.xs="100%">
+                    <div class="form-group">
+                        <label class="label" for="">Mostrar en el visto del proyecto</label>
+                        <p class="form-control-static">{{ mostrarVisto }}</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div
+        mat-dialog-actions
+        class="panel-footer m-0 pr-12"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+    >
+        <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="(null)"
+            style="
+                display: inline-block;
+                background-color: rgb(0, 115, 183);
+                border-left-color: rgb(0, 115, 183);
+                border-right-color: rgb(0, 115, 183);
+            "
+        >
+            <span class="material-icons">save</span> Guardar
+        </button>
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">cancel</span> Cerrar
+        </button>
+    </div>
+</div>

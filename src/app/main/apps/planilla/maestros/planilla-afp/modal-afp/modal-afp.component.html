@@ -1,0 +1,283 @@
+<div class="page-layout dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <span class="title dialog-title">Nuevo AFP</span>
+            </div>
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="p-8 pb-0 m-0 mb-20">
+        <form autocomplete="off" novalidate [formGroup]="form"      fxLayout="row wrap"
+        fxLayout.lt-md="column"
+        fxFlex="100%"
+        fxLayoutGap="8px"
+        fxLayoutGap.lt-md="0">
+        <mat-form-field
+        appearance="fill"
+        fxFlex="calc(32% - 8px)"        
+        fxFlexOffset.lt-md="0"
+        fxFlex.lt-md="100%"
+        [mineduFormFieldValidationState]="
+            form.get('codigo')
+        "
+    >
+        <mat-label
+            [mineduFormRequiredLabel]="
+                form.get('codigo')
+            "
+            >Código
+        </mat-label>
+        <input
+        type="text"
+        name="codigo"
+        formControlName="codigo"
+        matInput
+        disabled
+        readonly="true"
+    />
+    </mat-form-field>
+    <div fxFlex="calc(68% - 8px)" fxHide.lt-md></div>
+    <mat-form-field
+    appearance="fill"
+    fxFlex="calc(100% - 8px)"
+    fxFlex.lt-md="100%"
+    [mineduFormFieldValidationState]="
+        form.get('descripcion')
+    "
+>
+    <mat-label
+        [mineduFormRequiredLabel]="
+            form.get('descripcion')
+        "
+        >Descripción
+    </mat-label>
+    <input
+        type="text"
+        name="descripcion"
+        formControlName="descripcion"
+        matInput
+        disabled
+        readonly="true"
+    />
+</mat-form-field>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(50% - 8px)"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('ruc')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('ruc')
+    "
+    >RUC
+</mat-label>
+<input
+    type="text"
+    name="ruc"
+    formControlName="ruc"
+    matInput
+    disabled
+    readonly="true"
+/>
+</mat-form-field>
+<div fxFlex="calc(50% - 8px)" fxHide.lt-md></div>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(32% - 8px)"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('telefono')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('telefono')
+    "
+    >Teléfono
+</mat-label>
+<input
+    type="text"
+    name="telefono"
+    formControlName="telefono"
+    matInput
+    disabled
+    readonly="true"
+/>
+</mat-form-field>
+<div fxFlex="calc(68% - 8px)" fxHide.lt-md></div>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(32% - 8px)"        
+fxFlexOffset.lt-md="0"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('departamento')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('departamento')
+    "
+    >Departamento
+</mat-label>
+<mat-select
+    formControlName="departamento"
+>
+    <mat-option value="-1"
+        >TODOS</mat-option
+    >
+</mat-select>
+</mat-form-field>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(32% - 8px)"        
+fxFlexOffset.lt-md="0"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('provincia')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('provincia')
+    "
+    >Provincia
+</mat-label>
+<mat-select
+    formControlName="provincia"
+>
+    <mat-option value="-1"
+        >TODOS</mat-option
+    >
+</mat-select>
+</mat-form-field>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(32% - 8px)"        
+fxFlexOffset.lt-md="0"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('distrito')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('distrito')
+    "
+    >Distrito
+</mat-label>
+<mat-select
+    formControlName="distrito"
+>
+    <mat-option value="-1"
+        >TODOS</mat-option
+    >
+</mat-select>
+</mat-form-field>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(100% - 8px)"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('direccion')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('direccion')
+    "
+    >Dirección
+</mat-label>
+<input
+    type="text"
+    name="direccion"
+    formControlName="direccion"
+    matInput
+    disabled
+    readonly="true"
+/>
+</mat-form-field>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(32% - 8px)"        
+fxFlexOffset.lt-md="0"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('estado')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('estado')
+    "
+    >Estado
+</mat-label>
+<mat-select
+    formControlName="estado"
+>
+    <mat-option value="-1"
+        >TODOS</mat-option
+    >
+</mat-select>
+</mat-form-field>
+<mat-form-field
+appearance="fill"
+fxFlex="calc(65% - 8px)"
+fxFlex.lt-md="100%"
+[mineduFormFieldValidationState]="
+    form.get('motivo')
+"
+>
+<mat-label
+    [mineduFormRequiredLabel]="
+        form.get('motivo')
+    "
+    >Motivo Anulación
+</mat-label>
+<input
+    type="text"
+    name="motivo"
+    formControlName="motivo"
+    matInput
+    disabled
+    readonly="true"
+/>
+</mat-form-field>
+        </form>
+    </div>
+
+    <div
+        mat-dialog-actions
+        class="panel-footer m-0 pr-12"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+    >
+        <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="(null)"
+            style="
+                display: inline-block;
+                background-color: rgb(0, 115, 183);
+                border-left-color: rgb(0, 115, 183);
+                border-right-color: rgb(0, 115, 183);
+            "
+        >
+            <span class="material-icons">save</span> Guardar
+        </button>
+        <button mat-raised-button (click)="matDialogRef.close()">
+            <span class="material-icons">cancel</span> Cerrar
+        </button>
+    </div>
+</div>

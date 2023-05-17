@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModalHaberesDescuentosComponent } from '../planilla-haberes/modal-haberes-descuentos/modal-haberes-descuentos.component';
+import { ModalAfpComponent } from './modal-afp/modal-afp.component';
 
 @Component({
   selector: 'minedu-planilla-afp',
@@ -44,8 +47,8 @@ export class PlanillaAfpComponent implements OnInit {
 
       @ViewChild(MatPaginator, { static: true })
       paginator: MatPaginator;
-
-  constructor() {
+      dialogRef: any;
+  constructor(private materialDialog: MatDialog) {
     
    }
 
@@ -78,7 +81,20 @@ export class PlanillaAfpComponent implements OnInit {
     }
 }
 
-  handleCrear():void{}
+  handleCrear():void{
+    this.dialogRef = this.materialDialog.open(ModalAfpComponent, {
+        panelClass: 'minedu-modal-afp',
+        disableClose: true,
+        data: {
+          modal: {
+            icon: "save",
+            title: "Nuevo miembro de comité",
+            action: "create",
+            disabled: false
+          },
+        }
+      });
+  }
 
   handleExportar():void{}
 
